@@ -2,7 +2,7 @@
 
 An article from tomorrow :-)
 
-\subsection*{Maths}
+\subsection{Maths}
 
 Ok, here we go with inline maths $\alpha^2$ and a math environment:
 
@@ -13,20 +13,21 @@ Ok, here we go with inline maths $\alpha^2$ and a math environment:
 
 Let's reference this \eqref{2017-01-08:eq:1}.
 
-\subsection*{Links}
+\subsection{Links}
 
 Using href, we can do \href{http://www.google.at}{a link to Google.}
-\subsection*{Images}
+
+\subsection{Images}
 
 Including images works as follows:
 
-PNG Files
+\subsubsection{PNG Files}
 
 \begin{figure}[H]
     \includegraphics[scale=0.5]{images/drawing.png}
 \end{figure}
 
-EPS Files
+\subsubsection{EPS Files}
 
 \begin{figure}[H]
     \includegraphics[scale=1.0]{images/drawing.eps}
@@ -36,7 +37,7 @@ EPS Files
 Be careful: We use pdflatex and this is NOT compatible with pstricks!
 
 
-\subsection*{Compilation}
+\subsection{Compilation}
 
 Use latexmk to watch file changes and automate the build process for a pdf:
 
