@@ -1,0 +1,50 @@
+\DiaryEntry{Graphs, Trees}{2017-04-11}{Graphs}
+
+\subsection{General}
+
+
+\begin{definition}
+A graph is called a tree if it is connected and contains no cycle as a subgraph.
+\end{definition}
+
+The two defining properties are somewhat opposite: The connectedness part ensures that the graph does not have ``too few'' edges, whereas the ``no cycles'' part ensures that the graph has not ``too many'' edges.
+
+If a graph is connected, then it will stay connected when we add another edge. If we remove an edge, the graph may become disconnected. If a graph has no cycles, it will still have no cycles if we remove another edge. If a graph has no cycles, it may become cycles if we add another edge.
+
+In that sense a tree is a ``minimally connected'' subgraph or a ``maximally cycle-free'' graph:
+
+\begin{theorem}
+(i) A graph is a tree if and only if it is connected, but deleting any of its edges results in a disconnected graph. (ii) A graph is a tree if and only if it contains no cycles, but adding any new edge creates a cycle.
+\end{theorem}
+
+For (i) we want to show that a tree cannot stay connected if we remove an edge. Assume that the edge $u-v$ is deleted from the graph $G$ and the resulting graph $G'$ stays connected. This implies that there is a path from $u$ to $v$. However, if we put the edge $u-v$ back, the path and the edge $u-v$ will form a cycle and that contradicts the definition of a tree.
+
+(ii) follows with a similar argument.
+
+Assume we have a connected graph with $n$ nodes and an edge $e$. If we obtain a disconnected graph by deleting $e$, then $e$ is called a cut-edge. With this definition, every edge of a tree is a cut-edge.
+
+A spanning tree of a graph is a subgraph that has the same nodes but is a tree. We can obtain a spanning tree from a graph by deleting edges from the graph until a graph is obtained that is still connected, but deleting any further edge makes it disconnected; by definition, this is a tree. The edge deletion process can be carried out in many different ways; therefore, the spanning tree of a graph is not unique.
+
+\begin{theorem}
+  Every tree on $n$ vertices has $n-1$ edges.
+\end{theorem}
+
+We can prove this via induction: We start the tree with two vertices and an edge connecting the two. Adding one edge after the other, keeps the different between the number of edges and the number of vertices the same.
+
+The converse, however is not true; i.e. a graph with $n$ vertices and $n-1$ edges is not necessarily a tree. Consider the example below.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[transform shape]
+  \Vertex[x=0,y=0]{A}
+  \Vertex[x=2,y=1]{B}
+  \Vertex[x=3,y=-2]{C}
+  \Vertex[x=0.5,y=-4]{D}
+  \Edge(A)(B)
+  \Edge(B)(C)
+  \Edge(A)(C)
+\end{tikzpicture}
+\caption{Trees.}
+\end{figure}
+
+

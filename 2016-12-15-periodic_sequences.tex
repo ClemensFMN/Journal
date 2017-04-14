@@ -1,0 +1,42 @@
+\section{2016-12-15, Finding Expressions for Periodic Sequences}
+
+Given a periodic sequence \(a[n], n=1,2,\ldots\), we want to find a
+closed-form expression for it; e.g.~given
+\(a[n] = \{1,-1,1,-1,\cdots\}\), we can express this as
+\(a[n] = (-1)^{n-1}\).
+
+\subsection{Using the FFT}\label{using-the-fft}
+
+In more complex cases, we can use the FFT of one period and write a
+closed form expression using the IFFT expression.
+
+If the sequence has period N (i.e.
+\(a[n] = a[n \pm lN], l \in \mathbb{N}\)), its FFT \(\tilde{a}[k]\) is
+(definition in Julia with 1-based index):
+
+\[
+\tilde{a}[k] = \sum_{n=1}^N \exp\left\{ -j \frac{2\pi(k-1)(n-1)}{N}\right\} a[k]
+\]
+
+and the IFFT is given by
+
+\[
+a[n] = \frac{1}{N} \sum_{n=1}^N \exp\left\{ j \frac{2\pi(k-1)(n-1)}{N}\right\} \tilde{a}[k]
+\]
+
+\subsubsection{Example}\label{example}
+
+As a simple example, consider \(N = 4\) and \(a[n] = \{1,0,-1,0\}\). We
+have \(\tilde{a}[k] = \{0, 2, 0, 2\}\) and therefore can write \(a[n]\)
+as
+
+\[
+a[n] = \frac{1}{4} \left( \exp \left\{ j \frac{2\pi(n-1)}{4} \right\} + \exp \left\{ j \frac{3*2\pi(n-1)}{4} \right\} \right) = \frac{1}{4} \left( \exp \left\{ j \frac{\pi(n-1)}{2} \right\} + \exp \left\{ j \frac{3*\pi(n-1)}{2} \right\} \right)
+\]
+
+Expressiones like these can be simplified by pulling out an exp
+expression with the mean of the two; like this
+
+\[
+a[n] = \frac{1}{4} \exp\left\{ j \frac{2\pi}{2}(n-1)\right\} \left[ \exp\left\{ j \frac{-\pi}{2}(n-1)\right\} + \left\{ j \frac{\pi}{2}(n-1)\right\}  \right] = (-1)^{n-1} \cos\left( \frac{\pi}{2}(n-1)\right)
+\]

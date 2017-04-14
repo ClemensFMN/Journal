@@ -1,0 +1,210 @@
+\DiaryEntry{Graphs, General}{2017-04-04}{Graphs}
+
+\subsection{Global Graph Properties}
+
+As a first graph theorem, we consider
+
+\begin{theorem}
+  A finite graph has an even number of vertices with odd degree.
+\end{theorem}
+
+
+
+As an example consider the following graph (actually, the whole blog entry is an execuse to play around with tikz ;-) ).
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[transform shape]
+  \Vertex[x=0,y=0]{A}
+  \Vertex[x=2,y=1]{B}
+  \Vertex[x=3,y=-2]{C}
+  \Vertex[x=0.5,y=-4]{D}
+  \Edge[label=1](A)(B)
+  \Edge[label=2](B)(C)
+  \Edge[label=3](A)(C)
+  \Edge[label=4](D)(C)
+\end{tikzpicture}
+\caption{Example Graph, I.}
+\end{figure}
+
+which we can represent via a table listing edges and vertices as follows:
+
+\bee
+\begin{array}{c|c}
+edge & vertices\\
+\hline
+1 & A,B\\
+2 & B,C\\
+3 & A,C\\
+4 & C,D
+\end{array} 
+\eee
+%
+The idea for the proof is to count the number of vertices in the right column in two different ways:
+
+\begin{itemize}
+\item The number of entries in the right column is two times the number od edges. In the example graph, we have $4$ edges, and $2\times 4 = 8$ entries in the right column.
+
+\item The degree of a vertex is equal the number of times it occurs in the table. In the example graph, e.g. the vertex A has degree and occurs two times in the table. Summing over the degree of all vertices yields the number of entries in the right column.
+
+\end{itemize}
+
+Equating both sides therefore yields
+
+\bee
+\sum_{x \in \Vc(G)} \deg(x) = 2 |\Ec(G)|
+\eee
+%
+A bit less formal proof, is the observation that summing over all edge degrees counts the edges twice; in the example graph, edge 1 is counted when we add the degree of vertex ``A'' and the degree of vertex ``B''. This also yields above equation.
+%
+Anyway, looking at the equation, we observe the following
+
+\begin{itemize}
+
+\item The righ-hand side is even.
+
+\item For the left-hand side, we see that a sum with an even number of odd terms is even (e.g. $1 + 1 = 2$, $1+3+3+1 = 8$).
+  
+\end{itemize}
+
+This proves the theorem stated above. \qed
+
+In the example graph above, verices ``C'' and ``D'' had odd degree; wWe can play around a bit further and add another vertex to the graph like below.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[transform shape]
+  \Vertex[x=0,y=0]{A}
+  \Vertex[x=2,y=1]{B}
+  \Vertex[x=3,y=-2]{C}
+  \Vertex[x=0.5,y=-4]{D}
+  \Vertex[x=-2,y=-2]{E}
+  \Edge[label=1](A)(B)
+  \Edge[label=2](B)(C)
+  \Edge[label=3](A)(C)
+  \Edge[label=4](D)(C)
+  \Edge[label=5](D)(E)
+\end{tikzpicture}
+\caption{Example Graph, II.}
+\end{figure}
+
+Vertex ``C'' has still odd degree, but vertex ``D'' now has even degree and the new vertex``E'' has odd degree: The number of vertices with odd degree is still even.
+
+
+\subsubsection{Complete Graphs}
+
+In a complete graph with $n$ vertices, all vertices are connected with each other. To calculate the number of edges, we observe that every vertex is connected with the remaining $n-1$ vertices. If we take $n(n-1)$, we count every edge double; Therefore, the total number of edges is
+
+\bee
+|\Ec(\Gc)| = \frac{n(n-1)}{2}
+\eee
+
+Some examples of complete graphs are shown below. For $n=3$ vertices we have $\frac{3 \times 2}{2} = 3$ edges, for $n=4$ vertices we have $\frac{4 \times 3}{2} = 6$ edges, and for $n=5$ vertices we finally have $\frac{5 \times 4}{2} = 10$ edges.
+
+\begin{figure}[H]
+
+\begin{subfigure}{0.4\textwidth}
+  \begin{tikzpicture}[scale=1.0, transform shape]
+    \Vertex[x=0,y=0]{A}
+    \Vertex[x=2,y=2]{B}
+    \Vertex[x=5,y=0]{C}
+    \Edge(A)(B)
+    \Edge(B)(C)
+    \Edge(A)(C)
+  \end{tikzpicture}
+\caption{$n=3$ vertices.}
+\end{subfigure}
+\qquad % this is important, otherwise the figures won't be next each other...
+\begin{subfigure}{0.4\textwidth}
+  \begin{tikzpicture}[scale=1.0, transform shape]
+    \Vertex[x=0,y=0]{A}
+    \Vertex[x=2,y=0]{B}
+    \Vertex[x=2,y=2]{C}
+    \Vertex[x=0,y=2]{D}
+    \Edge(A)(B)
+    \Edge(A)(C)
+    \Edge(A)(D)
+    \Edge(B)(C)
+    \Edge(B)(D)
+    \Edge(C)(D)
+  \end{tikzpicture}
+\caption{$n=4$ vertices.}
+\end{subfigure}
+\end{figure}
+
+
+
+\begin{problem}
+We have a disconnected graph with $10$ vertices. Show that this graph has at most $36$ edges.
+\end{problem}
+
+Since the graph is disconnected, it contains of (at least) two components. Assume the first component has $m$ vertices, the other $10 - m$. The total number of edges is then
+
+\bee
+|\Ec(\Gc)| = \frac{m(m-1)}{2} + \frac{(10-m)(10-m-1)}{2}
+\eee
+
+We guess that this expression attains its maximum of $36$ at $m=1$ and $m=9$. In these extreme cases (one component with $9$ vertices, the other component with just $1$ vertex), the total number of edges is $36$; in all other cases it is less and this completes the proof. \qed 
+
+
+
+\subsection{Eulerian Graph}
+
+\begin{definition}
+A closed path through a graph which uses every edge exactely once is called an Eulerian circuit. A finite graph with no isolated vertices that contains such a path is an Eulerian graph.
+\end{definition}
+
+There is a condition on whether a graph is Eulerian or not stated in the following theorem.
+
+\begin{theorem}
+A finite graph with no isolated vertices is Eulerian iff it is connected and every vertex has evn degree.
+\end{theorem}
+
+The path enters a vertex through some edge and leaves by another edge; therefore all verices must have even degree. To show that this condition is sufficient, start in a vertex ``A'' and begin a path. Keep going, not using the same edge twice until we cannot go further. Since every vertex has even degree, this can only happen when we return to ``A'' and we have used all edges from ``A''. If there are unsued edges from ``A'', we start making another path from / to these edges until all edges are used up. Finally, shorter paths can be combined into longer ones until the complete graph has been traversed. \qed
+
+\paragraph{Example.} Some simple examples are shown in the following Figure. On the left, the simplest Eulerian circuit construction starts in vertex ``A'' and goes along ``B'', ``C'', ``D'', ``E'', returns to ``A'' from there. Slightly trickier is to start in ``B'', go via ``C'', ``D'' back to ``B''. However, not all edges from ``B'' are used, so we start another walk from ``B'' via ``A'', ``E'' and back to ``B''. The Eulerian circuit is then the combination of these two paths. On the right, we can also start in ``B'' and create two subpaths as above: ``B'', ``C'', ``D'', ``B'' and ``B'', ``E'', ``A'', ``B''. This leaves the path ``E'', ``F'', ``D'', ``G'', ``E'' out. However, we merge these three paths into one Eulerian circuit.
+
+In any case, note that all paths have vertices with even degree.
+
+\begin{figure}[H]
+
+\begin{subfigure}{0.4\textwidth}
+  \begin{tikzpicture}[scale=0.8, transform shape]
+    \Vertex[x=0,y=0]{A}
+    \Vertex[x=2,y=2]{B}
+    \Vertex[x=5,y=0]{C}
+    \Vertex[x=6,y=-4]{D}
+    \Vertex[x=1,y=-2]{E}
+    \Edge(A)(B)
+    \Edge(B)(C)
+    \Edge(C)(D)
+    \Edge(B)(D)
+    \Edge(A)(E)
+    \Edge(B)(E)
+  \end{tikzpicture}
+\caption{Euler, I.}
+\end{subfigure}
+\qquad % this is important, otherwise the figures won't be next each other...
+\begin{subfigure}{0.4\textwidth}
+  \begin{tikzpicture}[scale=0.8, transform shape]
+    \Vertex[x=0,y=0]{A}
+    \Vertex[x=2,y=2]{B}
+    \Vertex[x=5,y=0]{C}
+    \Vertex[x=6,y=-4]{D}
+    \Vertex[x=1,y=-2]{E}
+    \Vertex[x=3,y=-3]{F}
+    \Vertex[x=3,y=-6]{G}
+    \Edge(A)(B)
+    \Edge(B)(C)
+    \Edge(C)(D)
+    \Edge(B)(D)
+    \Edge(A)(E)
+    \Edge(B)(E)
+    \Edge(E)(F)
+    \Edge(E)(G)
+    \Edge(D)(F)
+    \Edge(D)(G)
+  \end{tikzpicture}
+\caption{Euler, II.}
+\end{subfigure}
+\end{figure}

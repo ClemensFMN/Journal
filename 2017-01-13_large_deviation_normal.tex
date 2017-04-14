@@ -1,0 +1,52 @@
+%\section{Large Deviation for Normal RVs, 2017-01-13}
+%\label{2017-01-13:entry}
+
+\DiaryEntry{Large Deviation for Normal RVs}{2017-01-13}{Large Deviation}
+
+Looking again at \eqref{2017-01-10:eq:ratefct}, we see that it contains the expression $\mathrm{E}\left\{ e^{t X_1}\right\}$ wich we identify as the moment generating function (MGF) $M_X(t)$ of the RV $X$.
+%
+%
+This function is descried \href{https://en.wikipedia.org/wiki/Moment-generating_function}{here} which also gives a table for the MGF of several typical distributions. In particular, for a RV with normal distribution (zero-mean and variance $\sigma^2$), we have
+%
+\begin{equation*}
+M_X(t) = e^{\frac{2}{2}\sigma^2 t^2}
+\end{equation*}
+%
+In order to calculate the rate function, we need to solve the optimization problem \eqref{2017-01-10:eq:ratefct}. We have
+%
+\begin{equation*}
+I(a) = \max_{t \geq 0} \left( ta - \log M_x(t) \right) = \max_{t \geq 0} \left( ta - \frac{1}{2} \sigma^2 t^2 \right)
+\end{equation*}
+%
+Taking the derivative and setting it to zero, we obtain the optimal value $t^\star$,
+%
+\begin{equation*}
+  \frac{d \cdots}{dt} = a - \sigma^2 t = 0 \rightarrow t^\star = a / \sigma^2
+\end{equation*}
+%
+inserting back into the rate function, we get
+%
+\begin{equation*}
+I(a) = \frac{a^2}{\sigma^2} - \frac{1}{2} \sigma^2 \frac{a^2}{\sigma^4} = \frac{a^2}{2\sigma^2}
+\end{equation*}
+%
+This finally yields the bound
+%
+\begin{equation*}
+  P\left( \sum_i X_i \geq na \right) \leq e^{-n a^2 / (2\sigma^2)}
+\end{equation*}
+%
+%
+We can get a similar bound with a little bit less machinery as follows. If $X_i \sim \Nc(0,\sigma^2)$, then
+%
+\begin{equation*}
+  P(X \geq x)=\frac{1}{2} \left[ 1 - \mathrm{erf} \frac{x}{\sqrt{2}\sigma}\right] = \frac{1}{2} \mathrm{erfc} \frac{x}{\sqrt{2}\sigma} \leq \frac{1}{2} e^{-x^2 / (2\sigma^2)}
+\end{equation*}
+%
+We consider the expression $\sum X_i \sim \Nc (0, n \sigma^2)$ and from this follows
+%
+\begin{equation*}
+    P(X \geq na) \leq \frac{1}{2} e^{-n^2 a^2 / (2 n \sigma^2)} = \frac{1}{2} e^{-n a^2 / (2 \sigma^2)}
+  \end{equation*}
+%
+which is even better by a factor of $1/2$ than the bound using the LDP.

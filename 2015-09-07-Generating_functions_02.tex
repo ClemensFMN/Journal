@@ -1,0 +1,55 @@
+\DiaryEntry{Generating Functions, Part 2}{2015-09-07}{GenFuncs}
+
+\subsubsection{Using Partial Fraction
+Expansion}\label{using-partial-fraction-expansion}
+
+We continue with the generating function
+
+\[ G(z) = \frac{z}{1-z-z^2} \]
+
+and with the goal to expand it into partial fractions. To this end we
+factor the denominator
+
+\[G(z) = - \frac{z}{z^2 - z + 1} =  - \frac{z}{(z-r_+)(z-r_{-} )} \]
+
+with $r_+=\frac{1}{2}(-1+\sqrt{5})$ and $r_{-}=\frac{1}{2}(-1-\sqrt{5})$.
+
+Since $r_+ \neq r_-$, the partial decomposition becomes
+
+\[G(z) = -\left( \frac{A}{z-r_+} + \frac{B}{z-r_{-}} \right) \]
+
+Multiplying both sides with $(z-r_+)(z-r_-)$, we obtain
+
+\[z = A(z-r_{-}) + B(z-r_+)\]
+
+and from that the following two equations
+
+\[A + B = 1, \quad A r_{-} + B r_{+} = 0\]
+
+Solving for $A$ and $B$, we get
+
+\[A = \frac{r_+}{r_{+} - r_{-}}, \quad B = -\frac{r_{-}}{r_{+} - r_-} \]
+
+and therefore the generating function becomes
+
+\[G(z) = - \frac{1}{r_{+} - r_-}\left(  \frac{r_+}{z-r_+} - \frac{r_-}{z-r_-} \right)\]
+
+Anticipating that we need for the backtransform denominators of the form
+$(1-z_\rho$), we rewrite the expression as
+follows
+
+\[G(z) = \frac{1}{r_{+} - r_-}\left( \frac{1}{1-z/r_+} - \frac{1}{1 - z/r_-} \right) \]
+
+So far, the whole expansion did not take the values of the roots $r_+$ and $r_-$ into account; in order to proceed we note that $r_+ - r_- = \sqrt{5}$, $\phi_+ = \frac{1}{r_+}=\frac{1+\sqrt{5}}{2}$, and $\phi_- = \frac{1}{r_-}=\frac{1-\sqrt{5}}{2}$. With this we finally get
+
+\[G(z) = \frac{1}{\sqrt{5}} \left( \frac{1}{1-z \phi_+} - \frac{1}{1 - z \phi_-} \right) \]
+
+A geometric series$ 1 =q^0, q^1,q^2 \ldots$ has the following sum $\sum_{n \geq 0}q^n = \frac{1}{1-q}$; therefore the generating function can be written as an infinite sum
+
+\[G(z) = \frac{1}{\sqrt{5}} \left( \sum_{n \geq 0} (z \phi_+)^n - \sum_{n \geq 0} (z \phi_-)^n \right) \]
+
+From this we see that the sequence $g_n$ has the following form
+
+\[g_n = \frac{1}{\sqrt{5}} \left( \phi_+^n - \phi_-^n \right) \]
+
+Interestingly, even though there are a lot of irrational numbers in the expression, it yields the Fibonacci sequence $g_n=(0,1,1,2,3,5\ldots$.

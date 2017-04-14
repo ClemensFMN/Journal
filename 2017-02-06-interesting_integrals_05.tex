@@ -1,0 +1,95 @@
+\DiaryEntry{Interesting Integrals, Part 5}{2017-02-06}{Integrals}
+
+\subsection{Task}
+
+We want to solve the following integral
+
+\bee
+\int x^2 e^x dx
+\eee
+
+The ``Standard-approach'' is to use integration by parts (two times) and wade through the mess. In the following, we present a simpler solution.
+
+\subsection{Simpler Way}
+
+Consider the function
+
+\be\label{2017-02-06:def}
+f(t) = \int e^{tx} dx = \frac{1}{t} e^{tx}
+\ee
+%
+Differentiating the integral with respect to $t$ yields
+
+\bee
+f'(t) = \int x e^{tx} dx, f''(t) = \int x^2 e^{tx} dx
+\eee
+%
+At the value $t=1$, we then have
+
+\bee
+f''(1) = \int x^2 e^x dx
+\eee
+%
+In \eqref{2017-02-06:def}, we now need to differentiate the righthand side ($\frac{1}{t} e^{tx}$) two times. We have
+
+\bee
+\frac{d}{dt} \frac{1}{t} e^{tx} = \frac{1}{t} x e^{tx} - \frac{1}{t^2} e^{tx}
+\eee
+%
+and
+
+\bee
+\frac{d^2}{dt^2} \frac{1}{t} e^{tx} = -\frac{1}{t^2}x e^{tx} + \frac{1}{t}x^2 e^{tx} + \frac{2}{t^3} e^{tx} - \frac{1}{t^2}x e^{tx}
+\eee
+%
+We are almost done; we now need to consider the 2nd derivative at $t=1$ in order to obtain
+%
+\bee
+f''(1) = \int x^2 e^x dx = -x e^x + x^2 e^x 2 e^x -x e^x = e^x(x^2 - 2x + 2) \qed
+\eee
+%
+This result can be checked with e.g. SymPy or Wolfram Alpha.
+
+\begin{verbatim}
+import sympy as sym
+from sympy.abc import x,t
+
+fint = 1/t*sym.exp(t*x)
+
+dfn = fint.diff(t,2)
+sym.pprint(dfn.subs(t,1))
+
+sym.pprint(sym.integrate(x**2 * sym.exp(x), x))
+
+\end{verbatim}
+
+\subsection{Generalization}
+
+Of course it is possible to consider higher-order derivatives; we have
+
+\bee
+f^{(n)}(1) = \int x^n e^{xt} dx
+\eee
+%
+and need to calculate the n-th derivative
+%
+\bee
+\frac{d^n}{dt^n} \frac{1}{t} e^{tx} = \ldots
+\eee
+%
+These tedious tasks can e.g. be done with SymPy:
+
+\begin{verbatim}
+import sympy as sym
+from sympy.abc import x,t
+
+N = 4
+
+fint = 1/t*sym.exp(t*x)
+
+dfn = fint.diff(t,N)
+sym.pprint(dfn.subs(t,1))
+
+sym.pprint(sym.integrate(x**N * sym.exp(x), x))
+
+\end{verbatim}

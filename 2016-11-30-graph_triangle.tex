@@ -1,0 +1,70 @@
+\section{Probability of a Triangle in a Random Graph, 2016-11-30}
+\label{2016-11-30:entry}
+
+Based on this
+\href{http://math.stackexchange.com/questions/2023681/probability-of-a-random-graph-being-triangle-free}{link}.
+
+\subsection{N = 3}\label{n-3}
+
+Consider a graph with 3 vertices: 1,2,3. Every vertex can potentially be
+connected with another vertex, so in total there are three possibilities
+for edges: 1-2, 1-3, 2-3. We can now write down all graphs with 3
+vertices; a zero denotes no edge, a one denotes an edge:
+
+\[
+\begin{array}{ccc}
+1-2 & 1-3 & 1-3 \\
+\hline
+0 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 1 & 0 \\
+... & ... & ... \\
+1 & 1 & 1
+\end{array}
+\]
+
+In total there are \(2^3 = 8\) different graphs. Only one of them
+contains (is) a triangle; namely the last graph.
+
+We consider random graphs having an edge between two vertices with
+probability \(p\). So the probability for a triangle is \(p^3\) and the
+probability for a graph with \textbf{no} triangle is \(1-p^3\). For
+\(p=1/2\), the probability of no triangle is therefore \(7/8\).
+
+\subsection{General Case - Bound}\label{general-case---bound}
+
+Next consider larger graphs; i.e.~ones with more than 3 vertices. Let
+\(N\) denote the number of vertices. We have \emph{at least} \((N-2)/3\)
+pairwise disjoint sets of vertices with size 3 each. E.g. for \(N = 6\),
+there is \(\{1,2,3\},\{4,5,6\}\), for \(N = 10\), there is
+\(\{1,2,3\},\{4,5,6\},\{7,8,9\},\{10\}\).
+
+Each of these sets fails to form a triangle with probability \(1-p^3\).
+Since we split all vertices into disjoint subsets, the probabilities for
+failing to form a triangle are independent and can be multiplied. So the
+probability \(P\) that none of these sets form a triangle can be bounded
+as follows
+
+\[
+P < (1-p^3)^{(N-2)/3}
+\]
+
+The bound follows because the number of disjoint subsets \((N-2)/3\) is
+a lower bound. It can be seen that \(P \rightarrow 0\) for
+\(N \rightarrow \infty\); i.e.~a large enough graph will always contain
+(at least) a triangle for \(p>0\).
+
+\subsection{Expected Number of
+Triangles}\label{expected-number-of-triangles}
+
+From
+\href{http://math.stackexchange.com/questions/730294/expected-number-of-triangles-in-a-random-graph-of-size-n?rq=1}{here}.
+
+There are \({N \choose 3}\) ways to select 3 nodes out of N and define
+\(X_j\) as indicator that the j-th set defines a triangle. We want to
+calculate \(\mathbf{E} \sum_{j=1}^t X_j\) with the expectation taken
+over all 8 possible graphs with 3 vertices:
+
+\[
+\mathbf{E} \sum_{j=1}^t X_j = \sum_{j=1}^t \mathbf{E} X_j = t \mathbf{E}X_1 = t p^3
+\]

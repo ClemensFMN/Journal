@@ -1,0 +1,39 @@
+\section{Entry for 2017-01-07}
+
+\subsection{The Big Idea}
+
+is to write blog/journal entries.
+
+\subsubsection{Requirements}
+
+Main requirements for the whole thing are
+
+\begin{itemize}
+
+\item Shall support maths - with all bells and whistels (eq numbering, multiline, theorems...)
+
+\item Good readable, ideally also on the Kindle - this need not be HTML or EPUB / MOBI, PDF is enough!
+
+\item Maybe every entry on a separate page(?)
+
+\item Some way to tag articles - we could do that inside a Latex comment located at the first line using YAML
+
+\item Ways to link between entries;e.g. to \hyperref[2017-01-08:entry]{here}.
+
+\item Some automation for article generation (e.g. provide some template and "calculate" filename, tag, label via a shell script)
+
+\item Some flexibility with journal generation; e.g.
+
+\begin{itemize} 
+\item All entries
+\item One selected entry
+\item Entries with a certain tag (e.g. "algebra"). We could use a bash script to run over all entries, check the tag (in the first line - see above) and only include the file in compilation when the tag matches...
+\end{itemize}
+
+Maybe inspire here: \href{https://github.com/sanjayankur31/calliope/blob/master/calliope.sh}{like this} and \href{https://www.reddit.com/r/LaTeX/comments/2xysse/i_am_trying_to_make_a_research_diary_that/}{here}.
+
+
+\end{itemize}
+
+The idea is to have a separate Latex file for every journal entry. There is a "big" journal file which includes all these files into one big document. The metainformation (tags) in each file can be used to conditionally include the file in the ``big'' journal file (e.g. via a Python script).
+

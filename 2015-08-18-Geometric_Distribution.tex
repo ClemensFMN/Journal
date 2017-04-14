@@ -1,0 +1,40 @@
+\DiaryEntry{Geometric Distribution}{2015-08-18}{Stochastic}
+
+Two definitions, but the same principle: Number of Bernoulli trials, before the trial succeeds.
+
+The success probability of the Bernoulli trial is denoted by $p$; the random variable $X$ denotes the number of trials $k$ before a trial succeeds and therefore has a pmf as follows:
+
+\[ P(X=k) = (1-p)^k p\]
+
+\subsection{Expectation}
+
+The expectation $\mathcal{E}(X)$ is calculated as follows
+
+\[\mathcal{E}(X) = \sum_{k=0}^\infty k \times P(X=k) = \sum_{k=0}^\infty k (1-p)^k p \]
+
+We can rewrite this as
+
+\[\mathcal{E}(X) = p(1-p) \sum_{k=0}^\infty k (1-p)^{k-1} \]
+
+and realize that the summand can be written as differential
+
+\[k(1-p)^{k-1} = - \frac{d}{dp} (1-p)^k\]
+
+Exchanging summation with differentiation, we obtain
+
+\[\mathcal{E}(X) = -p(1-p) \frac{d}{dp} \sum_{k=0}^\infty (1-p)^k \]
+
+The sum is the geometric series
+$\sum_{k=0}^\infty q^k = \frac{1}{1-q}$ with $q=1-p$, and we therefore have
+
+\[\mathcal{E}(X) = -p(1-p) \frac{d}{dp} \frac{1}{p} = p(1-p)\frac{1}{p^2} = \frac{1-p}{p}\]
+
+For small $p$, the expectation is large; i.e.~it takes a long time, before the trial succeeds. If $p=1/2$, $\mathcal{E}(X)=1$; i.e.~success is reached after 1 trial. Finally for $p=1, \mathcal{E}(X)=0$.
+
+\subsection{Example}
+
+Consider a dice with probability $p=1/6$ that one side comes up (e.g.~6). Then the RV $X$ denotes the number of trials, before this side comes up. The expectation is $\mathcal{E}(X) = \frac{1-p}{p} = \frac{5/6}{1/6} = 5$; i.e.~it takes 5 rolls, \textbf{before} this side comes up. In other words, on average, the 6-th roll shows the side.
+
+\subsection{Sequences}
+
+Consider a sequence of such trials: After a successful trial, the process is started again ad infinitum. The average time between successes (and therefore process restarts) is $\mathcal{E}(X)$. Therefore a length-N sequence contains $1/\mathcal{E}(X)$ successful trials.

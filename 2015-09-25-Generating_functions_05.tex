@@ -1,0 +1,122 @@
+\DiaryEntry{Generating Functions, Part 5}{2015-09-25}{GenFuncs}
+
+This post provides several examples regarding sequence shifts and initial conditions.
+
+\subsection{First-order Example}\label{first-order-example}
+
+\subsubsection{Left-Shift}\label{left-shift}
+
+Consider the recurrence relation
+
+\[a_{n} = 2a_{n-1}, \quad a_0 = 1\]
+
+from which we obtain obtain the generating function and its series expansion
+
+\[ A(z) = 2zA(z) + 1 \rightarrow A(z) = \frac{1}{1-2z} = 1 + 2z + 4z^2 + 8z^3 + \cdots\]
+
+\subsubsection{Right-Shift}\label{right-shift}
+
+We can also express the recurrence relation as follows
+
+\[a_{n+1} = 2a_n, \quad a_0 = 1\]
+
+from wihch we obtain
+
+\[ \frac{A(z) - 1}{z} = 2A(z) \rightarrow A(z) = \frac{1}{1-2z} = 1 + 2z + 4z^2 + 8z^3 + \cdots\]
+
+which is the same.
+
+\subsection{Fibonacci Sequences (Second-order
+Example)}\label{fibonacci-sequences-second-order-example}
+
+\subsubsection{Left-Shift}\label{left-shift-1}
+
+Consider the sequence described by
+
+\[ a_n = a_{n-1} + a_{n-2}, \quad a_0 = 0, a_1 = 1 \]
+
+For the generating function, we have
+
+\[ A(z) = z A(z) + z^2 A(z) + z \rightarrow A(z) = \frac{z}{1-z-z^2} = z + z^2 + 2z^3 + 3z^4 + \cdots \]
+
+When dealing with left-shifts only an initial condition for $a_1$ is allowed in case of second-order relations. As an example for a recurrence relation which violates this condition, consider the same recurrence relation but with different initial conditions
+
+\[ a_n = a_{n-1} + a_{n-2}, \quad a_0 = 1, a_1 = 1 \]
+
+We obtain
+
+\[ A(z) = z A(z) + z^2 A(z) + z + 1 \rightarrow A(z) = \frac{1 + z}{1-z-z^2} = 1 + 2z + 3z^2 + 5z^3 + \cdots \]
+
+This sequence fulfills the recurrence relation but \textbf{violates the initial conditions}.
+
+\subsubsection{Right-Shift}\label{right-shift-1}
+
+In case of right-shifts, arbitrary initial conditions can be specified. Reformulating the last example we obtain
+
+\[ a_{n+2} = a_{n+1} + a_{n}, \quad a_0 = 1, a_1 = 1 \]
+
+and for the generating function
+
+\[ \frac{A(z) - 1 - z}{z^2}  = \frac{A(z) - 1}{z} + A(z) \rightarrow A(z) = \frac{1}{1-z-z^2} = 1 + z + 2z^2 + 3z^3 + 5z^4 + \cdots \]
+
+\subsection{Third-order Example}\label{third-order-example}
+
+\subsubsection{Left-Shift}\label{left-shift-2}
+
+Consider the following example
+
+\[ a_n = a_{n-1} + a_{n-2} + a_{n-3}, \quad a_0 = 0, a_1 = 1, a_2 = 1 \]
+
+wich violates the condition on the inital values stated above $a_1 \neq 0$. We have
+
+\[ A(z) = zA(z) + z^2A(z) + z^3 A(z) + z + z^2 \rightarrow A(z) = \frac{z + z^2}{1 - z - z^2 - z^3} = z + 2z^2 + 3z^3 + 6z^4 + 11z^5 + 20 z^6 + \cdots\]
+
+which fulfills the recurrence relation but again, the sequence \textbf{violates the initial conditions}.
+
+Next we consider an example which fulfills the condition on the inital values: We have
+
+\[ a_n = a_{n-1} + a_{n-2} + a_{n-3}, \quad a_0 = 0, a_1 = 0, a_2 = 1 \]
+
+and obtain
+
+\[ A(z) = zA(z) + z^2A(z) + z^3 A(z) + z^2 \rightarrow A(z) = \frac{z^2}{1 - z - z^2 - z^3} = z^2 + z^3 + 2z^4 + 4z^5 + 7 z^6 + \cdots\]
+
+which is correct.
+
+\subsubsection{Right-Shift}\label{right-shift-2}
+
+Again, this approach is easier and more flexible. Reformulating the example from above, we have
+
+\[ a_{n+3} = a_{n+2} + a_{n+1} + a_{n}, \quad a_0 = 0, a_1 = 1, a_2 = 1 \]
+
+For the generating function we obtain
+
+\[ \frac{A(z) - z - z^2}{z^3}  = \frac{A(z) - z}{z^2} + \frac{A(z) - 0}{z} + A(z) \rightarrow A(z) = \frac{z}{1-z-z^2-z^3} = z + z^2 + 2z^3 + 4z^4 + 7z^5 + 13z^6 + \cdots \]
+
+This approach allows \textbf{any} initial conditions; for example
+
+\[ a_{n+3} = a_{n+2} + a_{n+1} + a_{n}, \quad a_0 = 1, a_1 = 2, a_2 = 3 \]
+
+gives
+
+\[ \frac{A(z) - 1 - 2z - 3z^2}{z^3}  = \frac{A(z) - 1 - 2z}{z^2} + \frac{A(z) - 1}{z} + A(z) \rightarrow A(z) = \frac{1 + z}{1-z-z^2-z^3} = 1 + 2z + 3z^2 + 6z^3 + 11z^4 + \cdots \]
+
+\subsection{SymPy Solutions}\label{sympy-solutions}
+
+Calculating generating functions and performing series expansions like in the examples is tedious; SymPy can help:
+
+\begin{verbatim}
+import sympy as sym
+
+x, y, n, a = sym.symbols("x y n a")
+
+# solve for generating function
+F = sym.solve((a-1-2*x-3*x**2)/x**3 - (a-1-2*x)/x**2 - (a-1)/x - a, a)
+F = F[0]
+
+res = sym.series(F, x, 0, 10)
+sym.pprint(res)
+
+           2     3      4      5      6      7       8       9
+1 + 2x + 3x  + 6x  + 11x  + 20x  + 37x  + 68x  + 125x  + 230x  + ...
+\end{verbatim}

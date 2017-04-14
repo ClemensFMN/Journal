@@ -1,0 +1,74 @@
+\DiaryEntry{Differentiate Trigonometric Functions}{2015-08-25}{Maths}
+
+
+\subsection{Prerequisites}
+
+\subsubsection{Expansion}
+
+We want to expand $\sin(x+y)$ and $\cos(x+y$. Use complex functions as follows:
+
+\[\cos(x+y) + j \sin(x+y) = e^{j(x+y)} = e^{jx} e^{jy} = \left( \cos x + j\sin x \right) \left( \cos y + j\sin y \right) \]
+
+Expanding the last expression yields
+
+\[ \cos x \cos y - \sin x \sin y + j \left( \cos x \sin y + \sin x \cos y \right) \]
+
+and by comparing real and imaginary parts we obtain
+
+\[\cos(x+y) = \cos x \cos y - \sin x \sin y \]
+
+and
+
+\[ \sin(x+y) = \cos x \sin y + \sin x \cos y \]
+
+\subsubsection{Differentiate Inverse (Trigonometric) Functions}
+
+The trick is to treat the derivative $\frac{dy}{dx}$ like a fraction; e.g.~if $x$ is the independent variable $y=g(x)$ and $\frac{dy}{dx} = g'(x)$, we can obtain the derivative of the inverse function (where $y$ is the independent variable) as $\frac{dx}{dy} =1 /g(x)$. This expression depends on $x$, though; by substituting $x=g^{-1}(y)$, we obtain the derivative $\frac{dx}{dy}$ depending
+on $y$. Writing these steps into one, we get
+
+\[ \left( g^{-1}(y) \right)' = \frac{1}{g'(g^{-1}(y))}\]
+
+\subsection{Basic Trigonometric Functions}
+
+We want to calculate $\frac{d \cos x}{dx}$. Use the definition
+
+\[\frac{d \cos x}{dx} = \lim_{\delta \rightarrow 0} \frac{\cos(x+\delta) - \cos x}{\delta}\]
+
+We can expand the expression in the limit as follows
+
+\[\frac{\cos(x+\delta) - \cos x}{\delta} = \frac{\cos x \cos \delta - \sin x \sin \delta - \cos x}{\delta}\]
+
+To obtain the limit, we use the trigonometric series expansions for dmall x $\cos x = 1 - x +
+\mathcal{O}(2)$ and $\sin x = x + \mathcal{O}(2)$,
+
+\[\frac{\cos(x+\delta) - \cos x}{\delta} = \frac{ (1 - \delta) \cos x - \delta \sin x - \cos x}{\delta}\]
+
+Now we can calculate the limit
+
+\[\lim_{\delta \rightarrow 0} \frac{ (1 - \delta) \cos x - \delta \sin x - \cos x}{\delta} = - \sin x\]
+
+and therefore we have $\frac{d \cos x}{dx} = -\sin x$. The same approach works for $\frac{d \sin x}{dx} = \cos x$.
+
+A bit more interesting is $\frac{d \tan x}{dx}$ which can be expressed as
+
+\[ \frac{d}{dx} \frac{\sin x}{\cos x} = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = 1 + \tan^2 x\]
+
+\subsubsection{arctan}
+
+Consider $\frac{d \arctan x}{dx}$ which we can differentiate as follows: We have $y=\tan x$ and know that $\frac{dy}{dx}= 1 + \tan^2 x$ (see Section above). Using the trick from above, we obtain
+
+\[ \frac{dx}{dy} = \frac{1}{1 + \tan^2 x} \]
+
+But we are interested in calculating $\frac{dx}{dy}$  as a function of $y$, so we have to substitute $
+x=\arctan y$
+
+\[ \frac{dx}{dy} = \frac{1}{1 + \tan^2 (\arctan y)} = \frac{1}{1 + y^2} \]
+
+which is the desired result.
+
+\subsubsection{arcsin}
+
+The same trick works with $\frac{d \arcsin x}{dx}$. We have $y=\arcsin x$ and $x = sin y =
+\sqrt{1 - \cos^2 y}$. Basic manipulations yield $\cos y = \sqrt{1 - x^2}$. Then $\frac{dx}{dy} = \cos y$  and we obtain
+
+\[ \frac{dy}{dx} = \frac{1}{\cos y} = \frac{1}{\sqrt{1 - x^2}} \]

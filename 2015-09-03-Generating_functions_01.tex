@@ -1,0 +1,136 @@
+\DiaryEntry{Generating Functions, Part 1}{2015-09-09}{GenFuncs}
+
+
+Based on Concrete Mathematics.
+
+\subsection{Definition}\label{definition}
+
+The generating function of a time-discrete sequence $\{g\_n\}, n=0\ldots{}\infty$ has the following form
+
+\[ G(z) = z^0 g_0 + z^1 g_1 + z^2 g_2 + \cdots = \sum_{n \geq 0} g_n z^n\]
+
+\subsubsection{Application to Recurrence Relations}
+
+The most prominent usage of generating functions is to find closed-form expressions for recurrence relations.
+
+\begin{itemize}
+\item
+  First write down the sequence \({g_n}, n=0...\infty\); i.e.~express
+  \$g\_n \$ in terms of other elements of the sequence. This expression
+  shall be valid for \emph{all} n, assuming that \(g_n=0\) for
+  \(n < 0\).
+\item
+  Multiply both sides of the equation with z\^{}n and sum over all n. On
+  the left side of the equation this gives \(G(z)\); the right side
+  becomes ``something else''.
+\item
+  Find a closed form expression for \(G(z)\) and expand this expression
+  into a power series. Read off the coefficients of \(z^n\).
+\end{itemize}
+
+\subsection{Simple Examples}
+
+\subsubsection{\texorpdfstring{\(g_n=\alpha^n\)}{g\_n=\textbackslash{}alpha\^{}n}}
+
+We have a recurrence relation \(g_n=\alpha g_{n-1}\) with the inital
+condition \(g_0=1\).
+
+We have
+
+\[\sum_n g_n z^n = \sum_n \alpha g_{n-1} z^n + 1\]
+
+which we can simplify to
+
+\[G(z) = \alpha \sum_n g_{n} z^{n+1} + 1 = \alpha z \sum_n g_n z^n +1 = \alpha z G(z) + 1\]
+
+This yields the following expression for the generating function
+
+\[ G(z) = \frac{1}{1-\alpha z} \]
+
+and corresponds to the sequence $g_n = \alpha^n$.
+
+\subsubsection{\texorpdfstring{\(g_n=-\alpha^n\)}{g\_n=-\textbackslash{}alpha\^{}n}}\label{g_n-alphan}
+
+We have (with the initial condition \(g_0=1\))
+
+\[\sum_n g_n z^n = -\alpha \sum_n g_{n-1} z^n + 1\]
+
+which yields for the generating function $G(z) = \frac{1}{z+\alpha}$. We can rewrite it as follows:
+
+\[G(z) = \frac{1}{\alpha} \frac{1}{1 + x/\alpha} = \frac{1}{\alpha} \frac{1}{1 - x/(-\alpha)} \]
+
+This function corresponds to the sequence \(g_n = (-\alpha)^n\).
+
+\subsection{Fibonacci Numbers Example}\label{fibonacci-numbers-example}
+
+Define \(g_n\) as
+
+\[ g_n = g_{n-1} + g_{n-2} + [n=1] \]
+
+where the expression \([n=1]\) is one when n=1 and zero otherwise. This
+is an expression for \(g_n\) valid for all n (positive and negative).
+
+Executing steps \#2, we obtain
+
+\[ \sum_n g_n z^n = \sum_n g_{n-1} z^n + \sum_n g_{n-2} z^n  + \sum_n [n=1] z^n \]
+
+Keeping in mind that this epxression is valid for \emph{all} n, we can
+shift the summation indices in order to obtain
+
+\[ \sum_n g_n z^n = \sum_n g_{n} z^{n+1} + \sum_n g_{n} z^{n+2}  + \sum_n [n=1] z^n \]
+
+The last sum yields \(z\) and we finally obtain
+
+\[ \sum_n g_n z^n = z \sum_n g_{n} z^n + z^2 \sum_n g_{n} z^n + z \]
+
+This form allows a closed-form expression for the generating function as
+
+\[ G(z) = z G(z) + z^2 G(z) + z \]
+
+and we arrive at
+
+\[ G(z) = \frac{z}{1-z-z^2} \]
+
+We can make a partial fraction expansion to get a closed-form expression
+or we throw the expression at \texttt{sympy}, Wolfram Alpha etc to get a
+series expansion.
+
+With sympy, this works as follows:
+
+\begin{verbatim}
+import sympy as sym
+
+x, n = sym.symbols("x n")
+F = x / (1-x-x**2)
+res = sym.series(F, x, 0, 10)
+
+sym.pprint(res)
+\end{verbatim}
+
+and results in
+
+\begin{verbatim}
+     2      3      4      5      6       7       8       9    / 10\
+x + x  + 2*x  + 3*x  + 5*x  + 8*x  + 13*x  + 21*x  + 34*x  + O\x  /
+\end{verbatim}
+
+The coefficients are the Fibonacci numbers with
+\(g_0=0, g_1=1, g_2=1, g_3=2 \ldots\).
+
+To see the effect of the inital condition, we can start with \(g_0=1\);
+in this case we have
+
+\[ g_n = g_{n-1} + g_{n-2} + [n=0] \]
+
+and
+
+\[ \sum_n g_n z^n = z \sum_n g_{n} z^n + z^2 \sum_n g_{n} z^n + 1 \]
+
+Therefore, the generating function becomes $G(z) = \frac{1}{1-z-z^2}$ and a series expansion yields
+
+\begin{verbatim}
+           2      3      4      5       6       7       8       9    / 10\
+1 + x + 2*x  + 3*x  + 5*x  + 8*x  + 13*x  + 21*x  + 34*x  + 55*x  + O\x  /
+\end{verbatim}
+
+These are the Fibonacci numbers again, but shifted by to the right by one.

@@ -1,0 +1,62 @@
+\DiaryEntry{Estimation of correlated Random Variables}{2017-03-08}{Stochastic}
+
+We have two random variables $\thetabf = [\theta_1\, \theta_2]^T$ with distribution
+
+\bee
+\thetabf \sim \Nc(\zerobf, \Lambda^{-1} = \begin{bmatrix} 1 & \rho \\ \rho & 1 \end{bmatrix})
+\eee
+
+and observe a vector $\ybf = [y_1\, y_2]^T$ according to
+
+\bee
+\ybf = \thetabf + \wbf
+\eee
+
+with $\wbf \sim \Nc(\zerobf, \Lbf^{-1} = \sigma_w^2 \Ibf)$.
+
+\subsection{MMSE Estimation}
+
+We want the MMSE estimator $\hat\thetabf$ which can be expressed as
+
+\bee
+\hat \thetabf = \Abf \ybf
+\eee
+
+with the matrix $\Abf$ given by
+
+\bee
+\Abf = (\Lambda + \Lbf)^{-1} \Lbf
+\eee
+%
+I wonder whether it's possible to get an analytic result out of this (at least for asympotitc cases). We have
+
+\bee
+\Lambda = \begin{bmatrix} 1 & \rho \\ \rho & 1 \end{bmatrix}^{-1} = \frac{1}{1-\rho^2} \begin{bmatrix} 1 & -\rho \\ -\rho & 1 \end{bmatrix}
+\eee
+%
+and
+
+\bee
+\Lbf = \frac{1}{\sigma_w^2} \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+\eee
+%
+and one can get an analytical expression for $\Abf$, but it's not really helpful...
+
+The special cases below are obtained via numerical analysis (Julia).
+
+\paragraph{No noise, no correlation.} In this case, the matrix $\Abf$ gets the asymptotic form
+
+\bee
+\Abf = \Ibf
+\eee
+%
+i.e. in order to estimate $\theta_1$, only the observation $y_1$ is utilized. There is no noise; therefore no prior information is used and there is no correlation; therefore only $y_1$ is used.
+
+
+\paragraph{No noise, perfect correlation.} In this case, the matrix $\Abf$ gets the asymptotic form
+
+\bee
+\Abf = \begin{bmatrix} 1/2 & 1/2 \\ 1/2 & 1/2 \end{bmatrix}
+\eee
+%
+The prior information is ignored (no noise), but both observations are utilized equally as the two RVs are perfectly correlated. 

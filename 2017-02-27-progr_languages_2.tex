@@ -1,0 +1,109 @@
+\DiaryEntry{Programming Languages, Revisited}{2017-02-27}{Programming}
+
+Revisting an old blog post 1 1/2 years later on...
+
+\subsection{Tasks}
+
+
+\begin{itemize}
+
+\item Numerical stuff (lin. alg., (statistical)signal progessing, plotting...)
+
+This is still valid
+
+\item Scripting language for simple, day-to-day stuff
+
+Yes, this is valid (up to a certain extent). Although, it is not that much which falls into this category; e.g. taking a CSV file from Bank Austria, classifying bookings and add them as a separate column to the CSV file...
+
+\item GUI development; i.e. Qucs complexity level
+
+Still interesting, but less important than originally thought:  Most stuff from #2 is done via CLI; writing an actual GUI on top of it seems too much work / not necessary / ...
+
+\item Something non-standard, supporting advanced concepts; e.g. functional programming, macros, actors...
+
+Yes, still interesting. However, after the basic concepts have been understood, there is not much to do with it. For ``real-world'' stuff (e.g. #2), there is usually not enough library support and this makes actual programming cumbersome. Also documentation level of frameworks, libs is rather sparse.
+
+\item Something for web applications(?)
+
+Not really; either do #3 or don't do it at all...
+
+\subsection{Languages}
+
+
+\subsubsection{Julia}
+
+
+Advantages: Modern, performant. Vector / matrix... support ootb. A language for scientific computing. Quite vibrant ecosystem being already quite complete
+
+
+\subsubsection{Python}
+
+General purpose language with strong supportfor numerical stuff. However,syntax for numerics is really akward; see e.g. the experiments with Euclidian Distance Matrices -> a real mess.
+
+    self.current_x_hat = dot(A, x_hat)
+    self.current_Sigma = dot(A, dot(Sigma, A.T)) + Q
+
+For numerical stuff use Julia. For everything else, use C#.
+
+
+\subsubsection{C# / Mono}
+
+Modern language, enough drive through Microsoft. Vast ecosystem (NuGet) and lots of documentation (books, stackoverflow, MSDN...)
+
+In addition, there is F#: more advanced concepts (functional...), more esoteric. GOod thing is that it also targets .net, so libs and frameworks can be used.
+
+On the GUI side, there is Winforms and GTK#. Both seem to be mature and complete. Monodevelop supports GTK#, therefore this seems to be the way to go...
+
+
+\subssubsection{Scheme / Racket / Common Lisp}
+
+Seems to be sufficiently close to "classical LISP books" (SICP, The little Schemer...) to use it; nice IDE and nice library ecosystem.
+
+Nope.
+
+Common Lisp is interesting, but too complicated (Macros!) and too little lib support.
+
+
+\subsubection{Ruby}
+
+Perfect for the few web apps I do (e.g. in contrast to Django). In addition, maybe it can replace Python as everyday scripting language. Need to check ecosystem and compare with Python (main competitor). Nicer/cleaner syntax/structure than Python in any case; e.g.
+
+Python:
+
+	x = [1,4,3,6]
+	len(x)
+	but: x.sort() is a method which does in-place modification!
+
+Ruby
+
+	x = [1,4,3,6]
+	x.size
+	x.sort returns a sorted list; no in-place modification!
+	x.sort! sorts in-place
+
+No Webapps -> no Ruby
+  
+
+\subsubsection{C++ / Qt}
+
+Qt is a quite complete framework; so C++ with Qt is not "really" C++. Nevertheless, too cumbersome and replaced by C# / Mono with WinForms.
+
+
+\subsubsection{Java / Swing}
+
+Java is enterprise, but Swing is a bit old => C# / Mono + WinForms is more modern.
+
+
+\subsubection{Scala}
+
+Coming up as something new. Uses the JVM => large ecosystem. Sufficiently  modern / functional / cool. Not overly hyped and not so weird as e.g. Haskell.
+
+Due to JVM, no modern GUI possibilities -> replace by C#.
+
+
+\subsubection{Rust}
+
+Currently no need / other stuff is more interesting...
+
+
+

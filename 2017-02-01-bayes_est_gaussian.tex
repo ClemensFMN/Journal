@@ -1,0 +1,49 @@
+\DiaryEntry{Bayes Estimation of Normal RVs}{2017-02-01}{Stochastic}
+
+\subsection{Basics}
+
+The book ``Pattern Recognition and Machine Learning, Bishop'' discusses the distribution of multivariate Gaussian RVs. In particular, they have a random vector
+
+\bee
+p(\xbf) = \Nc(\xbf|\mu, \Lambda^{-1})
+\eee
+%
+and the conditional distribution
+
+\bee
+p(\ybf | \xbf) = \Nc(\ybf | \Abf x + \bbf, \Lbf^{-1})
+\eee
+%
+and provide the posterior mean
+
+\bee
+p(\xbf | \ybf) = \Nc(\xbf | \Sigma\{\Abf^T \Lbf (\ybf-\bbf) + \Lambda \mu\}, \Sigma)
+\eee
+%
+with $\Sigma = (\Lambda + \Abf^T \Lbf \Abf)^{-1}$.
+
+\subsection{Usage in Estimation Problem}
+
+We use this in the following problem: We estimate the scalar $x$ (with prior $\Nc(x|0,\sigma_x^2)$ by $N$ observations in random Gaussian noise:
+
+\bee
+\ybf = x \onebf + \wbf, \qquad \wbf \sim \Nc(\zerobf, \sigma_w^2 \Ibf) 
+\eee
+%
+In the equations above, therefore $\Abf = \onebf, \bbf = \zerobf, \Lambda^{-1} = \sigma_x^2, \Lbf^{-1} = \sigma_w^2 \Ibf$ and we obtain
+
+\bee
+\Sigma = \left( \frac{1}{\sigma_x^2} + \onebf^T \frac{1}{\sigma_w^2} \Ibf \onebf \right)^{-1} = \left( \frac{1}{\sigma_x^2} + \frac{1}{\sigma_w^2} \onebf^T \onebf \right)^{-1} = \frac{1}{1 / \sigma_x^2 + N / \sigma_w^2} = \frac{\sigma_x^2 \sigma_w^2}{\sigma_w^2 + N \sigma_x^2}
+\eee
+%
+The posterior mean then becomes
+
+\bee
+\Sigma\{\Abf^T \Lbf (\ybf-\bbf) + \Lambda \mu\} = \Sigma \left\{ \onebf^T\frac{1}{\sigma_w^2} \Ibf \ybf + \zerobf \right\} = \Sigma \frac{1}{\sigma_w^2} \onebf^T \ybf = \frac{\sigma_x^2}{\sigma_w^2 + N \sigma_x^2} \sum_i y_i
+\eee
+%
+For completeness, the expression for the posterior is then
+
+\bee
+p(x| \ybf) = \Nc\left(\ybf | \frac{\sigma_x^2}{\sigma_w^2 + N \sigma_x^2} \sum_i y_i, \frac{\sigma_x^2 \sigma_w^2}{\sigma_w^2 + N \sigma_x^2} \right)
+\eee

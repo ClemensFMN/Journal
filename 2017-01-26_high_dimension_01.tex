@@ -1,0 +1,70 @@
+\DiaryEntry{High-dimensional Geometry}{2017-01-26}{TBD}
+
+The whole thing is based on \href{https://www.cs.cornell.edu/jeh/book2016June9.pdf}{this book}.
+
+\subsection{Volumes}
+
+Consider a geometric object $\Ac$ in dimension $d$ with volume $\Vc(\Ac)$. If we shrink the object by a factor $\epsilon$, we get a new object $(1-\epsilon)\Ac = \{(1-\epsilon)x | x \in \Ac\}$. Its volume is then $(1-\epsilon)^d\Vc(\Ac)$.
+
+We ask for the relation between these two volumes,
+%
+\bee
+\frac{\Vc((1-\epsilon)\Ac}{\Vc(\Ac)} = (1-\epsilon)^d \leq e^{-\epsilon d}
+\eee
+%
+The last inequality follows from the fact that $1-x \leq e^{-x}$. We see from this that for large dimension $d$ and $\epsilon$ fixed, the fraction goes to zero:
+%
+\bee
+\lim_{d \rightarrow \infty} \frac{\Vc((1-\epsilon)\Ac}{\Vc(\Ac)} = \lim_{d \rightarrow \infty} (1-\epsilon)^d = 0
+\eee
+%
+This means that the volume of the object is concentrated near its boundary. In case of a unit ball; i.e. $\Sc = \{x | |x| \leq 1 \}$; most of the volume is concentrated in an annulus of with $\Oc(1/d)$.
+
+
+\subsubsection{Less Intuition...}
+
+In case of the d-dimensional sphere $\Sc$ with radius $R$, we can also use the expression for its volume:
+%
+\bee
+\Vc(\Sc) = \frac{\pi^{d/2}}{\Gamma(d/2 + 1)} R^d
+\eee
+%
+Relating a sphere with radius $R-\epsilon$ to one with radius $R$, we obtain
+%
+\bee
+\frac{\frac{\pi^{d/2}}{\Gamma(d/2 + 1)} (R-\epsilon)^d }{\frac{\pi^{d/2}}{\Gamma(d/2 + 1)} R^d} = \left( \frac{R-\epsilon}{R}\right)^d = \left( 1 - \epsilon/R\right)^d
+\eee
+%
+Taking the limit $d \rightarrow \infty$, we obtain a value of zero; i.e. most of the volume is located in a thin annulus around the boundary of the sphere.
+
+\subsection{Random Vectors}
+
+Now we pick two d-dimensional vectors $\xbf_1, \xbf_2$ with i.i.d random elements ($\xbf_i = (x_{i,1} \cdots x_{i,d})^T)$) of variance 1. The distribution does (at least for now not matter). The expected squared length of such a vector $\xbf_i$ is
+
+\bee
+E\left(|\xbf_i|^2\right) = E\left( x_{i,1}^2 + \cdots + x_{i,d}^2\right) = d
+\eee
+%
+where we have considered the independence of the vector components. The expected squared length of the difference between two vectors is given by
+
+\bee
+E\left( |\xbf_1 - \xbf_2|^2\right) = E\left( (x_{1,1} - x_{2,1})^2 + \cdots) \right) = E\left( x_{1,1}^2 \right) + E\left(x_{2,1}^2\right) - 2E\left( x_{1,1} x_{2,1} \right) + \cdots = 2d
+\eee
+%
+again taking independence of components into account. We now have two vectors $\xbf_1, \xbf_2$ each with expected squared length $d$ and their difference having expected squared length $2d$. We ``guess'' that the vectors are orthogonal; therefore Pythagoras must hold:
+
+\bee
+E\left( |\xbf_1|^2 \right) + E\left( |\xbf_2|^2 \right) = E\left( |\xbf_1 - \xbf_2|^2 \right)
+\eee
+%
+which becomes
+
+\bee
+d + d = 2d
+\eee
+%
+and holds true. Therefore the two random vectors are orthogonal (with high probability).
+
+\subsection{Remainder}
+
+I understand from Section 2.4.2 the part where it is shown that most of the volume is centered around the equator; however the step to ``Near Orthogonality'' and Theorem 2.8 is beyond me. These parts build upon Section 2.3 which I cannot find in the book...

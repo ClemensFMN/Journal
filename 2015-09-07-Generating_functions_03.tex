@@ -1,0 +1,178 @@
+\DiaryEntry{Generating Functions, Part 3}{2015-09-07}{GenFuncs}
+
+The idea is to construct rules which allow a simple calculation of the generating function.
+
+\subsection{Shifting Sequences}\label{shifting-sequences}
+
+Assume we have a generating function $G(z)$ corresponding to a sequence $a_n$. We will denote this correspondence as $a_n \leftrightarrow A(z)$
+
+\[G(z) = a_0 + a_1 x + a_2 z^2 + \cdots = \sum_{n \geq 0} a_n z^n\]
+
+If we shift the sequence to the right; i.e. $a_{n+1}$, we obtain for the generating function
+
+\[\sum_{n \geq 0} a_{n+1} z^n = \frac{1}{z} \sum_{n \geq 0} a_{n+1} z^{n+1} = \frac{1}{z} \sum_{n \geq 1} a_{n} z^{n} \]
+
+The last sum is ``almost'' the generating function; we can change the summation index and obtain
+
+\[ \frac{1}{z} \sum_{n \geq 1} a_{n} z^{n} = \frac{1}{z} \left( \sum_{n \geq 0} a_{n} z^{n} - a_0 \right) = \frac{A(z) - a_0}{z}\]
+
+I.e. $a_{n+1} \leftrightarrow \frac{A(z)-a_0}{z}$. Playing this trick several times we obtain the following correspondence
+
+\[ a_{n+k} \leftrightarrow \frac{A(z) - a_0 - a_1 z - \cdots - a_{k-1}z^{k-1}}{z^k}\]
+
+A shift in the other direction (i.e.~to the left) is also possible. In this case we consider the sequence $a_{n-k}$ and for the corresponding generating function we obtain
+
+\[ \sum_{n \geq 0} a_{n-k} z^n = z^k \sum_{n \geq 0} a_{n-k} z^{n-k} = z^k A(z) \]
+
+The underlying assumption of this derivation is that $a_0 \cdots a_{k-2} = 0$, and only $a_{k-1}$ is allowed to be unequal zero: $a_{k-1} \neq 0$.
+
+
+\subsubsection{Example}\label{example}
+
+With this rule, we can obtain the generating function for the Fibonacci sequence $a_{n+2} = a_{n+1} + a_n$ as follows
+
+\[ \frac{A(z) - a_0 - a_1 z}{z^2} = \frac{A(z)-a_0}{z} + A(z)\]
+
+Inserting the initial conditions $a_0=0, a_1=1$ yields
+
+\[ \frac{A(z) - z}{z^2} = \frac{A(z)}{z} + A(z)\]
+
+from which we obtain the generating function
+
+\[ A(z) = \frac{z}{1-z-z^2} \]
+
+which is exactely the same as in part 1 of this series.
+
+Considering general initial conditions yields the general generating function
+
+\[ A(z) = \frac{a_0 + (a_1 -a_0) z}{1-z-z^2} \]
+
+For the initial conditions $a_0=a_1=1$ we obtain $A(z) = \frac{1}{1-z-z^2}$ which corresponds to the result in part 1 of this series. In the general generating function the denominator does not depend on the initial conditions and the roots $r_-, r_+$ (see part 2 of the series) are the same as well. Therfore the ``overall structure'' of the corresponding sequence $a_n=\phi_+^n - \phi-^n$ will be independent of the inital conditions.
+
+\subsection{Differentiation}\label{differentiation}
+
+When we have $A(z) = \sum_{n \geq 0} a^n z^n$ and we take the deriative (with respect to z), we obtain
+
+\[A'(z) = \sum_{n \geq 0} n a^n z^{n-1}\]
+
+Adding a $z$, we find the correspondence
+
+\[z A'(z) = \sum_{n \geq 0} n a^n z^n\]
+
+therefore $z A'(z) \leftrightarrow n a\_n$. Playing this trick several times, we find the general relation
+
+\[\left( z \frac{d}{dz} A(z) \right)^k = \sum_{n \geq 0} n^k a^n z^n\]
+
+Be careful with the notation here; for example we have
+
+\[ z \frac{d}{dz} z \frac{d}{dz} A(z) = \sum_{n \geq 0} n^2 a^n z^n \]
+
+\subsubsection{Example 1}\label{example-1}
+
+This example shows the use of differentiation and that a generating function can be evaluated at a certain point $z$ in a meaningful manner.
+
+We have
+
+\[ \sum_{n=0}^N x^n = \frac{x^{N+1}-1}{x-1} \]
+
+Differentiating both sides and multiplying with $x$ yields
+
+\[ \sum_{n=0}^N n x^n = x \frac{d}{dx} \frac{x^{N+1}-1}{x-1} \]
+
+We can now calculate this expression for a fixed value of $x=1$ to obtain
+
+\[ \sum_{n=0}^N n = \lim_{x \rightarrow 1} \left( x \frac{d}{dx} \frac{x^{N+1}-1}{x-1} \right) =\frac{N(N+1)}{2} \]
+
+The last step required some tedious algebra, this was solved by means of sympy
+
+\begin{verbatim}
+import sympy as sym
+
+x, n = sym.symbols("x n")
+
+f = (x**(n+1)-1)/(x-1)
+g = sym.diff(f, x)
+res = sym.limit(x*g, x, 1)
+
+sym.pprint(res)
+\end{verbatim}
+
+\subsubsection{Example 2}\label{example-2}
+
+Consider the series described by $(n+1) a_{n+1} = a_n$ with $a_0=1$. Calculate the generating function of the LHS according to
+
+\[ \sum_{n \geq 0} (n+1) a_{n+1} z^n = \frac{d}{dz} \sum_{n \geq 0} a_{n+1} z^{n+1} = \frac{d}{dz} \sum_{n \geq 0} a_{n} z^{n} - a_0 = \frac{d}{dz} \left( A(z) - a_0 \right) \]
+
+But $a_0$ is independent of $z$; therefore the generating function of the LHS becomes $\frac{d}{dz} A(z)$. The generating function of the complete series is
+
+\[\frac{d}{dz} A(z) = A(z)\]
+
+and therefore $A(z) = c e^z$. Series expansion yields
+
+\[ A(z) = c + cz + (cz)^2/2 + (cz)^3/6 + \cdots = \sum_{n \geq 0} \frac{(cz)^n}{n!}\]
+
+We see that $a_n = \frac{1}{n!}$. To check the result, we calculate the elements manually: For $n=0$, we have $a_1 = a_0 = 1$ (initial conditions); $n=1$ yields $a_2 = 1 / 2$, $n=2$ yields
+$a_3 = 1/(2*3) = 1/6$ etc.
+
+\subsection{Multiplication of Series}\label{multiplication-of-series}
+
+We have two sequences $a_n \leftrightarrow A(z)$ and $b_n \leftrightarrow B(z)$. The the convolution of the two sequences corresponds to the product of the generating functions as follows
+
+\[A(z) B(z) \leftrightarrow \left( \sum_{r=0}^n a_r b_{n-r} \right)\]
+
+\subsection{Multiplication of the Generating Function with $\frac{1}{1-z}$}
+
+We note that $\frac{1}{1-z} = 1 + z + z^2 + z^3 + \cdots$ and write down the multiplication with a generating function $A(z) = a_0 + a_1 z + a_2 z^2 + \cdots$
+
+\[ \frac{A(z)}{1-z}  = (a_0 + a_1 z + a_2 z^2 + \cdots)(1 + z + z^2 + z^3 + \cdots) = a_0 + (a_0 + a_1)z + (a_0 + a_1 + a_2)z^2 \cdots \]
+
+That is, the corresponding sequence of $\frac{A(z)}{1-z}$ is the sequence of the partial sums of $a_n$.
+
+\subsubsection{Example 1}\label{example-1-1}
+
+We use the correspondences obtained so far to prove that the Fibonacci
+sequence fulfills
+
+\[F_0 + F_1 + \cdots + F_n = F_{n+2} - 1\]
+
+This is interesting, as the example shows that generating functions can be used to prove statements about sequences. We first note that the generating function of the Fibonacci sequence is $F(z) = \frac{z}{1-z-z^2}$. The LHS of the equation corresponds to $\frac{F(z)}{1-z}$, and the RHS to $\frac{F(z) - a_0 - a_1 z}{z^2} - \frac{1}{1-z}$. Inserting the initial conditions $a_0=0, a_1=1$, the RHS becomes $\frac{F(z) - z}{z^2} - \frac{1}{1-z}$. By basic algebraic manipulations, we see that LHS = RHS which proves the claim.
+
+\subsubsection{Example 2}\label{example-2-1}
+
+We want to calculate the generating function $A(z)$ of the harmonic numbers $H_n=\sum_{j=1}^n \frac{1}{j}$. But the harmonic numbers are the partial sums of the sequence $1/n$, and therefore $A(z) = \frac{B(z)}{1-z}$, where $B(z)$ is the generating function of the $1/n$.
+
+In order to calculate it, we continue as follows: By its definition,
+
+\[ B(z) = \sum_{n=1}^\infty \frac{z^n}{n}\]
+
+and its derivative (with respect to $z$), is
+
+\[ \frac{d}{dz} B(z) = \sum_{n=1}^\infty \frac{n z^{n-1}}{n} = \sum_{n=1}^\infty z^{n-1} = \sum_{n=0}^\infty z^{n} = \frac{1}{1-z}\]
+
+From this it follows that $B(z) = -\log(1-z)$, and we finally obtain for the generating function of the harmonic numbers
+
+\[A(z) =  \log(\frac{1}{1-z}) \frac{1}{1-z} \]
+
+In order to check the correctness, we use sympy again:
+
+\begin{verbatim}
+import sympy as sym
+x, n, a = sym.symbols("x n a")
+
+F = 1/(1-x) * sym.log(1/(1-x))
+
+res = sym.series(F, x, 0, 10)
+sym.pprint(res)
+
+       2       3       4        5       6        7        8         9         
+    3*x    11*x    25*x    137*x    49*x    363*x    761*x    7129*x     / 10\
+x + ---- + ----- + ----- + ------ + ----- + ------ + ------ + ------- + O\x  /
+     2       6       12      60       20     140      280       2520          
+\end{verbatim}
+
+Checking for e.g. $a_5$, we have
+
+\begin{verbatim}
+ 1+1/2+1/3+1/4+1/5 = 2.283333333333333
+ 137/60 = 2.283333333333333
+\end{verbatim}

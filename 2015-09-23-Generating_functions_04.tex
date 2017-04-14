@@ -1,0 +1,83 @@
+\DiaryEntry{Generating Functions, Part 4}{2015-09-23}{GenFuncs}
+
+
+Some more interesting stuff (this time based on Concrete Mathematics)
+
+\subsection{Some basic Sequences}\label{some-basic-sequences}
+
+\subsubsection{All-one Sequence}\label{all-one-sequence}
+
+The all-one sequence
+
+\[a_n = 1 \quad \forall n \geq 0\]
+
+has the generating function
+
+\[A(z) = \sum_{n \geq 0} z^n = \frac{1}{1-z}\]
+
+\subsubsection{Alternating Sequence}\label{alternating-sequence}
+
+The sequence
+
+\[ a_n = (-1)^n \]
+
+has the generating function
+
+\[ A(z) = \sum_{n \geq 0} (-1)^n z^n = \sum (-z)^n = \frac{1}{1+z}\]
+
+If we add these sequences and divide the sum by two we get
+
+\[ a_n = \{0, 1, 0, 1, \ldots\} \]
+
+with generating function
+
+\[ A(z) = \frac{1}{2} \left( \frac{1}{1-z} + \frac{1}{1+z}\right) = \frac{1}{2} \frac{2}{1-z^2} = \frac{1}{1-z^2} \]
+
+We can also take cumulative sums of the sequence $a_n = (-1)^n$ and obtain the generating function $A(z) = \frac{1}{1+z} \frac{1}{1-z} = \frac{1}{1-z^2}$.
+
+\subsubsection{Extracting even-numbered
+Terms}\label{extracting-even-numbered-terms}
+
+If $A(z) = \sum a_n z^n$, then $A(-z) = \sum a\_n (-z)^n$ and
+
+\[A(z) + A(-z) = \sum a_n z^n  + a_n (-z)^n = \sum a_n z^n (1 + (-1)^n)\]
+
+and therefore we have
+
+\[ \frac{A(z) + A(-z)}{2} = \sum a_{2n}z^{2n} \]
+
+We can try this trick on the generating function of the Fibonacci numbers $A(z) = \frac{z}{1-z-z^2}$. To get the generating function of the even- numbered Fibonacci numbers, we calculate
+
+\[ \frac{A(z) + A(-z)}{2} = \frac{1}{2} \left( \frac{z}{1-z-z^2} + \frac{-z}{1+z-z^2} \right) = \frac{z^2}{z^4 - 3z^2 + 1}\]
+
+Performing a series expansion yields the sequence $\{1, 3, 8, 21, \ldots \}$.
+
+\subsubsection{Inserting/Removing Zeros (``Up-/Downsampling'')}
+
+Having a sequence $a_n$ and its generating function $A(z) = \sum a_n z^n$, we obtain a new sequence by inserting M zeros between two consecutive values $a_n$ and $a_{n+1}$. The corresponding generating function is then
+
+\[ A_M(z) = a_0 + 0 + \cdots + 0 + a_1 z^{M+1} + \cdots = A(z)\big|_{z \rightarrow z^{M+1}}\]
+
+For example, from the all-one sequence with generating function $A(z) = \frac{1}{1-z}$, we get by inserting 1 zero the sequence $b_n = \{0, 1, 0, 1,\ldots\}$ with generating function $B(z) = \frac{1}{1-z^2}$ (see above).
+
+Inserting 3 zeros yields the sequence $b\_n = \{1, 0, 0, 0, 1, 0, 0, 0, 0, 1, \ldots\}$ with generating function $B(z) = \frac{1}{1-z^4}$. Simple series expansion proves the result:
+
+\begin{verbatim}
+import sympy as sym
+
+x, n, a = sym.symbols("x n a")
+F = 1/(1-x**4)
+
+res = sym.series(F, x, 0, 20)
+sym.pprint(res)
+
+     4    8    12    16
+1 + x  + x  + x   + x   + ...
+\end{verbatim}
+
+This works the other way round as well; for example the inserted zeros in the sequence of even-numbered Fibonacci numbers can be removed by substituting $z^2$ with $z$: The generating function of the even-numbered Fibonacci numbers is then $B(z) = \frac{z}{z^2 - 3z + 1}$. Series expansion yields
+
+\begin{verbatim}
+      2     3      4      5       6       7       8        9
+x + 3x  + 8x  + 21x  + 55x  + 144x  + 377x  + 987x  + 2584x  + ...
+\end{verbatim}

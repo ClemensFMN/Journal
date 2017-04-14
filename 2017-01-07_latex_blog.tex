@@ -1,0 +1,55 @@
+\DiaryEntry{Blogging using Latex}{2017-01-07}{Latex}
+
+\subsection*{The Big Idea}
+
+is to write blog/journal entries. I do not want to write about topics and endlessly rewriting certain section because my knowledge is increasing. One blog entry tries to cover one topic; if additional stuff needs to be added, this goes into a later entry (which links to the original one).
+
+\subsection*{Requirements}
+
+Main requirements for the whole thing are
+
+\begin{itemize}
+
+\item Shall support maths - with all bells and whistels (eq numbering, multiline, theorems...)
+
+\item Good readable, ideally also on the Kindle - this need not be HTML or EPUB / MOBI, PDF is enough!
+
+\item A way to categorize articles.
+
+\item Ways to link between entries;e.g. to \hyperref[2017-01-08:entry]{here}.
+
+\item Some automation for article generation (e.g. provide some template and "calculate" filename, tag, label via a shell script)
+
+\item Some flexibility with journal generation; e.g.
+
+\begin{itemize}
+
+\item All entries
+
+\item One selected entry
+
+\item Entries with a certain tag (e.g. "algebra"). We could use a bash script to run over all entries, check the tag (in the first line - see above) and only include the file in compilation when the tag matches...
+
+\end{itemize}
+
+\end{itemize}
+
+\paragraph{Obsolete}
+
+Maybe inspire here: \href{https://github.com/sanjayankur31/calliope/blob/master/calliope.sh}{like this} and \href{https://www.reddit.com/r/LaTeX/comments/2xysse/i_am_trying_to_make_a_research_diary_that/}{here}.
+
+
+\subsection*{Pros / Cons vs Pelican Blog Platform}
+
+
+\begin{itemize}
+
+\item Pro Latex: Better support; MathJax support has not been ``fully'' fixed for several weeks now :-(
+
+\item Pro Latex:
+
+\item Con Latex: Work for migrating from markdown to Latex. Some work is done by Pandoc, but some manual rework for every article is necessary...
+
+\item Scalability should not be an issue; Latex is used for long texts.
+
+\end{itemize}

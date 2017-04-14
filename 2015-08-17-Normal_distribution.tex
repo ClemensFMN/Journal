@@ -1,0 +1,54 @@
+\DiaryEntry{Normal Distribution}{2015-08-17}{Stochastic}
+
+A short summary of things I keep forgetting, mostly based on \href{https://en.wikipedia.org/wiki/Normal_distribution}{Wikipedia}.
+%
+Normal distribution with mean $\mu$ and variance $\sigma^2$: $\Nc(\mu, \sigma^2)$.
+
+\subsection{PDF}\label{pdf}
+
+The pdf has the following form:
+
+\[f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{ - \frac{(x-\mu)^2}{2\sigma^2} }\]
+
+\subsection{CDF}\label{cdf}
+
+The CDF $F(x)$ gives the probability $P(X < x ) = F(x)$. There is no closed form available; use the error function instead:
+
+\[\text{erf}(x) = \frac{1}{\pi} \int_{-x}^x e^{-t^2/2}\]
+%
+The error function gives the probability of a normal RV with zero mean variance $1/2$ falling into the range $[-x;x]$.
+%
+With this we obtain for a RV with normal distribution $\mathcal{N }(\mu, \sigma^2)$:
+
+\[F(x) = P(X < x)  = \frac{1}{2} \left[ 1 + \text{erf} \left( \frac{x-\mu}{\sqrt{2\sigma^2}} \right) \right] \]
+%
+In Julia we can do this as follows:
+
+\begin{verbatim}
+# generate N random normal RVs
+N = 1000000
+
+# with variance s2
+s2 = 1.5
+
+x = sqrt(s2)*randn(N)
+
+# find the prob of X < xlim
+xlim = 1.2
+
+# empirically
+println(count(x->x<xlim, x)/N)
+
+# with the error function
+trueval = 0.5*(1+erf(xlim/(sqrt(2*s2))))
+\end{verbatim}
+%
+By the way, note the elegant way of counting the elements of the vector \texttt{x} which are less than \texttt{xlim}. Using these definitions, we can also calculate other probabilities; e.g.
+%
+\[P(a < X < b) = F(b) - F(a); \qquad b > a\]
+%
+Empirically measured in Julia via \texttt{println(count(x-\textgreater{}x\textgreater{}a\ \&\&\ x\textless{}b,\ x)/N)}. Another probability is
+%
+\[P(X > a) = 1 - F(a),\]
+%
+empirically measured in Julia via \texttt{println(count(x-\textgreater{}x\textgreater{}a,\ x)/N)}.

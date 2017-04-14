@@ -1,0 +1,182 @@
+\section{2016-12-12, Interesting Sums, Part 4}
+
+
+Based on
+\href{http://www.maa.org/programs/maa-awards/writing-awards/lester-r-ford-awards/another-way-to-sum-a-series-generating-functions-euler-and-the-dialog-function}{this
+article}.
+
+\subsection{Simple}\label{simple}
+
+Let's start with a simple sum
+
+\[
+S = \sum_{k=1}^\infty (-1)^{k-1} \frac{1}{k} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \cdots
+\]
+
+Instead consider the power series
+
+\[
+f(z) = \sum \frac{1}{k}z^k = z + \frac{z^2}{2} + \frac{z^3}{3} + \frac{z^4}{4} + \cdots
+\]
+
+and differentiate it with respect to \(z\) to obtain
+
+\[
+f'(z) = \sum z^{k-1} = 1 + z + z^2 + \cdots
+\]
+
+For \(|z| < 1\), we can write the sum as closed form expression
+
+\[
+f'(z) = \frac{1}{1-z}
+\]
+
+and by integrating it, we obtain \(f(z) = - \ln(1-z) + C\), where \(C\)
+is the integration constant. From the definition of \(f(z)\), we know
+that \(f(0) = 0\) and therefore \(C = 0\). So we have
+
+\[
+f(z) = \sum \frac{1}{k}z^k = z + \frac{z^2}{2} + \frac{z^3}{3} + \frac{z^4}{4} + \cdots = -\ln(1-z)
+\]
+
+In order to calculate the sum \(S\) from the beginning, we set \(z=-1\)
+and obtain
+
+\[
+f(-1) = -1 + \frac{1}{2} - \frac{1}{3} \pm \cdots = - S = -\ln(1-z)
+\]
+
+Therefore (there is a sign error in the paper)
+
+\[
+S = \sum_{k=1}^\infty (-1)^{k-1} \frac{1}{k} = -f(1-(-1)) = ln(2) \approx 0.6931
+\]
+
+We can extend this a bit; e.g.
+
+\[
+f(1/3) = \sum \frac{1}{k} \left( \frac{1}{3} \right)^k = -\ln(1-1/3) = -\ln(2/3) = \ln(3/2) \approx 0.4055
+\]
+
+By the way, this is wrong in the linked article.
+
+\subsubsection{Partial Sum}\label{partial-sum}
+
+Now we are interested in considerung the effect of truncating the
+summation; i.e.~consider only the first N terms
+
+\[
+S_N = \sum_{k=1}^N (-1)^{k-1} \frac{1}{k}
+\]
+
+To calculate the error we make, we consider the following power series
+
+\[
+\bar{f}(z) = \sum_{k=N+1}^\infty \frac{1}{k}z^k
+\]
+
+with derivative
+
+\[
+\bar{f'}(z) = \sum_{k=N+1}^\infty z^{k-1} = z^N + z^{N+1} + \cdots = \frac{1}{1-z} - \frac{1-z^{N-1}}{1-z} = \frac{z^{N-1}}{1-z}
+\]
+
+We (Wolfram Alpha) can integrate this to obtain
+
+\[
+\bar{f}(z) = \frac{z^{N+1} {}_2 F_1(1;N+1;N+2;z)}{N+1}
+\]
+
+where \({}_2 F_1\) is the hypergeometric function. Crazily enough, this
+is correct :-) Calculating the truncation error in Julia yields
+
+\begin{verbatim}
+k=1:9
+sum((-1).^(k-1)./k) - log(2)
+0.052487740074975364
+\end{verbatim}
+
+and the truncation error is calculated in Python / SciPy
+
+\begin{verbatim}
+import scipy.special as sp
+(-1)**10 * sp.hyp2f1(1,10,11,-1) / 10
+0.05248774007497533
+\end{verbatim}
+
+\subsection{Advanced}\label{advanced}
+
+Now consider something similar,
+
+\[
+S = \sum \frac{1}{k^2}
+\]
+
+with a related power series and derivative
+
+\[
+g(z) = \sum \frac{1}{k^2}z^k, \qquad g'(z) = \sum \frac{1}{k}z^{k-1}
+\]
+
+We have \(g'(z) = f(z) / z\) and therefore
+
+\[
+g'(z) = -\frac{\ln(1-z)}{z}
+\]
+
+We want to integrate this to obtain \(g(z)\): We know that \(g(0) = 0\)
+and therefore
+
+\[
+\sum \frac{1}{k^2} = g(1) = - \int_0^1 \frac{\ln(1-z)}{z} dz
+\]
+
+and discover that this is the \emph{dilogarithm} function defined as
+
+\[
+\mathbb{Li}_2(z) = - \int_0^z \frac{\ln(1-t)}{t} dt
+\]
+
+So, \(\sum \frac{1}{k^2} = \mathbb{Li}_2(1)\). In order to find this
+value, we first observe the identitiy
+
+\[
+\mathbb{Li}_2(-1/z) + \mathbb{Li}_2(-z) + \frac{1}{2}(\ln z)^2 = C
+\]
+
+with \(C\) being a constant (This can be shown by calculating the
+derivative on both sides via the chain rule). Taking \(z=1\) leads to
+\(C = 2\mathbb{Li}_2(-1) = 2(-1+1/4-1/9 +- \cdots)\).
+
+Next we split the sum \(\sum 1/k^2\) into a sum of the even terms
+\(E = \sum 1/(2k)^2 = 1/4 \mathbb{Li}_2(1)\) and a sum of the odd terms
+\(O = 3/4 \mathbb{Li}_2(1)\). Therefore, the alternating sum
+\((-1+1/4-1/9+- \cdots) = E - O = -1/2 \mathbb{Li}_2(1)\) and
+\(C = -\mathbb{Li}_2(1)\).
+
+We can therefore simplify the identity to
+
+\[
+\mathbb{Li}_2(-1/z) + \mathbb{Li}_2(-z) + \frac{1}{2}(\ln z)^2 = -\mathbb{Li}_2(1)
+\]
+
+and setting \(z=-1\), we obtain
+
+\[
+2\mathbb{Li}_2(1) + \frac{1}{2} [\ln(-1)]^2 = -\mathbb{Li}_2(1)
+\]
+
+and
+
+\[
+\mathbb{Li}_2(1) = - \frac{1}{6} [\ln(-1)]^2
+\]
+
+To continue, we can pull off the following trick (which is far from
+being rigorous): We have \(e^{i\pi} = -1\) and therefore
+\(i\pi = \ln(-1)\). Squaring this yields \(\ln^2(-1) = -\pi^2\) and
+therefore
+
+\[
+\mathbb{Li}_2(1) = - \frac{\pi^2}{6}
+\]

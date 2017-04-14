@@ -1,0 +1,79 @@
+\DiaryEntry{Digital Ocean Setup Notes}{2015-07-28}{General}
+
+
+\subsection{Users}\label{users}
+
+root / das übliche
+
+cno / das übliche
+
+\subsection{Package Installation}\label{package-installation}
+
+\begin{verbatim}
+apt-get install <package name>
+
+apt-cache search <search name>
+\end{verbatim}
+
+\subsection{CLI Window Manager}\label{cli-window-manager}
+
+\href{https://www.digitalocean.com/community/tutorials/how-to-use-dvtm-and-dtach-as-a-terminal-window-manager-on-an-ubuntu-vps}{Using
+dvtm and dtach}
+
+\paragraph{Using dvtm}\label{using-dvtm}
+
+DVTM is a window manager for the console. It allows to manage several
+windows (open, close, switch to\ldots{}).
+
+\begin{verbatim}
+C-g
+
+    c ... create new window
+
+    j/k ... cycle through open windows
+
+    x ... destroy current window
+
+    q ... destroy all windows and exit
+
+    space ... change window tiling-mode
+
+    m ... switch to full-screen window tiling mode
+\end{verbatim}
+
+\paragraph{Using detach}\label{using-detach}
+
+Dtach is like screen for use together with DVTM.
+
+Start / reattach to a session
+
+\begin{verbatim}
+dtach -A /tmp/dvtm -r winch dvtm
+\end{verbatim}
+
+\subsection{PostgreSQL}\label{postgresql}
+
+Access to standard port 5432 is not possible from FRQ; use an iptable rule to forward connection from localhost:80 to localhost:5432 \href{see:\%20http://serverfault.com/questions/112795/how-can-i-run-a-server-on-linux-on-port-80-as-a-normal-user}{according to this link}.
+
+\begin{itemize}
+
+\item create iptables rule
+
+\begin{verbatim}
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 5432
+\end{verbatim}
+
+\item show rules - chain prerouting
+
+\begin{verbatim}
+iptables -t nat --line-numbers -n -L
+\end{verbatim}
+
+\item delete rule number N from iptables:
+
+\begin{verbatim}
+iptables -t nat -D PREROUTING N
+\end{verbatim}
+
+
+\end{itemize}
