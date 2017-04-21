@@ -105,3 +105,27 @@ The ideal in the example above is principal with a generator element $g = 2$. Ev
   \end{itemize}
 
 \end{theorem}
+
+
+\subsection{Cyclic Codes}
+
+A cyclic shift of a binary code word looks like this: We have a vector $\cbf = (c_0, c_1, \ldots,c_{n-2}, c_{n-1})$ and shift it cyclically to the right to obtain $\cbf' = (c_{n-1}, c_0, c_1, \ldots, c_{n-2})$.
+
+\begin{definition}
+  An $(n,k)$ block code is cyclic, it it is linear and if for every codeword, its right cyclic shift is also a codeword.
+\end{definition}
+
+
+This cyclic shifting can be expressed in terms of polynomial manipulations; If we have the codeword
+
+\bee
+\cbf = (c_0, c_1, \ldots,c_{n-2}, c_{n-1})
+\eee
+%
+we can associate the polynomial
+
+\bee
+c(x) = \cbf = c_0 + c_1 x + c_2 x^2 + \cdots c_{n-1} x^{n-1}
+\eee
+%
+A non-cyclic right-shift is then represented as $xc(x)$ and a cyclic right-shift is represented by $xc(x) \mod (c^n-1)$.
