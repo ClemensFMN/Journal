@@ -1,0 +1,140 @@
+\DiaryEntry{Rings - Integral Domains}{2016-07-21}{Algebra}
+
+Integral domains are a commutative ring with unity (i.e.~multiplication
+is commutative and there is an identity element for multiplication) in
+which the cancellation property holds: In case \(a \neq 0\) and
+\(ab = ac\), we can deduce that \(b=c\). The cancellation property is
+equivalent to that there are no divisors of zero: If \(ab=0\), then
+\(a=0\) or \(b=0\) (or both are zero).
+
+Most prominent example are the integers \(\mathbb{Z}\).
+
+Note that \(\mathbb{Z}/6\mathbb{Z}\) is \textbf{not} an integral domain
+as it does not have the cancellation property; e.g. \(2 \times 3=0\). It
+is, however, a commutative ring with unity.
+
+A nilpotent element r of a ring R is an element for which
+\(e^n=0, n \in \mathbb{N}\) holds. If a ring R has a nilpotent element
+\(r \neq 0\), then this element is a divisor of zero. We have \(r^n=0\)
+and can rewrite this as \(r r^{n-1}=0\)\$, hence r is a divisor of zero.
+
+\(\mathbb{Z}/16\mathbb{Z}\), \(2^4=0\) and therefore 2 is a divisor of
+zero in this ring. Note that a ring may have divisors of zero without
+having nilpotent elements (e.g. \(\mathbb{Z}/6\mathbb{Z}\)).
+
+A subring of a field is an integral domain. Examples: Any subring of
+\(\mathbb{R}\) or \(\mathbb{C}\) is an integral domain. Thus for example
+\(\mathbb{Z}[\sqrt{2}]\) is an integral domain.
+
+\subsubsection{Examples}\label{examples}
+
+Besides the obvious \(\mathbb{Z}\) and \(\mathbb{Z}/p \mathbb{Z}\) being
+integral domains, also \(\mathbb{Z}[x]\) is an integral domain. Since
+this integral domain is not finite, it is also not a field; i.e.~not
+every element has an inverse.
+
+To show that \(\mathbb{Z}[x]\) is an integral domain, we note that the
+sum, difference, and product of two elements \(a, b \in \mathbb{Z}[x]\)
+is also in \(\mathbb{Z}[x]\). To show that the cancellation property
+holds, we define the conjugate of \(a=a_1+a_2x\) as
+\(\bar{a} = a_1-a_2x\) and the function \(n(a) = a \bar{a}\). Note that
+this function takes elements from \(\mathbb{Z}[x]\) and outputs values
+in \(\mathbb{Z}\).
+
+We have \(n(a) = a_1^2 - x^2 a_2^2\) and this is only zero when
+\(a_1=a_2=0\); i.e. \(a=0\) (because x is irrational / imaginary). Next
+note that \(n(ab) = a \bar{a} b\bar{b} = a\bar{a}b\bar{b} = n(a)n(b)\)
+because of the commutative law for multiplication.
+
+Assume that \(ab=0\) and therefore \(n(ab)=0\), from which
+\(n(a)n(b)=0\) follows. We therefore have \(n(a)=0\) or \(n(b)=0\) and
+from this follows that either \(a=0\) or \(b=0\).
+
+Taken from
+\href{www.cut-the-knot.org/arithmetic/int_domain.shtml}{here}.
+
+\subsection{Divisibility of 1 / Unit}\label{divisibility-of-1-unit}
+
+A unit in a commutative ring R is an element that divides 1:
+\(uu^{-1}=1\). If every element in R has a unit and R is commutative,
+then R is a field. However, there are cases where not every element is a
+unit.
+
+\subsubsection{Examples}\label{examples-1}
+
+Taken from
+\href{http://www.cut-the-knot.org/arithmetic/int_domain2.shtml}{here}.
+
+I think this stuff holds only for \(\mathbb{Z}[x]\).
+
+If \(u\) is a unit; i.e. \(uu^{-1}=1\), then \(n(u)=\pm 1\).
+
+If \(n(a)=\pm 1\), then \(a\) is a unity. We have \(n(a)=a\bar{a}=1\)
+and this shows that \(a\) times ``something'' is 1. Furthermore, if
+\(u\) is a unit, then \(u^n, n \in \mathbb{Z}\) is also a unit (We have
+\(n(u^2) = n(uu) = n(u)n(u) = 1 1 = 1\).).
+
+In \(\mathbb{Z}[\sqrt{3}]\), the element \(2+\sqrt{3}\) is a unity. We
+have
+
+\[
+\frac{1}{2+\sqrt{3}} = \frac{2 - \sqrt{3}}{4-3} = 2 - \sqrt{3}
+\]
+
+Furthermore, we have \(n(2+\sqrt{3}) = 4 - 3 = 1\). Finally, by squaring
+\(2 + \sqrt{3}\) we obtain another unity:
+\((2 + \sqrt{3})^2 = 7 + 2\sqrt{3}\).
+
+\subsection{Characteristic of an Integral
+Domain}\label{characteristic-of-an-integral-domain}
+
+The (additive) characteristic of a ring with unity is the least positive
+integer \(n\) such that \(na =0\). If \(n\) does not exist, then the
+ring has characteristic \(0\).
+
+Therefore \(\mathbb{Z}\) has characteristic 0. The ring
+\(\mathbb{Z}/5\mathbb{Z}\) in the previous example has characteristic
+\(5\), as \(1+1+1+1+1=0, 2+2+2+2+2=0, \ldots\).
+
+\subsubsection{Further Results}\label{further-results}
+
+All non-zero elements in an integral domain have the same (additive)
+characteristic: With the characteristic \(n^\star\), we observe that
+\(n^\star a = a +a + \cdots + a = 1a + 1a + \cdots + 1a = (1+1+\cdots+1)a = (n^\star 1)a\).
+Since we are in an integral domain, \((n^\star 1)a=0\) if
+\(n^\star 1=0\) (We consider only nonzero elements, \(a \neq 0\) and in
+an integral domain a product is zero, if one or two factors is zero).
+Therefore \(n^\star a=0\) and \(a\) has characteristic \(n^\star\).
+
+In an integral domain with non-zero characteristic, the characteristic
+is a prime number. If it were a composite number \(mn\), we would have
+\(mn = (m1)(n1) = (mn)1 = 0\) and therefore wither \(m1\) or \(n1\)
+would be zero. But the characteristic is the \textbf{least} number for
+which \(mn1=0\) and this is a contradiction. Therefore, the
+characteristic cannot be composite and must be prime.
+
+In an integral domain with characteristic \(p\),
+\((a+b)^p = a^p + b^p\). In every commutative ring, the binomial formula
+holds, therefore we can expand the expression:
+
+\[
+(a+b)^p = a^p + {p \choose 1} a^{p-1} b + \cdots + {p \choose p-1} a b^{p-1} + b^p
+\]
+
+If \(p\) is prime and \(0 < k < p\), then \({p \choose k}\) is a
+multiple of \(p\) and is therefore zero.
+
+Finally, we have that every finite integral domain is a field. The only
+difference between an integral domain and a field is the invertibility
+of its elements; in a finite integral domain every element is invertible
+so it also a field. The proof is actually quite nice: Asume the integral
+domain has the following elements \(0, 1, a_1, a_2, \ldots,a_n\), that
+iss \(n+2\) elements. Next note that the products
+\(a_i 0, a_i 1, a_i a_1, \ldots, a_i a_n\) are all distinct because if
+\(a_i x = a_i y\), then \(x=y\) would follow by the cancellation
+property. Therefore, we also have \(n+2\) different products. Since we
+have \(n+2\) different domain elements, every domain element is equal to
+one of these products. So, \(a_i x = 1\) for some \(x\), there (every)
+\(a_i\) is invertible. Note that the proof does not depend on which of
+the product actualy equals \(1\); it is enough that the products are
+distinct.

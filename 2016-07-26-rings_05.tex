@@ -1,0 +1,83 @@
+\DiaryEntry{Rings - Integral Domains, 2}{2016-07-26}{Algebra}
+
+The integers are an integral domain, but this definition is not
+sufficient, as there are many integral domains which behave rather
+differently than the integers. In order to define the integers (and only
+the integers), we need to add some more axioms to the integral domain
+definitions.
+
+\subsection{Ordered Integral Domain}\label{ordered-integral-domain}
+
+An ordered integral domain is an integral domain with a relation \(<\)
+having the following properties:
+
+\begin{itemize}
+\item
+  For any \(a, b \in A\), one of the following is true: \(a=b\),
+  \(a<b\), \(a>b\)
+\item
+  If \(a<b\) and \(b<c\), then a\textless{}c\$
+\item
+  If \(a<b\), then \(a+c<b+c\)
+\item
+  If \(a<b\), then \(ac<bc\) if \(0<c\)
+\end{itemize}
+
+The relation allows a definition of positive and negative elements of A.
+Furthermore, the square of every non-zero element is positive: If
+\(0<c\), then \(0c < c^2 \rightarrow 0<c^2\); if \(c<0\), then
+\(0<-c \rightarrow 0(-c) < (-c)^2 = c^2 \rightarrow 0 < c^2\).
+
+The set of all positive elements in \(A\) is denoted as \(A^+\), and an
+integral domain is called an integral system if every non-empty subset
+of \(A^+\) has a least (smallest) element. This is called the
+well-ordering property of \(A^+\).
+
+\(\mathbb{Z}\) is an integral system; e.g.~the least element of all even
+numbers is 2. On the contrary, \(\mathbb{Q}\) is not an integral system;
+e.g.~the subset \(0<x<1\) has no least element (for every fraction
+\(m/n\), there always exists a smaller fraction).
+
+In any integral system there is no element between 0 and 1. Proof by
+contradiction - assume that \(0<x<1\). Then the set
+\(\{x \in A, 0<x<1\}\) is a non-empty positive set so it has a least
+element \(c\) by the well-ordering property. So \(0<c<1\) and if we
+multiply with \(c\), we obtain \(0<c^2<c\). We can now combine the 2
+inequalities and obtain \(0<c^2<c<1\). This does not seem to be possible
+ands we have a contradiction\ldots{}??
+
+In any integral system, all elements are multiplies of 1 and ordered
+exactely as in \(\mathbb{Z}\). Therefore, every integral system is
+isomorphic to \(\mathbb{Z}\). From this we conclude that any two
+integral systems are isomorphic to eah other and therefore
+\(\mathbb{Z}\) is the *only\$ integral system (the others are all
+isomorphisms).
+
+\subsection{Induction}\label{induction}
+
+The proof by induction method is based on a simple fact of the positive
+integers. If \(\mathbb{K}\) is a set of positive integers, and
+
+\begin{itemize}
+\item
+  if \(1 \in \mathbb{K}\), and
+\item
+  for any positive \(k \in \mathbb{K}\), then \(k+1 \in \mathbb{K}\)
+\end{itemize}
+
+If \(\mathbb{K}\) satisfies these conditions, then \(\mathbb{K}\)
+consists of all the positive integers.
+
+Assume we have a statement \(S_n\) about a positive integer \(n\).
+Induction then works by starting with \(S_1\) being true, and deducing
+that \(S_{n+1}\) is true when \(S_n\) is true. If these conditions hold,
+then \(S_n\) is true for every positive integer.
+
+\subsection{Division Algorithm}\label{division-algorithm}
+
+If \(m,n\) are integers and \(n\) is positive, there exist unique
+integers \(p,q\) such that
+
+\[
+m=nq + r , \quad 0 \leq r < n
+\]

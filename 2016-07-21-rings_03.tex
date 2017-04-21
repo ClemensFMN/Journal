@@ -1,0 +1,39 @@
+\DiaryEntry{Quotient Rings}{2016-07-21}{Algebra}
+
+Let A be a ring with an ideal J; then a coset of the ring is deined as
+follows:
+
+\[
+J + a = \{j + a: j \in J \} \forall a \in A
+\]
+
+I.e. it is the set of all sums \(j+a\) as a remains fixed and \(j\)
+ranges over all elements of the ideal. This is very similar to the coset
+definition of groups, therefore most of the results can be reused. The
+family of cosets \(J+a\) as \(a\) ranges over \(A\) is a partition of
+the ring \(A\).
+
+Adding and multiplying cosets works as follows:
+
+\((J + a) + (J + b) = J + (a+b)\)
+
+and
+
+\((J + a) (J + b) = J + (ab)\)
+
+That this works is due to the properties of ideals (in a similar manner
+as in the case of cosets and goups).
+
+If we think of the set of all cosets of \(J\) in \(A\) denoted by
+\(A/J\). If \(a+J, b+J, c+J,\ldots\) are cosets, then
+
+\[
+A/J = \{a+J, b+J, c+J, \ldots \}
+\]
+
+and \(A/J\) with coset addition and multiplication as defined above is a
+ring and \(A/J\) is a homomorphic image of \(A\).
+
+Finally, we also have a fundamental homomorphism theorem for rings: If
+\(f: A \rightarrow B\) is a homomorphism with kernel \(K\), then \(B\)
+is isomorphic with \(A/K\).

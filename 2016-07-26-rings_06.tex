@@ -1,0 +1,127 @@
+\DiaryEntry{Rings - Structure of Ideals}{2016-07-26}{Algebra}
+
+A \emph{principal ideal} \(\langle a \rangle\) of \(\mathbb{Z}\) is
+defined as follows:
+
+\[
+\langle a \rangle = \{ax\}
+\] with \(a\) fixed in \(\mathbb{Z}\) and \(x\) ranging over all
+\(\mathbb{Z}\). For example,
+\(\langle 3 \rangle = \{\ldots, -9, -6, -3, 0, 3, 6, 9, \ldots\}\).
+
+We have the fact that every ideal of \(\mathbb{Z}\) is principal.
+
+\subsection{Divisibility}\label{divisibility}
+
+If \(r, s\) are integers and \(s = rk\) with integer \(k\), then s is a
+multiple of \(r\) or \(r\) is a factor of \(s\), or \(r\) divides \(s\).
+We can further symbolize this as \(r | s\).
+
+The only invertible elements of \(\mathbb{Z}\) are \(1\) and \(-1\);
+i.e.~to have \(rs=1\), \(r=1\) or \(r=-1\) for \(s \in \mathbb{Z}\).
+
+An integer pair \((r,s)\) is called associative, if the integers divide
+each other; i.e. \(r|s\) and \(s|r\). If r and s are associates, then
+\(r = \pm s\).
+
+If an integer \(t\) divides both \(r\) and \(s\); i.e. \(t|r, t|s\),
+then \(t\) is called a common divisor of \(r\) and \(s\). The greatest
+common divisor \(\gcd(r,s)\) divides both \(r\) and \(s\) and every
+other common divisor of \(r\) and \(s\) divides \(t\):
+\(\gcd(r,s) | r, \gcd(r,s) | s\) and for any integer \(u\), if \(u|r\)
+and \(u|s\), then \(u|t\).
+
+The term greatest in the gcd means not necessarily ``greater in
+magnitude'', but merely ``divides any other gcd''.
+
+Any two non-zero integers r and s have a gcd t. This t is equal to a
+linear combination of r and s as
+
+\[
+t = kr + ls
+\]
+
+for some integers k and l.
+
+Proof: Let J be the set of all linear combinations of r and s;
+\(J=\{ur+vs\}\) as u and v range over \(\mathbb{Z}\). J is closed with
+respect to addition, and negatives, and absorbs products
+(\(w(ur+vs) = (wu)r + (wv)s\)). Therefore J is an ideal of
+\(\mathbb{Z}\); but since every ideal is a principal one, we can also
+write \(J=\langle t \rangle\) for some t. Since t is in J, it is also a
+linear combination of r and s: \(t = kr + ls\). r and s are also linear
+combinations of r and s, therefore r and s are also in J. All elements
+of J are multiples of t, so r and s are multiples of t; i.e.
+\(t|r, t|s\). If u is a common divisor of r and s, we have
+\(r=xu, s=yu\) for some integers x and y. Thus
+
+\[
+t = kr + ls = kxu + lyu = u(kx + ly)
+\]
+
+and from this follows that \(u|t\). From this follows that t is the gcd
+of r and s.
+
+\subsection{Primality and Factorization into
+Primes}\label{primality-and-factorization-into-primes}
+
+Two numbers r and s are relatively prime, if their gcd is 1. In other
+words, we have \(kr + ls = 1\) for some integers k and l. This holds
+also in the reverse direction: If \(kr + ls = 1\), then r and s are
+relatively prime.
+
+If an integer m has other factors than the trivial factors \(\pm 1\) and
+\(\pm m\), these are called proper factors of m and m is called
+composite. We have
+
+\[
+m = rs, \quad 1 < r < m, 1 < s < m
+\]
+
+If m and n are integers and p is a prime. If \(p|(mn)\), then either
+\(p|m\) or \(p|n\).
+
+Proof: If \(p|m\) then we are done. If p does not divide m, then we
+proceed as follows: The only divisors of p are \(\pm 1\) and \(\pm p\).
+Since p does not divide m, \(\pm p\) are ruled out as common divisors of
+p and m; their only common divisors are \(\pm 1\).
+
+Therefore \(\gcd(p,m=1\) and we can write \(kp + lm = 1\) (for some
+integers k,l) by the previous theorem. Multiplying with n yields
+\(kpn + lmn = n\). We assumed that \(p|(mn)\), so \(mn = ph\) (for some
+integer h). So we can write \(kpn + lph = n \rightarrow p(kn + lh) = n\)
+and therefore \(p|n\).
+
+This can be extended to products with more than two factors: if
+\(p|(m_1 \ldots m_t)\), then \(p|m_i\) for one of the factors. If the
+factors \(m_1,\ldots,m_t\) are all positive primes, then p must equal
+one of them.
+
+Every integer \textgreater{} 1 can be expressed as product of positive
+primes.
+
+Proof: Let the set K represent positive integers \textgreater{} 1 which
+cannot be written as product of one or more primes. By well-ordering, K
+contains a least integer m which is not be prime (if it were, it would
+not be in K). So m is composite, and we have \(m = rs\) for
+\(1 < r,s < m\). The r and s are not in K because m is the least integer
+in K. This means that r and s can be expressed as product of primes and
+therefore also \(m=rs\). This is a contradicton (we assumed that m is
+the smallest integer which cannot be expressed as product of one or more
+primes) and therefore every \(n>1\) can be expressed as product of one
+or more primes.
+
+The prime factorization is unique.
+
+Proof: Assume that \(m = p_1 \cdots p_r = q_1 \cdots q_t\) and cancel
+common factors from each side until no more cancelling is possible. If
+all factors cancel, we are done and factorization is unique. Otherwise,
+we are left with an expression of the form
+
+\[
+p_i \cdots p_k = q_j \cdots q_m
+\]
+
+from which we deduce that \(p_i | q_j \cdots q_m\). The q's are all
+prime, therefore \(p_i\) must be equal to one of them (see above). But
+this is impossible since we assumed that no more cancelling is possible.
