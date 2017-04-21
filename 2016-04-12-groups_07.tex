@@ -1,0 +1,55 @@
+\DiaryEntry{Groups - Cyclic Subgroups of the Symmetric Group}{2016-04-12}{Algebra}
+
+
+Consider two group elements \((), a = (1,2,3)\): 1 moves to 2, 2 to 3,
+and 3 to 1. Repeating this operation, we arrive at \(a^2 = (1,3,2)\) and
+finally \(a^3 = (1,2,3)\). That is, we have a cyclic group with elements
+\(1, a, a^2\); i.e. \(a\) is the generator for this cyclic subgroup.
+
+This is nice and can be extended; i.e.~a cycle \(a\) consisting of \(n\)
+elements gives rise to a cyclic group of order \(n\) (with \(a\) being
+the generator).
+
+We can also consider permutations with 2 disjoint cycles; e.g.
+\(a = (1,2,3),(4,5)\). The first cycle alone would create a subgroup of
+order three (see above), the second cycle would create a subgroup of
+order two (\((), (4,5)\) as \((4,5)^2 = ()\)). An element with these two
+cycles is also a generator of a subgroup, however this subgroup has
+order 6: \(a^2\) makes the second cycle become \(()\) as
+\((4,5)^2 = ()\), however the first cycle would not become unity
+(\((1,2,3)^2 \neq ()\)). On the other hand, \(a^3\) makes the first
+cycle become unity (\((1,2,3)^3 = ()\)), but not the second one
+(\((4,5)^3 \neq ()\)). Only \(a^6\) makes both cycles equal to unity,
+therefore the resulting cyclic subgroup has order 6.
+
+This can be generalized in that a permutation consisting of n disjoint
+cycles \(a_1, \ldots a_n\) each with length \(l_1, \ldots, l_n\) is the
+generator for a cyclic subgroup of order \(lcm(l_1, \ldots, l_n)\) where
+lcm denotes the least common multiplier.
+
+\subsection{Subbgroups of $S_3$}
+
+This group has 6 elements. By the Laplace theorem, the (non-trivial)
+subgroups must have 2 or 3 elements.
+
+The 2-element subgroups are of the form \(()\) (the identity element)
+and \((1,2)\). We have \((1,2) \star (1,2) = ()\); i.e. \((1,2)\) is its
+own inverse. This is naturally the case as in a group with 2 elements (1
+and a), we need to have \(a=a^{-1}\). The other 2-element subgroups are
+\((), (1,3)\) and \((), (2,3)\).
+
+A 3-element subgroup is \((), (1,2,3), (1,3,2)\). We have
+\((1,2,3) \star (1,3,2) = ()\) and \((1,3,2) \star (1,2,3) = ()\) so we
+have a subgroup.
+
+The other 3-element subgroups are \((1,2,3)\) and \((2,1,3)\). These are
+also cyclic subgroups; i.e.~the first group is
+\((), (1,2,3), (1,2,3)^2, (1,2,3)^3 = ()\).
+
+\subsection{\texorpdfstring{Subbgroups of
+\(S_4\)}{Subbgroups of S\_4}}\label{subbgroups-of-s_4}
+
+This group has 24 elements, therefore it must have subgroups of order
+\(2,3,4,6,8,12\). It seems non-trivial to generate all these subgroups;
+for an answer see
+\href{https://math.stackexchange.com/questions/379841/how-to-enumerate-subgroups-of-each-order-of-s-4-by-hand?lq=1}{here}

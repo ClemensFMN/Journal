@@ -1,0 +1,74 @@
+\DiaryEntry{Groups - External Direct Product}{2016-04-29}{Algebra}
+
+
+If we have two groups \((G, \star)\) and \((H, \circ)\) then we can make
+the Cartesian product of G and H into a new group. The new group is just
+the ordered pairs \((g, h) \in G \times H\) and we define a binary
+operation on \(G \times H\) by
+\((g_1, h_1)(g_2, h_2) = (g_1 \star g_2, h_1 \circ h_2)\) - i.e.~we
+multiply elements in the first coordinate as we do in G and and elements
+in the second coordinate as we do in H.
+
+The result of this is a group, as
+
+\begin{itemize}
+\item
+  the binary operation is closed.
+\item
+  If \(e_G\) and \(e_H\) are the identities of the groups G and H
+  respectively, then \((e_G, e_H)\) is the identity of \(G \times H\).
+\item
+  The inverse of \((g, h) \in G\times H\) is \((g^{-1}, h^{-1})\).
+\end{itemize}
+
+\subsubsection{Example}\label{example}
+
+Let \(\mathbb{R}\) be the group of real numbers under addition. The
+Cartesian product of \(\mathbb{R} \times \mathbb{R}\) is also a group,
+in which the group operation is just addition in each coordinate; that
+is, \((a, b) + (c, d) = (a + c, b + d)\). The identity is (0,0) and the
+inverse of \((a, b)\) is \((-a, -b)\).
+
+The external product can be extended to the Cartesian product of \(M\)
+groups; for example \(\mathbb{Z}_2^M\) is a group of all binary
+M-tuples. The group operation is the \emph{exclusive or} of two binary
+M-tuples.
+
+\subsection{Internal Direct Product}\label{internal-direct-product}
+
+The external product makes a larger group out of two (or more) smaller
+groups. The internal direct product allows to express a large group as
+isomorphic to the direct product of two of its subgroups.
+
+Let G be a group with subgroups H and K satisfying the following
+conditions:
+
+\begin{itemize}
+\item
+  G can be expressed by combining elements of the two subgroups by the
+  group operation; i.e. \(G = HK = \{ h \star k : h \in H, k \in K \}\).
+\item
+  \(H \cap K = \{ e \}\)
+\item
+  \(hk = kh\) for all \(k \in K\) and \(h \in H\)
+\end{itemize}
+
+Then G is the \emph{internal direct product} H and K. The above three
+conditions are pretty strong in the sense that it is rather easy to find
+subgroups of a given group; however finding two subgroups from which the
+original group can be constructed is much harder. I would assume that
+only few groups can be expressed as internal direct prduct.
+
+As an example consider the group of unity \(U(8) = \{1,3,5,7\}\). If we
+define two subgroups \(H = \{1,3\}\) and \(K = \{1,5\}\), we can express
+G as product of the elemts of the subgroups (the only non-obvious case
+is \(3 \star 5 = 3 \times 5 \mod 8 = 7\)). The subgroups H and K do not
+share any element apart the unit element and finally \(U(8)\) is an
+Abelian group. Therefore \(U(8)\) is the internal direct product of H
+and K.
+
+Another example is \(G = \mathbb{Z}_4\) with modulo-4 addition. If we
+define \(H=\{0,2\}\) and \(K=\{0,1\}\), then we express every element of
+\(G\) by combining elements from H and K, and H and K do not share any
+element apart from the identity element. Since G is abelian, the last
+condition is fulfilled as well.

@@ -1,0 +1,95 @@
+\DiaryEntry{Groups - Homomorphisms}{2016-06-13}{Algebra}
+
+A homomorphism is defined as a mapping \(\phi\) from a group G to a
+group H with the condition that
+
+\[
+\phi(a \star b) = \phi(a) \star \phi(b), \quad a,b \in G
+\]
+
+H is called the homomorphic image of G under \(\phi\).
+
+The mapping need not (and typically will not) be one-to-one; in the
+one-to-one case we would have an isomorphism.
+
+The homomorphism has two properties:
+
+\begin{itemize}
+\item
+  \(\phi(e) = e\). The homomorphic image of G's identity element is H's
+  identity element. We can prove this by noting the general property
+  that if \(y = e\), we have \(yy = ye = y\). Using this on
+  \(\phi(e)\phi(e) = \phi(ee) = \phi(e) = e\) we deduce \(\phi(e) = e\).
+\item
+  \(\phi(a^{-1}) = [\phi(e)]^{-1}\). We can prove this by noting that
+  \(\phi(e) \phi(e^{-1}) = \phi(e e^{-1}) = \phi(e) = e\). This means
+  that \(\phi(e) \times A = e\) from which we deduce that A equals the
+  inverse of \(\phi(e)\), namely \([phi(e)]^{-1}\).
+\end{itemize}
+
+\subsection{Normal Subgroups}\label{normal-subgroups}
+
+There are two equivalent definitions for normal subgroups H of a group
+G: (i) Left- and right cosets are equal; i.e. \(Ha = aH, a \in G\) and
+(ii) \(xax^{-1} \in H, a \in H, x \in G\).
+
+That these two definitions are equivalent can be seen as follows: If
+\(y \in xH\) (\(x \in G\)), we can write \(y = xh\) for some
+\(h \in H\). We can rewrite this as \(y = xhx^{-1}x\) where we have
+``reingeschummelt'' an \(x\). Making things more explicit, we can write
+\(y = (xhx^{-1})x\) and we know that $xhx^{-1} \in H$, so \(y = h'x\)
+(with \(h' \in H\). But from cosets, we know that when two cosets share
+the same element, they are actually equal and therefore, we have
+\(Ha = Ha\).
+
+Define the kernel of a homomorphism as all elements which get mapped to
+the identity element by the homomorphism: $k(\phi) = \{x, \phi(x) = e\}$.
+
+An important result is that the kernel of a homomorphism is a normal
+subgroup. To prove this statement, we need to show that
+
+\begin{itemize}
+\item
+  if \(a, b \in k(phi)\), we have \(a \star b \in k(phi)\). We note that
+  \(\phi(a) = \phi(b) = e\) and
+  \(\phi(ab) = \phi(a) \phi(b) = e e = e\). So \(\phi(ab)\) is also in
+  the kernel.
+\item
+  If \(a \in k(\phi)\), we have \(\phi(a) = e\). Therefore,
+  \(\phi(a^{-1}) = [\phi(a)]^{-1}\) (where we have used the homomorphism
+  proprety) and \([\phi(a)]^{-1} = e^{-1} = e\). So for any value a in
+  the kernel, its inverse is also in the kernel.
+\end{itemize}
+
+Above two proofs have shown that the kernel is a subgroup of G. Proving
+that the kernel is also a normal subgroup, we need to show that for
+\(a \in k(\phi), x \in G\), we have
+
+\begin{itemize}
+
+\item
+  \(\phi(xax^{-1}) = \phi(x) \phi(a) \phi(x^{-1}) = \phi(x) \phi(a) [\phi(x)]^{-1} = e\)
+  (because \(\phi(a) = e\) as \(a \in k(\phi)\)) and therefore
+  \(xax^{-1} \in k(\phi)\).
+\end{itemize}
+
+\subsection{Fundamental Homomorphism
+Theorem}\label{fundamental-homomorphism-theorem}
+
+Let \(\phi\) be a homomorphism from G to H with kernel K. Then
+\(\phi(a) = \phi(b)\) if and only if \(Ka = Kb\): \(\phi(a) = \phi(b)\)
+iff \(f(a) [f(b)]^{-1} = e\) which can be simplified to
+\(f(a b^{-1}) = e\) which implies that \(ab^{-1} \in K\) and therefore
+\(Ka = Kb\) (If \(Ha = Hb\), then \(a = hb\) and we have \(ab^{-1}=h\)
+from which follows that \(ab^{-1} \in H\)).
+
+If \(\phi\) is a homomorphism, then all elements in a fixed coset of K
+have the same image and vice versa: elements which have the same image
+are in the same coset of K.
+
+Actually, homomorphisms are equivalent to factor or quotient groups;
+i.e.~to construct \textbf{all} homomorphic images one can consider all
+factor or quotient groups instead and vice versa.
+
+Fundamental Homomorphism Theorem: Every homomorphic image of G is
+isomorphic to a quotient group of G.

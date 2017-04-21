@@ -1,0 +1,54 @@
+\DiaryEntry{Groups - Matrices}{2016-06-21}{Algebra}
+
+We consider \(n \times n\) matrices with real coefficients.
+
+\subsection{Determinants}\label{determinants}
+
+The determinant of a matrix has several properties:
+
+\begin{itemize}
+\item
+  For two matrices \(A, B\) we have $\det AB = A \det B$; i.e.~the
+  determinant is a homomorphism into the mutliplicative group of real
+  numbers.
+\item
+  If \(A\) is invertible, we have \(\det A^{-1} = 1/ \det A\).
+\item
+  Transposition does not change the determinant.
+\item
+  If the matrix \(A\) is interpretaed as linear transformation (of a
+  vector \(a\)), then the determinant \(\det A\) is the change in volume
+  induced by the transformation. In case of \(2 \times 2\) matrices,
+  \(A\) multiplies areas by a factor of \(\det A\).
+\end{itemize}
+
+\subsection{Group Structure}\label{group-structure}
+
+The set of all invertible \(n \times n\) matrices forms the
+\textbf{general linear group} denoted \(GL_n(\mathbb{R})\). The group
+operation is matrix multiplication. The group conditions are fulfilled
+as the product of two invertible matrices is invertible again and there
+exists an inverse element.
+
+The \textbf{special linear group} \(SL_n(\mathbb{R})\) s a subgroup of
+the general linear group and contains all matrices with determinant one.
+Multiplying two matrices from this group yields a matrix whose
+determinant is again one (see first determinant property above). As
+geometric interpretation, this group contains all transformation which
+leave the area constant.
+
+The \textbf{orthogonal group} \(O(n)\) is the group of matrices where
+\(A^{-1} = A^T\). This is a subgroup, because
+\((AB)^{-1} = A^{-1} B^{-1} = A^T B^T = (AB)^T\). Orthogonal matrices
+preserve inner products; i.e.
+\((Ax)^T (Ay) = x^T A^T A y = x^T A^{-1} A y = x^T y\) and have a
+determinant of \(\pm 1\): \(\det A A^T = det I = 1\) and
+\(det A^T = det A\). Orthogonal matrices contain rotations (these
+matrices have determinant one) and reflections (these matrices have
+determinant -1). In other words, we have that \(A^{-1}A = A^T A = I\);
+i.e.~the column vecotrs of an orthogonal matrix all have length one and
+are orthogonal to each other; they form an orthonormal set.
+
+The \textbf{special orthogonal group} \(SO(n)\) is the intersection of
+\(O(N)\) and \(SL_n(\mathbb{R})\) which are all orthogonal matrices with
+determinant one; i.e.~reflections.

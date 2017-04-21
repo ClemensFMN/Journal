@@ -1,0 +1,114 @@
+\DiaryEntry{Groups of Order 4}{2016-10-25}{Algebra}
+
+Let us find all groups with order 4. These groups must be abelian (see
+\href{\%7Bfilename\%7D2016-10-19_non_abelian_group_order.markdown}{this
+post} and
+\href{http://math.stackexchange.com/questions/300393/group-tables-for-a-group-of-four-elements}{here}).
+
+The first group is \(\mathbb{Z}_4\) with modulo-4 addition. Using
+\(0 \rightarrow e,1 \rightarrow a,2 \rightarrow b,3 \rightarrow c\) as
+group elements we have
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & a    & b   & c     \\
+\hline
+e       & e     & a    & b   & c     \\
+a       & a     & b    & c   & e     \\
+b       & b     & c    & e   & a     \\
+c       & c     & e    & a   & b
+\end{array}
+\]
+
+This group is cyclic; the sequence \(e-a-b-c\) is repeated in every row
+(albeit shifted).
+
+Another option is to start like this
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & a    & b   & c     \\
+\hline
+e       & e     & a    & b   & c     \\
+a       & a     & c    & b   & e     \\
+b       & b     & b    & ?   & ?     \\
+c       & c     & e    & ?   & ?
+\end{array}
+\]
+
+but this is not a group (3rd row).
+
+Let's start anew
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & a    & b   & c     \\
+\hline
+e       & e     & a    & b   & c     \\
+a       & a     & e    & c   & b     \\
+b       & b     & c    & ?   & ?     \\
+c       & c     & b    & ?   & ?
+\end{array}
+\]
+
+This should work; Now we have 3 places left to fill: \(bb, bc\), and
+\(cc\). Let's go as below
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & a    & b   & c     \\
+\hline
+e       & e     & a    & b   & c     \\
+a       & a     & e    & c   & b     \\
+b       & b     & c    & e   & a     \\
+c       & c     & b    & a   & e
+\end{array}
+\]
+
+which is the Klein-4 Group. The Klein-4 group is actually defined by
+\(a^2 = b^2 = (ab)^2 = e\). This does not directly define \(ab\);
+however, there are only 2 options: (i) \(ab = c\) or (ii) \(ab = b\). It
+immediately follows that \(ab=c\) which uniquely defines the group.
+
+However, this is not the only option, we can also fill the question
+marks above like this
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & a    & b   & c     \\
+\hline
+e       & e     & a    & b   & c     \\
+a       & a     & e    & c   & b     \\
+b       & b     & c    & a   & e     \\
+c       & c     & b    & e   & a
+\end{array}
+\]
+
+This look different, but is an isomorphism of the \(\mathbb{Z}_4\)
+group: We exchange column 2 and column 3 and row 2 and 3 to obtain
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & b    & a   & c     \\
+\hline
+e       & e     & b    & a   & c     \\
+b       & b     & a    & c   & e     \\
+a       & a     & c    & e   & b     \\
+c       & c     & e    & b   & a
+\end{array}
+\]
+
+We see again the cyclic behaviour of the sequence \(e-b-a-c\); if we
+substitute \(b \rightarrow a, a \rightarrow b\) we obtain the original
+\(\mathbb{Z}_4\) group from above:
+
+\[
+\begin{array}{c|cccc}
+\star   & e     & a    & b   & c     \\
+\hline
+e       & e     & a    & b   & c     \\
+a       & a     & b    & c   & e     \\
+b       & b     & c    & e   & a     \\
+c       & c     & e    & a   & b
+\end{array}
+\]

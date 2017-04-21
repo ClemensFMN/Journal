@@ -1,0 +1,139 @@
+\DiaryEntry{Groups - Isomorphisms}{2016-04-27}{Algebra}
+
+
+Two groups G and H are isomorphic, if there exists a one-to-one and onto
+map $\phi:G \rightarrow H$ such that the group operation is preserved;
+i.e.
+
+\[
+\phi(a \star b) = \phi(a) \star \phi(b)
+\]
+
+for all \(a,b \in G\). If G is isomorphic to H, we write \(G \cong H\).
+The map $\phi$ is called an isomorphism.
+
+A necessary, but not sufficient condition for two groups to be
+isomorphoc is that they have the same number of elements. However, this
+is ot sufficient - the group structure and the isomorphism \(\phi\) must
+also match.
+
+As example consider the symmetric group \(S_3\) and \(\mathbb{Z}_6\)
+which have the same number of elements but are not isomorphic because
+\(\mathbb{Z}_6\) is abelian whereas \(S_3\) is not. Assume
+\(\phi: \mathbb{Z}_6 \rightarrow S_3\) is an isomorphism and choose two
+elements \(a,b \in S_3\) for which \(a \star b \neq b \star a\). Since
+\(\phi\) is an isomorphism, there exist \(m,n \in \mathbb{Z}_6\), such
+that \(\phi(m) = a, \phi(n) = b\). However,
+\(ab = \phi(m)\phi(n) = \phi(m+n) = \phi(n+m) = \phi(n) \phi(m) = b a\)
+which contradicts the assumption that \(a,b\) do not commute.
+
+\subsubsection{Example}\label{example}
+
+We want to show that \(\mathbb{Z}_4\) is isomorphic to the cyclic group
+\(\langle j \rangle\) under the map \(\phi(n) = j^n\).
+
+We have \(\phi(0) = 1, \phi(1) = j, \phi(2) = -1, \phi(3) = -i\).
+Therefore, the map is one-to-one and onto and we have
+\(\phi(m+n) = i^{m+n} = \phi(m) \phi(n)\).
+
+\subsection{Properties}\label{properties}
+
+If \(\phi : G \rightarrow H\) is an isomorphism of two groups. Then the
+following statements are true:
+
+\begin{itemize}
+\item
+  \(\phi^{-1} : H \rightarrow G\) is also an isomorphism.
+\item
+  \(|G| = |H|\)
+\item
+  If G is abelian, then H is also abelian.
+\item
+  If G is cyclic, then H is also cyclic.
+\item
+  If G has a subgroup of order n, then H has a subgroup of order n
+\end{itemize}
+
+Furthermore, we can characterize all cyclic groups:
+
+\begin{itemize}
+\item
+  All cyclic groups of infinite order are isomorphic to \(\mathbb{Z}\).
+\item
+  If G is a cyclic group of order n, then G is isomorphic to
+  \(\mathbb{Z}_n\).
+\end{itemize}
+
+\subsection{Cayley's Theorem}\label{cayleys-theorem}
+
+Cayley's Theorem states that every group is isomorphic to a group of
+permutations (i.e.~a subgroup of the symmetric group).
+
+\subsubsection{Example}\label{example-1}
+
+Consider the group \(\mathbb{Z}_3\) with table
+
+\[
+\begin{array}{c|ccc}
+\star & 0 & 1 & 2 \\ \hline
+0       & 0 & 1 & 2 \\
+1       & 1 & 2 & 0 \\
+2       & 2 & 0 & 1
+\end{array}
+\]
+
+and a permutation group \(G = \{(), (0,1,2), (0,2,1)\}\). If we perform
+the following mapping
+
+\[
+\begin{array}{cc}
+0 \leftrightarrow & ()  \\
+1 \leftrightarrow & (0,1,2)  \\
+2 \leftrightarrow & (0,2,1)  \\
+\end{array}
+\]
+
+then we have an isomorphism between \(\mathbb{Z}_3\) and G. E.g.
+\((0,1,2) \star (0,2,1) = ()\) which corresponds to \(1 \star 2 = 0\).
+
+\subsubsection{Also interesting}\label{also-interesting}
+
+The symmetric group \(S_n\) has \(n!\) members. By the Lagrange theorem,
+it has subgroups which order divides \(n!\) and this is \textbf{every
+integer} from 1 to n (\(n! = 2 \times 3 \times \cdots n\)). This is a
+strong indication that \(S_n\) has subgroups of order \(1,2,\ldots,n\).
+
+\subsubsection{Proof}\label{proof}
+
+Given a group \(G\), we need to find a group of permutations \(\bar{G}\)
+that is isomorphic to \(G\).
+
+\paragraph{Horribly complicated - I don't get it
+:-(}\label{horribly-complicated---i-dont-get-it--}
+
+For any \(g \in G\), define a function \(\lambda_g : G \rightarrow G\)
+by \(\lambda_g(a) = ga\).
+
+We claim that \(\lambda_g\) is a permutation of \(G\). To show that
+\(\lambda_g\) is one-to-one, suppose that
+\(\lambda_g(a) = \lambda_g(b)\). Then
+\(ga =\lambda_g(a) = \lambda_g(b) = gb\). Hence, \(a = b\). To show that
+\(\lambda_g\) is onto, we must prove that for each \(a \in G\), there is
+a \(b\) such that \(\lambda_g (b) = a\). Let \(b = g^{-1} a\).
+
+Now we are ready to define our group \(\overline{G}\). Let
+\(\overline{G} = \{ \lambda_g : g \in G \}\). We must show that
+\(\overline{G}\) is a group under composition of functions and find an
+isomorphism between \(G\) and \(\overline{G}\). We have closure under
+composition of functions since
+\((\lambda_g \circ \lambda_h)(a) = \lambda_g(ha) = gha = \lambda_{gh}(a)\).
+Also, \(\lambda_e (a) = ea = a\) and
+\((\lambda_{g^{-1}} \circ \lambda_g) (a) = \lambda_{g^{-1}} (ga) = g^{-1} g a = a = \lambda_e(a)\).
+
+We can define an isomorphism from \(G\) to \(\overline{G}\) by
+\(\phi : g \mapsto \lambda_g\). The group operation is preserved since
+\(\phi(gh) = \lambda_{gh} = \lambda_g \lambda_h = \phi(g) \phi(h)\). It
+is also one-to-one, because if \(\phi(g)(a) = \phi(h)(a)\), then
+\(ga = \lambda_g a = \lambda_h a= ha\). Hence, \(g = h\). That \(\phi\)
+is onto follows from the fact that \(\phi( g ) = \lambda_g\) for any
+\(\lambda_g \in \overline{G}\)

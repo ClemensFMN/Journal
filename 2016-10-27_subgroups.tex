@@ -1,0 +1,53 @@
+\DiaryEntry{Groups - Subgroups}{2016-10-27}{Algebra}
+
+For the definition of a subgroup, see
+\href{\%7Bfilename\%7D2016-03-02_-groups_01.markdown}{this post}.
+
+\subsection{Words}\label{words}
+
+Let X be a subset of a group G. An expression of the form (the product
+being the group operation)
+
+\[
+g = x_1^{m_1} x_2^{m_2} \cdots x_n^{m_n}
+\]
+
+with the \(m_i\) being integers and \(x_iu \in X\) is called a word in
+the elements of X. The collection of all words is a subgroup of G:
+
+\begin{itemize}
+\item
+  the product of two words is again a word in X.
+\item
+  the identity element can be expressed as word with all \(m_i = 0\).
+\end{itemize}
+
+If the collection of all words fills out G, then X is a set of
+generators for G.
+
+\paragraph{Example.}
+
+For the Klein-4 Group, \(X = \{a,b\}\) is a set of generators as all 4
+elements of the Klein-4 Group can be expressed by means of \(a\) and
+\(b\): \(a^2 = e\), \(ab = c\).
+
+\subsection{Subgroup Theorems}\label{subgroup-theorems}
+
+A non-empty subset H of a group G is a subgroup of G if and only if
+\(xy^{-1}\) belongs to H whenever \(x,y \in H\).
+
+Proof: If \(x, y \in H \rightarrow y^{-1} \in H\) and therefore
+\(x y^{-1} \in H\). If H is non-empty, \(x y^{-1} \in H\), and
+\(x,y \in H\), then
+\(e = x x^{-1} \in H \rightarrow x^{-1} = ex^{-1} \in H\). Finally, if
+\(y \in H\), then \(y^{-1} \in H\) and therefore
+\(xy = x (y^{-1})^{-1} \in H\). Therefore, H is a subgroup of G.
+
+The intersection of two subgroups H and K of a group G is again a
+subgroup.
+
+Proof: Assume \(x,y \in H \cap K\). Then \(xy^{-1} \in H \cap K\) and
+with the theorem above, $H \cap K$ is also a subgroup.
+
+Every subgroup of \(\mathbb{Z}\) is cyclic. More generally, every
+subgroup of a cyclic group is also cyclic.
