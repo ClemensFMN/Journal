@@ -50,10 +50,28 @@ In previous posts, we considered finite groups (consisting of the elements $1 \l
 For $n$ being a positive integer, then a group element $x$ ($0 \leq x < n$) has a multiplicative inverse modulo-n, iff $x$ is coprime to $n$.
 \end{theorem}
 
-\paragraph{Proof.} If $x$ and $n$ are not coprime, they have a common factor which we call $p$. In order for $x$ to have a mutliplicative inverse, there must be a $y$ such that
+\paragraph{Proof.} If $x$ and $n$ are not coprime, they have a common factor which we call $p$. We then have $x = ap, y = bp$ and $xy = abp^2$; i.e. $xy$ is a multiple of $p$. In order for $x$ to have a multiplicative inverse, there must be a $y$ such that
 
 \bee
 x y \equiv 1 (\mod n)
 \eee
+%
+This means $xy = 1 + wn$ for some integer $w$. But since $xy$ is already a multiple of $p$ (see above), $xy$ can not also be a multiple of $1 + wn$.
 
-This means $xy = 1 + wn$ for some integer $w$. But since $xy$ is a multiple of $p$, $xy$ can not also be a multiple of $1 + wn$.
+
+\paragraph{Group Definition.} Based on this theorem, we then define the group $\mZ_n^\star$ with group operation multiplication modulo-$n$ and elements $x < n$ being coprime with $n$. The number of group elements of $\mZ_n^\star$ depends on how many nummber are coprime to $n$ and this value is given by the \emph{Euler totient function} of $n$, denoted by $\Phi(n)$.
+
+
+\subsection{Euler Totient Function}
+
+If a prime factorization of $n$ is given by
+
+\bee
+n = p_1^{r_1} p_2^{r_2} \cdots p_k^{r_k}
+\eee
+
+where the $p_i$ are distinct primes and the $r_i$ are positive integers, then
+
+\bee
+\Phi(n) = (p_1 - 1)p_1^{r_1-1} (p_2 - 1)p_2^{r_2-1} \cdots (p_k - 1)p_k^{r_k-1}
+\eee
