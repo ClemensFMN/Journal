@@ -23,7 +23,7 @@ The Greatest Common Divisor Theorem. Given two positive integers $x$ and $y$, th
 \bee
 ux + vy
 \eee
-
+%
 with $u$ and $v$ being integers.
 \end{theorem}
 
@@ -40,7 +40,29 @@ We have $-1 \times 8 + 1 \times 12 = 4$ as in the theorem above; however, we get
 
 We can now insert the expression for $n$ and obtain $k = x + (ux + vy)r = (1+ru)x + (rv)y$ for some numbers $u, v$. This shows that $k \in \Ac$. 
 
-We assumed $n$ to be the smallest number in $\Ac$, $k$ cannot be equivalent $\mod n$ to any number less than $n$, other than $0$. Therefore, $x \equiv 0 \mod n$ and $n$ is a divisor of $x$. Similar reasoning yields that also $n$ is a divisor of $y$. Thus, $n$ is a common divisor of $x,y$ abd since $\gcd(x,y)$ is also a divisor of $n$, $n = \gcd(x,y)$. \qed
+We assumed $n$ to be the smallest number in $\Ac$, $k$ cannot be equivalent $\mod n$ to any number less than $n$, other than $0$. Therefore, $x \equiv 0 \mod n$ and $n$ is a divisor of $x$. Similar reasoning yields that also $n$ is a divisor of $y$. Thus, $n$ is a common divisor of $x,y$ and since $\gcd(x,y)$ is also a divisor of $n$, $n = \gcd(x,y)$. \qed
+
+
+\begin{theorem}[Chinese Remainder Theorem]
+If $u,v \in \mZ^{+}$ are coprime, then given any $x,y \in \mZ$, there is a unique $k \in \mZ$ such that
+
+\bee
+0 \leq k < uv
+\eee
+%
+and
+\bee
+k \equiv x \bmod u \qquad k \equiv y \bmod v
+\eee
+\end{theorem}
+
+\paragraph{Proof.} 
+We show first that there cannot be \emph{more} than one such number $k$: Suppose there are two different, $k$ and $q$, which satisfy above conditions; i.e. $k \equiv x \bmod u$ and $q \equiv x \bmod u$. We can subtract both equations from each other to obtain $k - q \equiv 0 \bmod u$ and in a similar spirit $k - q \equiv 0 \bmod v$. Therefore, $k-q$ must be a multiple of both $u$ and $v$. Since $u$ and $v$ are coprime, the least common multiple must be $uv$ and therefore $k-q$ is a multiple of $uv$. However, both $k$ and $q$ are less than $uv$. The only way this is possible is that $k-q=0$ but this contradicts the assumption that there are different $k$ and $q$. So we have shown that there is a unique value $k$.
+
+The second part of the proof shows that there must \emph{exist} such a $k$: For any number $k$, the expression $k \bmod u$ takes on $u$ different values, from $0$ to $u-1$. Analogously, $k \bmod v$ takes on $v$ different values, from $0$ to $v-1$. For any $k$, there are only $uv$ possible ordered pairs of the form $(k \bmod u, k \bmod v)$.
+
+So, no two values of $k$ between $0$ and $uv-1$ can give the same ordered pair. But there are exactly $uv$ such values of $k$. By the pigeonhole principle, since each of the $uv$ possible values of $k$ produces one of the $uv$ possible ordered pairs, and no two $k$’s can produce the same ordered pair, each ordered pair must be produced by some (unique) value of $k$. \qed
+
 
 \subsection{Connections to Groups}
 
@@ -53,7 +75,7 @@ For $n$ being a positive integer, then a group element $x$ ($0 \leq x < n$) has 
 \paragraph{Proof.} If $x$ and $n$ are not coprime, they have a common factor which we call $p$. We then have $x = ap, y = bp$ and $xy = abp^2$; i.e. $xy$ is a multiple of $p$. In order for $x$ to have a multiplicative inverse, there must be a $y$ such that
 
 \bee
-x y \equiv 1 (\mod n)
+x y \equiv 1 \bmod n
 \eee
 %
 This means $xy = 1 + wn$ for some integer $w$. But since $xy$ is already a multiple of $p$ (see above), $xy$ can not also be a multiple of $1 + wn$.
@@ -66,12 +88,32 @@ This means $xy = 1 + wn$ for some integer $w$. But since $xy$ is already a multi
 
 If a prime factorization of $n$ is given by
 
-\bee
+\be
+\label{gcd_01:pf}
 n = p_1^{r_1} p_2^{r_2} \cdots p_k^{r_k}
-\eee
+\ee
 
 where the $p_i$ are distinct primes and the $r_i$ are positive integers, then
 
 \bee
 \Phi(n) = (p_1 - 1)p_1^{r_1-1} (p_2 - 1)p_2^{r_2-1} \cdots (p_k - 1)p_k^{r_k-1}
 \eee
+
+
+\paragraph{Proof.} To begin, if $p$ is prime, then it has $p-1$ coprime values smaller than $p$: $\Phi(p) = p-1$. If we consider $p^r$ as a next step, then the only numbers not coprime to $p^r$ are multiples of $p: p, 2p, 3p, \ldots p^r$. That's $1/p$ of all numbers; the remaining $(1-1/p)p^r$ will be coprime. This can be rewritten as $(p-1)p^{r-1}$ and we have $\Phi(p^r) = (p-1)p^{r-1}$.
+
+Without proof (for now), we also note that if $m$ and $n$ are coprime, then $\Phi(m,n) = \Phi(m) \Phi(n)$.
+
+Looking at \eqref{gcd_01:pf}, we see that all factors of $n$ are coprime (they are powers of prime numbers). So we have $\Phi(n) = \Phi(p_1^{r_1}) \cdots \Phi(p_k^{r_k}) = (p_1 - 1)p_1^{r_1-1} \cdots (p_k - 1)p_k^{r_k-1}$. \qed
+
+We can write the expression for $\Phi(n)$ a bit different by using the fact from above that $\Phi(p^r) = (1-1/p)p^r$ and therefore
+
+\bee
+\Phi(n) = (1-1/p_1)p_1^{r_1} \cdots (1-1/p_k)p_k^{r_k} = n (1 - 1/p_1) \cdots (1 - 1/p_k) = n \prod_{p | n} \left(1 - \frac{1}{p} \right)
+\eee
+%
+This is (maybe) the more classical representation of the totient function.
+
+\paragraph{Function Plot}
+
+The following Figure shows a plot of $\Phi(n)$. The upper bound of $\Phi(n) = n-1$ for $n$ being prime can be seen.
