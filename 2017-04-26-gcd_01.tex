@@ -78,8 +78,15 @@ For $n$ being a positive integer, then a group element $x$ ($0 \leq x < n$) has 
 x y \equiv 1 \bmod n
 \eee
 %
-This means $xy = 1 + wn$ for some integer $w$. But since $xy$ is already a multiple of $p$ (see above), $xy$ can not also be a multiple of $1 + wn$.
+This means $xy = 1 + wn$ for some integer $w$. Note that $wn$ is also a multiple of $p$. Now we have that $xy$ is a multiple of $p$ (see above), but $xy$ can not also be a multiple of one plus a multiple of $p$ (which is $1 + wn$).
 
+Now suppose that $x$ and $n$ are coprime. By the greatest common divisor theorem above, there are $u,v \in \mZ$ such that $ux + vn = \gcd(x,y) = 1$. We can rearrange that to
+
+\bee
+ux = 1 + (-v)n \equiv \bmod n
+\eee
+%
+Therefore, $u$ is the inverse element of $x$ (under modulo-$n$ multiplication).
 
 \paragraph{Group Definition.} Based on this theorem, we then define the group $\mZ_n^\star$ with group operation multiplication modulo-$n$ and elements $x < n$ being coprime with $n$. The number of group elements of $\mZ_n^\star$ depends on how many nummber are coprime to $n$ and this value is given by the \emph{Euler totient function} of $n$, denoted by $\Phi(n)$.
 
@@ -118,7 +125,7 @@ This is (maybe) the more classical representation of the totient function.
 
 The following Figure shows a plot of $\Phi(n)$. The upper bound of $\Phi(n) = n-1$ for $n$ being prime can be seen.
 
-\begin{figure}[H]
-\includegraphics[scale=0.5]{images/euler_phi.png}
-\end{figure}
+%\begin{figure}[H]
+%\includegraphics[scale=0.5]{images/euler_phi.png}
+%\end{figure}
 
