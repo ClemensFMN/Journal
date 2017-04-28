@@ -82,9 +82,9 @@ This means $xy = 1 + wn$ for some integer $w$. Note that $wn$ is also a multiple
 
 Now suppose that $x$ and $n$ are coprime. By the greatest common divisor theorem above, there are $u,v \in \mZ$ such that $ux + vn = \gcd(x,y) = 1$. We can rearrange that to
 
-\bee
+\be\label{gcd_01:inv}
 ux = 1 + (-v)n \equiv \bmod n
-\eee
+\ee
 %
 Therefore, $u$ is the inverse element of $x$ (under modulo-$n$ multiplication).
 
@@ -123,9 +123,46 @@ This is (maybe) the more classical representation of the totient function.
 
 \paragraph{Function Plot}
 
-The following Figure shows a plot of $\Phi(n)$. The upper bound of $\Phi(n) = n-1$ for $n$ being prime can be seen.
+The following Figure shows a plot of $\Phi(n)$ as red dots together with the upper bound $n-1$ (which is tight in case of $n$ being prime) as blue line.
 
-%\begin{figure}[H]
-%\includegraphics[scale=0.5]{images/euler_phi.png}
-%\end{figure}
 
+\begin{figure}[H]
+\includegraphics[scale=0.5]{images/euler_phi.png}
+\end{figure}
+
+
+\subsection{Example}
+
+Consider the group $\mZ^\star_{14}$. We have
+
+\begin{verbatim}
+Phi(14);
+6
+\end{verbatim}
+%
+Therefore the group has $6$ elements (being coprime to 14): $\mZ^\star_{14} = \{1, 3, 5, 9, 11, 13\}$. We can calculate the inverse of a group element using the greatest common divisor as follows
+
+\begin{verbatim}
+Gcdex(3,14);
+rec( coeff1 := 5, coeff2 := -1, coeff3 := -14, coeff4 := 3, gcd := 1 )
+\end{verbatim}
+%
+So we have $ux + vy = 5 \times 3 + (-1) \times 14 = \gcd(3,14) = 1$. Looking at \eqref{gcd_01:inv}, we see that $u$ is the desired inverse which in this case is $u=5$; i.e. we have $3 \times 5 \equiv 1 \bmod 14$. For the other group elements we obtain
+
+\begin{verbatim}
+gap> Gcdex(5,14);
+rec( coeff1 := 3, coeff2 := -1, coeff3 := -14, coeff4 := 5, gcd := 1 )
+\end{verbatim}
+%
+so we get $5^{-1} = 3$. The others are a bit more tricky, we have
+
+\begin{verbatim}
+gap> Gcdex(9,14);
+rec( coeff1 := -3, coeff2 := 2, coeff3 := 14, coeff4 := -9, gcd := 1 )
+gap> Gcdex(11,14);
+rec( coeff1 := -5, coeff2 := 4, coeff3 := 14, coeff4 := -11, gcd := 1 )
+gap> Gcdex(13,14);
+rec( coeff1 := -1, coeff2 := 1, coeff3 := 14, coeff4 := -13, gcd := 1 )
+\end{verbatim}
+%
+where we can make $u$ positive by adding $14$ to it: $9^{-1} = -3 + 14 = 11$, $11^{-1} = -5 + 14 = 9$, $13^{-1} = -1 + 14 = 13$ and - of course - $1^{-1} = 1$.
