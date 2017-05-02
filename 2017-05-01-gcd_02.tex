@@ -3,4 +3,24 @@
 
 \Subsection{Euclidean Algorithm}
 
-Start with tow numbers, $a$ and $b$ and find the greatest common divisor.
+Start with two numbers, $a$ and $b$ and find the greatest common divisor. The algorithm proceeds in a series of steps and the integer $k$ counts the steps of the algorithm. The algorithms starts with $k=0$.
+
+Each step takes two integers $r_{k-1}, r_{k-2}$ and calculates $q_k, r_k$ as follows
+
+\bee
+r_{k-2} = q_k r_{k-1} + r_k, \qquad r_k < r_{k-1}
+\eee
+%
+In other words, multiples of the smaller number $r_{k−1}$ are subtracted from the larger number $r_{k−2}$ until the remainder $r_k$ is smaller than $r_{k−1}$.
+%
+Initially ($k=0$), $r_{-2} = a, r_{-1} = b$. For subsequent steps, we have
+
+\begin{align*}
+  a &= q_0 b + r_0 \\
+  b &= q_1 r_0 + r_1 \\
+  r_0 &= q_2 r_1 + r_2 \\
+  r_1 &= q_3 r_2 + r_3
+  &\cdots  
+\end{align*}
+
+The algorithm ends, when a remainder $r_N$ becomes zero. Then $\gcd(a,b) = r_{N-1}$.
