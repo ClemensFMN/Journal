@@ -3,7 +3,25 @@
 
 \subsection{Euclidean Algorithm}
 
-Start with two numbers, $a$ and $b$ and find the greatest common divisor. The algorithm proceeds in a series of steps and the integer $k$ counts the steps of the algorithm. The algorithms starts with $k=0$.
+\subsubsection{Basics}
+
+\begin{theorem}
+Assume that $a \geq b$, then we have the fact that $\gcd(a,b) = \gcd(a - b,b)$.
+\end{theorem}
+
+\paragraph{Proof.} Let $g = \gcd(a,b)$, then $a = a' g$ and $b = b' g$, with $a', b'$ being relatively prime (i.e. their gcd is $1$). Now, $a - b = g(a' - b')$ and therefore shares $g$ as common factor with $a = a'g$. In other words, $a' - b'$ and $a'$ are relatively prime. If this were not the case, we could write $a - b = g \tilde{g}(a'' - b'')$ and $a = a'' \tilde{g}g$ but this contradicts the fact that $g = \gcd(a,b)$. \qed
+
+By repeatedly subtracting $b$ from $a$ (until a value smaller than $b$ is left), we arrive at the following identity
+
+\be\label{gcd_02_1}
+\gcd(a,b) = \gcd(a \bmod b, b)
+\ee
+
+\subsubsection{Algorithm.}
+
+The principle behind the algorithm is to use \eqref{gcd_02_1} to subsequently reduce the values of $a$ and $b$, until one of them becomes zero. That's the end of the algorithm (we have $\gcd(x,0) = x$).
+
+The algorithm starts with $a$ and $b$ and finds the greatest common divisor $\gcd(a,b)$. The algorithm proceeds in a series of steps and the integer $k$ counts the steps of the algorithm. The algorithms starts with $k=0$.
 
 Each step takes two integers $r_{k-1}, r_{k-2}$ and calculates $q_k, r_k$ as follows
 
@@ -27,5 +45,26 @@ The algorithm ends, when a remainder $r_N$ becomes zero. Then $\gcd(a,b) = r_{N-
 
 \subsubsection{Example}
 
+As a first example, let us calculate $\gcd(1071, 462)$:
 
+\begin{align*}
+  1071 &= 2 \times 462 + 147 \\
+  462 &= 3 \times 147 + 21 \\
+  147 &= 7 \times 21 + 0
+\end{align*}
 
+With this the algorithm stops (the remainder is $0$) and the gcd becomes the previous remainder; i.e. $\gcd(1071, 462) = 21$.
+
+As second example, consider $\gcd(1071, 463)$:
+
+\begin{align*}
+  1071 &= 2 \times 463 + 145 \\
+  463 &= 3 \times 145 + 28 \\
+  145 &= 5 \times 28 + 5 \\
+  28 &= 5 \times 5 + 3 \\
+  5 &= 1 \times 3 + 2 \\
+  3 &= 1 \times 2 + 1 \\
+  2 &= 1 \times 1 + 0
+\end{align*}
+
+Therefore, we have $\gcd(1071, 463) = 1$.
