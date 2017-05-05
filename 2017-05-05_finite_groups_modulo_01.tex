@@ -1,0 +1,145 @@
+\DiaryEntry{The Groups $\mZ_n$ vs $\mZ_n^\star$}{2017-05-05}{Algebra}
+
+\subsection{The Group $\mZ_n$}
+
+This group contains the integers $0 \ldots n-1$ and has group operation addition modulo-$n$. A simple example is $\mZ_5$ with ``multiplication'' (group operation table is probably better) table as follows
+
+\bee
+\begin{array}{c|ccccc}
+\star & 0 & 1 & 2 & 3 & 4 \\ \hline
+0     & 0 & 1 & 2 & 3 & 4 \\
+1     & 1 & 2 & 3 & 4 & 0 \\
+2     & 2 & 3 & 4 & 0 & 1 \\
+3     & 3 & 4 & 0 & 1 & 2 \\
+4     & 4 & 0 & 1 & 2 & 3
+\end{array}
+\eee
+
+\paragraph{Generators.} An element $x$ of a group $G$ is called \emph{generator}, if every element of $G$ can be expressed as power of $x$.
+
+Next question is which elements of the group are generators. We have the following theorem:
+
+\begin{theorem}
+The generators of $\mZ_n$ are those integers between $0$ and $n-1$ which are coprime to $n$. There are $\Phi(n)$ such numbers; therefore, $\mZ_n$ has $\Phi(n)$ generators.
+\end{theorem}
+
+\paragraph{Proof.} Suppose $g$ is a generator of $\mZ_n$. Then $1$ can be expressed as power of $g$; i.e.
+
+\bee
+g^v \equiv 1 \bmod n
+\eee
+
+for some integer $v$. In case of $\mZ_n$, the group operation is not multiplication but addition (modulo-$n$), so we should write
+
+\bee
+v g \equiv 1 \bmod n
+\eee
+
+instead. This says, that $v$ is the inverse of $g$ and from the post in Section \ref{2017-04-26:entry}, we know that this inverse $v$ exists only if $g, n$ are coprime. So in the following, assume that $g,n$ are coprime; i.e. there is a $v$ fulfilling above condition and $1$ can be expressed as ``power'' of $g$. 
+
+But $1$ is a generator of $\mZ_n$; in other words, every element of $\mZ_n$ can be expressed as $w 1$ (with some integer $w$). Inserting the expression for $1$ from above, we have that every element can be expressed as $w 1 = w (v g) = (wv)g$; i.e. every element can be expressed as ``power'' of $g$. \qed
+
+In the example of $\mZ_5$, things are simple as every element is coprime to $5$ ($5$ is a prime). Indeed, we have
+
+\bee
+1 \cdot 1 \equiv 1 \bmod 5, 2 \cdot 1 \equiv 2 \bmod 5, 3 \cdot 1 \equiv 3 \bmod 5 , 4 \cdot 1 \equiv 4 \bmod 5, 5 \cdot 1 \equiv 0 \bmod 5
+\eee
+
+and
+
+\bee
+1 \cdot 2 \equiv 2 \bmod 5, 2 \cdot 2 \equiv 4 \bmod 5 , 3 \cdot 2 \equiv 1 \bmod n, 4 \cdot 2 \equiv 3 \bmod 5, 5 \cdot 2 \equiv 0 \bmod 5
+\eee
+
+and
+
+\bee
+1 \cdot3 \equiv 3 \bmod 5, 2 \cdot 3 \equiv 1 \bmod 5, 3 \cdot 3 \equiv 4 \bmod 5, 4 \cdot 3 \equiv 2 \bmod 5, 5 \cdot 3 \equiv 0 \bmod 5
+\eee
+
+and finally
+
+\bee
+1 \cdot 4 \equiv 4 \bmod 5, 2 \cdot 4 \equiv 3 \bmod 5, 3 \cdot 4 \equiv 2 \bmod 5, 4 \cdot 4 \equiv 1 \bmod 5, 5 \cdot 4 \equiv 0 \bmod 5
+\eee
+
+so all elements of $\mZ_5$ are also generators.
+
+As counterexample, consider $\mZ_4$ with the following group operation table
+
+\bee
+\begin{array}{c|ccccc}
+\star & 0 & 1 & 2 & 3  \\ \hline
+0     & 0 & 1 & 2 & 3  \\
+1     & 1 & 2 & 3 & 0  \\
+2     & 2 & 3 & 0 & 1  \\
+3     & 3 & 0 & 1 & 2
+\end{array}
+\eee
+
+Checking all elements for generators, we obtain the following result
+
+\bee
+1 \cdot 1 \equiv 1 \bmod 4, 2 \cdot 1 \equiv 2 \bmod 4, 3 \cdot 1 \equiv 3 \bmod 4, 4 \cdot 1 \equiv 0 \bmod 4
+\eee
+
+so $1$ is a generator. For $2$, we have 
+
+\bee
+1 \cdot 2 \equiv 2 \bmod 4, 2 \cdot 2 \equiv 0 \bmod 4, 3 \cdot 2 \equiv 2 \bmod 4, 4 \cdot 2 \equiv 0 \bmod 4
+\eee
+
+which does not produce all elements; so no generator. With $2$ not being coprime with $4$, everything is accordance with the above theorem. For $3$, we have
+
+\bee
+1 \cdot 3 \equiv 3 \bmod 4, 2 \cdot 3 \equiv 2 \bmod 4, 3 \cdot 3 \equiv 1 \bmod 4, 4 \cdot 3 \equiv 0 \bmod 4
+\eee
+
+so $3$ is a generator (it is coprime with $4$).
+
+
+\subsection{The Group $\mZ_n^\star$}
+
+Here, we know from entry \ref{2017-04-26:entry}, that $\mZ_n^\star$ contains all integers $x < n$ which are coprime with $n$ and that there are $\Phi(n)$ such elements.
+
+Another notation for this group is $(\mZ / n \mZ)^\times$ (see \href{https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n}{Wikipedia}).
+
+The Wikipedia article is actually quite comprehensive; e.g. it lists the generators for a group $\mZ_n^\star$.
+
+As an example, consider the group $\mZ_4^\star$; $\Phi(4) = 2$, so the group has the $2$ elements $\mZ_4^\star = \{1,3\}$ (the numbers coprime with $4$). The group operation table has the following form
+
+\bee
+\begin{array}{c|cc}
+\star & 1 & 3  \\ \hline
+1     & 1 & 3  \\
+3     & 3 & 1
+\end{array}
+\eee
+
+Generator is (according to Wikipedia), the element $3$ (this is actually obvious; it cannot be the identity element $1$ and there is no other element). We have
+
+\bee
+1 \cdot 3 \equiv 3 \bmod 4, 3 \cdot 3 \equiv 1 \bmod 4
+\eee
+
+therefore $3$ is a (the) generator.
+
+A little bit more advanced is $\mZ_8^\star$ which has $\Phi(8) = 4$ elements: $\mZ_8^\star = \{1,3,5,7\}$ with group operation table
+
+\bee
+\begin{array}{c|ccccc}
+\star & 1 & 3 & 5 & 7  \\ \hline
+1     & 1 & 3 & 5 & 7  \\
+3     & 3 & 1 & 7 & 5  \\
+5     & 5 & 7 & 1 & 3  \\
+7     & 7 & 5 & 3 & 1  \\
+\end{array}
+\eee
+
+According to Wikipedia, the two elements $3,7$ are generators; i.e. every element of $\mZ_8^\star$ can be expressed as a combination of these two. We have
+
+\bee
+3 \cdot 3 \equiv 1 \bmod 8, 3 \cdot 7 \equiv 5 \bmod 8
+\eee
+
+and all other combinations do not contribute additional / new elements; e.g. $7 \cdot 7 \equiv 1 \bmod 8$.
