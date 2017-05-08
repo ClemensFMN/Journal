@@ -43,6 +43,19 @@ Initially ($k=0$), $r_{-2} = a, r_{-1} = b$. For subsequent steps, we have
 
 The algorithm ends, when a remainder $r_N$ becomes zero. Then $\gcd(a,b) = r_{N-1}$.
 
+\subsubsection{Implementation}
+
+As example, below is a gcd implemetation in F\#.
+
+\begin{verbatim}
+let rec my_gcd a b = 
+   match (a,b) with
+      | (0,b) -> b
+      | (a,0) -> a
+      | (a,b) -> my_gcd (min a b) ((max a b) % (min a b))
+\end{verbatim}
+
+
 \subsubsection{Example}
 
 As a first example, let us calculate $\gcd(1071, 462)$:
