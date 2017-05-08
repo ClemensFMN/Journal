@@ -17,8 +17,7 @@ gap> GcdInt(8,12);
 4
 \end{verbatim}
 
-\begin{theorem}
-The Greatest Common Divisor Theorem. Given two positive integers $x$ and $y$, the greatest common divisor of $x$ and $y$ is the smallest positive integer which can be expressed in the form
+\begin{theorem}[Greatest Common Divisor Theorem] Given two positive integers $x$ and $y$, the greatest common divisor of $x$ and $y$ is the smallest positive integer which can be expressed in the form
 
 \bee
 ux + vy
@@ -36,11 +35,11 @@ rec( coeff1 := -1, coeff2 := 1, coeff3 := 3, coeff4 := -2, gcd := 4 )
 
 We have $-1 \times 8 + 1 \times 12 = 4$ as in the theorem above; however, we get some more information in that $(-1 + 3) \times 8 + (1 - 2) \times 12 = 4$.
 
-\paragraph{Proof.} Denote the set of positive numbers which can be expressed in the form $ux + vy$ as $\Ac$ and denote the smallest such number as $n$. Since $\gcd(x,y)$ is a factor of both $x$ and $y$, it must also be a factor of $n$. Next, consider $k \equiv x (\mod n)$ which must fulfill $0 \leq k < n$ and therefore $k = x + nr$ for some number $r$. 
+\paragraph{Proof.} Denote the set of positive numbers which can be expressed in the form $ux + vy$ as $\Ac$ and denote the smallest such number as $n$. Since $\gcd(x,y)$ is a factor of both $x$ and $y$, it must also be a factor of $n$. Next, consider $k \equiv x \bmod n$ which must fulfill $0 \leq k < n$ and therefore $k = x + nr$ for some number $r$. 
 
 We can now insert the expression for $n$ and obtain $k = x + (ux + vy)r = (1+ru)x + (rv)y$ for some numbers $u, v$. This shows that $k \in \Ac$. 
 
-We assumed $n$ to be the smallest number in $\Ac$, $k$ cannot be equivalent $\mod n$ to any number less than $n$, other than $0$. Therefore, $x \equiv 0 \mod n$ and $n$ is a divisor of $x$. Similar reasoning yields that also $n$ is a divisor of $y$. Thus, $n$ is a common divisor of $x,y$ and since $\gcd(x,y)$ is also a divisor of $n$, $n = \gcd(x,y)$. \qed
+We assumed $n$ to be the smallest number in $\Ac$, so $k$ cannot be equivalent $\bmod n$ to any number less than $n$, other than $0$. Therefore, $x \equiv 0 \bmod n$ and $n$ is a divisor of $x$. Similar reasoning yields that also $n$ is a divisor of $y$. Thus, $n$ is a common divisor of $x,y$ and since $\gcd(x,y)$ is also a divisor of $n$, $n = \gcd(x,y)$. \qed
 
 
 \begin{theorem}[Chinese Remainder Theorem]
