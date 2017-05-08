@@ -1,0 +1,52 @@
+\DiaryEntry{Euler's Theorem}{2017-05-08}{Algebra}
+
+\subsection{Repetition}
+
+\paragraph{Group Order.} Assume we have a group $G$ with an element $x$. The order $n$ of $x$ is the smallest integer so that $x^n = e$ (where $e$ denotes the group identitiy element). If $x$ is infinite, then the order is (also) infinite. Let $[x]$ denote the cyclic subgroup
+
+\bee
+[x] = \{e, x, x^2, \ldots, x^{n-1}\}
+\eee
+
+The order of this subgroup is $n$ (as $x^n = e$).
+
+\paragraph{Lagrange Theorem.} Let $G$ be a finite group, and $H$ a subgroup of $G$. Then the order of $H$ divides the order of $G$. That is, $|G| = k |H|$ for some positive integer $k$.
+
+
+Some additional statements based on the Lagrange Theorem:
+
+\begin{itemize}
+
+  \item Let $G$ be a finite group with element $x$. The order of the subgroup $[x]$ divides $|G|$ and since the order of $x$ equals the order of the subgroup $[x]$, the order of $x$ divides $|G|$.
+
+  \item $x^n = e$ if $x \in G$ and $G$ being a finite order group with order $n$. Let $m$ denote the order of $x$ (and $[x]$), we have $n = mk$ by Lagrange's Theorem for some integer $k$. Then $x^n = x^{mk} = (x^m)^k = e^k = e$.
+
+\end{itemize}
+
+
+\subsection{Euler's Theorem}
+
+\begin{theorem}
+
+Let $n$ be a positive integer, and $x$ a number coprime to $n$. Then
+
+\bee
+x^{\Phi(n)} \equiv 1 \bmod n
+\eee
+
+with $\Phi$ being Euler's totient function.
+  
+\end{theorem}
+
+\paragraph{Proof.} We consider the group $\mZ_n^\star$: The group has $\Phi(n)$ elements and if $x$ is coprime to $n$, then $x \in \mZ_n^\star$. This is exactely the situation in the second bullet point above; noting that $e = 1$ in $\mZ_n^\star$, we have proven the theorem. \qed
+
+\begin{theorem}[Fermat's little theorem]
+
+  When $n = p$ is prime, we have $\Phi(n) = p-1$ and therefore,
+  \bee
+  x^{p-1} \equiv 1 \bmod p
+  \eee
+
+\end{theorem}
+
+
