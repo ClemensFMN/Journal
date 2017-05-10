@@ -1,0 +1,105 @@
+\DiaryEntry{Polynomials, I}{2016-07-26}{Algebra}
+
+Let \(A\) be a commutative ring with unity and \(x\) an arbitrary
+symbol. Then an expression of the form
+
+\[
+a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n
+\]
+
+is a polynomial in x with coefficients in A.
+
+\subsection{Operations}\label{operations}
+
+Polynomials can be added (element-wise addition of the coefficients) and
+multiplied (convolution of polynomial coefficients).
+
+If \(A\) is a ring, then \(A[x]\) denotes the set of all polynomials in
+\(x\) whose coefficients are in \(A\) and addition and multiplication
+defined as above.
+
+Then we have:
+
+\begin{itemize}
+\item
+  If \(A\) is a commutative ring with unity, then \(A[x]\) is also a
+  commutative ring with unity.
+\item
+  If \(A\) is an integral domain, then \(A[x]\) is also an integral
+  domain (also called a domain of polynomials).
+\end{itemize}
+
+In case \(F\) is a field, then \(F[x]\) is not necessarily a field as
+the multiplicative inverse of a polynomial is not always a polynomial.
+However, \(F[x]\) is an integral domain.
+
+\subsubsection{Polynom Division}\label{polynom-division}
+
+If \(a(x), b(x)\) are polynomials over a field \(F\) and
+\(b(x) \neq 0\), there exist polynomials \(p(x), r(x)\) over \(F\) such
+that
+
+\[
+a(x) = b(x) q(x) + r(x)
+\]
+
+and \(r(x)=0\) or \(\text{deg} r(x) < \text{deg} b(x)\).
+
+\subsection{Factoring Polynomials}\label{factoring-polynomials}
+
+Let \(a(x)\) and \(b(x)\) be in \(F[x]\). We say \(b(x)\) is a multiple
+of \(a(x)\), if \(b(x) = a(x) s(x), s(x) \in F[x]\). We can also write
+\(a(x)|b(x)\).
+
+Every non-zero constant polynomial divides every polynomial.
+
+A polynomial \(a(x)\) is invertible iff it is a divisor of the unity
+polynomial 1. But if \(a(x)b(x)=1\), then both polynomials have degree 0
+and are therefore constant; i.e. \(a(x)=a, b(x)=b, ab=1\). Therefore,
+the invertible polynomials of \(F[x]\) are the non-zero constant
+polynomials.
+
+Two polynomials are associates iff they are constant multiples of each
+other: We can write \(a(x) = b(x)c(x), b(x) = a(x)d(x)\) for some
+\(c(x), d(x)\). But then we have \(a(x) = b(x)c(x) = a(x)d(x)c(x)\) and
+\(c(x)d(x)=1\) because \(F[x]\) is an integral domain. Therefore,
+\(c(x), d(x)\) are constant polynomials, and therefore \(a(x), b(x)\)
+are constant multiples of each other.
+
+A polynomial with leading coefficient 1 is called monic. Every non-zero
+polynomial has a unique monic associate. As an example consider
+\(a(x)=1+3x\). Then the monic associate is \(b(x) = 1/3 + x\) and we
+have \(a(x) = 3b(x)\).
+
+In a similar spirit as before we define a gcd \(d(x)\) of two
+polynomials \(a(x), b(x)\): \(d(x)|a(x), d(x)|b(x)\) and if
+\(u(x)|a(x)\) and \(u(x)|b(x)\), then \(u(x)|d(x)\). Therefore, two gcds
+divide each other; we select \emph{the} gcd of \(a(x), b(x)\) as the
+monic one. This gcd is unique and can be expresed as linear combination
+\(d(x) = r(x)a(x) + s(x)b(x)\) with \(r(x), s(x) \in F[x]\).
+
+A polynomial \(a(x)\) is \textbf{reducible} over \(F[x]\) if
+\(a(x)=b(x)c(x), b(x), c(x) \in F[x]\). Each of the two factors has a
+degress less than the degree of \(a(x)\). A polynomial is
+\textbf{irreducible over F} if it cannot be expressed as product of two
+polynomials in \(F[x]\).
+
+It is important to state the field the polynomial is irreducible;
+\(x^2+1\) is irreducible over \(\mathbb{R}\), but reducible over
+\(\mathbb{C}: x^2+1 = (x+j)(x-j)\).
+
+As before, there are theorems that polynoms can be uniquely factored
+into irreducible monic polynomials:
+
+\[
+a(x) = k p_1(x) \cdots p_m(x), \quad k \in F, p_1(x), \ldots,p_m(x) \in F[x]
+\]
+
+\subsubsection{Examples}\label{examples}
+
+The polynomial \(x^4-4\) can be factored over the field
+\(\mathbb{Q}[x]\) as \(x^4-4 = (x^2-2)(x^2+2)\). If we factor over
+\(\mathbb{R}[x]\) we can continue as
+\(x^4-4 = (x^2+2)(x+\sqrt{2})(x-\sqrt{2})\) and if we finally factor
+over \(\mathbb{C}[x]\), we obtain
+\(x^4-4 = (x+j\sqrt{2})(x-j\sqrt{2})(x+\sqrt{2})(x-\sqrt{2})\).

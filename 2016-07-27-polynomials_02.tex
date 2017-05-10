@@ -1,0 +1,212 @@
+\DiaryEntry{Polynomials, II}{2016-07-27}{Algebra}
+
+\subsection{Polynom Evaluation}\label{polynom-evaluation}
+
+Assume the polynom coefficients come from the field F, then the polynoms
+also form a field F{[}x{]} (see previous post).
+
+Assume we have a polynom \(a(x)\) and we insert for the dummy variable x
+a value c from F: In this case, we obtain an arithmetic expression which
+we can evaluate and which will produce a value in F. The evaluation
+involves multiplication and addition of elements from F. The resulting
+expression is the polynom value and denoted as \(p(c)\).
+
+\subsubsection{Examples}\label{examples}
+
+Since I repeatedly fell over the modulo operation, let's try a few
+examples with \(\mathbb{Z}/5\mathbb{Z}\). Here everything is modulo-5
+and we have \(3 \bmod 5 = 3, 6 \bmod 5 = 1\). That's easy. But
+\(-1 \mod 5 = 4\) because \(-1 = -1 \times 5 + 4\). Continuing we have
+\(-2 \mod 5 = 3, -3 \bmod 5 = 2, -4 \bmod 5 = 1, -5 \bmod 5 =0\). And then
+$-6 \bmod 5 = 4$, $-9 \bmod 5 = 1$ because $-6 = -2 \times 5 + 4, -9 = -2 \times 5 + 1$.
+
+As a first example for polynom evaluation, consider \(a(x) = x^2-1\). We
+have the following values:
+\(a(0) = -1 = 4, a(1) = 0, a(2) = 3, a(3) = 9 \bmod 5 -1 = 4-1=3, a(4) = 16 \bmod 5 - 1 = 1 - 1 = 0\).
+
+A more complicated example is \(b(x) = x^4 - 3x^2 + 1\) which evaluates
+as follows:
+\(a(0) = 1, a(1) = -1 \bmod 5 = 4, a(2) = 2^4 - 3 2^2 + 1 = 16 - 3\times 4 + 1 = 5 \bmod 5 = 0, a(3) = 3^4 - 3 4^2 + 1 = 55 \bmod 5 = 0, a(4) = 4^4 - 3 4^2 + 1 = 256 - 48 + 1 \bmod 5 = 209 \bmod 5 = 4\).
+Note that we can evaluate the polynom ``normally'' and take the mod-5 at
+the very end of the computation.
+
+\subsection{Roots of Polynoms}\label{roots-of-polynoms}
+
+If \(a(c)=0\), then c is called a root of the polynom \(a(x)\). This is
+equivalent that the polynom \(a(x)\) has a factor \(x-c\).
+
+Proof: We can write \(a(x) = q(x)(x-c) + r(x)\) with \(q(x), r(x)\)
+being some polynoms. The remainder \(r(x)\) is either 0 or a polynom of
+lower degree than \((x-c)\). But this means that \(r(x)\) is a constant;
+i.e. \(r(x) = r\). Therefore we have
+
+\[
+0 = a(c) = (c - c)q(c) + r = 0 + r = r
+\]
+
+Therefore \(r=0\) and \((x-c)\) is a factor of \(a(x)\).
+
+We can extend this; if a polynom has roots \(c_1, \ldots,c_n\), then
+\((x-c_1)\cdots(x-c_n)\) is a factor of the polynom. Therefore, if
+\(a(x)\) has degree n, it has at most n roots. The number of roots
+depend on the polynom and the field we are considering; e.g. \(x^2+1\)
+has \textbf{no} roots in \(\mathbb{Z}\).
+
+\subsubsection{Examples}\label{examples-1}
+
+Things get interesting / counterintuitive, when we consider polynom
+factorization over non-\(\mathbb{Z, Q}\) domains. One method of finding
+roots which always works is computing all polynom values \(a(x)\) and
+checking whether \(a(x)=0\) for some \(x\).
+
+Now consider the first polynom from before, \(a(x) = x^2-1\). Having
+zeros at \(x=1\) and \(x=4\), we can rewrite it as
+\(a(x) = (x-1)(x-4)\). Multiplying this out gives
+\(a(x) = x^2 - 5x + 4 \bmod 5 = x^2 + 4\). Note that \(4 = -1 \bmod 5\),
+so we can write the polynom also as \(a(x) = x^2-1\).
+
+Next, the second polynomial from above \(b(x) = x^4 - 3x^2 + 1\). From
+the evaluation above, we see that the zeros are 2 and 3; therefore we
+can write this as \((x-2)(x-3)\). However, this can't be it, because the
+polynom degrees do not match. So we have three different options
+\(b_1(x) = (x-2)^3(x-3), b_2(x) = (x-2)^2(x-3)^2, b_3(x) = (x-2)(x-3)^3\)
+which we need to evaluate for x=0\ldots{}4 and compare with the values
+from \(b(x)\). It turns out that the correct factorization is
+\((x-2)^2(x-3)^2\).
+
+Using the modulo relations from above, we have
+\(-2 = 3 \bmod 5, 3 = -2 \bmod 5\) and therefore there are several ways of
+writing this polynom:
+\(b(x) = (x-2)^2 (x-3)^2 = (x+3)^2 (x-3)^2 = (x-2)^2 (x+2)^2 = (x+3)^2(x+2)^2\).
+Expanding the expressions and taking all coefficients modulo-5 shows
+that the factorizations are all equivalent.
+
+We can do this in SymPy as follows
+
+\begin{verbatim}
+import smypy as sym
+x=sym.var('x')
+
+sym.factor(x**4-3*x**2+1, modulus=5)
+
+>>> (x - 2)**2*(x + 2)**2
+\end{verbatim}
+
+\subsection{Polynom Equality}\label{polynom-equality}
+
+Two polynoms are defined to be equal if their coefficients are equal;
+two functions are defined to be equal, if they attain the same values
+for every value in their domain. In case of fields with inifinite
+elements, these definitions coincide; however in case of finite fields,
+the two definitions may lead to different results.
+
+Example: Consider \(a(x) = x^5 + 1\) and \(b(x) = x - 4\). Over
+\(\mathbb{Z}_5\), the two polynoms give the same results; i.e.
+\(a(1) = b(1), \ldots a(4) = b(4)\). However the coefficients of the two
+polynoms are different.
+
+\subsection{\texorpdfstring{Polynoms over
+\(\mathbb{Z,Q}\)}{Polynoms over \textbackslash{}mathbb\{Z,Q\}}}\label{polynoms-over-mathbbzq}
+
+If we have a polynom with rational coefficients, we can bring it into a
+form polynom with integer coefficients times a rational factor:
+
+\[
+a(x) = \frac{1}{2} x^2 + \frac{3}{4} = 4 (2x^2 + 3) = k b(x)
+\]
+
+This new polynom has the same roots as the original one. Therefore, it
+suffices to consider polynoms with integer coefficients.
+
+Finding their roots can be done as follows. If \(s/t\) is a rational
+number in simplest form (\(\gcd(s,t)=1\)) and the polynom has the form
+\(b(x) = a_0 + \cdots + a_n x^n\) (with the \(a_i\) being integers), we
+have: If \(s/t\) is a root of \(a(x)\), then \(s|a_0\) and \(t|a_n\).
+
+\textbf{Caution}: Note this procedure produces solution candidates. The
+polynom can have non-rational roots as well and maybe \emph{all} roots
+are non-rational and/or complex. In this case, none of the solution
+candidates are actual solutions.
+
+Proof: Obviously we have \(a_0 + s/t a_1 + \cdots (s/t)^n a_n = 0\) and
+multiplying both sides with t\^{}n yields
+\(a_0 t^n + s t^{n-1}a_1 + \cdots + s^n a_n =0\). We can rearrange that
+
+\[
+s \left( t^{n-1} a_1 + \cdots + s^{n-1} a_n \right) = - a_0 t^n
+\]
+
+From this follows that \(s | a_0 t^n\) and since s and t have no common
+factors, s and \(t^n\) have no common factors, and therefore we have
+\(s|a_0\). In a similar spirit, we can factor out t and obtain the other
+half of the result; i.e. \(t|a_n\).
+
+Example:
+
+\begin{itemize}
+\item
+  Consider the polynom \(2x^2+5x-3\). With \(s|-3, t|2\), we have the
+  following candidates for roots (all combinations \(s/t\)) :
+  \(\pm 1/2, \pm 1, \pm 3/2, \pm 3\). Inserting these values into the
+  polynom shows that the two roots are \(1/2\) and \(-3\).
+\item
+  Consider \(x^3-2x^2+x-2\). \(s|-2, t|1\) and therefore the possible
+  root candidates are \(\pm 1, \pm 2\). Inserting into the polynom shows
+  that \(2\) is a root. The other roots are \(\pm j\) which are
+  non-rational solutions and are therefore not found with this method.
+\end{itemize}
+
+If we have a product of polynoms with \(a(x) = b(x)c(x)\) and a prime
+number p divides every coefficient of \(a(x)\), it either divides every
+coefficient of \(b(x)\) or every coefficient of \(c(x)\).
+
+Since every polynom with rational coefficients can be expressed as a
+rational factor times a polynom with integer coefficients, we have: If
+\(a(x) = b(x)c(x)\) with \(b(x), c(x)\) having rational coefficients,
+then there are polynoms \(B(x), C(x)\) which are constant multiples of
+\(b(x), c(x)\), respectively, such that \(a(x) = B(x) C(x)\).
+
+Stated differently, every polynom which is reducible over \(\mathbb{Q}\)
+is reducible already over \(\mathbb{Z}\).
+
+\subsection{Eisensteins Criteria}\label{eisensteins-criteria}
+
+Let
+
+\[
+a(x) = a_0 + a_1 x + \cdots a_n x^n
+\]
+
+be a polynom with integer coefficients. If there is a prime p which
+divides every coefficient except \(a_n\) and p does \emph{not} divide
+\(a_n\) and \(p^2\) does \emph{not} divide \(a_0\). Then \(a(x)\) is not
+reducible over \(\mathbb{Q}\).
+
+As an example consider \(x^3 + 2x^2 + 4x + 2\). If we set \(p=2\), \(p\)
+divides every coefficient except \(a_n=1\) and \(p^2=4\) does not divide
+\(a_0=2\). Therefore \(a(x)\) is irreducible over \(\mathbb{Q}\).
+
+We can use Eisenstein's Criteria to show that
+\(a(x) = x^{p-1} + x^{p-2} + \cdots + x + 1\) is irreducible over
+\(\mathbb{Q}\) if is p is a prime.
+
+We can rewrite
+
+\[
+a(x) = \frac{x^p-1}{x-1} = \frac{(y+1)^p-1}{y}
+\]
+
+where have used the substitution \(y=x+1\). This does not change the
+results about reducibility for if \(a(x) = b(x)c(x)\) we have
+\(a(x+A) = b(x+A)c(x+A)\). Now expand the expression with the binomial
+formula
+
+\[
+a(x) = \frac{\sum_{n=0}^p {p \choose n} y^n - 1}{y} = \frac{\sum_{n=1}^p {p \choose n} y^n}{y} = \sum_{n=1}^p {p \choose n} y^{n-1} = \sum_{n=0}^{p-1} {p \choose n+1} y^n
+\]
+
+We can now apply Eisensteins criteria: The highest and lowest
+coefficients are zero \(a_n = a_0=1\), all others are divisible by p
+(since it is prime). Obviously, p does not divide \(a_n=1\), neither
+does \(p^2\) divide \(a_0=1\). Therefore \(a(x)\) is irreducible over
+\(\mathbb{Q}\).

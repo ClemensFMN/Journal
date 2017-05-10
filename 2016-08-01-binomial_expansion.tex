@@ -1,0 +1,72 @@
+\DiaryEntry{Binomial Expansion}{2016-08-01}{Algebra}
+
+Based on
+\href{http://math.stackexchange.com/questions/1869954/expansion-of-1-sqrt2n}{this
+question}.
+
+Consider the expression \((1+\sqrt{2})^n, n \in \mathbb{N}\) and expand
+it via the binomial formula:
+
+\[
+(1+\sqrt{2})^n = \sum_{k=0}^n {n \choose k} (\sqrt{2})^k = a_n + b_n \sqrt{2}
+\]
+
+Note that the terms with k being even become integers: \({n \choose k}\)
+is integer and \((\sqrt{2})^k\) is an integer (namely \(2^{k/2}\)) for k
+even. The \(a_n, b_n\) collect all these term.
+
+We can do the same for the expression
+
+\[
+(1-\sqrt{2})^n = \sum_{k=0}^n {n \choose k} (-1)^k (\sqrt{2})^k
+\]
+
+In addition to the observation above, we note that
+\((-1)^k (\sqrt{2})^k = 2^{k/2}\) for k even and
+\((-1)^k (\sqrt{2})^k = -(\sqrt{2})^k\) for k odd. Therefore, we can
+write
+
+\[
+(1-\sqrt{2})^n = a_n - b_n \sqrt{2}
+\]
+
+Collecting things, we have
+
+
+\begin{align*}
+(1-\sqrt{2})^n &= a_n - b_n \sqrt{2} \\
+(1+\sqrt{2})^n &= a_n + b_n \sqrt{2}
+\end{align*}
+
+
+This can be extended according to
+
+
+\begin{align*}
+(a-b\sqrt{2})^n &= a_n - b_n \sqrt{2} \\
+(a+b\sqrt{2})^n &= a_n + b_n \sqrt{2}
+\end{align*}
+
+
+which is a rather nice result: If we consider \(A = a+b\sqrt{2}\) as an
+element of \(\mathbb{Z}[\sqrt{2}\), then \(A^n\) is also in this ring;
+i.e.~taking it to the n-th power does \emph{not} introduce any new
+irrational numbers.
+
+We can multiply the left parts and the right parts with each other to
+obtain
+
+\[
+a_n^2 - 2b_n^2 = (1-2)^n = (-1)^n
+\]
+
+So we see that the \emph{absolute} difference between \(a_n^2\) and
+\(2b_n^2\) is one. If we arrange this to get an expression for
+\(b_n \sqrt{2} = \sqrt{a_n^2-(-1)^n}\) and insert this into
+\(a_n + b_n \sqrt{2}\) we obtain
+
+\[
+(1+\sqrt{2})^n = a_n + b_n \sqrt{2} = \sqrt{a_n^2} + \sqrt{a_n^2 - (-1)^n}
+\]
+
+which is (more or less) the result from the post.

@@ -1,0 +1,77 @@
+\DiaryEntry{Finite Fields, II}{2016-08-22}{Algebra}
+
+\subsection{General}\label{general}
+
+All GF(\(p^n\)) elements takes coefficients from \(\mathbb{Z}_p\); an
+element from GF(\(p^n\)) has therefore the form
+
+\[
+\sum_{k=0}^{n-1} c_k \alpha^k, c_k \in \mathbb{Z}_p
+\]
+
+We can add and multiply these elements - however, it can happen (in case
+of multiplication) that the resulting element degree is larger than
+\(n\). This is nothing to worry, but we seek a method of bringing these
+elements into a space with degree less than \(n\) anyway. The idea is to
+use an irreducible polynomial of degree n, denoted as \(p(x)\). Because
+it is irreducible, it has a root \(\alpha\) outside \(\mathbb{Z}_p\):
+
+\[
+p(\alpha) = 0
+\]
+
+This expression allows us to reduce expressions with higher degree than
+\(n\): Assume that we have an GF(\(p^n\)) element \(a(\alpha)\) with
+degree larger than \(n\), then we can write \[
+a(\alpha) = b(\alpha) p(\alpha) + c(\alpha)
+\]
+
+where \(b(\alpha), c(\alpha)\) are uniquely defined. But we have defined
+\(p(\alpha)=0\), therefore \(b(\alpha) p(\alpha) = 0\) as well. So
+\(a(\alpha)\) and \(c(\alpha)\) are equivalent modulo-p(x); instead of
+working with polynomial degrees larger than n we can consider working
+with \(c(\alpha)\) instead.
+
+It is important to note that the difference between different galois
+fields is the irreducible polynomial;the elements always look the same,
+only the polynomials \(p(x)\) differ. This is analoguous to
+\(\mathbb{Z}_p\): Here we reduce large numbers (resulting from addition
+and multiplication) by taking their modulo expression. The whole
+construction works only if \(p\) is prime in case of \(\mathbb{Z}_p\)
+(otherwise there would be no multiplicative inverse element). In a
+similar spirit, the polynomial \(p(x)\) must be irreducible for the
+resulting structure to be a galois field.
+
+\subsection{Cyclic Multiplicative
+Group}\label{cyclic-multiplicative-group}
+
+Every field F contains a multiplicative group denoted by \(F^\star\). In
+the examples from the previous post, this group is F without the element
+0.
+
+There is a general theorem (without proof): If G is a finite subgroup of
+\(F^\star\) (the multiplicative group of nonzero elements of a field F),
+then G is cyclic.
+
+We can specialise this to: The multiplicative group of all nonzero
+elements of a finite field is cyclic.
+
+As an example, take GF(2\^{}3) with the irreducible polynomial
+\(\alpha^3 + \alpha + 1\). Starting with \(\alpha\), we have the
+following table:
+
+\[
+\begin{array}{cc}
+\alpha^0 & 1 \\
+\alpha^1 & \alpha \\
+\alpha^2 & \alpha^2 \\
+\alpha^3 & \alpha +1 \\
+\alpha^4 & \alpha^2 + \alpha \\
+\alpha^5 & \alpha^2 + \alpha + 1 \\
+\alpha^6 & \alpha^2 + 1 \\
+\alpha^7 & 1 \\
+... & ...
+\end{array}
+\]
+
+So, the element \(x\) is a generator for the field GF(2\^{}3).

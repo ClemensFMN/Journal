@@ -1,0 +1,71 @@
+\DiaryEntry{Splitting Fields and Finite Fields}{2016-09-05}{Algebra}
+
+\subsection{Splitting Fields}
+
+Let F be a field and \(p(x)\) be a polynomial over F{[}x{]}. We can find
+a field extension E that contains \textbf{one} root of the polynomial.
+An extension field E of F is a \textbf{splitting field} if it contains
+all roots; i.e.~we can write
+
+\[
+p(x) = (x - \alpha_1)(x - \alpha_2)\cdots(x - \alpha_n)
+\]
+
+with the elements \(\alpha_i\) being in E such that
+\(E = F(\alpha_1, \cdots,\alpha_n)\). A polynomial splits in E if it is
+the product of linear factors in E{[}x{]}.
+
+As an example consider \(p(x) = x^4 + 2x^2 - 8\). Over the field
+\(\mathbb{Q}[x]\), the polynomial has irreducible factors \(x^2-2\) and
+\(x^2+4\) with roots \(\pm \sqrt{2}, \pm 2i\). A spliting field is
+\(\mathbb{Q}(\sqrt{2},i)\) as it allows an expression by means if linear
+factors.
+
+The polynomial \(x^3 - 3\) has a root in \(\mathbb{Q}(\sqrt{3})\);
+however, this is \textbf{not} a splitting field as it does not contain
+all roots of the polynomial which are
+
+\[
+\frac{- 3^{1/3} \pm 3^{5/6}i }{2}
+\]
+
+It can be shown that there always exists a splitting field and the
+splitting field is unique.
+
+\subsection{Finite Fields / Galois Fields}
+
+A polynomial \(p(x)\) of degree n over a field is separable, if it has
+\(n\) different roots in the splitting field of \(p(x)\); i.e.~the
+polynomial factors into different linear factors.
+
+The poylnomial \(x^2 - 2\) is separable over \(\mathbb{Q}(\sqrt{2})\) as
+it contains both roots \(\pm \sqrt{2}\).
+
+A polynomial is separable, if \(p(x)\) and \$p'(x) are relatively prime.
+
+Proof: If a polynomial is separable, it can be written as
+\(p(x) = (x-\alpha_1)(x-\alpha_2)\cdots(x-\alpha_n)\), with the
+\(\alpha\) all being different. The derivative of this expresion is
+\(p'(x) = (x - \alpha_2)\cdots(x-\alpha_n) + (x-\alpha_1)(x-\alpha_3)\cdots(x-\alpha_n) + \cdots\).
+It can be seen that \(p(x)\) and \(p'(x)\) do not share any common
+factors.
+
+For the proof of the the opposite direction, we assume that
+\(p(x) = (x-\alpha)^k g(x)\) where \(g(x)\) is another polynomial. For
+the derivative, we obtain
+\(p'(x) = k(x-\alpha)^{k-1} g(x) + (x-\alpha)^k g'(x)\) which have a
+common factor.
+
+In the example from above, we have \(p'(x) = 2x\) which has no common
+factors with \(x^2-2\), therefore the polynmial is separable.
+
+For every prime p and positive integer n, there exists a finite field F
+with \(p^n\) elements. This field is called the Galois Field
+GF(\(p^n\)). Every subfield of GF(\(p^n\)) has \(p^m\) elements, where m
+divides n.
+
+As an example consider GF(\(p^{24}\)) which therefore has subfields
+GF(\(p\)), GF(\(p^2\)), GF(\(p^3\)), GF(\(p^3\)), GF(\(p^4\)),
+GF(\(p^6\)), GF(\(p^8\)), and GF(\(p^{12}\)). These fields are subfields
+of each other (e.g.~GF(\(p^6\)) has subfields GF(\(p\)), GF(\(p^2\)),
+and GF(\(p^3\))) so in total there is a lattice of subfields.

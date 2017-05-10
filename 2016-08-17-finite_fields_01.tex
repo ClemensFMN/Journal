@@ -1,0 +1,101 @@
+\DiaryEntry{Finite Fields, I}{2016-08-17}{Algebra}
+
+The sets \(\mathbb{Z}_p\) with p being prime are finite fields under
+modulo-p addition and modulo-p multiplication.
+
+When p is not prime, the set is not a field because multiplication does
+not have an inverse: We can factor p as \(p=qr\) with \(1< q,r < p\) and
+therefore \(qr \mod p = 0\). But this means that the product of two
+non-zero factors is zero; i.e.~neither q nor r have a multiplicative
+inverse.
+
+This has been easy; I'm not so sure whether a proof for the inverse is
+needed: If p is prime, then there is exactely one pair of \(q,r\) with
+\(1 \leq q,r < p\) for which \(qr \mod p = 1\) holds; i.e.~q is
+invertible with the inverse being r. Maybe show that the product
+\(qr \mod p\) takes on all possible values. There are p possible values
+and therefore one and only one product must equal 1.
+
+Anyway, continue with p being prime. Every set of the form
+\(\mathbb{Z}_{p^n}\) is a (finite) field and will be denoted as
+GF(\(p^n\)). These fields can be constructed as field extension to
+GF(p)\$: Find an irreducible polynomial over GF(p) of order \(n\) and
+construct a field extension using one of the polynomials roots. This
+field is then GF(\(p^n\)).
+
+\subsection{GF(2\^{}2)}\label{gf22}
+
+Use the polynomial \(a(x) = x^2+x+1\) which has no roots in
+\(\mathbb{Z}_2\): \(a(0) = 1, a(1) = 1\). Let us denote a root with
+\(\alpha\) and we therefore have \(\alpha^2+\alpha+1=0\). We can use
+this identity to construct addition and multiplication tables for
+GF(\(2^2\))
+
+\[
+\begin{array}{c|cccc}
++  &       0        & 1          & \alpha     & 1+\alpha \\
+\hline
+0 &        0        & 1          & \alpha     & 1+\alpha \\
+1 &        1        & 0          & 1 + \alpha & \alpha   \\
+\alpha &   \alpha   & 1 + \alpha & 0          & 1        \\
+1+\alpha & 1+\alpha & \alpha     & 1          & 0        \\
+\end{array}
+\]
+
+wherer we have used the fact that \(1 + 1 = 0\) and
+\(\alpha + \alpha = \alpha (1+1) = 0\). The multiplication table looks
+as follows
+
+\[
+\begin{array}{c|cccc}
+\times  &    0        & 1        & \alpha     & 1+\alpha \\
+\hline
+0 &        0        & 0        & 0          & 0 \\
+1 &        0        & 1        & \alpha     & 1 + \alpha   \\
+\alpha &   0        & \alpha   & 1 + \alpha & 1        \\ 
+1+\alpha & 0        &1+\alpha &  1  &        \alpha      \\
+\end{array}
+\]
+
+where we used the fact that \(\alpha^2 + \alpha +1 =0\). From this we
+deduce \(\alpha^2=-1-\alpha = 1 + \alpha\) because \(-1 \mod 2 =1\) and
+also
+\((1+\alpha)^2 = 1 + 2\alpha + \alpha^2 = 1 + \alpha^2 = 1 + 1 + \alpha = \alpha\).
+
+Taken from $2016-08-05-fieldext_01$
+
+\subsection{GF(2\^{}3)}\label{gf23}
+
+Use the polynomial \(a(x)=x^3+x+1\) which is irreducible over GF(2). The
+elements of GF(\(2^3\)) are of the form \(a_0 + a_1 x + a_2 x^2\) with
+\(a_0, a_1, a_2 \in \mathbb{Z}_2\). These are \(2^3=8\) elements.
+Addition and multiplication tables are as follows:
+
+\[
+\begin{array}{c|cccccccc}
++ & 0 & 1 & \alpha & \alpha+1 & \alpha^2 & \alpha^2 + 1 & \alpha^2 + \alpha & \alpha^2 + \alpha + 1\\
+\hline
+0                     &       0        & 1          & \alpha     & \alpha + 1 & \alpha^2 & \alpha^2 + 1 & \alpha^2 + \alpha & \alpha^2 + \alpha + 1 \\
+1                     &        1        & 0          & \alpha + 1 & \alpha   & \alpha^2 + 1 & \alpha^2 & \alpha^2 + \alpha + 1 & \alpha^2 + \alpha \\
+\alpha                &   \alpha   & \alpha + 1 & 0          & 1  & \alpha^2 + \alpha & \alpha^2 + \alpha + 1 & \alpha^2 & \alpha^2 + 1 \\
+\alpha+1              & \alpha + 1     & \alpha     & 1         &   0       & \alpha^2 + \alpha + 1 & \alpha^2 + \alpha &  \alpha^2 + 1 & \alpha^2 \\
+\alpha^2              & \alpha^2 & \alpha^2 + 1 & \alpha^2 + \alpha & \alpha^2 + \alpha + 1 & 0 & 1 &  \alpha & \alpha + 1 \\
+\alpha^2 + 1          & \alpha^2 + 1 & \alpha^2 & \alpha^2 + \alpha + 1 & \alpha^2 + \alpha & 1 & 0 & \alpha + 1 & \alpha \\
+\alpha^2 + \alpha     & \alpha^2 + \alpha & \alpha^2 + \alpha + 1 & \alpha^2 & \alpha^2 + 1 & \alpha & \alpha + 1 & 0 & 1 \\
+\alpha^2 + \alpha + 1 &  \alpha^2 + \alpha + 1 & \alpha^2 + \alpha & \alpha^2 + 1 & \alpha^2 & \alpha + 1 & \alpha & 1 & 0
+\end{array}
+\]
+
+\[
+\begin{array}{c|ccccccc}
+\times                     &       1          & \alpha     & \alpha+1 & \alpha^2 & \alpha^2 + 1 & \alpha^2 + \alpha & \alpha^2 + \alpha + 1\\
+\hline
+1                     & 1          & \alpha     & \alpha+1 & \alpha^2 & \alpha^2 + 1 & \alpha^2 + \alpha & \alpha^2 + \alpha + 1\\
+\alpha      & \alpha & \alpha^2 & \alpha^2 + \alpha & \alpha + 1 & 1 & \alpha^2 + \alpha + 1 & \alpha^2 + 1 \\
+\alpha+1              & \alpha + 1 & \alpha^2 + \alpha & \alpha^2 + 1 & \alpha^2 + \alpha + 1 & \alpha^2 & 1 & \alpha \\
+\alpha^2 & \alpha^2 & \alpha +1 & \alpha^2 + \alpha + 1 & \alpha^2 + \alpha & \alpha & \alpha^2+1 & 1 \\ 
+\alpha^2 + 1          & \alpha^2 + 1 & 1 & \alpha^2 & \alpha & \alpha^2+\alpha +1 & \alpha + 1& \alpha^2 + \alpha \\
+\alpha^2 + \alpha  & \alpha^2 + \alpha & \alpha^2 + \alpha +1 & 1 & \alpha^2+1 & \alpha + 1 & \alpha & \alpha^2 \\
+\alpha^2 + \alpha + 1 & \alpha^2 + \alpha + 1 & \alpha^2 + 1 & \alpha & 1 & \alpha^2+\alpha & \alpha^2 & \alpha +1 
+\end{array}
+\]

@@ -1,0 +1,161 @@
+\DiaryEntry{Conjugacy}{2016-11-21}{Algebra}
+
+\subsection{Definition}\label{definition}
+
+Two elements \(x,y\) of a group G are conjugate if
+
+\[
+gxg^{-1} = y
+\]
+
+for some \(g \in G\). We first note that the definition is symmetric;
+i.e when x is conjugate to y then y is conjugate to x (simply by
+left-multiplying with \(g^{-1}\), right-multiplying with g, and
+substituting \(g \rightarrow g^{-1}\):
+
+\[
+gxg^{-1} = y \leftrightarrow x = gyg^{-1}
+\]
+
+If we vary g, then we obtain a set of y's which are collected in the
+conjugacy class of x:
+
+\[
+C(x) = \{y = gxg^{-1} | g \in G\}
+\]
+
+If the group G is abelian, the conjugcy classes are boring as we can
+rewrite the definition to obtain
+
+\[
+C(x) = \{y = xgg^{-1} | g \in G\} = \{x\}
+\]
+
+Let the subset \(\mathbb{G}\) of \(G \times G\) consist of all paris
+\((x,y)\) of which are conjugate to each other. Each element is
+conjugate to itself because \(exe^{-1} = x\). Furthermore, if x and y
+are conjugate and y and z are conjugate
+
+\[
+g_1 x g_1^{-1} = y, g_2 y g_2^{-1} = z
+\]
+
+then x and z are also conjugate. Consider \(g_2 g_1 x (g_2 g_1)^{-1}\)
+which can be rewritten as
+
+\[
+g_2 g_1 x g_1^{-1} g_2^{-1} = g_2 y g_2^{-1} = z
+\]
+
+These characterisitcs define the set \(\mathbb{G}\) as an equivalence
+relation and therefore the conjugcy classes partition G.
+
+\subsubsection{Conjugacy Classes of the Dihedral
+Group}\label{conjugacy-classes-of-the-dihedral-group}
+
+The dihedral group \(D_n\) is defined in
+\href{\%7Bfilename\%7D/2016-03-15-groups_04.markdown}{this post} by the
+following equations:
+
+
+\begin{align*}
+r^n &= 1 \\
+s^2 &= 1 \\
+srs &= r^{-1}
+\end{align*}
+
+
+Let us first calculate the conjugacy class of \(r^\alpha\): We have
+\(gr^\alpha g^{-1}\) and if we choose \(g = r^\beta\), we obtain
+\(g^{-1} = r^{n-\beta}\) and therefore
+\(y = gxg^{-1} = r^\beta r^\alpha r^{n-\beta} = r\alpha\). Choosing
+\(g = s\), we have \(g^{-1} = s\) and
+\(y = sg^\alpha s = r^{n - \alpha}\). Finally choosing
+\(g = r^\beta s\), we have
+\(y = r^\beta s r^\alpha (r^\beta s)^{-1} = r^\beta (s r^\alpha s) r^{-\beta} = r^\beta r^{n - \alpha} r^{n-\beta} = r^{n - \alpha}\).
+So, the conjugacy class of \(r^\alpha\) is \(r^{n-\alpha}\).
+
+Continuing in this fashion yields the following conjugacy classes
+
+
+\begin{align*}
+& \{e\}, \{r, r^{n-1}\}, \{r^2, r^{n-2}\}, \ldots \\
+& \{s, r^2s, r^4s,\ldots\}, \{rs, r^3s, \ldots\}
+\end{align*}
+
+
+\subsubsection{Conjugacy Classes of the Symmetric
+Group}\label{conjugacy-classes-of-the-symmetric-group}
+
+Two elements of \(S_n\) have the same cycle structure if when they are
+composed as products of disjoint cyclic permutations, they have the same
+number of 2-cycles, 3-cycles etc.
+
+Permutations which have the same cycle structure are conjugate in
+\(S_n\). We can show this as follows: Assume that \(a,b \in S_n\) have
+the same cycle structure and write the cycle decomposition of \(b\)
+below the one of \(a\) (in order of decreasing cycle length and
+including cycles of length 1). Now define \(g\) to be a permutation
+which sends an element of \(a\) to an element in \(b\) directly below.
+Then \(gbg^{-1} = a\) because moving down from an element \(a\) to an
+element \(b\) (that's the effect of \(g\)), moving one to the right
+(that's the effect of \(b\)), and moving back up (that's the effect of
+\(g^{-1}\)) is the same as moving one to the right (that's the effect of
+\(a\)).
+
+As an example in \(S_9\) take \(a = (2539)(67)(14)\) and
+\(b = (5467)(12)(38)\). Both contain a length-4 cycle and two length-2
+cycles. Writing them down with the rules as above, we have
+
+
+\begin{align*}
+&(2539)(67)(14)(8) \\
+&(5467)(12)(38)(9)
+\end{align*}
+
+
+Therefore, g becomes \(g=(254897)(361)\). The element g is not unique;
+e.g.~rewriting \(a\) as \(a=(2539)(14)(67)(8)\) yields
+
+
+\begin{align*}
+&(2539)(14)(67)(8) \\
+&(5467)(12)(38)(9)
+\end{align*}
+
+
+and \(g=(254)(36)(789)\).
+
+It is not only that permutations with the same cycle structure are
+conjugate in \(S_n\), but also that conjugate permutations have the same
+cycle structure.
+
+\paragraph{Using GAP}\label{using-gap}
+
+We can use GAP to list conjugacy classes. In
+\href{\%7Bfilename\%7D/files/conjugacy.g}{this script} we use GAP to
+list all conjugacy classes of the symmetric group \(S_4\).
+
+\begin{verbatim}
+g := SymmetricGroup(4);
+cg := ConjugacyClasses(g);
+
+for item in cg do
+    Print(item, "->", AsList(item), "\n\n");
+od;
+\end{verbatim}
+
+which yields (formatting done manually)
+
+\begin{verbatim}
+(1,2) -> [ (1,2), (1,3), (1,4), (2,3), (2,4), (3,4)]
+
+(1,2)(3,4) -> [ (1,2)(3,4), (1,3)(2,4), (1,4)(2,3) ]
+
+(1,2,3) -> [ (1,2,3), (1,3,2), (2,3,4), (2,4,3), (1,3,4), (1,4,3), (1,4,2), (1,2,4) ]
+
+(1,2,3,4) -> [ (1,2,3,4), (1,2,4,3), (1,3,2,4), (1,3,4,2), (1,4,2,3), (1,4,3,2) ]
+\end{verbatim}
+
+There are conjugacy classese having (i) one 2-cycle, (ii) two 2-cycles,
+(iii) one 3-cycle, and (iv) one 4-cycle.

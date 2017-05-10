@@ -1,0 +1,52 @@
+\DiaryEntry{Galois Theory, High-level}{2016-09-08}{Algebra}
+
+A polynomial of degree \(n\) has \(n\) roots over \(\mathbb{C}\).
+
+Polynomials of degree 2, 3, and 4 can be solved using expressions
+involving addition/subtraction, multiplication/division, and roots (of
+arbitrary) order. Such expressions are called radicals. However, finding
+general expressions for polynomials of order 5 is not possible.
+
+This does not mean that these roots do not exist (e.g.~because the field
+does not contain the roots) but only that they are not expressible via
+radicals. If the roots of such a polynomial are calculated by numerical
+means, they do not look any different; they are just real or complex
+numbers.
+
+\subsection{Basic Idea}\label{basic-idea}
+
+The roots of a specific polynomial can be connected via algebraic
+equations. Galois Theory considers permutations of the roots; The Galois
+group is the permutation group containing all permutations that leave
+any algebraic equation (with rational coefficients) of the roots intact.
+
+Iff the Galois group has the property of ``solvability'', then the
+corresponding polynomial can be solved by means of radicals (otherwise
+it is not possible).
+
+As an example consider the equation
+
+\[
+x^2-4x+1
+\]
+
+with roots \(A = 2 + \sqrt{3}, B = 2 - \sqrt{3}\). Examples of algebraic
+equations (with rational coefficients) the roots fulfill are
+
+
+\begin{align}
+A+B= & 4 \\
+A \times B= &1
+\end{align}
+
+
+Since there are only two roots, there is only one permutation possible;
+i.e. \(A \rightarrow B, B \rightarrow A\). Permuting the roots, the two
+equations above are still fulfilled. It is not obvious, but the
+permutation will leave \emph{any} algebraic equation with rational
+coefficients intact.
+
+The constraint of algebraic equation with rational coefficients is
+important; as e.g. \(A - B - 2\sqrt{3}=0\) but which does not hold when
+A and B are exchanged. However, this is not an equation with rational
+coefficients, so this is ok.
