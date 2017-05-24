@@ -1,0 +1,60 @@
+\DiaryEntry{Divisibility Rules}{2017-05-24}{Algebra}
+
+We have a number $a$ and want to (easily) find out whether it is divisilbe by a ``small'' number $n = 1 \cdots 9$.
+
+We can proceed as follows: First we write $n$ in terms of its digits:
+
+\bee
+a = a_0 + a_1 10^1 + a_2 10^2 + \cdots + a_N 10^N
+\eee
+
+where $a_0 \cdots a_N \in \{0 \cdots 9\}$ and $N$ is the number of digits (we choose $a_N \neq 0$). Now let us calculate the remainder after division by $n$:
+
+\bee
+a \bmod n \equiv (a_0 + a_1 10^1 + a_2 10^2 + \cdots + a_N 10^N) \bmod n = a_0 \bmod n + (a_1 10^1) \bmod n + (a_2 10^2) \bmod n + \cdots + (a_N 10^N) \bmod n
+\eee
+
+We can split the modulo of a product into the product of modulos and arrive at
+
+\bee
+a \bmod n \equiv a_0 \bmod n + a_1 \bmod n 10^1 \bmod n + a_2 \bmod n 10^2 \bmod n + \cdots a_N \bmod n 10^N \bmod n
+\eee
+
+\paragraph{$n=9$:} This is simple when we observe that $10^m \bmod 9 \equiv 1$ for all integer $m$. We have
+
+\bee
+a \bmod 9 \equiv a_0 \bmod 9 + a_1 \bmod 9 + a_2 \bmod 9 + \cdots a_N \bmod 9 = (a_0 + a_1 + a_2 + \cdots a_N) \bmod 9
+\eee
+
+and from this follows that $a$ is divisible by $9$, if the digit-sum of $a$ is divisible by $9$.
+
+\paragraph{$n=3$:} We can proceed in a similar spirit; noting that $10^m \bmod 3 \equiv 1$, we arrive at
+
+\bee
+a \bmod 3 \equiv = (a_0 + a_1 + a_2 + \cdots a_N) \bmod 3
+\eee
+
+i.e. $n$ is divisible by $3$ if $n$'s digit-sum is divisible by $3$.
+
+\paragraph{$n=2$:} We get a slightly different result
+
+\bee
+a \bmod 2 \equiv a_0 \bmod 2 + a_1 \bmod 2 10^1 \bmod 2 + a_2 \bmod 2 10^2 \bmod 2 + \cdots a_N \bmod n 10^N \bmod 2
+\eee
+
+We note that $10^m \bmod 2 \equiv 0$ for all integer $m$. Therefore, all summands but the first vanish and we arrive at
+
+\bee
+a \bmod 2 \equiv a_0 \bmod 2
+\eee
+
+which is the well-known result, that even numbers are divisible by $2$.
+
+\paragraph{Others.} Of course, it is possible to play the game for other values of $n$, but the results are not so nice. For example, consider $n=7$ and $N=2$. We obtain
+
+\bee
+a \bmod 7 \equiv a_0 \bmod 7 + a_1 \bmod 7 10^1 \bmod 7 + a_2 \bmod 7 10^2 \bmod 7 \equiv a_0 \bmod 7 + 3 a_1 \bmod 7 + 2a_2 \bmod 7
+\eee
+
+Let's try this with $a=143$: The right-hand side becomes $3 + 3 \cdot 4 + 2 \cdot 1 = 17$ which is not divisible by $7$. On the other, for $n=147$, we have $0 + 3 \cdot 4 + 2 \cdot 1 = 14$ and this is divisible by $7$.
+
