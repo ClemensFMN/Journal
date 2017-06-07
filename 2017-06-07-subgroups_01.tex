@@ -1,0 +1,17 @@
+\DiaryEntry{Subgroups}{2017-06-07}{Algebra}
+
+
+\begin{definition}[Subgroup]
+  If G is a group, then a subset H of G is a subgroup of G if H is non-empty and H is closed under products and inverses: If $x,y \in H$, then $x^{-1} \in H$ and $xy \in H$. This is written as $H \leq G$.
+\end{definition}
+
+Proofing that a subset is actually a subgroup may be rather tedious, as all inverses and products need to be checked. Somewhat simpler is the following criteria, whether a subset $H$ is actually a subgroup of a group $G$:
+
+\begin{enumerate}
+    \item $H \neq 0$.
+    \item for all $x,y \in H, xy^{-1} \in H$.
+\end{enumerate}
+
+If $H$ is a subgroup, it is not empty, so (1) holds (a subgroup contains at least the identity element). (2) holds as well, because $H$ contains the identity, the inverse of each of its elements and because $H$ is closed under multiplication.
+
+The converse; i.e. that if a subset $H$ satisifes (1) and (2), it is a subgroup can be shown as follows: Let $x$ be any element of $H$ (this follows from property (1)). From (2) we deduce that $1 = xx^{-1} \in h$, so $H$ contains the identity of $G$. Since $H$ contains $1$ and $x$, we have by (2) $1 x^{-1} = x^{-1} \in H$ so $H$ is closed under inverses. Finally, if $x$ and $y$ are any two elements of $H$, then $H$ contains $y^{-1}$ and we have $x(y^{-1})^{-1} = xy \in H$ so $H$ is also closed under multiplication. All in all, we have shown that $H$ is a subgroup of $G$. \qed
