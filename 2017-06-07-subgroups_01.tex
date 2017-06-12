@@ -15,3 +15,42 @@ Proofing that a subset is actually a subgroup may be rather tedious, as all inve
 If $H$ is a subgroup, it is not empty, so (1) holds (a subgroup contains at least the identity element). (2) holds as well, because $H$ contains the identity, the inverse of each of its elements and because $H$ is closed under multiplication.
 
 The converse; i.e. that if a subset $H$ satisifes (1) and (2), it is a subgroup can be shown as follows: Let $x$ be any element of $H$ (this follows from property (1)). From (2) we deduce that $1 = xx^{-1} \in h$, so $H$ contains the identity of $G$. Since $H$ contains $1$ and $x$, we have by (2) $1 x^{-1} = x^{-1} \in H$ so $H$ is closed under inverses. Finally, if $x$ and $y$ are any two elements of $H$, then $H$ contains $y^{-1}$ and we have $x(y^{-1})^{-1} = xy \in H$ so $H$ is also closed under multiplication. All in all, we have shown that $H$ is a subgroup of $G$. \qed
+
+
+\paragraph{Examples.}
+
+\begin{itemize}
+\item $\mZ \leq \mQ \leq \mR$ with the operation of addition.
+
+\item The set of even integers $\{\ldots, -4, -2, 0, 2, 4, \ldots\}$ is a subset of all integers under addition: The sum of two even integers is even and every (even) integer has an inverse.
+
+\item The set of all positive integers $\mZ^+ = \{1,2,3,\ldots\}$ is \emph{not} a subgroup of $\mZ$. It is closed under addition (the sum of two positive integers is again a positive integer), but it does not contain a neutral element ($0 \notin \mZ$) neither inverses ($-x \notin \mZ$).
+
+\end{itemize}
+
+
+\subsection{Centralizers and Normalizers}
+
+\begin{definition}[Centralizer]
+The centralizer of a set $A$ being a subset of a group $G$ is defined as
+
+\bee
+C_G(A) = \{g \in G | gag^{-1} = a, \quad \forall a \in A\} = \{g \in G | ga = ag, \quad \forall a \in A\}
+\eee
+
+\end{definition}
+
+In other words, $C_G(A)$ is the set of elements of $G$ wich commute with every element of $A$.
+
+We show that the centralizer is a subgroupf of $G$: First, $1 \in C_G(A)$, because the identity element $1$ is defined as $1a = a1$ for all $a \in G$ (and in particular, for all $a \in A$). Next, let $x \in C_G(A)$. Then, $xax^{-1} = a$, and left-multiplying with $x^{-1}$, right-multiplying with $x$ yields $x^{-1}ax = a$, so $x^{-1} \in C_G(A)$ and therefore the centralizer is closed under inverses. Finally, let $y \in C_G(A)$ and observe that
+
+\bee
+(xy) a (xy)^{-1} = (xy) a (y^{-1} x^{-1}) = x (y a y^{-1}) x^{-1} = x a x^{-1} = a
+\eee
+
+which shows that $xy \in C_G(A)$. Therefore $C_G(A)$ is closed under products and we have $C_G(A) \leq G$.
+
+
+The \emph{center} $Z(G)$ of a group $G$ is defined as $Z(G) = \{g \in G | gx = xg, \quad x \in G \}$; i.e. it is the set of elements commuting with all group elements. In other words, we have $Z(G) = C_G(G)$ and therefore the center is a subgroup of $G$.
+
+Finally, define the set $gAg^{-1} = \{gag^{-1} | a \in A\}$. Then the \emph{normalizer} of $A$ in $G$ is the set $N_G(A) = \{g \in G | gag^{-1} = A\}$.
