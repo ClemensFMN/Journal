@@ -1,0 +1,75 @@
+\DiaryEntry{Quotient Groups, I}{2017-06-26}{Algebra}
+
+This (series of) posts is based on Abstract Algebra by Dummit and Foote and digs a little bit deeper and is more formal than previous posts.
+
+\begin{definition}[Fibers]
+Assume we have a function $f$ which maps elements from a set $A$ to a set $B$. For each element $b \in B$, the set $f^{-1}(b) = \{a \in A | f(a) = b\}$ is denoted the fiber of $f$ over $b$.
+\end{definition}
+
+
+\begin{definition}[Homomorphism]
+Let $G$ and $H$ be groups. A map $\phi: G \rightarrow H$ such that
+\bee
+\phi(x y) = \phi(x) \phi(y) \quad \forall x,y \in G
+\eee
+is called a homomorphism. Note that the operation $xy$ is defined on the group $G$, whereas the operation $\phi(x) \phi(y)$ is defined on $H$.
+\end{definition}
+
+Stated informally, a homomorphism preserves the group structure of $G$ while it is mapped to $H$.
+
+\begin{definition}[Kernel]
+The kernel of a homomorphism $\phi: G \rightarrow H$ is defined as the set
+
+\bee
+\text{ker}(\phi) = \{g \in G | \phi(g) = 1\}
+\eee
+\end{definition}
+
+In the following, let $G$ and $H$ be groups and let $\phi$ be a homomorphism. We have the following propoerties:
+
+\begin{enumerate}
+
+\item $\phi(1_G) = 1_H$, where $1_G, 1_H$ are the identity elements of $G$ and $H$, respectively.
+
+\item $\phi(g^{-1}) = \phi(g)^{-1}$
+
+\item $\phi(g^n) = \phi(g)^n$, for all $n \in mZ$.
+
+\item $\text{ker}(\phi)$ is a subgroup of $G$.
+
+\item The image of $\phi$ under $G$ is a subgroup of $H$.
+
+\end{enumerate}
+
+\paragraph{Proof.} For the first one, note that $\phi(1_G) =\phi(1_G 1_G) = \phi(1_G) \phi(1_G)$. We can sneak in a $1_H$ and get $1_H \phi(1_G) =  \phi(1_G) \phi(1_G)$, cancel $\phi(1_G)$ and get $1_H = \phi(1_G)$. \qed
+
+For the second one, start with $\phi(1_G) = \phi(gg^{-1}) = \phi(g) \phi(g^{-1})$ and use $\phi(1_G) = 1_H$, so we have $1_H = \phi(g) \phi(g^{-1})$. Multiplying both sides on the left with $\phi(g)^{-1}$ we obtain $\phi(g)^{-1} = \phi(g^{-1})$. \qed
+
+The proof for the third part is not shown here (can be done via induction).
+
+For (4), note that $1_G \in \text{ker}(\phi)$, so the kernel is not empty. Let $x,y \in \text{ker}$, so $\phi(x) = \phi(y) = 1_H$. We need to show that $\phi(xy^{-1}) = 1_H$: $:\phi(x)\phi(y^{-1}) = 1_H \phi(y)^{-1} = 1_H$ wich proves that $\text{ker}(\phi) \leq G$. \qed
+
+The proof of (5) is omitted. \qed
+
+It is interesting to see that such a "simple" condition like $\phi(x y) = \phi(x) \phi(y)$ has such big consequences: Having a homomorphism (and finding the kernel) allows to construct a subgroup. Also note that there can (and probably will) be more than one homomorphism exist for a group. Each homomorphism will have its own kernel (and subgroup).
+
+Based on what we have, we can make the following definition. 
+
+\begin{definition}[Quotient Group]
+Let $\phi$ be a homomorphism with kernel $K$. The quotient group or factor group $G/K$ is the group whose elements are the fibers of $\phi$ with group operation defined as follows: If $X$ is the fiber above $a$ and $Y$ is the fiber above $b$, then the product $XY$ is the fiber above the product $ab$.
+\end{definition}
+
+I'm not sure whether 
+
+%================================================
+
+Show how the fibers above a can be expressed (Proposition 2) -> left / right cosets
+
+the left (right) cosets uK with operation uK vK = (uv)K form a group and the operation is well-defined -> Theorem 3
+
+The cosets partition a group (Prop. 4)
+
+Connection between well-definedness of $uK vK = (uv)K$ and $gng^{-1} \in N$ for all $g \in G$ and all $n \in N$ (Prop. 5)
+
+A subgroup is normal iff if it is the kernel of some homomorphism (Prop. 7)
+
