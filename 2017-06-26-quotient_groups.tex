@@ -25,7 +25,7 @@ The kernel of a homomorphism $\phi: G \rightarrow H$ is defined as the set
 \eee
 \end{definition}
 
-In the following, let $G$ and $H$ be groups and let $\phi$ be a homomorphism. We have the following propoerties:
+In the following, let $G$ and $H$ be groups and let $\phi$ be a homomorphism. We have the following properties:
 
 \begin{enumerate}
 
@@ -59,17 +59,62 @@ Based on what we have, we can make the following definition.
 Let $\phi$ be a homomorphism with kernel $K$. The quotient group or factor group $G/K$ is the group whose elements are the fibers of $\phi$ with group operation defined as follows: If $X$ is the fiber above $a$ and $Y$ is the fiber above $b$, then the product $XY$ is the fiber above the product $ab$.
 \end{definition}
 
-I'm not sure whether 
+I'm not sure whether we have plready proven "enough" that this is clear.
 
-%================================================
+We can interpret the kernel $K$ as a single element in the group $G/K$ and the other elements of $G/K$ are just translates of $K$. This will be made more exact in the following by defining cosets.
 
-Show how the fibers above a can be expressed (Proposition 2) -> left / right cosets
 
-the left (right) cosets uK with operation uK vK = (uv)K form a group and the operation is well-defined -> Theorem 3
+If $\phi: G \rightarrow K$ is a homomorphism with kernel $K$ and let $X \in G/K$ be the fiber above $a$; i.e. $X = \phi^{-1}(a)$. The we have
+\begin{enumerate}
+	\item For any $u \in X, X = \{uk | k \in K\}$
+
+	\item For any $u \in X, X = \{ku | k \in K\}$
+\end{enumerate}
+
+\paragraph{Proof.} If $u \in X$, then $\phi(u) = a$. Then $\phi(uk) = \phi(u) \phi(k) = \phi(u) 1 = a$ because $k \in \text{ker}(\phi)$. This shows that $uk \in X$ and therefore $uK \subseteq X$. Next the reverse inclusion: Suppose $g \in X$ and $k = u^{-1}g$. Then $\phi(k) = \phi(u^{-1}g) = \phi(u^{-1}) \phi(g) = \phi(u)^{-1} \phi(g) = a^{-1}a = 1$. Therefore $k \in \text{ker}(\phi)$. Since $k=u^{-1}g, g = uk \in uK$, we have that $X \subseteq uK$. This shows that $X = uK$ for any $u \in X$. \qed
+
+These sets are called left and right cosets. Note that they are defined for any subgroup $K$ of a group $G$ and not only for kernels of homomorphisms.
+
+\begin{definition}[Cosets]
+For any subgroup $N \leq G$ and any $g \in G$, the sets
+
+\bee
+gN = \{gn | n \in N \}, \quad Ng = \{ng | n  \in N\}
+\eee
+
+are called the left and right cosets of $N$ in $G$, respectively. Any coset element is called a representative of the coset.
+\end{definition}
+
+With that in place, we can state the following theorem: 
+
+\begin{theorem}
+Let $G$ be a group and let $K$ be the kernel of a homomorphism from $G$ to another group. Then the set whose elements are the left cosets of $K$ in $G$ with operation defined by
+
+\bee
+uK vK = (uv)K
+\eee
+
+forms a group called $G/K$. The group operation is well-defined in the sense that for any coset member $u_1 \in uK$ and any coset member $v_1 \in vK$, then $u_1 v_1 \in uvK$. In other words, the group operation does \emph{not} depend on the coset representative. The whole theorem holds true for right cosets as well.
+\end{theorem}
+
+It is important to note that the group operation does not depend on the coset representative. The multiplication of two cosets $X$ and $Y$ is the coset $uvK$ containing the the product $uv$ where $u,v$ are any representatives for the cosets $X$ and $Y$, respectively.
+
+\paragraph{Proof.} Let $X,Y \in G/K$ and let $Z = XY$ in $G/K$, so $X,Y,Z$ are left cosets of $K$. Since $K$ is a kernel, $X = \phi^{-1}(a)$ and $Y = \phi^{-1}(b)$ for some $a,b \in H$. Then $Z = \phi^{-1}(ab)$. Let $u$ and $v$ be arbitrary representatives of $X$ and $Y$, respectively. The $\phi(u) = a, \phi(v) = b, X = uK, Y = vK$. We must show that $uv \in Z: uv \in \phi^{-1}(ab) \rightarrow \phi(uv) = ab \rightarrow \phi(u)\phi(v) = ab$. Therefore, $uv \in Z$, therefore $Z$ is the left coset $uvK$. This proves that the product of $X$ and $Y$ is the coset $uvK$ for any choice of representatives $u \in X, v \in Y$.
+
+We denote with $\bar{u}$ the coset $uK$ with representative $u$. Then the quotient group $G/K$ is denoted by $\bar{G}$ and the product of elements $\bar{u}$ and $\bar{v}$ is the coset containing $uv$ which we denote by $\bar{uv}$.
+
+
+By the theorem above, if we have a kernel $K$ of some homomorphism, we may define the quotient $G/K$ without using the homomorphism by the multiplication $uKvK = uvK$. We can ask whether this works for \emph{any} subgroup (and not only for kernels of homomorphisms). The answer is no: We will show that a group structure on a subgroup $N$ can be defined \emph{if and only if} $N$ is the kernel of a homomorphism. An equivalent statement is that the subgroup $N$ must be a normal subgroup.
+
+
+%=====================================================
+
+
 
 The cosets partition a group (Prop. 4)
 
 Connection between well-definedness of $uK vK = (uv)K$ and $gng^{-1} \in N$ for all $g \in G$ and all $n \in N$ (Prop. 5)
 
 A subgroup is normal iff if it is the kernel of some homomorphism (Prop. 7)
+
 
