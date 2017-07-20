@@ -8,7 +8,9 @@ Let $G = \mZ$ and $H = \mZ_n$; i.e. the cyclic group of order $n$. The group ope
 
 Define a function $\phi: \mZ \rightarrow \mZ_n$ by $\phi(a) = x^a$. We have $\phi(a + b) = x^{a+b} = x^a x^b = \phi(a) \phi(b)$ which shows that $\phi$ is a homomorphism.
 
-TBC
+The kernel of $\phi$ are therefore all numbers $m$ for which $m \equiv 0 \bmod n$; i.e. all multiples of $n$. The fiber of $\phi$ over $x^a$ are all $m$ for which $m \equiv a \bmod n$. For the representative of the fiber over $a$ we write $\bar{a}$.
+
+The group operation for the fibers is $\bar{a} \bar{b} = \bar{a+b}$.
 
 \subsection{Vector Addition in $\mR^2$}
 
@@ -24,6 +26,8 @@ The kernel of the function is
 \text{ker}(\phi) = \{[x,y | \phi([x,y]) = 0]\} = \{[x,y] | x=0\}
 \eee
 
-which is the y-Axis. The kernel is a subgroup of $G$ (the sum of two vectors with zero x-component is again such a vector, there is an identity element, and there exists an inverse element for every subgroup element)and the fiber of $\phi$ over $a \in mR$ is the translate of the y-Axis over $a$; i.e. the set $\{[x,y] | x=a\}$.
+which is the y-Axis. The kernel is a subgroup of $G$ (the sum of two vectors with zero x-component is again such a vector, there is an identity element, and there exists an inverse element for every subgroup element)and the fiber of $\phi$ over $a \in mR$ is the translate of the y-Axis over $a$; i.e. the set $\{[x,y] | x=a\}$. This is also the left (and right) coset with representative $[a,0]$ wich we write as $\bar{[a,0]}$.
 
-TBC
+The group operation on $H$ is either described using the map $\phi$: The sum of the line $x=a$ and the line $x=b$ is the line $x=a+b$ or via coset representatives: The sum of $\bar{[a,0]}$ and $\bar{[b,0]}$ is $\bar{[a+b,0]}$.
+
+
