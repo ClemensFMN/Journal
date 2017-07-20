@@ -1,0 +1,29 @@
+\DiaryEntry{Quotient Groups, II}{2017-07-20}{Algebra}
+
+\section{Examples}
+
+\subsection{Cyclic Subgroups $\mZ_n$}
+
+Let $G = \mZ$ and $H = \mZ_n$; i.e. the cyclic group of order $n$. The group operation in $G$ is addition and in $H$ multiplication (modulo-$n$).
+
+Define a function $\phi: \mZ \rightarrow \mZ_n$ by $\phi(a) = x^a$. We have $\phi(a + b) = x^{a+b} = x^a x^b = \phi(a) \phi(b)$ which shows that $\phi$ is a homomorphism.
+
+TBC
+
+\subsection{Vector Addition in $\mR^2$}
+
+Take $G = \mR^2$ with group operation vector addition (the sum of two vectors is again a vector, the zero vector is the identity element and every element has an inverse, therefore we have a group). Let $H = \mR$ with group operation addition. Define $\phi([x,y]) = x$; i.e. the function projects (the two-dimensional) vectors onto the x-Axis. This is a homomorphism, as
+
+\bee
+\phi([x_1,y_1] + [x_2,y_2]) = \phi([x_1+x_2,y_1+y_2]) = x_1 + x_2 = \phi([x_1,y_1]) +  \phi([x_2,y_2]) 
+\eee
+
+The kernel of the function is
+
+\bee
+\text{ker}(\phi) = \{[x,y | \phi([x,y]) = 0]\} = \{[x,y] | x=0\}
+\eee
+
+which is the y-Axis. The kernel is a subgroup of $G$ (the sum of two vectors with zero x-component is again such a vector, there is an identity element, and there exists an inverse element for every subgroup element)and the fiber of $\phi$ over $a \in mR$ is the translate of the y-Axis over $a$; i.e. the set $\{[x,y] | x=a\}$.
+
+TBC
