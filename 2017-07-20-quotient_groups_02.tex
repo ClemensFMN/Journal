@@ -1,16 +1,17 @@
-\DiaryEntry{Quotient Groups, II}{2017-07-20}{Algebra}
+\DiaryEntry{Quotient Groups, II (Examples)}{2017-07-20}{Algebra}
 
-\section{Examples}
+\subsection{Modulo Operation}
 
-\subsection{Cyclic Subgroups $\mZ_n$}
+The modulo operation is a homomorphism: Consider $\phi(x) = x \bmod n$ (with fixed $n$ and we have $\phi(a+b) = a+b \bmod n = a \bmod n + b \bmod n = \phi(a) + \phi(b)$. \qed
 
-Let $G = \mZ$ and $H = \mZ_n$; i.e. the cyclic group of order $n$. The group operation in $G$ is addition and in $H$ multiplication (modulo-$n$).
+The kernel of this mapping is the set of all integers which are divisible by $n$ (or in other words, the multiples of $n$): $\text{ker}(\phi) = \{x | x \bmod n = 0\} = \{ xn | x \in \mZ\}$.i The fibers of the mapping $\phi$ over $a$ are all numbers in $\mZ$ which have remainder $a$ after division by $n$. For the representative of such a fiber we will write $\bar{a}$.
 
-Define a function $\phi: \mZ \rightarrow \mZ_n$ by $\phi(a) = x^a$. We have $\phi(a + b) = x^{a+b} = x^a x^b = \phi(a) \phi(b)$ which shows that $\phi$ is a homomorphism.
+Consider now the group $G = \mZ$ with group operation addition (denoted as $+_g$) under this mapping which produces a subgroup $H$. The group operation of $H$ (denoted as $+_H$) for two elements $a, b$ can be obtained as follows: We take any element $a'$ of $G$ which is contained in the fiber over $a$ and add any element $b'$ of the fiber over $b$ to obtain $a' +_G b' = c'$. Then we find the representative of the element $c'$ which we denote as $c$. We therefore have $a +_H b = c$.
+Note that for the final result (i.e. $c$) it does \emph{not} matter which elements $a'$ and $b'$ we choose; if we take two different elements $a'', b''$, the result of the group operation will be different $a'' +_G b'' = c'' \neq c'$, but the resulting representative $c$ will be the same.
 
-The kernel of $\phi$ are therefore all numbers $m$ for which $m \equiv 0 \bmod n$; i.e. all multiples of $n$. The fiber of $\phi$ over $x^a$ are all $m$ for which $m \equiv a \bmod n$. For the representative of the fiber over $a$ we write $\bar{a}$.
 
-The group operation for the fibers is $\bar{a} \bar{b} = \bar{a+b}$.
+
+
 
 \subsection{Vector Addition in $\mR^2$}
 
@@ -29,5 +30,15 @@ The kernel of the function is
 which is the y-Axis. The kernel is a subgroup of $G$ (the sum of two vectors with zero x-component is again such a vector, there is an identity element, and there exists an inverse element for every subgroup element)and the fiber of $\phi$ over $a \in mR$ is the translate of the y-Axis over $a$; i.e. the set $\{[x,y] | x=a\}$. This is also the left (and right) coset with representative $[a,0]$ wich we write as $\bar{[a,0]}$.
 
 The group operation on $H$ is either described using the map $\phi$: The sum of the line $x=a$ and the line $x=b$ is the line $x=a+b$ or via coset representatives: The sum of $\bar{[a,0]}$ and $\bar{[b,0]}$ is $\bar{[a+b,0]}$.
+
+\subsection{Cyclic Subgroups $\mZ_n$ (Obsolete)}
+
+Let $G = \mZ$ and $H = \mZ_n$; i.e. the cyclic group of order $n$. The group operation in $G$ is addition and in $H$ multiplication (modulo-$n$).
+
+Define a function $\phi: \mZ \rightarrow \mZ_n$ by $\phi(a) = x^a$. We have $\phi(a + b) = x^{a+b} = x^a x^b = \phi(a) \phi(b)$ which shows that $\phi$ is a homomorphism.
+
+The kernel of $\phi$ are therefore all numbers $m$ for which $m \equiv 0 \bmod n$; i.e. all multiples of $n$. The fiber of $\phi$ over $x^a$ are all $m$ for which $m \equiv a \bmod n$. For the representative of the fiber over $a$ we write $\bar{a}$.
+
+The group operation for the fibers is $\bar{a} \bar{b} = \bar{a+b}$.
 
 
