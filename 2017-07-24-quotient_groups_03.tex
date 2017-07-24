@@ -30,4 +30,18 @@ To summarize, we have the following equivalent statements
 
 Finally, we have a simple condition for a group being normal: A subgroup is normal iff if it is the kernel of some homomorphism.
 
+\subsection{Natural Projection}
 
+Let $N \trianglelefteq G$ and $H = G/N$. Define a mapping $\pi: G \rightarrow G/N$ by $\pi(g) = gN$ for all $g \in G$. This mapping is a homomorphism; check this by
+
+\bee
+\pi(g_1 g_2) = (g_1 g_2)N =g_1 N g_2 N = \pi(g_1) \pi(g_2)
+\eee
+
+Next calculate the kernel of this mapping:
+
+\bee
+\text{ker}(\pi) = \{ g \in G | \pi(g) = 1N \} =  \{ g \in G | gN = 1 N \} = \{g \in G | g \in N \} = N
+\eee
+
+This shows that $N$ is the kernel of the homomorphism $\pi$ which is called the \emph{natural projection (homomorphism)} of $G$ onto $G/N$.
