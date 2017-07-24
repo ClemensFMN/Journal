@@ -1,0 +1,33 @@
+\DiaryEntry{Quotient Groups, III}{2017-07-24}{Algebra}
+
+Some further theorems / observations about cosets et al:
+
+The (left / right) cosets partition a group. Furthermore, for all $u,v \in G, uN = vN$ iff $v^{-1}u \in N$ and in particular, $uN = vN$ iff $u$ and $v$ are representatives of the same coset. In other words, distinct cosets have an empty intersection.
+
+The operation on the left cosets of $N$ in $G$ given by $uN vN = (uv)N$ is well defined iff $gng^{-1} \in N$ for all $g \in G$ and all $n \in N$. In this case, the left cosets of $N$ in $G$ form a group with the identity element being the coset $1N$ and the inverse element of $gN$ being the coset $g^{-1}N$. 
+
+This gives rise to a couple of definitions:
+
+The element $gng^{-1}$ is called the conjugate of $n \in N$ by $g$. The set $gNg^{-1} = \{ gng^{-1} | n \in N\}$ is called the conjugate of $N$ by $g$. The element $g$ normalizes $N$ if $gng^{-1} = N$. Finally, a subgroup $N$ of a group $G$ is called normal if every element of $G$ normalizes $N$; i.e. $gNG^{-1} = N$ for all $g \in G$. If $N$ is a normal subgroup og $G$, we write $N \trianglelefteq G$.
+
+In the special case of an Abelian group $G$ (i.e. where $ab = ba, a,b \in G$), we have $gNg^{-1} = \{gng^{-1} | n \in N \} = \{n |n \in N\} = N$; i.e. every element of $G$ normalizes $N$. So every subgroup is normal (and Abelian, by the way).
+
+To summarize, we have the following equivalent statements
+
+\begin{itemize}
+
+\item $N \trianglelefteq G$
+
+\item $N_g(N) = G$
+
+\item $gN = Ng$; i.e. left and right cosets are the same
+
+\item The operation $uN vN = (uv)N$ makes the set of left cosets a group.
+
+\item $gNg^{-1}$ is a subset of $N$ for all $g \in G$.
+
+\end{itemize}
+
+Finally, we have a simple condition for a group being normal: A subgroup is normal iff if it is the kernel of some homomorphism.
+
+
