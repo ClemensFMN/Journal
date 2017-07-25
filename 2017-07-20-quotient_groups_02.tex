@@ -41,4 +41,30 @@ The kernel of $\phi$ are therefore all numbers $m$ for which $m \equiv 0 \bmod n
 
 The group operation for the fibers is $\bar{a} \bar{b} = \bar{a+b}$.
 
+\subsection{Homomorphisms}
 
+It is actually interesting how many functions are homomorphisms and how difficult it is to find a function which is \emph{not} a homomorphism:
+
+\begin{itemize}
+
+\item Every linear function is a homomorphism: $\phi(x+y) = \phi(x) + \phi(y)$, but there are functions which are not linear and homomorphic nevertheless.
+
+\item Squaring $\phi(x) = x^2$ with multiplication as group operation is a homomorphism $\phi(xy) = (xy)^2 = x^2 y^2$. This works for other exponents as well. As an example consider $\mZ_9^\star = \{1,2,4,5,7,8\}$. The mapping $\phi(x) = x^2$ yields the following: $1\rightarrow 1, 2\rightarrow 4, 4 \rightarrow 7, 5 \rightarrow 7, 7 \rightarrow 4, 8 \rightarrow 1$. The kernel is therefore $N = \text{ker}(\phi) = \{1,8\}$ and we have the following cosets: $1N 8N = = \{1,8\}, 2N = 7N = {2,7}, 4N = 5N = {4,5}$. The resulting quotient group has the following operation table
+
+\bee
+\begin{array}{c|ccc}
+\star & 1 & 2 & 4 \\
+\hline 
+1     & 1 & 2 & 4 \\
+2     & 2 & 4 & 1 \\
+4     & 4 & 1 & 2
+\end{array}
+\bee
+
+As an example consider $2 \star 4$. We can either use any element from the corresponding coset, multiply them and return the corresponding coset's representative as result: $2 \cdot 4 \equiv 8 \bmod 9$ or $2 \cdot 5 \equiv 1 \bmod 9$, all of them produce an element of the coset $1N = 8N$. Or we multiply the representatives and obtain the result directly $2 \cdot 4 \equiv 8 \bmod 9$.
+
+\item Addition as group operation does not produce a homomorphism $\phi(x+y) = (x+y)^2 \neq x^2 + y^2 = \phi(x) + \phi(y)$.
+
+
+
+\end{itemize}
