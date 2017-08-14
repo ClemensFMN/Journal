@@ -2,16 +2,14 @@
 
 \subsection{Modulo Operation}
 
-The modulo operation is a homomorphism: Consider $\phi(x) = x \bmod n$ (with fixed $n$ and we have $\phi(a+b) = a+b \bmod n = a \bmod n + b \bmod n = \phi(a) + \phi(b)$. \qed
+As group $G$ we take the set of all integers $\mZ$, group operation is (normal) addition (denoted as $+_g$).  In this group, the modulo operation $x \bmod n$ with fixed $n$ is a homomorphism: We have $\phi(a+b) = a+b \bmod n = a \bmod n + b \bmod n = \phi(a) + \phi(b)$. \qed The kernel of this mapping is the set of all integers which are divisible by $n$ (or in other words, the multiples of $n$): $\text{ker}(\phi) = \{x | x \bmod n = 0\} = \{ xn | x \in \mZ\}$. The kernel is a subgroup; adding two multiples of $n$ yields a number being a multiple of $n$, $0$ is the neutral element, and every element has an inverse in the subgroup.
 
-The kernel of this mapping is the set of all integers which are divisible by $n$ (or in other words, the multiples of $n$): $\text{ker}(\phi) = \{x | x \bmod n = 0\} = \{ xn | x \in \mZ\}$.i The fibers of the mapping $\phi$ over $a$ are all numbers in $\mZ$ which have remainder $a$ after division by $n$. For the representative of such a fiber we will write $\bar{a}$.
+The fibers of the mapping $\phi$ over $a$ are all the numbers in $\mZ$ which have remainder $a$ after division by $n$. For the representative of such a fiber we will write $\bar{a}$. Note that the fibers are \emph{not} subgroups (except the fiber over $0$ which is the kernel).
 
-Consider now the group $G = \mZ$ with group operation addition (denoted as $+_g$) under this mapping which produces a subgroup $H$. The group operation of $H$ (denoted as $+_H$) for two elements $a, b$ can be obtained as follows: We take any element $a'$ of $G$ which is contained in the fiber over $a$ and add any element $b'$ of the fiber over $b$ to obtain $a' +_G b' = c'$. Then we find the representative of the element $c'$ which we denote as $c$. We therefore have $a +_H b = c$.
-Note that for the final result (i.e. $c$) it does \emph{not} matter which elements $a'$ and $b'$ we choose; if we take two different elements $a'', b''$, the result of the group operation will be different $a'' +_G b'' = c'' \neq c'$, but the resulting representative $c$ will be the same.
+This mapping produces a subgroup $H$. The group operation of $H$ (denoted as $+_H$) for two elements $a, b$ can be obtained as follows: We take any element $a'$ of $G$ which is contained in the fiber over $a$ and add any element $b'$ of the fiber over $b$ to obtain $a' +_G b' = c'$. Then we find the representative of the element $c'$ which we denote as $c$. We therefore have $a +_H b = c$.
+Note that for the final result (i.e. $c$) it does \emph{not} matter which elements $a'$ and $b'$ we choose; if we take two different elements $a'', b''$, the result of the group operation will be different $a'' +_G b'' = c'' \neq c'$, but the resulting representative $c$ will be the same. In this sense, the notation $G/H$ and the name quotient group make sense, as the elements of the kernel (and the fibers) are treated equivalent by the group operation $+_H$ - the kernel (subgroup $H$) has been divided out of the original group $G$.
 
-
-
-
+Instead of going back and forth between representatives and group elements in $G$, we can do this once, obtain a group operation table for $H$ and use this instead.
 
 \subsection{Vector Addition in $\mR^2$}
 
