@@ -22,41 +22,30 @@
 
 \subsubsection{Julia}\label{julia}
 
-Advantages: Modern, performant. Vector / matrix\ldots{} support ootb. A
-language for scientific computing. Quite vibrant ecosystem but not as
-complete as Python -\textgreater{} use PyCall.
+Advantages: Modern, performant. Vector / matrix / ... support ootb. A language for scientific computing. Quite vibrant ecosystem but not as complete as Python; maybe use PyCall.
 
 \subsubsection{Python}\label{python}
 
-Nice for everyday scripting, but numerical stuff (numpy) is awkward;
-e.g.
+Nice for everyday scripting, but numerical stuff (numpy) is awkward; e.g.
 
 \begin{verbatim}
 self.current_x_hat = dot(A, x_hat)
 self.current_Sigma = dot(A, dot(Sigma, A.T)) + Q
 \end{verbatim}
 
-Vectors are supported, but matrices are not really integrated into the
-language. A general purpose language with support for scientific
-computing (see Julia). Julia offers with PyCall a nice way to tap into
-the Python scientific ecosystem.
+Vectors are supported, but matrices are not really integrated into the language. A general purpose language with support for scientific computing (see Julia). Julia offers with PyCall a nice way to tap into the Python scientific ecosystem.
 
 \subsubsection{C\# / Mono + Winforms}\label{c-mono-winforms}
 
-The ``classical'' way to go; cross-platform, lots of documentation
-available (Windows World), sufficiently ``modern'' (more than Java).
+The ``classical'' way to go; cross-platform, lots of documentation available (Windows World), sufficiently ``modern'' (more than Java).
 
 \subsubsection{Scheme / Racket}\label{scheme-racket}
 
-Seems to be sufficiently close to ``classical LISP books'' (SICP, The
-little Schemer\ldots{}) to use it; nice IDE and nice library ecosystem.
+Seems to be sufficiently close to ``classical LISP books'' (SICP, The little Schemer\ldots{}) to use it; nice IDE and nice library ecosystem.
 
 \subsubsection{Ruby}\label{ruby}
 
-Perfect for the few web apps I do (e.g.~in contrast to Django). In
-addition, maybe it can replace Python as everyday scripting language.
-Need to check ecosystem and compare with Python (main competitor).
-Nicer/cleaner syntax/structure than Python in any case; e.g.
+Perfect for the few web apps I do (e.g.~in contrast to Django). In addition, maybe it can replace Python as everyday scripting language. Need to check ecosystem and compare with Python (main competitor). Nicer/cleaner syntax/structure than Python in any case; e.g.
 
 Python:
 
@@ -77,22 +66,16 @@ x.sort! sorts in-place
 
 \subsubsection{C++ / Qt}\label{c-qt}
 
-Qt is a quite complete framework; so C++ with Qt is not ``really'' C++.
-Nevertheless, too cumbersome and replaced by C\# / Mono with WinForms.
+Qt is a quite complete framework; so C++ with Qt is not ``really'' C++. Nevertheless, too cumbersome and replaced by C\# / Mono with WinForms.
 
 \subsubsection{Java / Swing}\label{java-swing}
 
-Java is enterprise, but Swing is a bit old =\textgreater{} C\# / Mono +
-WinForms is more modern.
+Java is enterprise, but Swing is a bit older than C\# Mono + WinForms is more modern.
 
 \subsubsection{Scala}\label{scala}
 
-Coming up as something new. Uses the JVM =\textgreater{} large
-ecosystem. Sufficiently modern / functional / cool. Not overly hyped and
-not so weird as e.g.~Haskell.
+Coming up as something new. Uses the JVM large ecosystem. Sufficiently modern / functional / cool. Not overly hyped and not so weird as e.g.~Haskell.
 
 \subsubsection{Rust}\label{rust}
 
-Nope - I don't think it introduces new concepts, but tries to be a
-better (safer) C/C++. However, for all microcontroller/low-level system
-stuff, there is C. No need for another Baustelle.
+Nope - I don't think it introduces new concepts, but tries to be a better (safer) C/C++. However, for all microcontroller/low-level system stuff, there is C. No need for another Baustelle.

@@ -1,0 +1,63 @@
+\DiaryEntry{Programming Languages, revisited}{2017-08-21}{Misc.}
+
+I think I spent the last half year looking (again) into several languages. Below is the summary.
+
+\emph{Note: It is easy to get lost in evaluating new and exciting languages (HN syndrome) instead of actually writing useful code (and not just Hello World programs).}
+
+\subsection{LISP Family (Common Lisp, Racket, Clojure)}
+
+The syntax is still awkward but one gets used to it. Macros are an interesting feature, but they are a powerful tool which is rather complicated and extremely complex.
+
+\subsubsection{Common Lisp}
+
+There is some good documentation available (book "Practical Common Lisp"). However, tooling is limited (no IDE) and the whole library ecosystem seems limited (?) and / or rather poorly documented. It is difficult to judge, how much development is made.
+
+\subsubsection{Racket}
+
+The language has an IDE (DrRacket) and also good documentation (homepage and book "The Realm of Racket"). It seems to have a rather complete standard library (batteries included); the question is whether it is / can be used for "real" stuff or the whole thing is more a learning language.
+
+\subsubsection{Clojure}
+
+Good documentation (books and web) and supported by an IDE (Eclipse) and there is a build tool (leiningen) as well. The concepts are interesting (atoms, refs, atoms, STM...) and seem to be fairly extensive. Using the Java ecosystem is also a big plus.
+
+In general, the JVM languages are rather slow regarding compilation and startup. The REPL may ease that a bit.
+
+\subsection{Rust}
+
+The borrow checker scares me. Basic stuff seems to be pretty straightforward (and does not need the borrow checker) but more advanced stuff seems to become tricky; e.g. recursive ADTs (tree structures) use references and the borrow checker makes this complicated.
+
+\subsection{Nim}
+
+Similar syntax as Python, but more consistent, nice FP and advanced features. The source code is "converted" to C and then compiled with gcc. Very fast development cycles and short compilation times. The compilation to C allows for very easy FFI. Can also compile to JavaScript, but not tried.
+
+On the downside, there seems to be a small development / user community and little documentation. The tutorial / manual on the homepage is nice but not comprehensive. There is / will be a book ("Nim in Action"), but I only checked the two sample chapters.
+
+\subsection{Scala}
+
+The language I already spent most time with. Good documentation (web + books), good IDE support (IntelliJ). It seems to be widely used (lots of entries on StackOverflow, blogs...) and very mature.
+
+Compilation times are extremely slow, thus making development somewhat painful. On the other hand, there is a REPL which allows for interactive development and testing. This somewhat compensates the slow compilation times.
+
+Can be used in full fledged projects (using sbt) with third-party libs, testing... but also in single-file scripts (although here the JVM start-up time makes this questionable).
+
+The language is scalable in the sense that it allows everything from an imperative Java-like style up to advanced FP / ... concepts (see book Functional Programming in Scala). This is different (better) than Haskell, which only allows a pure FP approach and nothing else. If you cannot express your problem in an FP-manner, you will not be able to solve it in Haskell; in Scala, however, you can still code this in an imperative style.
+
+\subsection{Haskell}
+
+Good documentation (web, books), mature. Fast compilation times.
+
+Biggest drawback is the "FP or nothing approach". And to solve more complicated problems (like Sudoku) with pure FP is really complicated (and may even prevent implementation).
+
+\subsection{Go}
+
+Very fast compilation times, quite simple language. Very restrictive rules from Google (formatting, no unused imports...). It seems to be quite well-thought and allows for a rather large range from low-level to high-level stuff. Libraries and ecosystem seems to be quite comprehensive as well.
+
+\subsection{Conclusion}
+
+There are two categories for language requirements. One is about the type of application I want to use the language for; the second is about the features of the language itslef.
+
+The language shall be used for day-to-day use but numerical stuff (where I will use Julia). The range is from low-level like OS development, numerical stuff (big-int stuff), network programming (servers...), file parsers, but also high-level stuff like a Sudoku solver.
+
+The language itself shall support modern and interesting concepts. A big sentence, but from a learning point of view, e.g. BASIC is too simple.
+
+I think this mix of requirements on the problems to solve and the language itself makes it very difficult to select one winner. From the application point of view it could be Go (I probably should spend some more time on it), but from the language perspective itself something like Haskell, Scala, or Racket sounds more appropriate.
