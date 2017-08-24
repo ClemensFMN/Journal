@@ -10,11 +10,11 @@ The syntax is still awkward but one gets used to it. Macros are an interesting f
 
 \subsubsection{Common Lisp}
 
-There is some good documentation available (book "Practical Common Lisp"). However, tooling is limited (no IDE) and the whole library ecosystem seems limited (?) and / or rather poorly documented. It is difficult to judge, how much development is made.
+There is some good documentation available (book "Practical Common Lisp"). However, tooling is limited (no IDE) and the whole library ecosystem seems limited (?) and / or rather poorly documented. It is difficult to judge, how much development of the compiler, ecosystem... is still being made.
 
 \subsubsection{Racket}
 
-The language has an IDE (DrRacket) and also good documentation (homepage and book "The Realm of Racket"). It seems to have a rather complete standard library (batteries included); the question is whether it is / can be used for "real" stuff or the whole thing is more a learning language.
+The language has an IDE (DrRacket) and also good documentation (homepage and book "The Realm of Racket"). It seems to have a rather complete standard library (batteries included); it seems to be used as learning language; the question is whether it is / can be used for "real" stuff as well.
 
 \subsubsection{Clojure}
 
@@ -28,9 +28,9 @@ The borrow checker scares me. Basic stuff seems to be pretty straightforward (an
 
 \subsection{Nim}
 
-Similar syntax as Python, but more consistent, nice FP and advanced features. The source code is "converted" to C and then compiled with gcc. Very fast development cycles and short compilation times. The compilation to C allows for very easy FFI. Can also compile to JavaScript, but not tried.
+Similar syntax as Python, but more consistent, nice FP, and oter advanced features. The source code is "converted" to C and then compiled with gcc. Very fast development cycles and short compilation times. The compilation to C allows for very easy FFI. Can also compile to JavaScript, but have not tried.
 
-On the downside, there seems to be a small development / user community and little documentation. The tutorial / manual on the homepage is nice but not comprehensive. There is / will be a book ("Nim in Action"), but I only checked the two sample chapters.
+On the downside, there seems to be a small development / user community and little documentation. The tutorial / manual on the homepage is nice, but not comprehensive. There is / will be a book ("Nim in Action"), but I only checked the two sample chapters.
 
 \subsection{Scala}
 
@@ -46,11 +46,18 @@ The language is scalable in the sense that it allows everything from an imperati
 
 Good documentation (web, books), mature. Fast compilation times.
 
-Biggest drawback is the "FP or nothing approach". And to solve more complicated problems (like Sudoku) with pure FP is really complicated (and may even prevent implementation).
+Biggest drawback is the "FP or nothing approach". For me solving more complicated problems (like a Sudoku solver) with pure FP is (still too?) complicated; worst case, this may prevent implementation of such a solver.
 
 \subsection{Go}
 
 Very fast compilation times, quite simple language. Very restrictive rules from Google (formatting, no unused imports...). It seems to be quite well-thought and allows for a rather large range from low-level to high-level stuff. Libraries and ecosystem seems to be quite comprehensive as well.
+
+Downside is that the features are somewhat limited; e.g. no generics. I don't know how much that hurts for my use case(s).
+
+
+\subsection{D}
+
+
 
 \subsection{Conclusion}
 
