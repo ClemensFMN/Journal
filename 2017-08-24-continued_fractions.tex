@@ -1,1 +1,54 @@
 \DiaryEntry{Continued Fractions}{2017-08-24}{Maths}
+
+\subsection{Motivation}
+
+Let's find a continued fraction for $\frac{649}{200}$: We first split into an integer and a fraction (smaller than $1$):
+
+\bee
+\frac{649}{200} = 3 + \frac{49}{200}= 3 + \frac{1}{ \frac{200}{49} }
+\eee
+
+where in the last step we "smuggled" in an additional reciprocal. We can now play the same game with $\frac{200}{49} = 4 + \frac{4}{49}$ and continue $\frac{49}{4} = 12 + \frac{1}{4}$. The reciprocal of the last fraction is an integer: $\frac{4}{1}= 4$, therefore the fractional part is zero. This is the signal that we are done. Putting everything together, we arrive at
+
+\bee
+\frac{649}{200} = 3 + \frac{1}{ 4 + \frac{4}{49} } = 3 + \frac{1}{ 4 + \frac{1}{ 12  + \frac{1}{4}} }
+\eee
+
+There is a special notation for continued fraction, we write it as $[3;4,12,4]$.
+
+\subsection{Procedure}
+
+We can turn the above example into a procedure which turns a number into a continued fraction as follows:
+
+\begin{enumerate}
+	\item Write down the integer part of the number.
+	\item Subtract the integer part from the number.
+	\item If the difference is zero, then stop; otherwise take the reciprocal of the difference and repeat.
+\end{enumerate}
+
+Above procedure is not restricted to numbers represented as fractions (like the first example); instead we can use it with normal numbers as well.
+
+Continuing the example from above, we have $\frac{649}{200} = 3.245$. Taking the integer part yields $3$, the fractional part is $0.245$ and its reciprocal is approximately $4.081...$. Again subtracting the integer part $4$ yields a factional part of approximately $0.081..$ and we can continue. The process stops when the fractional part becomes zero (due to rounding errors, this might not be as obvious as in case of fractions).
+
+\subsection{Properties}
+
+\begin{itemize}
+
+	\item Every fraction can be represented as a continued fraction which eventually stops; i.e. a finite continued fraction.
+
+	\item An irrational number is represented by infinite continued fraction.
+
+	\item An irrational number can be approximated by truncating its continued fraction. TODO: Add further information
+
+\end{itemize}
+
+
+As an example consider $\pi = 3.14 \ldots$: Subtract the integer value yields $0.14$, taking the reciprocal yields $7....$ and so on. The process never stops ($\pi$ is irrational, after all), and the first few values of the continued fraction are
+
+\bee
+\pi \approx [3;7,15,1,292,\ldots]
+\eee
+
+
+
+
