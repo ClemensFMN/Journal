@@ -2,13 +2,13 @@
 
 \subsection{Motivation}
 
-Let's find a continued fraction for $\frac{649}{200}$: We first split into an integer and a fraction (smaller than $1$):
+Let's find a continued fraction for $\frac{649}{200}$: We first split off the integer part:
 
 \bee
 \frac{649}{200} = 3 + \frac{49}{200}= 3 + \frac{1}{ \frac{200}{49} }
 \eee
 
-where in the last step we "smuggled" in an additional reciprocal. We can now play the same game with $\frac{200}{49} = 4 + \frac{4}{49}$ and continue $\frac{49}{4} = 12 + \frac{1}{4}$. The reciprocal of the last fraction is an integer: $\frac{4}{1}= 4$, therefore the fractional part is zero. This is the signal that we are done. Putting everything together, we arrive at
+and in the last step we "smuggled" in an additional reciprocal. We can now play the same game with $\frac{200}{49} = 4 + \frac{4}{49}$ and continue $\frac{49}{4} = 12 + \frac{1}{4}$. The reciprocal of the last fraction is an integer: $\frac{4}{1}= 4$, therefore the fractional part is zero. We cannot continue the process; this is the signal that we are done. Putting everything together, we arrive at
 
 \bee
 \frac{649}{200} = 3 + \frac{1}{ 4 + \frac{4}{49} } = 3 + \frac{1}{ 4 + \frac{1}{ 12  + \frac{1}{4}} }
@@ -22,23 +22,30 @@ We can turn the above example into a procedure which turns a number into a conti
 
 \begin{enumerate}
 	\item Write down the integer part of the number.
+
 	\item Subtract the integer part from the number.
+
 	\item If the difference is zero, then stop; otherwise take the reciprocal of the difference and repeat.
 \end{enumerate}
 
 Above procedure is not restricted to numbers represented as fractions (like the first example); instead we can use it with normal numbers as well.
 
-Continuing the example from above, we have $\frac{649}{200} = 3.245$. Taking the integer part yields $3$, the fractional part is $0.245$ and its reciprocal is approximately $4.081...$. Again subtracting the integer part $4$ yields a factional part of approximately $0.081..$ and we can continue. The process stops when the fractional part becomes zero (due to rounding errors, this might not be as obvious as in case of fractions).
+Continuing the example from above, we have $\frac{649}{200} = 3.245$. Taking the integer part yields $3$, the fractional part is $0.245$ and its reciprocal is approximately $4.081...$. Again subtracting the integer part $4$ yields a factional part of approximately $0.081..$ and we can continue. The process stops when the fractional part becomes zero (due to rounding errors, this might not be as obvious as in case of fractions) and we arrive at the same continuous fraction as before.
 
 \subsection{Properties}
 
 \begin{itemize}
 
-	\item Every fraction can be represented as a continued fraction which eventually stops; i.e. a finite continued fraction.
+	\item Every fraction can be represented as continued fraction which eventually stops; i.e. a finite continued fraction.
 
-	\item An irrational number is represented by infinite continued fraction.
+	\item A finite continued fraction can be written in two different ways: $[a_0;a_1, a_2, \ldots, a_n, 1] = [a_0;a_1, a_2, \ldots, a_n+1]$. This can be seen by writing down out the LHS and RHS.
+
+	\item An irrational number is represented by an infinite continued fraction.
 
 	\item An irrational number can be approximated by truncating its continued fraction. TODO: Add further information
+	
+	\item The approximation of an irrational number is very good when the continued fraction continues large numbers. Truncation can then be done before the large 
+	number (the large number is in the denominator, causing little change in the overall number; e.g. $[0;2;100] = \frac{1}{2 + \frac{1}{100}} \approx \frac{1}{2}$).
 
 \end{itemize}
 
@@ -49,6 +56,36 @@ As an example consider $\pi = 3.14 \ldots$: Subtract the integer value yields $0
 \pi \approx [3;7,15,1,292,\ldots]
 \eee
 
+If we truncate after the first three numbers, we obtain
+
+\bee
+p = [3;7,15,1] = [3;7,16]
+\eee
+
+If we compare the approximation error $p - \pi$, $[3;7,15] - \pi$ and $[3;7,17] - \pi$, we see that the truncated continued fraction $[3;7,16]$ yields the best approximation.
 
 
+\begin{verbatim}
+3+1//(7+1//15)-pi
+-8.32196275291075e-5
 
+3+1//(7+1//16)-pi
+2.667641894049666e-7
+
+3+1//(7+1//17)-pi
+7.401307687349146e-5
+\end{verbatim}
+
+Of course, if we include one more fraction (i.e. using $[3;7,15,1,292]$) we obtain a better approximation.
+
+\begin{verbatim}
+3+1//(7+1//(15+1//(1+1//292)))
+103993//33102
+\end{verbatim}
+
+Note: When considering another term (i.e. truncating one position later) the approximation error changes sign: 
+
+\begin{verbatim}
+3+1//(7+1//(15+1//(1+1//292)))-pi
+-5.778906242426274e-10
+\end{verbatim}
