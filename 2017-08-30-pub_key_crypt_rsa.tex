@@ -1,0 +1,82 @@
+\DiaryEntry{Public Key Cryptography and RSA}{2017-08-30}{Crypto}
+
+\subsection{Symmetric vs Asymmetric Cryptography}
+
+\paragraph{Symmetric Cryptography:} There is a secret key $k$ used both for encryption and decryption. The sender Alice encrypts a message $x$ using $k$ to obtain an encrypted message $y$ which is transported over a (potentially insecure) channel. The receiver Bob uses $k$ to decrypt $y$ and obtain the secret message $x$. Typically, encryption and decryption messages are very similar.
+
+Problems are that every communication pair (i.e. sender - receiver) requires a different key and these keys need to be stored / distibuted between the partners across the network. This is time-consuming and difficult to achieve. When the key leaks, the communication is no longer secure!
+
+\paragraph{Asymmetric Cryptography:} Here the key consists of two parts, a public key $k_{\text{pub}}$ and a private part $k_{\text{pr}}$. Every person in the network generates a public / private key pair and publishes the public part on the network. The encryption operation requires the public part of the recipient's key; however, the decryption requires the private part of the recipient's key. All asymmetric cryptography schemes are based on so called one-way functions $f()$, where calculating $y = f(x)$ is computationally easy but the reverse operation $x = f^{-1}(y)$ is computationally hard / infeasible. In particular, it must be impossible for an attacker to obtain a private key part from the public part.
+
+RSA is based on the fact that multiplication of two large primes $p, q$ is an easy problem whereas factorization of the product into the two primes is computationally intensive (depending on the size of the numbers involved, computationally infeasible).
+
+Another scheme is based on the discrete logarithm problem, used in the Diffie-Hellman key exchange, Elgamal encryption or the Digital Signature Algorithm (DSA).
+
+Elliptic Curve (EC) Schemes are a generalization of the discrete logarithm algorithm. The most popular examaples include Elliptic Curve Diffie–Hellman key exchange (ECDH) and the Elliptic Curve Digital Signature Algorithm (ECDSA).
+
+
+\subsection{RSA}
+
+
+RSA stands Rivest–Shamir–Adleman algorithm and is currently the most widely used asymmetric cryptographic scheme.
+
+RSA is several times slower than symmetric ciphers such as AES. This is because of the many computations involved in performing RSA (or any other public-key algorithm). Therefore, there are two main applications:
+
+\begin{enumerate}
+	\item Encryption of small pieces of data, especially for key transport. In practice, RSA is often used together with a symmetric cipher such as AES, where the symmetric (and faster) AES cipher does the actual bulk data encryption.
+
+	\item digital signatures
+\end{enumerate}
+
+
+\subsubsection{Principle of Operation}
+
+RSA encrypts plaintext $x$ where we consider $x$ to be an element of $\mZ_n = \{0,1,\ldots,n-1\}$.
+
+\paragraph{Encryption.} Given the public key $k_{\text{pub}} = (n,e)$ and the message $x$, we obtain the encrypted message $y$ according to
+
+\bee
+y = x^e \bmod n
+\eee 
+
+with $x,y \in \mZ_n$.
+
+\paragraph{Decryption.} Given the private key $k_{\text{pr}} = d$ and the encrypted message $y$, we recover the message as
+
+\bee
+x = y^d \bmod n
+\eee
+
+In practice $x, y, n, d$ are very long numbers, usually $1024$ bit long or more. The value $e$ is sometimes referred to as encryption exponent or public exponent, and the private key $d$ is sometimes called decryption exponent or private exponent. If Alice wants to send an encrypted message to Bob, Alice needs to have his public key $(n, e)$, and Bob decrypts with his private key $d$. Key generation is discussed in the following.
+
+Some general observations
+
+\begin{itemize}
+
+\item Since an attacker has access to the public key, it must be computationally infea-sible to determine the private-key $d$ given the public-key values $e$ and $n$. 
+
+\item Since $x$ is only unique up to the size of the modulus $n$, we cannot encrypt more than $l$ bits with one RSA encryption, where $l$ is the bit length of $n$.
+
+\item It should be relatively easy to calculate $x^ e \bmod n$, i.e., to encrypt, and $y^d \bmod n$, i.e., to decrypt. This means we need a method for fast exponentiation with very long numbers.
+
+\item For a given $n$, there should be many private-key/public-key pairs, otherwise an attacker might be able to perform a brute-force attack.
+
+\end{itemize}
+
+
+\subsubsection{Key Generation}
+
+Goal of the key generation is to create both private and public key parts. The process is as follows
+
+\begin{itemize}
+	\item Choose two large primes $p,q$.
+
+	\item Compute $n = pq$.
+
+	\item Compute $\phi(n) =(p-1)(q-1)$.
+
+	\item Select the public exponent $e \in \{1,2,\ldots,\phi(n)-1\}$ such that $\gcd(e,\phi(n))=1$.
+
+	\item Compute the private key $d$ such that $de \equiv 1 \bmod \phi(n)$ (i.e. $d$ is the inverse of $e$). Above selection criteria for $e$ ensures that this inverse exists.
+
+\end{itemize}
