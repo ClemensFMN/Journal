@@ -14,7 +14,7 @@ There is some good documentation available (book "Practical Common Lisp"). Howev
 
 \subsubsection{Racket}
 
-The language has an IDE (DrRacket) and also good documentation (homepage and book "The Realm of Racket"). It seems to have a rather complete standard library (batteries included); it seems to be used as learning language; the question is whether it is / can be used for "real" stuff as well.
+The language has an IDE (DrRacket) and also good documentation (homepage and book "The Realm of Racket"). It seems to have a rather complete standard library (batteries included); however, it seems to be used as learning language. The question is whether it is / can be used for "real" stuff as well.
 
 \subsubsection{Clojure}
 
@@ -28,19 +28,21 @@ The borrow checker scares me. Basic stuff seems to be pretty straightforward (an
 
 \subsection{Nim}
 
-Similar syntax as Python, but more consistent, nice FP, and oter advanced features. The source code is "converted" to C and then compiled with gcc. Very fast development cycles and short compilation times. The compilation to C allows for very easy FFI. Can also compile to JavaScript, but have not tried.
+Similar syntax as Python, but more consistent (to some extent), nice FP, and other advanced features. The source code is "converted" to C and then compiled with gcc. Very fast development cycles and short compilation times. The compilation to C allows for very easy FFI. Can also compile to JavaScript, but have not tried.
 
-On the downside, there seems to be a small development / user community and little documentation. The tutorial / manual on the homepage is nice, but not comprehensive. There is / will be a book ("Nim in Action"), but I only checked the two sample chapters.
+On the downside, there seems to be a small development / user community and little documentation. Certain stuff is not implemented (e.g. the "=>" operator is in the \verb future  module or the \verb takeWhile  function is not implemented). The tutorial / manual on the homepage is nice, but not comprehensive. There is / will be a book ("Nim in Action"), but I only checked the two sample chapters which seem to be ok but not earth shaking.
 
 \subsection{Scala}
 
 The language I already spent most time with. Good documentation (web + books), good IDE support (IntelliJ). It seems to be widely used (lots of entries on StackOverflow, blogs...) and very mature.
 
-Compilation times are extremely slow, thus making development somewhat painful. On the other hand, there is a REPL which allows for interactive development and testing. This somewhat compensates the slow compilation times.
+Compilation times are extremely slow, thus making development painful. Especially together with IntelliJ in a VirtualBox environment, things are sloow. On the other hand, there is a REPL which allows for interactive development and testing. This somewhat compensates the slow compilation times.
 
 Can be used in full fledged projects (using sbt) with third-party libs, testing... but also in single-file scripts (although here the JVM start-up time makes this questionable).
 
 The language is scalable in the sense that it allows everything from an imperative Java-like style up to advanced FP / ... concepts (see book Functional Programming in Scala). This is different (better) than Haskell, which only allows a pure FP approach and nothing else. If you cannot express your problem in an FP-manner, you will not be able to solve it in Haskell; in Scala, however, you can still code this in an imperative style.
+
+Compared with everything else, it is the most consistent and "complete" language.
 
 \subsection{Haskell}
 
@@ -57,11 +59,11 @@ Downside is that the features are somewhat limited; e.g. no generics. I don't kn
 
 \subsection{D}
 
-
+Had a short look. Larger community than Nim, but the language feels bloated and a bit inconsistent (e.g. compared with Scala).
 
 \subsection{Conclusion}
 
-There are two categories for language requirements. One is about the type of application I want to use the language for; the second is about the features of the language itslef.
+There are two categories for language requirements. One is about the type of application I want to use the language for; the second is about the features of the language itself.
 
 The language shall be used for day-to-day use but numerical stuff (where I will use Julia). The range is from low-level like OS development, numerical stuff (big-int stuff), network programming (servers...), file parsers, but also high-level stuff like a Sudoku solver.
 
