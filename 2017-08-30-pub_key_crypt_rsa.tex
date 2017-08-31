@@ -1,5 +1,7 @@
 \DiaryEntry{Public Key Cryptography and RSA}{2017-08-30}{Crypto}
 
+\emph{strongly based on Christof Paar and Jan Pelzl, Understanding Cryptography}
+
 \subsection{Symmetric vs Asymmetric Cryptography}
 
 \paragraph{Symmetric Cryptography:} There is a secret key $k$ used both for encryption and decryption. The sender Alice encrypts a message $x$ using $k$ to obtain an encrypted message $y$ which is transported over a (potentially insecure) channel. The receiver Bob uses $k$ to decrypt $y$ and obtain the secret message $x$. Typically, encryption and decryption messages are very similar.
@@ -31,20 +33,20 @@ RSA is several times slower than symmetric ciphers such as AES. This is because 
 
 \subsubsection{Principle of Operation}
 
-RSA encrypts plaintext $x$ where we consider $x$ to be an element of $\mZ_n = \{0,1,\ldots,n-1\}$.
+RSA encrypts a plaintext $x$. This plaintext is converted into a number which must be an element of $\mZ_n = \{0,1,\ldots,n-1\}$. With slight abuse of notation, we use the same symbol $x$ for both the plaintext and this number.
 
 \paragraph{Encryption.} Given the public key $k_{\text{pub}} = (n,e)$ and the message $x$, we obtain the encrypted message $y$ according to
 
 \bee
-y = x^e \bmod n
-\eee 
+y = e_{\text{pub}}(x) = x^e \bmod n
+\eee
 
-with $x,y \in \mZ_n$.
+with $x,y \in \mZ_n$. The $\bmod n$ operation explains the restriction $x \in \mZ_n$.
 
 \paragraph{Decryption.} Given the private key $k_{\text{pr}} = d$ and the encrypted message $y$, we recover the message as
 
 \bee
-x = y^d \bmod n
+x = d_{\text{pr}}(y) = y^d \bmod n
 \eee
 
 In practice $x, y, n, d$ are very long numbers, usually $1024$ bit long or more. The value $e$ is sometimes referred to as encryption exponent or public exponent, and the private key $d$ is sometimes called decryption exponent or private exponent. If Alice wants to send an encrypted message to Bob, Alice needs to have his public key $(n, e)$, and Bob decrypts with his private key $d$. Key generation is discussed in the following.
@@ -53,7 +55,7 @@ Some general observations
 
 \begin{itemize}
 
-\item Since an attacker has access to the public key, it must be computationally infea-sible to determine the private-key $d$ given the public-key values $e$ and $n$. 
+\item Since an attacker has access to the public key, it must be computationally infeasible to determine the private-key $d$ given the public-key values $e$ and $n$. 
 
 \item Since $x$ is only unique up to the size of the modulus $n$, we cannot encrypt more than $l$ bits with one RSA encryption, where $l$ is the bit length of $n$.
 
@@ -80,3 +82,100 @@ Goal of the key generation is to create both private and public key parts. The p
 	\item Compute the private key $d$ such that $de \equiv 1 \bmod \phi(n)$ (i.e. $d$ is the inverse of $e$). Above selection criteria for $e$ ensures that this inverse exists.
 
 \end{itemize}
+
+\subsubsection{Proof}
+
+What we want to show is that the decryption operation yields the original message $x$,
+
+\be\label{pub_key_crypt_rsa_1:eq}
+d_{\text{pr}}(y) = d_{\text{pr}} \left( e_{\text{pub}}(x) \right) \equiv (x^e)^d = x^{de} = x \bmod n
+\ee
+
+From the key generation procedure, we have the fact that $de \equiv 1 \bmod \phi(n)$ which we can rewrite as
+
+\bee
+de = 1 + t \phi(n)
+\eee
+
+with $t$ being some integer. Inserting this into \eqref{pub_key_crypt_rsa_1:eq}, we obtain
+
+\be\label{pub_key_crypt_rsa_2:eq}
+d_{\text{pr}}(y) \equiv x^{de} \equiv x^{1 + t \phi(n)} \equiv x \left( x^{\phi(n)} \right)^t \bmod n
+\ee
+
+and we need to prove that above expression equals $x \bmod n$. We can distinguish two cases
+
+\paragraph{Case 1} $\gcd(x,n=1)$: We can use Euler's theorem (see \hyperref[2017-05-08:entry]{here}) which says that $x^{\phi(n)} \equiv 1 \bmod n$ in this case. Inserting into \eqref{pub_key_crypt_rsa_2:eq} yields
+
+\bee
+d_{\text{pr}}(y) \equiv x \left( x^{\phi(n)} \right)^t \bmod n = x \left( 1 \right)^t \bmod n = x \bmod n \qed
+\eee
+
+\paragraph{Case 2} $\gcd(x,n) = \gcd(x, pq) \neq 1$: Since $p,q$ are primes, $x$ must have one of them as factor, so either $x = rp$ or $x = sq$ with $r,s$ being integers. Let's assume (without loss of generality) that $x = rp$ from which follows $\gcd(x,q) = 1$. Euler's theorem then states that
+
+\bee
+x^{\phi(q)} \equiv 1 \bmod q
+\eee
+
+Let us take a closer look at $\left( x^{\phi(n)} \right)^t$:
+
+\bee
+\left( x^{\phi(n)} \right)^t \equiv \left( x^{(q-1)(p-1)} \right)^t \equiv \left( (x^{\phi(q)})^t \right)^{(p-1)} \bmod q
+\eee
+
+where we have used the fact that $\phi(q) = q-1$ if $q$ is being prime. Using Euler's theorem yields
+
+\bee
+\left( x^{\phi(n)} \right)^t \equiv \left( (x^{\phi(q)})^t \right)^{(p-1)} \equiv \left(1^t \right)^{(p-1)} \equiv 1 \bmod q
+\eee
+
+We can therefore write
+
+\bee
+\left( x^{\phi(n)} \right)^t = 1 + uq
+\eee
+
+with some integer $u$. Multiplying with $x$ yields
+
+\bee
+x \left( x^{\phi(n)} \right)^t = x + xuq = x + (rp)uq = x + rupq = x + run
+\eee
+
+and therefore we have
+
+\bee
+x \left( x^{\phi(n)} \right)^t \equiv x \bmod n
+\eee
+
+Inserting into \eqref{pub_key_crypt_rsa_2:eq} yields
+
+\bee
+d_{\text{pr}}(y) \equiv x \left( x^{\phi(n)} \right)^t \equiv x \bmod n \qed
+\eee
+
+
+\paragraph{Example.} Choose the two primes $p=3, q=5$, giving $n=15$ and $\phi(n) = 2 \cdot 4 = 8$. Now select an $e$ such that it is relatively prime to $8$; choose $e = 3$. Compute $d$ as inverse modulo-8 to $e$ which gives $d = 11$. Now everything is in place, the private key becomes $k_{\text{pr}} = d = 11$ and the public one becomes $k_{\text{pub}} = (15,3)$.
+
+Continue with case 1 from above and choose a message $x=2$. We have $x^{\phi(n)} = 2^8 \equiv 1 \bmod 15$. Encryption yields
+
+\bee
+y = 2^3 \bmod 15 = 8
+\eee
+
+and decryption yields
+
+\bee
+x = 8^11 \bmod 15 = 2
+\eee
+
+Considering case 2 from above we choose a message $x = 3$ (which is a factor of $n=15$). We have the encrypted value
+
+\bee
+y = 3^3 \bmod 15 = 12
+\eee
+
+and decryption yields
+
+\bee
+x = 12^{11} \bmod 15 = 3
+\eee
