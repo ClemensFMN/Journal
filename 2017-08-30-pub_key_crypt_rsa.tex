@@ -6,7 +6,7 @@
 
 \paragraph{Symmetric Cryptography:} There is a secret key $k$ used both for encryption and decryption. The sender Alice encrypts a message $x$ using $k$ to obtain an encrypted message $y$ which is transported over a (potentially insecure) channel. The receiver Bob uses $k$ to decrypt $y$ and obtain the secret message $x$. Typically, encryption and decryption messages are very similar.
 
-Problems are that every communication pair (i.e. sender - receiver) requires a different key and these keys need to be stored / distibuted between the partners across the network. This is time-consuming and difficult to achieve. When the key leaks, the communication is no longer secure!
+Problems are that every communication pair (i.e. sender - receiver) requires a different key and these keys need to be stored / distributed between the partners across the network. This is time-consuming and difficult to achieve. When the key leaks, the communication is no longer secure!
 
 \paragraph{Asymmetric Cryptography:} Here the key consists of two parts, a public key $k_{\text{pub}}$ and a private part $k_{\text{pr}}$. Every person in the network generates a public / private key pair and publishes the public part on the network. The encryption operation requires the public part of the recipient's key; however, the decryption requires the private part of the recipient's key. All asymmetric cryptography schemes are based on so called one-way functions $f()$, where calculating $y = f(x)$ is computationally easy but the reverse operation $x = f^{-1}(y)$ is computationally hard / infeasible. In particular, it must be impossible for an attacker to obtain a private key part from the public part.
 
