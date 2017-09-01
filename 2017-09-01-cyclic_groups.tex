@@ -1,0 +1,64 @@
+\DiaryEntry{Cyclic (finite) Groups}{2017-09-01}{Algebra}
+
+This topic keeps coming up again and again and this entry will try to collect all information once and forever.
+
+
+\subsection{Definitions}
+
+The order of a group $G$ is denoted as $|G|$ and is the number of group elements. The order $|x|$ of a group element $x$ is the smallest integer $n$ for which $x^n = e$ holds. Note that the order of each group element can be different, but is in the range of $1$ (only the identity element) and $|G|$ (there simply aren't more group elements).
+
+Let us write down the sequence of $x^i$:
+
+\be\label{cyclic_groups_1:eq}
+x^0 = e, x^1 = x, x^2, x^3, \ldots, x^{n-1}, x^n = e
+\ee
+
+Note by the definition of the element order, all elements up to $x^n$ are different from $e$ (otherwise $n$ would be too big). In addition (by the group definition), these elements are also different from each other.
+
+If a group element $g$ has the same order as the group order, it is called a generator for the group and we write $G = \langle g \rangle$. As can be seen in the sequence \eqref{cyclic_groups_1:eq}, in this case $g^i$ will run through all group elements; i.e. generate the group.
+
+
+\subsection{Example}
+
+Consider the group $\mZ_5^\star$. Its order is $|G| = 4$ and the group elements are all those numbers being coprime with $5$; i.e. $\mZ_5^\star= \{1,2,3,4\}$ (see also \hyperref[2017-05-05:entry]{here}). Let's write down the sequence \eqref{cyclic_groups_1:eq} for each element:
+
+\bee
+\begin{array}{c|ccccc}
+	     i      & 0 & 1 & 2 & 3 & 4 \\ \hline
+   	1^i \bmod 5 & 1 & 1 & 1 & 1 & 1 \\
+	2^i \bmod 5 & 1 & 2 & 4 & 3 & 1 \\
+	3^i \bmod 5 & 1 & 3 & 4 & 2 & 1 \\
+	4^i \bmod 5 & 1 & 4 & 1 & 4 & 1
+\end{array}
+\eee
+
+In Julia, this can be achieved via
+
+\begin{verbatim}
+[mod(2^i,5) for i in 1:4]
+\end{verbatim}
+
+We can see that both $2, 3$ have order $4$ and are therefore generators for $\mZ_5^\star$, whereas the element $4$ has order $2$.
+
+\begin{theorem}
+	If $G$ is a group, let $x \in G$ and let $a$ be an integer unequal zero.
+	
+	We have for $|x| = n < \infty$: $|x^a| = n / \gcd(n,a)$.
+	
+	Assume $G = \langle g \rangle$ and $|x| = n < \infty$. Then $H = \langle x^a \rangle$ iff $\gcd(a,n) = 1$. In particular, the number of generators of $G$ is $\phi(n)$.
+	
+\end{theorem}
+
+In our example, we have $|G| = 4$ and $\phi(4) = 2$. This aligns with the fact that $2,3$ are the generators of $\mZ_5^\star$. $2^2 = 4$ is not a generator because $\gcd(2,4) \neq 1$, whereas $2^3 \equiv 3 \bmod 5$ is a generator because $\gcd(3,4) = 1$.
+
+Finally, we can provide the subgroup structure of a cyclic subgroup as follows:
+
+\begin{theorem}
+	Let $G = \langle g \rangle$ with $|G| = n < \infty$.
+	\begin{itemize}
+		\item Every subgroup of $G$ is cyclic. If $K \leq G$, then either $K = \{1\}$ or $K = \langle x^d \rangle$, where $d$ is the smallest positive integer such that $x^d \in K$.
+		\item For each positive integer $a$ dividing $n$, there is a unique subgroup of $G$ with order $a$. This subgroup is the cyclic subgroup $\langle x^d \rangle$, where $d = n / a$.
+	\end{itemize}
+\end{theorem}
+
+In the example, $2$ is a divisor of $|G| = 4$, so there must exist a cyclic subgroup of order $2$. Since $\mZ_5^\star = \langle 2 \rangle$, $2^2 = 4$ is a generator of this subgroup. Another generator is $3$ which yields the same generator $3^2 \equiv 4 \bmod 5$.
