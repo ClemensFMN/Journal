@@ -105,7 +105,19 @@ Having $10$ elements, the group contains $\phi(10) = 4$ generators which we find
 
 Their order is $2$ and $5$, the only numbers $10$ is divisible by.
 
+\subsection{Example $\mZ_{13}^\star$}
 
-TODO: Probably $\mZ_{13}^\star$ is more interesting
+As a final example consider this group. With $\phi(13) = 12$ the group order is $12$, and has $\phi(12) = 4$ generators. Since $12$ is divisible by $2,3,4,6$, we have subgroups of these orders.
 
-$\phi(13) = 12$ and $\phi(12) = 4$. $12$ is divisible by $2,3,4,6$ so a lot of different subgroup are possible...
+The generators are $2, 6, 7, 11$. The other elements are generators for the following subgroups
+
+\begin{align*}
+\langle 3 \rangle = \langle 9 \rangle & = \{1,3,9\}  \\
+\langle 4 \rangle = \langle 10 \rangle & = \{1,3,4,9,10,12\} \\
+\langle 5 \rangle = \langle 8 \rangle & = \{1,5,8,12\} \\
+\langle 12 \rangle & = \{1,12\}
+\end{align*}
+
+\subsection{Final Observation and Outlook}
+
+In order to obtain cyclic subgroups, one takes a singleton subset $\{x\}$ of the group $G$. In order to obtain a subgroup, one has to \emph{close} the set under group operation and taking inverses. This closing is achieved by adding all integral powers of $x$ (since $x^n = e$, this will eventually include the neutral group element as well); the result is a subgroup. This subgroup is the smallest subgroup of $G$ which contains $x$. One can extend this closure operation and consider arbitrary subsets of $G$ instead of $\{x\}$.
