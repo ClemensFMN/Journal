@@ -12,7 +12,7 @@ which we can repeat several times; i.e. $\gcd(a,b) = \gcd(a-b,b) = gcd(a-2b,b) =
 \gcd(a,b) = \gcd(a \bmod b, b)
 \eee
 
-This forms the basis for Euclid's Algorithm to calculate the gcs
+This forms the basis for Euclid's Algorithm to calculate the gcd
 
 \begin{verbatim}
 gcd(a,b):
@@ -36,10 +36,28 @@ and we arrive at $a \bmod b < \frac{a}{2}$ \qed
 
 This shows that in every iteration of the gcd function (unless $b$ becomes zero), it is called with a second value being smaller than $a/2$. So in the worst case, the algorithm needs to perform $2 \log_2 a$ iterations. If $a$ is a number with $n$ digits, then $a = C 10^n$ with some constant $C$. We can rewrite this as $a = C' 2^n$ ($C'$ being another constant) and arrive at a number of division of $2 \log_2 (C' 2^n) = c n$, where we have also left off any constant terms. Therefore, the number of iterations / divisions of the Euclid Algorithm is linear in the number of digits.
 
-The worst case complexity is reached in case $a$ and $b$ are two consecutive Fibonacci numbers. The following Figure shows the number of iterations / divisions  for a fixed value of $a=55$ (a Fibonacci number) versus $b$. It can be clearly seen that the maximum is reached for $b=34$, which is the preceding Fibonacci number. Another peak is at$b=21$ which is also a Fibonacci number. Towards the edges of the graph, the number of iterations / divisions falls; in these cases the difference between $a$ and $b$ is so large that the algorithm stops after a few iterations. E.g. $\gcd(31,2) = \gcd(2,1) = \gcd(1,0) = 1$.
+The worst case complexity is reached in case $a$ and $b$ are two consecutive Fibonacci numbers. The following Figure shows the number of iterations / divisions  for a fixed value of $a=55$ (a Fibonacci number) versus $b$. It can be clearly seen that the maximum is reached for $b=34$, which is the preceding Fibonacci number. Another peak is at$b=21$ which is also a Fibonacci number. Towards the edges of the graph, the number of iterations / divisions falls off; in these cases the difference between $a$ and $b$ is so large that the algorithm stops after a few iterations. E.g. $\gcd(31,2) = \gcd(2,1) = \gcd(1,0) = 1$.
 
 
 \begin{figure}[H]
 	\includegraphics[scale=0.5]{images/gcd_num_div.png}
 \end{figure}
 
+
+\subsection{Worst Case Complexity}
+
+We want to calculate the gcd of two subsequent Fibonacci numbers $F_{n+1}$ and $F_n$. We first make the following observation
+
+\bee
+F_{n+1} \bmod F_n = (F_n + F_{n-1}) \bmod F_n = F_n \bmod F_n + F_{n-1} \bmod F_n = F_{n-1}
+\eee
+
+because we can split the mod operation, $F_n \bmod F_n = 0$, and finally, $F_{n-1} < F_n$ and therefore $F_{n-1} \bmod F_n = F_{n-1}$.
+
+Now let us calculate the gcd:
+
+\bee
+\gcd(F_{n+1}, F_n) = \gcd(F_n, F_{n+1} \bmod F_n) = \gcd(F_n, F_{n-1})
+\eee
+
+where we used the results from before. We can continue this game until we reach $\gcd(F_1, F_0) = \gcd(1,1) = 1$. This shows that two consecutive Fibonacci numbers are co-prime.
