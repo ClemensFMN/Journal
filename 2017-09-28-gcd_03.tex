@@ -36,6 +36,18 @@ and we arrive at $a \bmod b < \frac{a}{2}$ \qed
 
 This shows that in every iteration of the gcd function (unless $b$ becomes zero), it is called with a second value being smaller than $a/2$. So in the worst case, the algorithm needs to perform $2 \log_2 a$ iterations. If $a$ is a number with $n$ digits, then $a = C 10^n$ with some constant $C$. We can rewrite this as $a = C' 2^n$ ($C'$ being another constant) and arrive at a number of division of $2 \log_2 (C' 2^n) = c n$, where we have also left off any constant terms. Therefore, the number of iterations / divisions of the Euclid Algorithm is linear in the number of digits.
 
+This shows the next Figure where the average number of divisions versus the digit number of both $a$ and $b$ is plotted.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/gcd_num_div_avg.png}
+\end{figure}
+
+A histogram showing the occurrence vs number if divisions follows below (for values of $a,b$ with $4$ digits). The distribution looks roughly Gaussian (slightly tilted to the right).
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/gcd_num_div_hist.png}
+\end{figure}
+
 The worst case complexity is reached in case $a$ and $b$ are two consecutive Fibonacci numbers. The following Figure shows the number of iterations / divisions  for a fixed value of $a=55$ (a Fibonacci number) versus $b$. It can be clearly seen that the maximum is reached for $b=34$, which is the preceding Fibonacci number. Another peak is at$b=21$ which is also a Fibonacci number. Towards the edges of the graph, the number of iterations / divisions falls off; in these cases the difference between $a$ and $b$ is so large that the algorithm stops after a few iterations. E.g. $\gcd(31,2) = \gcd(2,1) = \gcd(1,0) = 1$.
 
 
@@ -61,3 +73,16 @@ Now let us calculate the gcd:
 \eee
 
 where we used the results from before. We can continue this game until we reach $\gcd(F_1, F_0) = \gcd(1,1) = 1$. This shows that two consecutive Fibonacci numbers are co-prime.
+
+Starting with this fact, one can somehow prove that therefore the complexity of Euclid's algorithm is maximized when the gcd of two consecutive Fibonacci numbers is calculated.
+
+
+\subsection{Further GCD Characteristics}
+
+Above we have shown that two consecutive Fibonacci numbers are co-prime; in this Section we want to prove the more general statement
+
+\bee
+\gcd(F_a, F_b) = F_{\gcd(a,b)}
+\eee
+
+
