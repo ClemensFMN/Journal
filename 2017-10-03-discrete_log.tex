@@ -1,0 +1,74 @@
+\DiaryEntry{The Discrete Logarithm Problem and Cryptography}{2017-10-03}{Crypto}
+
+\subsection{The Discrete Logarithm Problem}
+
+We are given a finite cyclic group $\mZ_p^\star$ of order $p-1$, where $p$p is prime, a primitive element $\alpha$, and another element $\beta$ (not necessarily primitive). The discrete logarithm problem is to determine the integer $1 \leq x \leq p-1$ such that
+
+\bee
+\alpha^x \equiv \beta \bmod p
+\eee
+
+The element $\alpha$ needs to be primitive, otherwise it may not be possible that there is a solution (remember that only in case of $\alpha$ being primitive, $\alpha^x$ "spans" the whole group).
+
+The exponentiation (i.e. the forward direction) $\alpha^x \bmod p$ can be calculated quite efficiently, whereas the discrete logarithm problem (the backward direction) is quite hard (in particular for large $\alpha, \beta$).
+
+\subsubsection{Example}
+
+Consider the group $\mZ_{47}^star$ in which $5$ is a primitive element ($\gcd(5,47) = 1$). Let's set $\beta = 41$ and we have the following problem
+
+\bee
+5^x \equiv 41 \bmod 47
+\eee
+
+Probably the easiest way to solve this is via a brute-force search, and we arrive at $x = 15$.
+
+\subsubsection{Generalized Discrete Logarithm Problem}
+
+We need not restrict ourselves to the group $\mZ_p^\star$, but can use any other finite cyclic group. However, note that there are groups for which this problem is not hard and which therefore cannot be used for cryptographic algorithm.
+
+For example, consider the group $\mZ_11$ with modulo-$11$ addition. Assume we want to solve
+
+\bee
+2x \equiv 3 \bmod 11
+\eee
+
+which is solvable as $2$ is a primitive element. However, we can solve this equation by multiplying with the inverse of $2$ and arrive at
+
+\bee
+x \equiv 2^{-1} 3 \bmod 11 \equiv 6 3 \bmod 11 = 7 \bmod 11
+\eee
+
+and this inverse can be calculated efficiently by the extended Euclidian algorithm.
+
+Currently, multiplicative groups of the prime field $\mZ_p$ or subgroups are used in the classical Diffie-Hellman key exchange, the Elgamal encryption, and the Digital Signature Algorithm (DSA). These are the oldest and most widely used types of discrete logarithm systems. Besides, cyclic groups formed by an elliptic curve are used in elliptic curve cryptography (ECC)
+
+\subsection{Diffie-Hellman Key Exchange}
+
+The Diffie–Hellman key exchange (DHKE) was proposed by Whitfield Diffie and Martin Hellman in 1976. It provides a practical solution to the key distribution problem, i.e., it enables two parties to derive a common secret key by communicating over an insecure channel. It is implemented in many open and commercial cryptographic protocols like Secure Shell (SSH), Transport Layer Security (TLS), and Internet Protocol Security (IPSec).
+
+In the protocol we have two parties, Alice and Bob, who would like to establish a shared secret key. There is possibly a trusted third party that properly chooses the public parameters which are needed for the key exchange. Strictly speaking, the DHKE consists of two protocols, the set-up protocol and the main protocol, which performs the actual key exchange.
+
+\paragraph{Setup Protocol.} The set-up protocol consists of the following steps: 
+
+\begin{enumerate}
+	\item Choose a large prime $p$.
+	\item Choose an integer $\alpha \in \{2,3\ldots, p-2\}$.
+	\item Publish $p$ and $\alpha$.
+\end{enumerate}
+
+\paragraph{Key Exchange}
+
+The key exchange contains of the following calculation and data exchange steps. Final result is the key $k_{A,B}$ which is shared by both Alice and Bob.
+
+\begin{enumerate}
+	\item Alice: Choose $a = k_{pr, A} \ in \{2,3,\ldots, p-2\}$.
+	\item Alice: Compute $A = k_{pub, A} \equiv \alpha^a \bmod p$
+	\item Bob: Choose $b = k_{pr, B} \ in \{2,3,\ldots, p-2\}$.
+	\item Bob: Compute $B = k_{pub, B} \equiv \alpha^b \bmod p$
+	\item Alice: Send $A = k_{pub, A}$ to Bob
+	\item Bob: Send $B = k_{pub, B}$ to Alice
+	\item Alice: Calculate $k_{A,B} = k_{pub, B}^{k_{pr, A}} \equiv B^a \bmod p$
+	\item Bob: Calculate $k_{A,B} = k_{pub, A}^{k_{pr, B}} \equiv A^b \bmod p$
+\end{enumerate}
+
+
