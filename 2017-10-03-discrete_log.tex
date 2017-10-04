@@ -48,7 +48,7 @@ The Diffie–Hellman key exchange (DHKE) was proposed by Whitfield Diffie and Ma
 
 In the protocol we have two parties, Alice and Bob, who would like to establish a shared secret key. There is possibly a trusted third party that properly chooses the public parameters which are needed for the key exchange. Strictly speaking, the DHKE consists of two protocols, the set-up protocol and the main protocol, which performs the actual key exchange.
 
-\paragraph{Setup Protocol.} The set-up protocol consists of the following steps: 
+\subsubsection{Setup Protocol.} The set-up protocol consists of the following steps: 
 
 \begin{enumerate}
 	\item Choose a large prime $p$.
@@ -56,7 +56,7 @@ In the protocol we have two parties, Alice and Bob, who would like to establish 
 	\item Publish $p$ and $\alpha$.
 \end{enumerate}
 
-\paragraph{Key Exchange}
+\subsubsection{Key Exchange}
 
 The key exchange contains of the following calculation and data exchange steps. Final result is the key $k_{A,B}$ which is shared by both Alice and Bob.
 
@@ -71,4 +71,12 @@ The key exchange contains of the following calculation and data exchange steps. 
 	\item Bob: Calculate $k_{A,B} = k_{pub, A}^{k_{pr, B}} \equiv A^b \bmod p$
 \end{enumerate}
 
+\subsubsection{Proof}
 
+Alice calculates $k_{A,B} = B^a \bmod p = (\alpha^b)^a \bmod p = \alpha^{ab} \bmod p$ and Bob calculates $k_{A,B} = A^b \bmod p = (\alpha^a)^b \bmod p = \alpha^{ab} \bmod p$ which yield the same value.
+
+\subsubsection{Example}
+
+For the setup, choose $p = 23$ and $\alpha= 4$. Alice chooses $a = k_{pr, A} = 7$ and computes $A = k_{pub, A} \equiv \alpha^a \bmod p = 4^7 \bmod 23 \equiv 8$. Bob chooses $b=16$ and computes $B = k_{pub, B} \equiv \alpha^b \bmod p = 4^{16} \bmod 23 \equiv 12$. Then , Alice and Bob exchange the values $A$ and $B$.
+
+Now Alice calculates $k_{A,B} = k_{pub, B}^{k_{pr, A}} \equiv B^a \bmod p = 12^7 \bmod 23 \equiv 16$ and Bob calculates $k_{A,B} = k_{pub, A}^{k_{pr, B}} \equiv A^b \bmod p = 8^16 \bmod 23 \equiv 16$. Magically, the two values are the same...
