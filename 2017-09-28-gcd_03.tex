@@ -32,7 +32,7 @@ If $a \geq b$, then $a \bmod b < a/2$.
 a=(a \bmod b)+1 + (a \bmod b) = 2 (a \bmod b) + 1 \rightarrow a \bmod b = \frac{a-1}{2}
 \eee
 
-and we arrive at $a \bmod b < \frac{a}{2}$ \qed
+and we arrive at $a \bmod b < \frac{a}{2}$. \qed
 
 This shows that in every iteration of the gcd function (unless $b$ becomes zero), it is called with a second value being smaller than $a/2$. So in the worst case, the algorithm needs to perform $2 \log_2 a$ iterations. If $a$ is a number with $n$ digits, then $a = C 10^n$ with some constant $C$. We can rewrite this as $a = C' 2^n$ ($C'$ being another constant) and arrive at a number of division of $2 \log_2 (C' 2^n) = c n$, where we have also left off any constant terms. Therefore, the number of iterations / divisions of the Euclid Algorithm is linear in the number of digits.
 
@@ -85,4 +85,4 @@ Above we have shown that two consecutive Fibonacci numbers are co-prime; in this
 \gcd(F_a, F_b) = F_{\gcd(a,b)}
 \eee
 
-
+TODO: Prove

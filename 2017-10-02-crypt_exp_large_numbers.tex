@@ -7,7 +7,7 @@ For many cryptographic algorithms, exponentiation of large numbers is needed. Th
 x \xrightarrow{\text{mul}} x^2 \xrightarrow{\text{mul}} x^3 \xrightarrow{\text{mul}} x^4 \cdots
 \eee
 
-The number of required multiplications equals the exponent and this growth can be prohibitive for large exponents and / or numbers. A more suitable approach is the \emph{square-and-multiply algorithm}.
+The number of required multiplications equals the exponent and this growth can be prohibitive for large exponents and / or numbers. A more suitable approach is the \emph{square-and-multiply algorithm} explained in the following.
 
 \subsection{Square-and-Multiply Algorithm}
 
@@ -19,13 +19,27 @@ x \xrightarrow{\text{squ}} x^2 \xrightarrow{\text{squ}} x^4 \xrightarrow{\text{s
 
 which requires just $3$ squaring operations instead of $7$ multiplications. Since squaring has approximately the same complexity as multiplication, we have saved a large amount of effort. This scheme works only for exponents being powers of two; however, the method can be generalized for arbitrary exponents as follows.
 
+As a first step of motivating the algorithm, consider the expression $x^N$ with expressed as binary $N = [b_N b_{N-1} \ldots b_1 b_0]_2 = b_N 2^N b_{N-1}2^{N-1} + \cdots + b_1 2 + b_0$. In order to calculate $(x^N)^2 = x^{2N}$, we need
+
+\bee
+2N = b_N 2^{N+1} b_{N}2^{N} + \cdots + b_1 2^2 + b_0 2 = [b_N b_{N-1} \ldots b_1 b_0 0]_2
+\eee
+
+i.e. we have shifted the binary word by one position to the left. The expression $x^N x = x^{N+1}$ adds a binary one to $N$. If we consider the combined action $(x^N)^2 x = x^{2N+1}$, we have
+
+\bee
+2N+1 = [b_N b_{N-1} \ldots b_1 b_0 1]_2
+\eee
+
+i.e. the binary word is shifted and the new LSB position is set to $1$.
+
 As an example consider $x^{26}$ which can be calculated using a mixture of squaring and multiplication
 
 \bee
 x \xrightarrow{\text{squ}} x^2 \xrightarrow{\text{mul}} x^3 \xrightarrow{\text{squ}} x^6 \xrightarrow{\text{squ}} x^{12} \xrightarrow{\text{mul}} x^{13} \xrightarrow{\text{squ}} x^{26}
 \eee
 
-Writing the exponent in binary (MSB-first), we can see what is going on: $26 = 11010_2 = b_4 b_3 b_2 b_1 b_0$.
+Writing the exponent in binary (MSB-first), we have $26 = 11010_2 = b_4 b_3 b_2 b_1 b_0$. 
 
 \begin{itemize}
 	\item In the first step, we process the MSB $b_4 = 1$: $x^1 = x^{1_2}$.
