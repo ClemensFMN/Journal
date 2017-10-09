@@ -62,6 +62,8 @@ s = \begin{cases}
 \end{cases}
 \eee
 
+Be careful, the fractions above mean inverse $\bmod-p$; i.e. $(y_2 - y_1) (x_2 - x_1)^{-1} \bmod p$.
+
 Up to now, we have no identity element $\Oc$. To this end we define an (abstract) point at infinity. This allows us to calculate the inverse of a point $P$:
 
 \bee
@@ -75,3 +77,12 @@ and $-P$ is given by reflecting $P$ along the x-axis; i.e. $-P = (x_1, -y_1)$.
 There is a theorem, which states that the points on an elliptic curve together with $\Oc$ have cyclic subgroups. Under certain conditions all points on an elliptic curve form a cyclic group.
 
 \subsection{Example}
+
+In the following, we will use the elliptic curve system $p = 17$, with $y^2 \equiv x^3 + 2x + 2$. I have implemented some stuff \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/elliptic_curve_group.jl}{here} and used this in the following.
+
+First consider the point $P = (5,1)$, doubling the point yields $2P = (6,3)$. By inserting $(6,3)$ into the elliptic curve equation, we can check that this is a valid point. The RHS equals $6^3 * 2\cdot 6 + 2 \equiv 9 \bmod 17$ and the LHS equals $3^2 = 9$. \qed
+
+In order to investigate the group structure, we start with $P = (5,1)$ and calculate $2P, 3P, \ldots$. We obtain the following results
+
+
+
