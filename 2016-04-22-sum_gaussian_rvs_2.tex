@@ -1,0 +1,77 @@
+\DiaryEntry{Sum of Gaussian RVs, Characteristic Functions}{2016-04-22}{Stochastic}
+
+
+We can calculate the pdf of the sum of two Gaussian RVs also by means of
+characteristic functions. The characteristic function of a pdf is
+defined as its fourier transform; therefore a convolution of two pdfs
+(which we need to perform to obtain the sum pdf) corresponds to the
+multiplication of their characteristic functions.
+
+\subsection{Characteristic Function}
+
+We have for the pdf
+
+\[
+f_X(x) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(x-\mu)^2}{2\sigma^2} \right)
+\]
+
+and the characteristic function becomes
+
+\[
+\phi_X(t) = \int_{- \infty}^\infty f_X(x) \exp (jtx) dx = c \int_{- \infty}^\infty \exp \left( - \frac{(x-\mu)^2}{2\sigma^2} + jtx \right) dx
+\]
+
+We continue and obtain
+
+\[
+\phi_X(t) = c \int_{- \infty}^\infty \exp \left(- \frac{ x^2 - 2x\mu + \mu^2 - jtx2\sigma^2 }{2\sigma^2} \right) dx
+\]
+
+There will be a lot of terms and it is important to realize that
+everything which does not depend on \(x\) or \(t\) can be moved in front
+of the integral and ignored. Therefore, we arrive at
+
+\[
+\phi_X(t) = c' \int_{- \infty}^\infty \exp \left( - \frac{ x^2 - 2x\mu - jtx2\sigma^2 }{2\sigma^2} \right) dx
+\]
+
+and continue considering the nominator of the exponent alone:
+
+\[
+x^2 - 2x\mu - jtx2\sigma^2 = x^2 - 2x(\mu + jt\sigma^2) = \left( x-(\mu + jt\sigma^2) \right)^2 - (\mu + jt\sigma^2)^2
+\]
+
+where we have competed the square in the last expression. Now, we can
+put that back into our integral expression and obtain
+
+\[
+\phi_X(t) = c' \exp \left(\frac{ (\mu + jt\sigma^2)^2 }{2\sigma^2} \right)  \int_{- \infty}^\infty \exp \left(- \frac{ \left( x-(\mu + jt\sigma^2) \right)^2 }{2\sigma^2} \right) dx
+\]
+
+We see that the integral is of the form
+\(\int_{- \infty}^\infty \exp (x-A)^2dx\) and this is a constant
+independent of \(x\) \textbf{and} \(t\) (It will depend on \(\sigma^2\),
+however). Therefore, the only expression depending on \(t\) is the one
+before the integral and this can be simplified to (by leaving out
+constant terms again)
+
+\[
+\phi_X(t) = \exp \left( j\mu t - \frac{\sigma^2 t^2}{2}\right)
+\]
+
+\subsection{Sum of RVs}
+
+Not things become simple. We have two Gaussian Rvs \(X_1, X_2\) with
+distributions \(f_1(x) = \mathcal{N}(x, \mu_1, \sigma_1^2)\) and
+\(f_2(x) = \mathcal{N}(x, \mu_2, \sigma_2^2)\), respectively.
+
+The characteristic function of their sum \(X\) is the product of their
+characteristic functions; i.e.
+
+\[
+\phi_X(t) = \exp \left( j\mu_1 t - \frac{\sigma_1^2 t^2}{2}\right) \exp \left( j\mu_2 t - \frac{\sigma_2^2 t^2}{2}\right) = \exp \left( j(\mu_1 + \mu_2) t - \frac{(\sigma_1^2 + \sigma_2^2) t^2}{2}\right)
+\]
+
+and this is the characteristic function of a Gaussian RV with
+distribution
+\(f(x) = \mathcal{N}(x, \mu_1 + \mu_2, \sigma_1^2 + \sigma_2^2)\).

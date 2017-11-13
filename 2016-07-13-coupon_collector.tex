@@ -1,0 +1,34 @@
+\DiaryEntry{Coupon Collector Problem}{2016-07-13}{Stochastic}
+
+
+A source sends out an infinite sequence of coupons and there are \(N\)
+different coupons. The same coupon will be sent several times.
+
+We are interested in obtaining a set of \(K\) \emph{different} coupons
+(\(K \leq N\)) - What is the expected number of coupons to receive
+\(\mathbb{E}(D(N,K))\) in order to have \(K\) different ones? This is
+actually a more general question than the coupon collector's problem
+where only the expected number of coupons till \(K=N\) different ones
+have been observed.
+
+For the first coupon, any coupon will be a new one and therefore
+\(\mathbb{E}(D(N,1)) = 1\). For the second new coupon, the process is
+started anew: The source sends coupons; with a probability of
+\((N-1)/N\) we will receive a new one and with a probability of \(1/N\)
+we will receive the one we already have. This is a Bernoulli process and
+the expected number of coupons required before a new one is observed is
+one over the probability; i.e. \(N/(N-1)\).
+
+In a similar we can argue for the third coupon: The probability to
+observe a new one is \((N-2)/N\) and the expected number of coupons to
+wait is \(N/(N-2)\).
+
+Therefore in the general case we have
+
+\bee
+\mathbb{E}(D(N,K)) = \sum_{k=0}^{K-1} \frac{N}{N-k} = N \sum_{k=0}^{K-1} \frac{1}{N-k}
+\eee
+
+For increasing \(K\), more terms in the sum are added and these terms
+are increasing - the more different coupons we want to obtain, the
+longer we need to wait.

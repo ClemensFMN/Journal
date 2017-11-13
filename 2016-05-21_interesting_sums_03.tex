@@ -1,0 +1,82 @@
+\DiaryEntry{Interesting Sums, III}{2016-05-21}{Maths}
+
+\subsection{Sums with a factorial}
+
+The exponential function \(\exp(x)\) has the following Taylor series
+expansion:
+
+\[
+\exp(x) = \sum_{n=0}^\infty \frac{x^n}{n!}
+\]
+
+Taking derivatives with respect to \(x\) on both sides yields
+
+\[
+\exp(x) = \sum_{n=1}^\infty \frac{n x^{n-1}}{n!} = \sum_{n=1}^\infty \frac{x^{n-1}}{(n-1)!} = \sum_{n=0}^\infty \frac{x^n}{n!}
+\]
+
+Ok, this is not so interesting (especially as the LHS stays the same).
+
+Let's try this
+
+\[
+\sum_{n=0}^\infty \frac{x^{n+1}}{n!} = \sum x \frac{x^n}{n!} = x \sum \frac{x^n}{n!} = x e^x
+\]
+
+Taking the derivative with respect to \(x\) yields
+
+\[
+e^x (1+x) = \sum_{n=0}^\infty \frac{(n+1)x^n}{n!}
+\]
+
+Considering \(x=1\), we obtain
+
+\[
+\sum_{n=0}^\infty \frac{(n+1)}{n!} = 2e
+\]
+
+We can differentiate another time and get
+
+\[
+e^x (2+x) = \sum_{n=0}^\infty \frac{n(n+1)x^{n-1}}{n!}
+\]
+
+which evaluates to
+
+\[
+\sum_{n=0}^\infty \frac{n(n+1)}{n!} = 3e
+\]
+
+at \(x=1\). Ladies and Gentlemen, I think we have a pattern here :-).
+Start with
+
+\[
+\frac{d}{dx}xe^x = xe^x + e^x
+\]
+
+and
+
+\[
+\frac{d^2}{dx^2}xe^x = xe^x + e^x + e^x = xe^x + 2e^x
+\]
+
+and in general
+
+\[
+\frac{d^n}{dx^n}x e^x = xe^x + ne^x
+\]
+
+Evaluating this at \(x=1\) yields
+
+\[
+\left. \frac{d^n}{dx^n}x e^x \right|_{x=1} = (n+1)e
+\]
+
+and from this we obtain the sum
+
+\[
+\sum_{n} \frac{(n+1)^{\underline{m}}}{n!} = (m+1)e
+\]
+
+where \(x^{\underline{n}} = x(x-1)\cdots(x-n+1)\) is the falling
+factorial.

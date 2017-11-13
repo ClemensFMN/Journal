@@ -1,0 +1,131 @@
+\DiaryEntry{Integration - Weierstrass Substitution}{2016-06-15}{Integrals}
+
+The task is to solve integrals which contain rational expressions of the
+trigonometric functions. This is based on
+\href{http://planetmath.org/sites/default/files/texpdf/39380.pdf}{this}
+document and
+\href{https://en.wikipedia.org/wiki/Tangent_half-angle_substitution}{this
+article}.
+
+To this end, we make the substitution \(t = \tan x/2\) and observe the
+following identities:
+
+\[
+\sin(x) = \frac{2t}{1+t^2}
+\]
+
+and
+
+\[
+\cos(x) = \frac{1-t^2}{1+t^2}
+\]
+
+We have \(x = 2 \arctan(t)\) and differentiating this with respect to t,
+we obtain \(\frac{dx}{dt} = 2 \frac{1}{1+t^2}\) and finally
+\(dx = \frac{2 dt}{1+t^2}\).
+
+\subsubsection{Example 1}
+
+Consider the integral
+
+\[
+I_1 = \int \frac{1+\sin(x)}{\cos(x)} dx = \int\frac{1+\frac{2t}{1+t^2}}{\frac{1-t^2}{1+t^2}} \frac{2}{1+t^2}dt
+\]
+
+which can be further simplified to
+
+\[
+I_1 = 2 \int \frac{(1+t)^2}{(1-t^2)(1+t^2)} dt = 2 \int \frac{t}{1+t^2} - \frac{1}{t-1} dt
+\]
+
+where the partial fraction expansion in the last expression was done via
+SymPy. Making the substitution \(u=1+t^2\) for the first integral, we
+obtain
+
+\begin{align*}
+I_1 = 2 \int\frac{t}{u} \frac{du}{2t} - \ln(t-1) & = \ln(u) - 2\ln(t-1) = \ln(1+t^2) - 2\ln(t-1) \\ &= \ln(1+t^2) - \ln(t-1)^2 = \ln\frac{1+t^2}{(t-1)^2} = \ln \frac{1+\tan^2 x/2}{(\tan x/2 - 1)^2}
+\end{align*}
+
+\subsection{Simplifications}
+
+Above substitution works always, however the epxression become rather
+complex. There are a couple of simpler substitutions which work in some
+special cases:
+
+\subsubsection{R(sin(x)) cos(x)}
+
+In this case, \(t=\sin(x)\) is sufficient: \(\cos(x) = \sqrt{1-t^2}\)
+and \(\frac{dt}{dx}=\cos(x) = \sqrt{1-t^2}\). But then we have
+
+\[
+I = \int R(\sin(x)) \cos(x) dx = \int R(t) \sqrt{1-t^2} \frac{dt}{\sqrt{1-t^2}}  = \int R(t) dt
+\]
+
+As an example consider \(\int \frac{1}{1+\sin(x)} \cos(x) dx\) which we
+can transform into \(\int \frac{1}{1+t}dt = \ln(1+t) = \ln(1+\sin(x))\).
+
+\subsubsection{R(cos(x)) sin(x)}
+
+In a similar spirit, we substitute \(t=\cos(x)\):
+\(\sin(x) = \sqrt{1 - t^2}\) and
+\(\frac{dt}{dx} = -\sin(x) = -\sqrt{1-t^2}\). Then the integral becomes
+
+\[
+\int R(\cos(x)) \sin(x) dx = - \int R(t) dt
+\]
+
+\subsubsection{R(tan(x))}
+
+In this case, the substitution \(t=\tan(x)\) yields \(x=\arctan(t)\) and
+\(\frac{dx}{dt} = \frac{1}{1+t^2}\). Therefore we have
+
+\[
+\int R(\tan(x))dx = \int R(t) \frac{dt}{1+t^2}
+\]
+
+which again is a rational expression in \(t\).
+
+\subsubsection{R(sin\^{}2 x, cos\^{}2 x)}
+
+In this case use the substitution \(t=\tan(x)\) from which we obtain
+
+\[
+\cos^2 x = \frac{1}{1+\tan^2 x} = \frac{1}{1+t^2}, \quad, \sin^2 x = \frac{t^2}{1+t^2}, \quad, dx = \frac{dt}{1+t^2}
+\]
+
+this brings the expression \(R(\sin^2 x, \cos^2 x)\) into a rational
+form in the variable \(t\) (or \(t^2\)).
+
+\subsection{Examples}
+
+\subsubsection{Example 2}
+
+In order to solve \(I_2 = \int \frac{dx}{1+\cos x}\), we use the ``big''
+substitution \(t=tan x/2\) and obtain
+
+\[
+I_2 = \int \frac{1}{1+\frac{1-t^2}{1+t^2}} \frac{dt}{1+t^2} = \int \frac{dt}{1+t^2+1-t^2} = \int \frac{dt}{2} = \frac{1}{2} \tan \frac{x}{2}
+\]
+
+\subsubsection{Example 3}
+
+The integral
+
+\[
+I_3 = \int \frac{dx}{1+  \sin^2 x}
+\]
+
+becomes
+
+\[
+I_3 = \int \frac{1}{1 + \frac{t^2}{1+t^2}} \frac{dt}{1+t^2} = \int \frac{dt}{1+2t^2}
+\]
+
+We can substitute \(2t^2=u^2\) and obtain
+
+\[
+I_3 = \frac{1}{\sqrt{2}} \int \frac{du}{1+u^2} = \frac{1}{\sqrt{2}} \arctan(\sqrt{2}t) = \frac{1}{\sqrt{2}} \arctan \left( \sqrt{2} \tan x \right)
+\]
+
+Maybe the \(\arctan (\sqrt{2} \tan x)\) can be further
+simplified\ldots{}

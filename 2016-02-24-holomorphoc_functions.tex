@@ -1,0 +1,138 @@
+\DiaryEntry{Holomorphic FUnctions}{2016-02-24}{Maths}
+
+We deal with complex functions, that is function mapping from the
+(complex) \(z\) plane to the complex \(w\) plane:
+\(w=u+jv = f(z) = f(x+jy)\). Both the real and imaginary part of \(w\)
+are functions of both \(x\) and \(y\).
+
+For the function to be holomorphic, means that it is complex
+differentiable, that is, the expression
+
+\[
+f'(z_0) = \lim_{h \rightarrow 0} \frac{f(z_0+h) - f(z_0)}{h}
+\]
+
+exists and is \textbf{independent} of the ``direction'' of \(h\). I.e.,
+it does not matter in which direction \(z\) approaches the limit value
+\(z_0\). If the limit exists, we say that \(f(z)\) is complex
+differentiable at \(z_0\). If this holds true for all \(z\) in a certain
+region \(\mathcal{A}\), then \(f(z)\) is complex differentiable in
+\(\mathcal{A}\).
+
+Holomorphicity is a strong condition on a function \(f(z)\). For a
+function to be holomorphic, its real and imaginary parts need to fulfill
+the Cauchy- Riemann equations. This can be proven / illustrated as
+follows.
+
+\subsubsection{Cauchy-Riemann Equations}
+
+Consider a small change of the variable \(z=x+jy\) by \(dx+jdy\). It has
+the following effect on the value \(w = u(x,y)+jv(x,y)\):
+
+
+\begin{align*}
+du &= \frac{\partial u(x,y)}{\partial x} dx + \frac{\partial u(x,y)}{\partial y} dy \\
+dv &= \frac{\partial v(x,y)}{\partial x} dx + \frac{\partial v(x,y)}{\partial y} dy \\
+\end{align*}
+
+
+If we collect \(dz = (dx, dy)^T\) in a vector and \(dw = (du, dv)^T\) in
+a vector, we see that the two vectors are related by the Jacobi matrix
+\(dw = J dz\) with the Jacobi matrix defined as follows
+
+\[J = \left(
+\begin{array}{ccc}
+\frac{\partial u(x,y)}{\partial x} & \frac{\partial u(x,y)}{\partial y} \\
+\frac{\partial v(x,y)}{\partial x} & \frac{\partial v(x,y)}{\partial y} \\
+\end{array}\right)
+\]
+
+This matrix describes the linearized effect of the function \(f(z)\) on
+the vector \(dz = (dx, dy)^T\). The matrix will be different for every
+point \(z\). The matrix describes a general linear transformation -
+``anything'' can happen to the vector \(dz = (dx, dy)^T\).
+
+For a function to be holomorphic, the matrix needs to describe a
+combination of rotation and scaling. This means that any vector
+\((dx, dy)^T\) at position \(z_0\) is rotated+scaled by the same amount.
+Note that vectors at a different position \(z_1\) can be scaled+rotated
+by a different amount (but again, this amount needs to be same for every
+vector at the new position).
+
+A matrix combining rotation and scaling has the following form (rotation
+by \(\phi\), scaling by \(r\)):
+
+\[
+J = r \left(
+\begin{array}{ccc}
+\cos \phi & - \sin \phi \\
+\sin \phi & \cos \phi \\
+\end{array}\right)
+\]
+
+From this we see that \(J_{1,1} = J_{2,2}\) and \(J_{1,2} = -J_{2,1}\)
+(where \(J_{n,m}\) denotes the \(n,m\)-entry of the matrix \(J\)). This
+implies the following conditions for the partial derivatives of
+\(u(x,y)\) and \(v(x,y)\), the Cauchy-Riemann equations:
+
+\[
+\frac{\partial u(x,y)}{\partial x} = \frac{\partial v(x,y)}{\partial y} \mbox{ and } \frac{\partial u(x,y)}{\partial y} = - \frac{\partial v(x,y)}{\partial x}
+\]
+
+\subsubsection{Example 1}
+
+The function \(w = f(z) = z^2\) is holomorphic, because we have
+
+\[
+w = z^2 = (x+jy)^2 = x^2-y^2+j2xy = u + jv
+\]
+
+We have \(\frac{\partial u(x,y)}{\partial x}=2x\) which equals
+\(\frac{\partial v(x,y)}{\partial y} = 2x\) and
+\(\frac{\partial u(x,y)}{\partial y} = -2y\) which equals
+\(- \frac{\partial v(x,y)}{\partial x} = -2y\).
+
+We want to calculate the complex derivative; i.e.
+
+\[
+f'(z_0) = \lim_{h \rightarrow 0} \frac{(z_0+h)^2 - z_0^2}{h} = \lim_{h \rightarrow 0} \frac{(x+jy+h)^2 - (x+jy)^2}{h}
+\]
+
+First we consider a real value of \(h\), and we have
+
+\[
+f'(z_0) = \lim_{h \rightarrow 0} \frac{(x+h+jy)^2 - (x+jy)^2}{h} = \lim_{h \rightarrow 0} \frac{(x+jy)^2 + 2h(x+jy) +h^2 - (x+jy)^2}{h} = 2(x+jy) = 2z_0
+\]
+
+which is in line with the result that \((z^2)' = 2z\).
+
+As second case, consider an imaginary value of \(h\), and obtain
+
+\[
+f'(z_0) = \lim_{h \rightarrow 0} \frac{(x+jy+jh)^2 - (x+jy)^2}{jh} = \lim_{h \rightarrow 0} \frac{(x+jy)^2 + 2(x+jy)jh - h^2 - (x+jy)^2}{h} = 2(x+jy) = 2z_0
+\]
+
+wich equals the case of a real \(h\). I don't think that this actually
+provies that the derivative is independent of the choice of \(h\)
+(i.e.~any complex \(h\)), but I think we better stop here\ldots{}
+
+\subsubsection{Example 2}
+
+As a counter example consider the function \(f(z) = \bar{z}\). For a
+real variable \(x\), we have \(\bar{x} = x\) and \(\bar{jx} = -jx\).
+
+If we want to calculate the derivative of \(f(z)\) along the real axis
+we have
+
+\[
+f'(z_0) = \lim_{h \rightarrow 0} \frac{\bar{z_0+h} - \bar{z_0}}{h} = \lim_{h \rightarrow 0} \frac{\bar{z_0}+ h - \bar{z_0}}{h} = 1
+\]
+
+For the calculation along the imaginary axis, we have
+
+\[
+f'(z_0) = \lim_{h \rightarrow 0} \frac{\bar{z_0+jh} - \bar{z_0}}{jh} = \lim_{h \rightarrow 0} \frac{\bar{z_0} - jh - \bar{z_0}}{jh} = -1
+\]
+
+The derivative depends on the direction it is being calculated and
+therefore the function \(f(z) = \bar{z}\) is \textbf{not} holomorphic.

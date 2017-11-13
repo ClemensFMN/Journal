@@ -1,0 +1,107 @@
+\DiaryEntry{50 Challenging Problems in Probability, Problem 9 (Craps)}{2016-07-15}{Stochastic}
+
+
+Consider what happens when we have a sum of 4; called point 4 (btw, this
+happens with probability \(P_4 = 3/36 = 1/12\) as there are three
+different ways to obtain a sum of \(4\): \(1+3, 3+1, 2+2\) and each
+summand has a probability of \(1/36\)): We throw again the two dice and
+have 11 outcomes (2\ldots{}12):
+
+\begin{itemize}
+\item
+  With probability of \(3/36\) (as before) we throw a sum of \(4\)
+  again, have won immediately and stop.
+\item
+  With probability of \(6/36 = 1/6\) (\(1+6, 2+5, 3+4, 4+3, 5+2, 6+1\))
+  we throw a sum of \(7\), have lost immediately and stop.
+\item
+  In all other cases we contine with throwing the dice. The probability
+  of doing this is \(P_{R4} = 1 - P_4 - 1/6\) which happens to be
+  \(P_{R4} = 3/4\).
+\end{itemize}
+
+The (conditional) probability that we win after we have thrown a point
+4; i.e.~we throw another point 4, P(win \textbar{} point 4), can be
+calculated as follows:
+
+\begin{itemize}
+\item
+  We immediately throw another point 4 with probability \(P_4\).
+\item
+  We throw ``something else'' and then a point 4 - this has probability
+  \(P_{R4}P_4\)
+\item
+  We throw ``something else'' two times and then a point 4 - this has
+  probability \(P_{R4}^2 P_4\)
+\end{itemize}
+
+Therefore the conditional probability P(win \textbar{} point 4) becomes
+\(P_4 (1 + P_{R4} + P_{R4}^2 + \cdots = P_4 \frac{1}{1 - P_{R4}} = 1/12 \frac{1}{1 - 3/4} = 1/3\).
+
+There is appearently another (simpler) way to obtain this conditional
+probability, called ``reduced sample space''. For this we ignore
+\emph{all other} outcomes than the one for immediate win and immediate
+loss: There are three good cases (\(1+3, 3+1, 2+2\)) and six bad cases
+(\(1+6, 2+5, 3+4, 4+3, 5+2, 6+1\)); therefore the conditional
+probability P(win \textbar{} point 4) is \(3/(3+6) = 1/3\).
+
+Given the fact that we obtain a point 4 with probability \(P_4\), we
+have the overall probability to win with a point 4 of
+\(P_4^2 \frac{1}{1 - P_{R4}} = 1/12 \times 1/3\).
+
+\subsection{Simpler Problem}
+
+Maybe the example with the non-uniform probabilities is a bit
+complicated and convoluted. Let's try a simpler one: We have one dice;
+when we throw a 1 we win immediately, when we throw a 6 we lose
+immediately, and in all other cases, we start again (with throwing the
+dice). With a probability of \(1/6\) we win immediately, with a
+probability of \(1/6\) we lose immediately, and with probability \(4/6\)
+we throw again. In this case, the probabilites for losing, winning, and
+continuing are the same.
+
+The probability for winning in the continue case is therefore:
+\(1/6 \times 4/6 + 1/6 \times (4/6)^2 + \cdots = 1/6 \times \left[ \frac{1}{1-4/6} - 1\right] = 1/3\).
+
+Therefore the overall probability of winning is \(1/6 + 1/3 = 1/2\) (we
+have added the probability of throwing a one).
+
+The simpler way is to solve the problem as folllws: At every instant,
+there is one good case (i.e.~we win) by throwing a 1 out of a total of
+two cases (throw 1 and throw 6); therefore the probability of winning is
+\(1/2\). The other 4 cases (which lead to another dice throw) are not
+considered as we ``reduce the sample space''.
+
+\subsection{Finite Problem}
+
+Above problems have in common that they are infinite; i.e.~under certain
+conditions (throwing a 2\ldots{}5), the players throws the dice again
+and this repeats indefinitely. Things are different when the game stops
+after a certain amount of throws; as example consider the following
+ruleset:
+
+If the first throw gives a 1, the game is won immediately; if a 6 is
+thrown, then the game is lost immediately. In case of throwing
+2\ldots{}5, throw the dice again. For the second throw, the same rules
+apply. In the third throw, everything but a 1 leads to an immediatey
+loss, throwing a 1 leads to an immediatey win; i.e.~the game ends in any
+case.
+
+The probability of winning is therefore
+
+\begin{itemize}
+
+\item
+  probability of throwing a one in the first throw, \(1/6\)
+\item
+  plus the probility of throwing a one in the second throw,
+  \(4/6 \times 1/6\)
+\item
+  plus the probability of throwing a one in the third throw,
+  \(4/6 \times 4/6 \times 1/6\)
+\end{itemize}
+
+which sums to
+\(1/6 + 4/6 \times 1/6 + 4/6 \times 4/6 \times 1/6 = 0.35...\). It is
+the third throw ending the game which causes the probability to become
+less than in the games above.

@@ -1,0 +1,141 @@
+\DiaryEntry{Dice Problems, I}{2016-05-11}{Stochastic}
+
+This is based on problems 1, 2, and 3
+\href{http://www.madandmoonly.com/doctormatt/mathematics/dice1.pdf}{here};
+locally stored \href{\%7Bfilename\%7D/files/dice1.pdf}{here}.
+
+\subsection{Problem 1; Roll until a 6 comes up}
+
+On average, how many times must a 6-sided die be rolled until a 6 turns
+up?
+
+One way of answering this question is to observe that the distribution
+of throwing a 6 follows a
+\href{\%7Bfilename\%7D2015-08-18-Geometric_Distribution.markdown}{Geometric
+Distribution} and use the expectation of the distribution.
+
+Another way, which is followed in the linked document, is to directly
+set up an equation for the expectation E. When rolling a die for the
+first time, there is a chance of 1/6 of rolling a 6. In this case, we
+are done and the expected value \(E=1\). In all other cases (we throw
+1\ldots{}5) with probability 5/6, we need to continue with another dice
+throw. In other words, we start all over again. In this case, the
+expected value is \(E+1\) (whatever value E is).
+
+So we have
+
+\[
+E = \frac{1}{6} \times 1 + \frac{5}{6} \times (E+1)
+\]
+
+from which follows \(E=6\).
+
+\subsection{Problem 2, Sequence of two sixes}
+
+On average, how many times must a 6-sided die be rolled until a 6 turns
+up twice in a row?
+
+The expected number of rolls to come up with the first 6 is 6 (see
+above). Once we have rolled a first 6, there are two options: (i) We
+roll another 6 (with probability 1/6) and are done; (ii) we roll
+something else (with probability 5/6) and need to start all over again.
+In this case, the expected value is \(E+1\).
+
+Therefore, we have
+
+\[
+E = 6 + \frac{1}{6} \times 1 + \frac{5}{6} \times (E+1)
+\]
+
+from which follows \(E=42\).
+
+\subsection{Problem 3, Sequence of six and five}
+
+On average, how many times must a 6-sided die be rolled until the
+sequence 65 appears (i.e., a 6 followed by a 5)?
+
+This one is a bit tricky / unintuitive.
+
+We can express this with two equations and two expectations: Let \(E\)
+denote the expected number of rolls till we have a 6-5; let \(E_6\) the
+expected number of rolls till we have a 6-5, \textbf{after} having
+thrown a 6.
+
+For expressing \(E_6\), we note that we have \textbf{three} options
+after we roll a 6: (i) we roll a 5 and are finished, (ii) we roll a 6
+(and need to wait for a wait for a subsequent 5), (iii) we roll
+something else (1\ldots{}4) and start all over again.
+
+Therefore,
+
+\[
+E_6 = \frac{1}{6} \times 1 + \frac{1}{6} \times (E_6 + 1) + \frac{4}{6} (E+1)
+\]
+
+For expressing \(E\), we note that there are two options: (i) After we
+have rolled a 6, we roll a 5 and are finished. This happens with
+probability 1/6; (ii) in all othe cases, we need to start all over again
+and the expected value is \(E+1\).
+
+Therefore,
+
+\[
+E = \frac{1}{6} \times (E_6 + 1) + \frac{5}{6} \times (E+1)
+\]
+
+From these two equations we obtain \(E = 36\). Interestingly, this is
+smaller than the expected number of throws till two consecutive sixes
+come up.
+
+\subsubsection{Further Thoughts}
+
+The probability for length-2 sequences is independent how they are
+stopped (5-6 or 6-6). In all cases, there are 36 possibilities (1-1, 1-2
+\ldots{} 6-6) and one of them (either 5-6 or 6-6) stops. Therefore, the
+probabilities for a length-2 sequence is \(1/36\).
+
+The probabilitiy for length-3 sequences is similar. For stopping with
+5-6, the first element must be from the set \(\{1,2,3,4,6\}\) and will
+appear with probability \(5/6\). The 5-6 happens with probability
+\(1/36\) and in total we are at \(5/216\). The same holds true for
+stopping on a 6-6; the first element must be from the set
+\(\{1,2,3,4,5\}\); but all probabilities are the same.
+
+The probability for length-4 sequences are more involved. Let's start
+with a stop sequence 5-6 first. We simply write down all length-4
+combinations with the last 2 elements being 5-6.
+
+\bee
+\begin{array}{cc}
+& 1 1 5 6 \\
+& 1 2 5 6 \\
+& \cdots \\
+& 1 6 5 6 \\
+& \cdots \\
+& 5 5 5 6 \\
+& \color{red}{5 6 5 6} \\
+& 6 1 5 6 \\
+& \cdots \\
+& 6 6 5 6
+\end{array}
+\eee
+
+The sequence in red is \textbf{not allowed} as it is actually a length-2
+sequence. That means, we have \(35\) ``good'' cases out of \(6^4\) and
+the probability of a length-4 sequence with stop sequence 5-6 is
+\(35 / 6^4\).
+
+If we have a stop sequence of 6-6, more sequences are not allowed; in
+the block starting with 1, the sequence 1-6-6-6 is not allowed. This
+holds for every block (i.e.~2-6-6-6, 3-6-6-6, 4-6-6-6, 5-6-6-6, and
+6-6-6-6); therefore only 30 sequences remain and the probability of a
+length-4 sequence with stop sequence 6-6 is \(30 / 6^4\).
+
+This is somewhat counterintuitive; at first sight, sequences should have
+the same probability irrespective of the stop sequence. However, with
+some stop sequences, there are more ways that a sequence stops earlier;
+these do not contribute to the good cases and therefore the probability
+is less.
+
+I am sure there is some expression for sequences with arbitrary lengths
+and different stop sequences\ldots{}
