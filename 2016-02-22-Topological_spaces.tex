@@ -1,0 +1,85 @@
+\DiaryEntry{Topological Spaces}{2016-02-22}{Topology}
+
+A topological space is a set, \(\mathcal{X}\), together with a
+collection, \(\mathcal{T}\), of subsets of \(\mathcal{X}\). These
+subsets are called ``open'' sets and satisfy the following rules:
+
+\begin{itemize}
+\item
+  The set \(\mathcal{X}\) is ``open''
+\item
+  The empty set \(\mathcal{O}\) is open
+\item
+  Arbitrary unions of sets are ``open''
+\item
+  Finite intersections of ``open'' sets are ``open''
+\end{itemize}
+
+This collection \(\mathcal{T}\) is called the topology on
+\(\mathcal{X}\). Note that here, the term ``open'' is a definition - any
+set can be defined to be open. The 4 conditions are modeled similar to
+the definitions of open sets of the real line \(\mathcal{R}\); the idea
+is that the conditions ensure that open sets in a topological space
+behave similar to open sets in \(\mathcal{T}\).
+
+Therefore, the real line with the ``standard'' definition of openness is
+a topological space.
+
+\subsubsection{Example (indiscrete topology)}
+
+We have the set \(\mathcal{B} = \{0,1\}\) and we can define a
+topological space as follows: We define the empty set \(\mathcal{O}\)
+and the set \(\mathcal{B}\) as open. This satisfies the first two axioms
+from above. Because \(\{0,1\} \cup \mathcal{O} = \{0,1\}\) we have
+satisifed the third axiom, and since
+\(\{0,1\} \cap \mathcal{O} = \mathcal{O}\) which is open again, we have
+also satisfied the fourth axiom. This topology is called an
+\emph{indiscrete} topolgy.
+
+\subsubsection{Example (discrete topology)}
+
+However, we can also define a different topological space by defining
+the sets \(\mathcal{O}, \{0\}, \{1\}, \{0,1\}\) as open. The empty set
+and whole set are included, so axioms 1 and 2 are satisfied. Unions and
+intersections always yield a set defined to be open; therefore, axioms 3
+and 4 are also satisfied. This topology is called a \emph{discrete}
+topolgy.
+
+A subset \(\mathcal{X}\) is closed, when the complement
+\(\mathcal{T} - \mathcal{X}\) is open.
+
+In the indiscrete topology example above, both \(\mathcal{O}\) and
+\(\{0,1\}\) are closed - that is, sets can be open and closed at the
+same time! Since neither \(\{0\}\) and \(\{1\}\) are defined as open,
+they are also not closed - sets can also be neither closed nor open at
+the same time!
+
+\subsection{Definition of Continuity}
+
+A function (map) \(f: \mathcal{S} \rightarrow \mathcal{T}\) between two
+topological spaces is continuous, if the preimage
+\(f^{-1}(\mathcal{Q})\) of every open set
+\(\mathcal{Q} \in \mathcal{T}\) is an open set in \(\mathcal{S}\).
+
+This generalizes the definition of continuity for functions from
+\(\mathcal{R}\) to \(\mathcal{R}\).
+
+\subsubsection{Example}
+
+Considering the example with the discrete topology from above. Define
+the function \(f\) as \(f(0)=-1\) and \(f(1)=1\). Let \(\mathcal{U}\) be
+any open set in \(\mathcal{R}\). The preimage of \(\mathcal{U}\) is then
+given as
+
+\[
+f^{-1}(\mathcal{U}) = \begin{cases}
+{0} & \mbox{if }  -1 \in \mathcal{U} \mbox{ and } 1 \notin \mathcal{U} \\
+{1} & \mbox{if }  -1 \notin \mathcal{U} \mbox{ and } 1 \in \mathcal{U} \\
+{0,1} & \mbox{if }  -1 \in \mathcal{U} \mbox{ and } 1 \in \mathcal{U} \\
+\mathcal{O} & \mbox{if }  -1 \notin \mathcal{U} \mbox{ and } 1 \notin \mathcal{U} \\
+\end{cases}
+\]
+
+In all cases, the preimage of \(\mathcal{U}\) is open, since every
+subset of \(\mathcal{B}\) is open in the discrete topology. Therefore,
+the function \(f\) is continuous.
