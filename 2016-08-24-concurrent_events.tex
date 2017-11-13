@@ -1,0 +1,34 @@
+\DiaryEntry{Concurrent Events}{2016-08-24}{Stochastic}
+
+
+Assume exactly two events occur in a timespan of \(T\). Each event lasts a time of \(d\). What is the probability that the two events overlap in time?
+
+The Figure below shows the two events on the x and y axis,respectively. The shaded region is when the two events overlap.
+
+\begin{figure}[H]
+\centering
+\includegraphics{images/concurrent_events.png}
+\caption{Page1}
+\end{figure}
+
+In order to calculate the probability, we need to calculate areas:
+
+The triangle below the shaded region has area \(\frac{1}{2}(T-d)^2\) and this is the same area as the triangle above. Therefore, the area of the shaded region is
+
+\[
+A = T^2 - (T-d)^2
+\]
+
+and the probability of an event overlap \(P\) is therefore
+
+\[
+P = \frac{T^2 - (T-d)^2}{T^2} = 1 - \left( \frac{T-d}{T}\right)^2
+\]
+
+In the extreme case of \(d=T\), we have \(P=1\) and for \(d=0\) we obtain \(P=0\). Both of these cases make intuitively sense.
+
+In the case of \(d\) begin small, we can approximate \(P\) as follows
+
+\[
+P = 1 -  \frac{T^2 - 2dT + d^2}{T^2} = 1 - \left( 1 - 2\frac{d}{T} + \frac{d^2}{T^2} \right) \approx 2 \frac{d}{T}
+\]
