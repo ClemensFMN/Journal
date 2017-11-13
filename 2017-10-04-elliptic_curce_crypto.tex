@@ -32,7 +32,7 @@ In order to use elliptic curves for cryptographic purposes, we need to define a 
 
 We denote the group operation with $+$; two points $P=(x_1, y_1), Q=(x_2, y_2)$ are combined into $R=(x_3, y_3)$. The coordinates $x_3, y_3$ are given by "some" equations (they are chosen in a way that the whole construct becomes a cyclic group); however, there is also a geometric interpretation which is given in the following.
 
-\paragraph{Point Addition $P+Q$.} If $P\neq Q$, the point $R$ is obtained by drawing a line through $P$ and $Q$ in order to obtain a point at the intersection between the line and the elliptic curve. This point is mirrored along the x-axis which yields $R$. The Figure below shows the procedure.
+\paragraph{Point Addition $P+Q$.} If $P\neq Q$, the point $R$ is obtained by drawing a line through $P$ and $Q$ in order to obtain a point at the intersection between the line and the elliptic curve. This point is mirrored along the x-axis which yields $R$. The Figure below shows the procedure. The only exception is when $P$ and $Q$ have the same $x$-coordinate. For this case, see further below.
 
 \begin{figure}[H]
 	\includegraphics[scale=1.0]{images/elliptic_curves_groupop_1.png}
@@ -70,7 +70,8 @@ Up to now, we have no identity element $\Oc$. To this end we define an (abstract
 P + (-P) = \Oc
 \eee
 
-and $-P$ is given by reflecting $P$ along the x-axis; i.e. $-P = (x_1, -y_1)$.
+and $-P$ is given by reflecting $P$ along the x-axis; i.e. $-P = (x_1, -y_1)$. We can use this result to add two points with the same $x$-coordinate: $(x_1,y_1) + (x_1,y_2)$: First note that $y_1 = -y_2$ because the elliptic curve is symmetric wrt to the $x$-axis. So we have $(x_1,y_1)+(x_1,-y_1) = \Oc$ following from the definition of the identity element.
+
 
 \subsection{Cyclic (Sub)groups}
 
