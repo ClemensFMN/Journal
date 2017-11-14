@@ -50,7 +50,7 @@ Now consider two lines; one at \(x=0 \ldots 1\) and one at
 \(x=L \ldots L+1\) with \(L \geq 1\). The Figur below shows the problem
 geometry.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{images/expected_distances_01_02.png}
 \end{figure}
@@ -116,10 +116,10 @@ and will therefore cancel out.
 
 \subsection{Expected Distance between two random Points on a Line (II)}
 
-If the lines are spaced apart in the y-direction, we can also evalulate
+If the lines are spaced apart in the y-direction, we can also evaluate
 the mean (squared) distance. The problem geometry is shown below.
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.7]{images/expected_distances_01_03.png}
 \end{figure}
@@ -136,7 +136,7 @@ If we are interested in the expected distance itself, we have to solve
 the integral
 
 \bee
-\mathbb{E}(d^2) = \int_{x_2=0}^1 \int_{x_1=0}^1 \sqrt{(x_2 - x_1)^2 + 1} dx_1 dx_2 = \ldots = \frac{2-\sqrt{2}}{3} - \log \left( 1 + \sqrt{2} \right)
+\mathbb{E}(d) = \int_{x_2=0}^1 \int_{x_1=0}^1 \sqrt{(x_2 - x_1)^2 + 1} dx_1 dx_2 = \ldots = \frac{2-\sqrt{2}}{3} - \log \left( 1 + \sqrt{2} \right)
 \eee
 
 but I do not know how sympy was able to solve this integral.
