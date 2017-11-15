@@ -1,0 +1,39 @@
+\DiaryEntry{Programming Languages, revisited (2)}{2017-11-15}{Misc.}
+
+Further thinking (and spending endless amounts in playing around with languages) yields the following.
+
+There are two important dimensions a language can have
+
+\begin{enumerate}
+	\item  Programming languages can be "interesting" in the sense that they have new / interesting concepts; e.g. macros or a new approach to managing ownership of objects.
+
+	\item Programming languages can be useful for production languages in the sense that I use them not for the purpose of learning new philosophies but to actually accomplish tasks.
+\end{enumerate}
+
+These two dimensions have different requirements on the language itself: Dimension 2 requires the language to be fit for purpose, mature, well-documented, have a large ecosystem, and IDE support. This is much less of an issue with dimension 1.
+
+Based on the dimensions (and the associated requirements), we can evaluate / classify languages.
+
+\subsection{Rust}
+
+This language has a mixture of dimension 1 and 2: The concept of the borrow checker is interesting and the language fulfills dimension 2 reasonably well.
+
+The language is most suitably used for low-level system programming and that's a field I'm not currently working in.
+
+\subsection{Nim, Crystal}
+
+These 2 have some interesting features but not so many / new ones that they clearly lead in dimension 1. On the other, they are not mature enough, have too little documentation, too small ecosystem, and no IDE to be really production-ready.
+
+\subsection{LISPs}
+
+Common Lisp, Racket Clojure are all very strong in dimension 1, however, only Clojure is strong in dimension 2 as well. This makes Clojure a clear winner in the LISP category.
+
+\subsection{Kotlin, Scala}
+
+Kotlin has some strengths on dimension 1 (better than Java), and is rather strong on dimension 2: Good IDE (IntelliJ), good ecosystem (complete Java interoperability), sufficiently well documented and mature. Strong candidate for becoming my production language.
+
+Scala is much stronger on 1, weaker on 2 and the long compilation times are adding to the downside. IN addition, the language can be used in horribly complicated ways.
+
+\subsection{Go}
+
+This language does not score on dimension 1 and fulfills dimension 2 reasonably well. Given the "competition" from other "production languages", I have no use for Go.
