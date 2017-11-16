@@ -1,0 +1,22 @@
+\DiaryEntry{The Mayor's Dilemma}{2017-11-16}{Stochastic}
+
+Based on Steutel, "The Mayor's Dilemma" (Math. Scientist, 34) also  \href{files/34_2_1.pdf}{here}.
+
+$K(n)$ is the random number of hundred euro bills; $E(n)$ is its expectation. We will derive a relation between $E(n+1)$ and $E(n)$ as follows: When an $n+1$-th inhabitant is added, it is the largest with probability $1/(n+1)$ and one further bill is needed. It is not the largest with probability $1 - 1/(n+1) = n/(n+1)$ and in this case no further bill is needed. Therefore, we have 
+
+\bee
+E(n+1) = \frac{n}{n+1}E(n) + \frac{1}{n+1}\left[ E(n)+1 \right] = E(n) + \frac{1}{n+1}
+\eee
+
+With $E(1) = 1$ we have
+
+\bee
+E(n) = \sum_{k=1}^n \frac{1}{k}
+\eee
+
+This is the well-known harmonic series which behaves for large $n$ like
+
+\bee
+E(n) \approx \log n + \gamma \approx \log n + 0.5772
+\eee
+
