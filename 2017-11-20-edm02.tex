@@ -1,0 +1,75 @@
+\DiaryEntry{Euclidean Distance Matrices}{2017-11-20}{Maths}
+
+Based on Ivan Dokmanić, Reza Parhizkar, Juri Ranieri and Martin Vetterli, "Euclidean Distance Matrices - Essential Theory, Algorithms and Applications", also located \href{files/1502.07541.pdf}{here}. \todo{This is the second entry; the first one is not converted to \LaTeX yet}
+
+This entry discusses some issues that arose while implementing the "classical MDS" algorithm from the paper.
+
+
+\subsection{The effect of scaling on angles}
+
+Consider two vectors $v_1, v_2$ which are taken as
+
+\bee
+v_1 = [1 0]^T, v_2=[\cos \alpha \sin \alpha]^T
+\eee
+
+with $\alpha \in \mR$. The inner product of two vectors is defined as
+
+\bee
+v_1^T v_2 = ||v_1|| \cdot ||v_2|| \cos \phi
+\eee
+
+where $\phi$ is the angle between the two vectors. The inner product of the two vectors from above is
+
+\bee
+v_1^T v_2 = \cos \alpha
+\eee
+
+since they both are unit-length vectors. Now assume that the vectors are scaled by a matrix S, $S v_1$, $Sv_2$, with $S$ given by
+
+\bee
+S = \begin{bmatrix}
+	s_x       & 0 \\
+	0         & s_y
+\end{bmatrix}
+\eee
+
+and consider the effect the scaling has on the inner product. We have
+
+\bee
+(Sv_1)^T (S v_2) = v_1^T S^T S v_2 = v_1^T 
+\begin{bmatrix}
+	s_x^2       & 0 \\
+	0           & s_y^2
+\end{bmatrix}
+v_2 = s_x^2 \cos \alpha
+\eee
+
+The lengths of the vectors $v_1$ and $v_2$ are
+
+\bee
+||v_1|| = s_x , \qquad ||v_2|| = \sqrt{s_x^2 \cos^2 \alpha + s_y^2 \sin^2 \alpha}
+\eee
+
+Therefore
+
+\bee
+s_x^2 \cos \alpha = s_x \sqrt{s_x^2 \cos^2 \alpha + s_y^2 \sin^2 \alpha} \cos \alpha'
+\eee
+
+where $\alpha'$ denotes the angle between the scaled vectors $S_v1$ and $Sv_2$. Solving for $\cos \alpha'$ yields
+
+\bee
+\cos \alpha' = \frac{s_x \cos \alpha}{\sqrt{s_x^2 \cos^2 \alpha + s_y^2 \sin^2 \alpha}}
+\eee
+
+In general, the original angle $\alpha$ and the angle of the scaled vectors $\alpha'$ will differ; only in the special case of $s_x=s_y$, the two will be the same:
+
+\bee
+\cos \alpha' = \frac{s_x \cos \alpha}{\sqrt{s_x^2 \cos^2 \alpha + s_x^2 \sin^2 \alpha}} = \frac{\cos \alpha}{\sqrt{\cos^2 \alpha + \sin^2 \alpha}} = \cos \alpha
+\eee
+
+
+\subsection{Rotating the Result of Classical MDS}
+
+\todo{Include unit vector in the EDM and show how it can be used to recover the unknown rotation angle}
