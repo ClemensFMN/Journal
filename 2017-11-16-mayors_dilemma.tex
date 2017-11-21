@@ -2,6 +2,8 @@
 
 Based on Steutel, "The Mayor's Dilemma" (Math. Scientist, 34) also  \href{files/34_2_1.pdf}{here}.
 
+\subsection{Mean}
+
 $K(n)$ is the random number of hundred euro bills; $\mE\{K(n)\}$ is its expectation. We will derive a relation between $\mE\{K(n+1)\}$ and $\mE\{K(n)\}$ as follows: When an $n+1$-th inhabitant is added, it is the largest with probability $1/(n+1)$ and one further bill is needed. It is not the largest with probability $1 - 1/(n+1) = n/(n+1)$ and in this case no further bill is needed. Therefore, we have 
 
 \bee
@@ -21,6 +23,56 @@ This is the well-known harmonic series which behaves for large $n$ like
 \eee
 
 \todo{plot this thing}
+
+
+\subsection{Interlude - Variance Calculations}
+
+Consider a normal RV $X \sim \Nc(\mu, \sigma^2)$. It has $\mE(X^2) = \mu^2 + \sigma^2$.
+
+Next, consider a deterministic transformation according to $Y = X+1$. The mean of $Y$ is $\mE(Y) = \mu + 1$ and we have
+
+\bee
+\mE(Y^2) = \mE((X+1)^2) = \mE(X^2 + 2X + 1) = \mu^2 + \sigma^2 + 2 \mu + 1 = \sigma^2 + (\mu+1)^2
+\eee
+
+From this we can calculate the variance of $Y$, $\sigma_Y^2$ as follows
+
+\bee
+\sigma_Y^2 = \mE(Y^2) - (\mE(Y))^2 = \sigma^2 + (\mu+1)^2 - (\mu+1)^2 = \sigma^2
+\eee
+
+This makes intuitively sense, as adding a deterministic value to a RV does not change its variance.
+
+As a more advanced example, we next consider a RV $Z$ defined as follows:
+
+\bee
+Z = \begin{cases}
+	X & \text{with probability}\, 1-p \\
+	X+1 &\text{with probability}\, p
+\end{cases}
+\eee
+
+with $X \sim \Nc(\mu, \sigma^2)$. The expectation of $Z$ is
+
+\bee
+\mE(Z) = (1-p)\mu + p(\mu+1) = p+\mu
+\eee
+
+and correspondingly, we have 
+
+\bee
+\mE(Z^2) = (1-p)(\mu^2 + \sigma^2) + p(\sigma^2 + (\mu+1)^2) = \cdots =  \mu^2+\sigma^2+p(2\mu+1)
+\eee
+
+where I have omitted the tedious simplification steps. We can now write down the variance of $Z$, $\sigma_Z^2$ as
+
+\bee
+\sigma_Z^2 = \mu^2+\sigma^2+p(2\mu+1) - (\mu+p)^2 = \cdots = \sigma^2 + p(1-p)
+\eee
+
+The correctness of the expressions can be shown via simulations; see \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/articles/mayors_dilemma.jl}{here}.
+
+\subsection{Variance}
 
 Calculating the variance $\mE\{K^2(n)\}$ can be done as follows: The variance of $K(n+1)$ is the same as the variance of $K(n)$ with probability $n/(n+1)$ and the variance increases by one with the remaining probability $1 - n/(n+1) = 1/(n+1)$. This yields the following expression
 
