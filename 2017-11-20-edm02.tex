@@ -72,7 +72,27 @@ In general, the original angle $\alpha$ and the angle of the scaled vectors $\al
 
 \subsection{Rotating the Result of Classical MDS}
 
-\todo{Include unit vector in the EDM and show how it can be used to recover the unknown rotation angle}
+The restoration of the points based on their distance is not unique; see Section II-A, especially equation 7, which shows that rotations and translation do not change euclidean distance matrix.
+
+The eigenvalue decomposition in my implementation  \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/articles/edm_01.jl}{here} does not shift, but rotate the point set. In order to revert the rotation, we multiply the result with a rotation matrix
+
+\bee
+R(\phi) = \begin{bmatrix}
+	cos \phi -\sin \phi \\
+	\sin \phi \cos \phi
+\end{bmatrix}
+\eee
+
+where we need to determine the angle. When our points contains a unit vector in e.g. x-direction, we can proceed as follows: Assume that the classical MDS performs a rotation with $-\phi$, so that the unit vector $e_x$ becomes
+
+\bee
+R(-\phi) e_x = \begin{bmatrix}
+	cos \phi \sin \phi \\
+	-\sin \phi \cos \phi
+\end{bmatrix} [1 0]^T = [\cos \phi -\sin \phi]^T
+\eee
+
+From this we can either (i) obtain $\phi$ via $\arccos$ or $\arcsin$ and use this to construct a rotation matrix $R(\phi)$ or (ii) directly use the values of $\sin \phi, \cos \phi$ to construct the rotation matrix. In any case, we use the constructed rotation matrix to revert the MDS-rotation and obtain the original point set.
 
 %%% Local Variables:
 %%% mode: latex
