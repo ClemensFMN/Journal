@@ -81,13 +81,13 @@ Calculating the variance $\mE\{K^2(n)\}$ can be done as follows: The variance of
 \mE\{K^2(n+1)\} = \frac{n}{n+1} \mE\{K^2(n)\} + \frac{1}{n+1} \mE\{(K(n) + 1)^2\}
 \ee
 
-However, I'm not sure about the last summand; the notation in the paper is a nightmare and really unclear.
+Given the previous subsection, I think the last summand shouldbe ok; the notation in the paper is a nightmare and really unclear.
 
 Let's assume that this is correct and continue
 
-\bee
-\mE\{K^2(n+1)\} = \frac{n}{n+1} \mE\{K^2(n)\} + \frac{1}{n+1} \mE\{K^2(n) + 2 K(n) + 1 \} = \mE\{K^2(n)\} + \frac{2}{n+1} \mE\{K(n)\} + \frac{1}{n+1}
-\eee
+\begin{align*}
+\mE\{K^2(n+1)\} &= \frac{n}{n+1} \mE\{K^2(n)\} + \frac{1}{n+1} \mE\{K^2(n) + 2 K(n) + 1 \} \\ &= \mE\{K^2(n)\} + \frac{2}{n+1} \mE\{K(n)\} + \frac{1}{n+1}
+\end{align*}
 
 Using the result for $\mE\{K(n)\}$ from above, we further obtain
 
@@ -119,4 +119,26 @@ Based on the definition of $\mE$, the second and fourth term cancel and we arriv
 \sigma^2_{n+1} = \sigma_n^2 + \frac{1}{n+1} - \frac{1}{(n+1)^2} = \sigma_n^2 + \frac{n}{(n+1)^2}
 \eee
 
-This looks nice, but is not the expression from the paper (at least, I don't think so). Either there is something wrong in the derivation or the whole ansatz \eqref{2017-11-16:eq1} is wrong.
+This looks nice, and can be converted into the expression from the paper. Write down the case $n=1$:
+
+\bee
+\sigma_2^2 = \sigma_1^2 + \frac{1}{2} - \frac{1}{2^2}
+\eee
+
+and $n=2$:
+
+\bee
+\sigma_3^2 = \sigma_2^2 + \frac{1}{3} - \frac{1}{3^2} = \sigma_1^2  + \frac{1}{2} - \frac{1}{2^2} + \frac{1}{3} - \frac{1}{3^2}
+\eee
+
+Using the fact that $\sigma_1^2 = 0$ (we need to hand a bill to the very first person for sure), we can rewrite this as
+
+\bee
+\sigma_n^2 = \sum_{k=1}^n \frac{1}{k} - \sum_{k=1}^n \frac{1}{k^2}
+\eee
+
+which is the expression from the paper. \qed
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
