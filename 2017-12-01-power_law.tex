@@ -1,0 +1,105 @@
+\DiaryEntry{Power Law Distribution}{2017-12-01}{Stochastic}
+
+Based on \href{files/0706.1062.pdf}{this article}.
+
+\subsection{Distribution}
+
+We consider the continuous case only. The distribution is given by
+
+\bee
+f(x) \propto x^{-\alpha}
+\eee
+
+for $x \geq x_{text{min}}$ with the scaling parameter $\alpha$. Below $x_{\text{min}}$ it is zero. For the normalization we calculate
+
+\bee
+\int_{x_{text{min}}}^\infty c x^{-\alpha} dx = c \left. \frac{x^{-\alpha+1}}{-\alpha+1} \right|_{x_{\text{min}}}^\infty = c \left. \frac{x^{1-\alpha}}{1-\alpha} \right|_{x_{\text{min}}}^\infty = -c  \frac{x_{\text{min}}^{1-\alpha}}{1-\alpha}
+\eee
+
+This shall equal $1$; therefore the constant $c$ becomes
+
+\bee
+c = \frac{\alpha-1}{x_{\text{min}}^{1-\alpha}}
+\eee
+
+and we obtain for the pdf 
+
+\be
+\label{2017-12-01:pdf}
+f(x) = \begin{cases}
+	\frac{\alpha-1}{x_{\text{min}}} \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha} &\quad x \geq x_{\text{min}} \\
+	0 &\quad \text {otherwise}
+\end{cases}
+\ee
+
+\subsection{Generating RVs (Section D)}
+
+This is actually a really interesting problem: We have a RNG with generates random numbers $r$ uniformly in $0 \leq r < 1$ (call this distribution $p(r)$) and we want to transform $r$, so that $x = t(r)$ has distribution $p(x)$. We first note that $p(x)$ and $p(r)$ are related according to
+
+\bee
+p(x) = p(r) \frac{dr}{dx} = \frac{dr}{dx}
+\eee
+
+where we have used the fact that $r$ has uniform distribution ($p(r) = 1$ for $0 \leq r < 1$). Integrating this wrt to x, we get
+
+\bee
+P(x) = \int_x^\infty p(x') dx' = \int_x^\infty \frac{dr}{dx'} dx' = \int_r^1 dr = 1-r
+\eee
+
+where $P(x)$ is the cdf of the RV $x$. We can calculate $x$ according to
+
+\be\label{2017-12-01-rvgen}
+x = P^{-1}(1-r)
+\ee
+
+where $P{-1}$ is the inverse cdf of the RV $x$. Using \eqref{2017-12-01:pdf}, we obtain the cdf via
+
+\bee
+P(x) = \int_{u=x}^\infty f(u) du = \frac{\alpha-1}{x_{\text{min}}} \int_{u=x}^\infty \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha} dx = \cdots = \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha+1}
+\eee
+
+Inverting this yields
+
+\bee
+x = x_{\text{min}} F^{1/(1-\alpha)}(x)
+\eee
+
+and inserting \eqref{2017-12-01-rvgen}, we obtain
+
+\bee
+x = x_{\text{min}} (1-r)^{1/(1-\alpha)} = x_{\text{min}} (1-r)^{-1/(\alpha-1)}
+\eee
+
+\subsection{Estimating the scaling parameter (Section B.1)}
+
+Now we observe a sequence $x_1 \ldots x_N$ of RVs distributed according to the power law above. Assuming that $x_{\text{min}}$ is known, we can write down the likelihood function for the observation as
+
+\bee
+f(x; \alpha) = \prod_{i=1}^N \frac{\alpha-1}{x_{\text{min}}} \left(\frac{x_i}{x_{\text{min}}}\right)^{-\alpha}
+\eee
+
+For a fixed observation, we want to maximize the likelihood function. We can solve this "classical", by taking the derivative wrt to $\alpha$, setting it to zero and solve the expression for $\alpha^\star$. The derivative taking becomes simpler, when we consider the log likelihood function instead, which has the same minimum. We have
+
+\bee
+\mathcal{L} = \ln f(x; \alpha) = 
+\ln \prod_{i=1}^N \frac{\alpha-1}{x_{\text{min}}} \left(\frac{x_i}{x_{\text{min}}}\right)^{-\alpha} = 
+\sum_{i=1}^N \left[ \ln (\alpha-1) - \ln x_{\text{min}} - \alpha \ln \frac{ x_i}{x_{\text{min}}} \right]
+\eee
+
+This can be further simplified to
+
+\bee
+\mathcal{L} = N \ln (\alpha-1) - N \ln x_{\text{min}} - \alpha \sum_{i=1}^N \ln \frac{ x_i}{x_{\text{min}}}
+\eee
+
+Taking the derivative wrt to $\alpha$ yields
+
+\bee
+\frac{d\mathcal{L}}{d\alpha} = \frac{N}{\alpha-1} + \sum_{i=1}^N \ln \frac{ x_i}{x_{\text{min}}}
+\eee
+
+and by setting this to zero, we obtain the maximum likelihood estimate
+
+\bee
+\alpha^\star = 1 + N \left( \sum_{i=1}^N \ln \frac{ x_i}{x_{\text{min}}} \right)^{-1}
+\eee
