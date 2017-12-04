@@ -32,7 +32,7 @@ f(x) = \begin{cases}
 \end{cases}
 \ee
 
-\subsection{Generating RVs (Section D)}
+\subsection{Generating Power-law Distributed RVs (Section D)}
 
 This is actually a really interesting problem: We have a RNG with generates random numbers $r$ uniformly in $0 \leq r < 1$ (call this distribution $p(r)$) and we want to transform $r$, so that $x = t(r)$ has distribution $p(x)$. We first note that $p(x)$ and $p(r)$ are related according to
 
@@ -98,8 +98,12 @@ Taking the derivative wrt to $\alpha$ yields
 \frac{d\mathcal{L}}{d\alpha} = \frac{N}{\alpha-1} + \sum_{i=1}^N \ln \frac{ x_i}{x_{\text{min}}}
 \eee
 
-and by setting this to zero, we obtain the maximum likelihood estimate
+and by setting this to zero, we obtain the maximum likelihood estimate as
 
 \bee
 \alpha^\star = 1 + N \left( \sum_{i=1}^N \ln \frac{ x_i}{x_{\text{min}}} \right)^{-1}
 \eee
+
+\subsection{Conclusion}
+
+The problem is, that often $x_{\text{min}}$ is not known (exactly). Fig. 3.3 in the paper shows the error in the $\alpha$ estimate, when a wrong value of $x_{\text{min}}$ is used. Further Sections (Section 3.3) of the paper deal with estimating $x_{\text{min}}$.
