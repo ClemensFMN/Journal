@@ -1,6 +1,6 @@
 \DiaryEntry{Order Statistics, 1}{2017-12-05}{Stochastic}
 
-Consider $N$ RVs $X_1, \ldots,X_N$ with iid distribution $f(x)$. We order these RVs according to their value; i.e.
+Consider $N$ RVs $X_1, \ldots,X_N$ with iid distribution $f(x)$ and corresponding cdf $F(x)$. We order these RVs according to their value; i.e.
 
 \bee
 X_{(1)} \leq X_{(2)} \leq \cdots X_{(N)}
@@ -8,10 +8,70 @@ X_{(1)} \leq X_{(2)} \leq \cdots X_{(N)}
 
 and ask for the pdf of (one of) the $X_{(i)}$s.
 
-\subsection{Special Case: Maximum}
+\subsection{Special Case: Maximum of $N$ RVs}
 
-To gain some intuition into 
+To gain some intuition into the problem consider the maximum value of $N$ RVs; i.e. $X_{(N)}$. We start with the cdf of this RV which we denote with $F_N(x)$. This is the probability
 
+\bee
+F_N(x) = P(X_{(N)}<x) = P(X_1, X-2, X_N < x) = P(X_1 < x) P(x < X-2) P(X_N < x)
+\eee
+
+where the first identity follows from the fact that for the maximum of several values to be smaller than $x$, all these values must be smaller than $x$. The second identity follows from the fact that the RVs are independent. Using the cdf definition, we have
+
+\be
+\label{2017-12-05:maxcdf}
+F_N(x) = F^N(x)
+\ee
+
+By differentiating wrt to $x$, we obtain the pdf $f_N(x)$
+
+\be
+\label{2017-12-05:maxpdf}
+f_N(x) = \frac{dF_N(x)}{dx} = N F^{N-1}(x) f(x)
+\ee
+
+
+\paragraph{Uniform Distribution.} Assume the $X_i$s are distributed uniformly in the interval $[0,1]$:
+
+\bee
+f(x) = \begin{cases}
+	1 \quad & x \in [0,1] \\
+	0 \quad & x \notin [0,1]
+\end{cases}
+\eee
+
+and
+
+\bee
+F(x) = \begin{cases}
+	0 \quad &x < 0 \\
+	x \quad &0 \geq x \geq 1 \\
+	1 \quad &x > 1
+\end{cases}
+\eee
+
+Inserting these expressions into \eqref{2017-12-05:maxcdf} yields
+
+\bee
+F_N(x) = \begin{cases}
+	0 \quad &x < 0 \\
+	x^N \quad &0 \geq x \geq 1 \\
+	1 \quad &x > 1
+\end{cases}
+\eee
+
+and
+
+\bee
+f_N(x) = \begin{cases}
+	x^N \quad & x \in [0,1] \\
+	0 \quad & x \notin [0,1]
+\end{cases}
+\eee
+
+\todo{calculate expectation and variance; show that the pdf gets peaky at $x=1$ for $N \rightarrow \infty$}.
+
+\paragraph{Normal Distribution.} \todo{probably no closed-form solution but only julia. Can we get a limit $N \rightarrow \infty$}
 
 
 %%% Local Variables:
