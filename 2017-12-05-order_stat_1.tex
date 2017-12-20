@@ -13,7 +13,7 @@ and ask for the pdf of (one of) the $X_{(i)}$s.
 To gain some intuition into the problem consider the maximum value of $N$ RVs; i.e. $X_{(N)}$. We start with the cdf of this RV which we denote with $F_N(x)$. This is the probability
 
 \bee
-F_N(x) = P(X_{(N)}<x) = P(X_1, X-2, X_N < x) = P(X_1 < x) P(x < X-2) P(X_N < x)
+F_N(x) = P(X_{(N)}<x) = P(X_1, X_2, X_N < x) = P(X_1 < x) P(X_2 < x) P(X_N < x)
 \eee
 
 where the first identity follows from the fact that for the maximum of several values to be smaller than $x$, all these values must be smaller than $x$. The second identity follows from the fact that the RVs are independent. Using the cdf definition, we have
@@ -64,10 +64,12 @@ and
 
 \bee
 f_N(x) = \begin{cases}
-	x^N \quad & x \in [0,1] \\
+	N x^{N-1} \quad & x \in [0,1] \\
 	0 \quad & x \notin [0,1]
 \end{cases}
 \eee
+
+A Julia simulation files can be found \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/order_stat_1.jl}{here}.
 
 \todo{calculate expectation and variance; show that the pdf gets peaky at $x=1$ for $N \rightarrow \infty$}.
 
