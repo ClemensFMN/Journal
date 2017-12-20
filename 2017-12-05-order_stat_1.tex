@@ -69,12 +69,58 @@ f_N(x) = \begin{cases}
 \end{cases}
 \eee
 
-A Julia simulation files can be found \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/order_stat_1.jl}{here}.
+A Julia simulation files can be found \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/order_stat_1.jl}{here}. No matter which value $N$ has, the distribution is confined to the interval $[0,1]$. Taking the maximum of more RVs (i.e. increasing $N$) shifts the distribution to the right.
 
-\todo{calculate expectation and variance; show that the pdf gets peaky at $x=1$ for $N \rightarrow \infty$}.
+To see this more clearly, we next calculate the expectation of $X_{(N)}$:
 
-\paragraph{Normal Distribution.} \todo{probably no closed-form solution but only julia. Can we get a limit $N \rightarrow \infty$}
+\bee
+\mE\{X_{(N)}\} = \int_0^1 x N x^{N-1} dx = N \left. \frac{x^{N+1}}{N+1} \right|_0^1 = \frac{N}{N+1}
+\eee
 
+In the limit $N \rightarrow \infty$, the mean approaches $1$ which is in line with above observations. We can also calculate the second moment,
+
+\bee
+\mE\{X^2_{(N)}\} = \int_0^1 x^2 N x^{N-1} dx = N \left. \frac{x^{N+2}}{N+2} \right|_0^1 = \frac{N}{N+2}
+\eee
+
+The variance $\sigma_N^2$ of $X_{(N)}$ becomes
+
+\bee
+\sigma_N^2 = \mE\{X^2_{(N)}\} - \left(\mE\{X_{(N)}\}\right)^2 = \frac{N}{N+2} - \frac{N^2}{(N+1)^2} = \cdots = \frac{N}{(N+1)^2(N+2)}
+\eee
+
+In the limit of $N \rightarrow \infty$, we get
+
+\bee
+\lim_{N \rightarrow \infty} \sigma_N^2 = \lim_{N \rightarrow \infty} \frac{N}{(N+1)^2(N+2)} = 0
+\eee
+
+i.e., in the limit the pdf concentrates at $x=1$. In other words, if we take the maximum of sufficiently many uniform RVs, one value is sufficiently close to $1$.
+
+
+
+
+\paragraph{Normal Distribution.} Since the cdf has not "real" closed-form expression, things are somewhat more complex here. We can however, plot the resulting pdf which creates the following Figure (y1 is the original distribution, y2 corresponds to $N = 4$, and y3 corresponds to $N = 10$).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{images/order_stat_1_1.png}
+\end{figure}
+
+The original pdf is non-zero everywhere, therefore the distribution of the maximum has the same property. For increasing $N$, the distribution becomes (i) more peaky and (ii) moves to the right.
+
+\todo{Is there some analytical result for $N\rightarrow \infty$?}
+
+
+\subsection{General Order Statistics}
+
+Let us now consider the statistics of $X_{(k)}$ with $1 < k < N$. We again consider the cdf first. We have
+
+\bee
+F_k(x) = P(X_{(k)}<x) = P(\text{k out of N RVs} < x) = {N \choose k} F_X^k(x) \left[ 1 - F_x(x) \right]^{N-k}
+\eee
+
+The cdf of the $k$-th order statistics means: (i) $k$ out of the total $N$ RVs must be smaller than $x$; this happens with probability $F_X^k(x)$ (since the RVs are independent) and (ii) the remaining $N-k$ RVs must be larger; this happens with probability $\left[ 1 - F_x(x) \right]^{N-k}$. It does not matter which RVs are smaller or larger than $x$; there are ${N \choose k}$ ways to select the RVs.
 
 %%% Local Variables:
 %%% mode: latex
