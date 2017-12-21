@@ -117,10 +117,46 @@ The original pdf is non-zero everywhere, therefore the distribution of the maxim
 Let us now consider the statistics of $X_{(k)}$ with $1 < k < N$. We again consider the cdf first. We have
 
 \bee
-F_k(x) = P(X_{(k)}<x) = P(\text{k out of N RVs} < x) = {N \choose k} F_X^k(x) \left[ 1 - F_x(x) \right]^{N-k}
+F_k(x) = P(X_{(k)}<x) = P(\text{k out of N RVs} < x) = \sum_{i=k}^N {N \choose i} F^i(x) \left[ 1 - F(x) \right]^{N-i}
 \eee
 
-The cdf of the $k$-th order statistics means: (i) $k$ out of the total $N$ RVs must be smaller than $x$; this happens with probability $F_X^k(x)$ (since the RVs are independent) and (ii) the remaining $N-k$ RVs must be larger; this happens with probability $\left[ 1 - F_x(x) \right]^{N-k}$. It does not matter which RVs are smaller or larger than $x$; there are ${N \choose k}$ ways to select the RVs.
+The cdf of the $k$-th order statistics means: (i) $k$ out of the total $N$ RVs must be smaller than $x$; this happens with probability $F^k(x)$ (since the RVs are independent) and (ii) the remaining $N-k$ RVs must be larger; this happens with probability $\left[ 1 - F(x) \right]^{N-k}$. It does not matter which RVs are smaller or larger than $x$; there are ${N \choose k}$ ways to select the RVs.
+
+\subsubsection{Special Cases.}
+
+\paragraph{Distribution of Maximum, $k=N$.} In this case, we have $F_N(x) = {N \choose N} F^N(x) = F^N(x)$.
+
+\paragraph{Distribution of Minimum, $k=1$.} Making a similar argument as for the maximum, we have 
+
+\begin{align*}
+F_1(x) = P(X_{(1)} < x) = 1 - P(X_{(1)} > x) & = 1 - P(X_1, \ldots, X_N > x) \\ & = 1 - P(X_1 > x) \cdots P(X_N > x) = 1 - \left[1- F(x)\right]^N
+\end{align*}
+
+Using the general formula from above, we obtain $F_1(x) = \sum_{i=1}^N {N \choose i} F^i(x) \left[ 1 - F(x) \right]^{N-i}$. The binomial theorem states
+
+\bee
+(x+y)^N = \sum_{k=0}^N {N \choose k} x^{N-k} y^k
+\eee
+
+In our case, we have $y = F(x), x = 1 - F(x)$ and therefore
+
+\bee
+1 = \sum_{k=0}^N {N \choose k} (1-F(x))^{N-k} F^k(x)
+\eee
+
+Writing down again the expression for the cdf of the minimum and using this result, we have
+
+\begin{align*}
+F_1(x) & = \sum_{i=1}^N {N \choose i} F^i(x) \left[ 1 - F(x) \right]^{N-i} \\ & = \sum_{i=0}^N {N \choose i} F^i(x) \left[ 1 - F(x) \right]^{N-i} - {N \choose 0} \left[ 1 - F(x) \right]^{N} = 1 - \left[ 1 - F(x) \right]^{N}
+\end{align*}
+
+\paragraph{Symmetric PDF $f(x)$.} In this case, the cdf $F(x)$ has the property $F(x) = 1 - F(-x)$. The pdf of the minimum is $F_{(1)}(x) = 1 - \left[ 1 - F(x) \right]^{N}$ and we have $F_{(1)}(-x) = 1 - \left[ 1 - F(-x) \right]^{N} = 1-F^N(x) = 1 - F_{(N)}(x)$.
+
+
+
+
+
+
 
 %%% Local Variables:
 %%% mode: latex
