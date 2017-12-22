@@ -1,0 +1,42 @@
+\DiaryEntry{Möbius Transform, I}{2017-12-22}{Maths}
+
+Based on Visual Complex Analysis. The Möbius Transform is defined as
+
+\bee
+H(z) = \frac{az+b}{cz+d}
+\eee
+
+and the book claims that this can be interpreted as a sequence of the following transformations
+
+\begin{align*}
+z & \rightarrow z + d/c \\
+z & \rightarrow 1/z \\
+z & \rightarrow - \frac{ad-bc}{c^2} z \\
+z & \rightarrow z + a/c
+\end{align*}
+
+Let's show that this is correct: Combining the first two tranformations into $f(z)$ yields
+
+\bee
+f(z) = \frac{1}{z + \frac{d}{c}},
+\eee
+
+combining this with the third yields
+
+\bee
+g(z) = - \frac{ad-bc}{c^2} \frac{1}{z + \frac{d}{c}}
+\eee
+
+and combining with the fourth, we obtain the final result
+
+\bee
+h(z) = - \frac{ad-bc}{c^2} \frac{1}{z + \frac{d}{c}} + \frac{a}{c}
+\eee
+
+Now we can start simplifying as follows
+
+\begin{align*}
+h(z) & = \frac{bc-ad}{c^2} \frac{c}{cz + d} + \frac{a}{c} = \frac{bc-ad}{c} \frac{1}{cz + d} + \frac{a}{c} = \frac{bc-ad}{c(cz+d)} + \frac{a}{c} 
+\\ & = \frac{bc-ad+a(cz+d)}{c(cz+d)} = \frac{bc-ad+acz+ad}{c(cz+d)} = \frac{az+b}{cz+d}
+\end{align*}
+\qed
