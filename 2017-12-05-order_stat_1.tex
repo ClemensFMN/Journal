@@ -153,8 +153,50 @@ F_1(x) & = \sum_{i=1}^N {N \choose i} F^i(x) \left[ 1 - F(x) \right]^{N-i} \\ & 
 \paragraph{Symmetric PDF $f(x)$.} In this case, the cdf $F(x)$ has the property $F(x) = 1 - F(-x)$. The pdf of the minimum is $F_{(1)}(x) = 1 - \left[ 1 - F(x) \right]^{N}$ and we have $F_{(1)}(-x) = 1 - \left[ 1 - F(-x) \right]^{N} = 1-F^N(x) = 1 - F_{(N)}(x)$.
 
 
+\subsubsection{Example: Minimum}
 
+\paragraph{Uniform Distribution.} We need to calculate 
 
+\bee
+F_1(x) = 1 - \left[ 1 - F(x) \right]^{N}
+\eee
+
+With the cdf of the uniform distribution
+
+\bee
+F(x) = \begin{cases}
+	0 \quad &x < 0 \\
+	x \quad &0 \geq x \geq 1 \\
+	1 \quad &x > 1
+\end{cases}
+\eee
+
+we obtain
+
+\bee
+F_1(x) = \begin{cases}
+	0 \quad &x < 0 \\
+	1-(1-x)^N \quad &0 \geq x \geq 1 \\
+	1 \quad &x > 1
+\end{cases}
+\eee
+
+and the corresponding pdf becomes
+
+\bee
+F_1(x) = \begin{cases}
+	0 \quad &x < 0 \\
+	N (1-x)^N \quad &0 \geq x \geq 1 \\
+	1 \quad &x > 1
+\end{cases}
+\eee
+
+\paragraph{Normal Distribution.} We also cannot express the result in a closed-form expression; only plot the resulting pdf.  Thi is shown in the following Figure (y1 is the original distribution, y2 corresponds to $N = 4$, and y3 corresponds to $N = 10$).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{images/order_stat_1_2.png}
+\end{figure}
 
 
 
