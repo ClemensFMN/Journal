@@ -1,0 +1,73 @@
+\DiaryEntry{Project Euler Problem 1, 2 - Analytic Result}{2018-01-25}{Project Euler}
+
+\subsection{Problem 1}
+
+The task is to find the sum of all the multiples of $3$ and $5$ below $1000$.
+
+\paragraph{Solution.} The multiples of $3$ are $3,6,9,\cdots,999$ and the corresponding sum $S_3$ can be written as follows
+
+\bee
+S_3 = \sum_{k=1}^{333} 3k = 3 \sum_{k=1}^{333} k = 3 \frac{1}{2} 333 \cdot 334 = 166833
+\eee
+
+where we have used the sum formula for arithmetic series $\sum_{k=1}^N k = 1/2 N (N+1)$. We can do the same for the multiples of $5$ with their sum $S_5$ given as
+
+\bee
+S_5 = \sum_{k=1}^{199} 5k = 5 \sum_{k=1}^{199} k = 5 \frac{1}{2} 199 \cdot 200 = 99500
+\eee
+
+Be careful about the wording; we shall sum multiples \emph{below} $1000$; i.e.\ not including $1000$.
+
+Summing $S_3$ and $S_5$ does not yield the solution, as both sums also contain multiples of the smallest common multiple of $3$ and $5$ which is $15$. So just adding up the two sums includes the multiples of $15$ two times. We can correct this by calculating the sum of the multiples of $15$,
+
+\bee
+S_{15} = \sum_{k=1}^{66} 15k = 15 \sum_{k=1}^{66} k = 15 \frac{1}{2} 66 \cdot 67 = 33165
+\eee
+
+The solution then becomes $S_3 + S_5 - S_{15} = 233168$.
+
+\subsection{Problem 2}
+
+This problem deals with the sum of the even Fibonacci numbers.
+
+\paragraph{Solution.} Let us write down the Fibonacci numbers $F_n = F_{n-1} + F_{n-2}$:
+
+\bee
+1,1,2,3,5,8,13,21,34,\cdots
+\eee
+
+From this we see that every fourth Fibonacci number is even. This is explained, because only the sum of two odd numbers is even. Starting with $1,1$, the third Fibonacci number is therefore even, the fourth Fibonacci number is odd (sum of an even and an odd number), as is the fifth. For the sixth Fibonacci number we add two odd numbers and it is therefore even again. This argument can be repeated for higher numbers.
+
+Solving the linear recurrence equation for the Fibonacci numbers yields the following closed-form expression
+
+\bee
+F_n = \frac{1}{\sqrt{5}} \left( A^n  - B^n\right)
+\eee
+
+with $A = (1+\sqrt{5})/2, \, B = (1-\sqrt{5})/2$.
+
+The sum $S$ of the even Fibonacci numbers can be obtained as follows: Based on the observations above, we have
+
+\bee
+S = F_3 + F_6 + F_9 + \cdots
+\eee
+
+and using the closed-form expression, we can rewrite this as
+
+\bee
+S = \frac{1}{\sqrt{5}} \sum_{n=1}^N A^(3n)  - B^(3n) = \frac{1}{\sqrt{5}} \sum_{n=1}^N (A^3)^n  - (B^3)^n
+\eee
+
+where in the second equation we have brought this into a form $\sum_k a^k$ which can be summed with the geometric sum series.
+
+The problem asks for the sum of the even Fibonacci numbers smaller than $10^6$. Because $B<1$, we can approximate the closed-form Fibonacci expression for large $n$ to
+
+\bee
+F_n \approx \frac{1}{\sqrt{5}} A^n
+\eee
+
+and from this we obtain
+
+\bee
+n = \left\lfloor \frac{\log ( \sqrt{5} \cdot 10^6)}{\log A} \right\rfloor = 31
+\eee
