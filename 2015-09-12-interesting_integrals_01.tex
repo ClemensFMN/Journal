@@ -1,0 +1,63 @@
+\DiaryEntry{Interesting Integrals, 1}{2015-09-12}{Integrals}
+
+\subsection{Simplification by Integrand Division}
+
+The first integrals are taken from
+\href{http://folk.ntnu.no/oistes/Diverse/Integral\%20Kokeboken.pdf}{here}.
+
+\bee
+\int \frac{x}{ax+b} dx = \int \frac{1}{b} - \frac{a}{b} \frac{1}{a+bx} dx = \frac{x}{b} - \frac{a}{b^2} \ln(a+bx)
+\eee
+
+where we have used "normal" division to go from the first expression to the second. The second integral is solved by substitution $u=a+bx, du/dx=a \rightarrow dx = du/b$.
+
+\bee
+\int \frac{1}{a+bx} dx = \int \frac{1}{u} \frac{du}{b} = \frac{1}{b} \ln u = \frac{1}{b} \ln a+bx
+\eee
+
+The same trick of dividing the integrand to simplify expressions can also be used here
+
+\bee
+\int \frac{x^2}{x+1} dx = \int x-1 + \frac{1}{x+1} dx = \frac{x^2}{2} - x + \ln(x+1)
+\eee
+
+which can be generalized to
+
+\bee
+\int \frac{x^2}{a+bx} dx = \int \frac{1}{b}x - \frac{a}{b^2} + \frac{a^2}{b^2} \frac{1}{a+bx} dx = \frac{x^2}{2b} - \frac{a}{b^2}x + \frac{a^2}{b^2} \ln(a+bx)
+\eee
+
+\subsection{Substitution Tricks}
+
+This integral is from a paper by Victor H. Moll \href{http://arxiv.org/abs/0707.2122v1}{THE INTEGRALS IN GRADSHTEYN AND RYZHIK. PART 7: ELEMENTARY EXAMPLES}, although there is a small error in the paper (forgotten minus).
+
+\bee
+\int (1-\sqrt{x})^{p-1}dx
+\eee
+
+We use the "obvious" substitution $u=1-\sqrt{x}$ and obtain $du/dx = -\frac{1}{2}x^{-1/2} = - \frac{1}{2\sqrt{x}}$ and therefore $dx = -2\sqrt{x}du$. At first sight, we cannot use this substitution, as it still includes $x$. However, we can use the substitution in the form $\sqrt{x} = 1-u$ and obtain $dx = -2(1-u)du = 2(u-1)du$ and therefore obtain the new integral
+
+\bee
+\int u^{p-1} 2(u-1)du = 2 \int u^p - u^{p-1} du = 2 \left( \frac{u^{p+1}}{p+1} - \frac{u^p}{p} \right) = 2 \left( \frac{(1-\sqrt{x})^{p+1}}{p+1} - \frac{(1-\sqrt{x})^p}{p} \right)
+\eee
+
+
+This trick can be widely used; for example in
+
+\bee
+\int \frac{dx}{a+be^{mx}}
+\eee
+
+Setting $u=a+be^{mx}$ we have $\frac{du}{dx}=mbe^{mx}=m(u-a)$, where we have reused the substitution. Then $\frac{du}{dx}$ becomes
+
+\bee
+\frac{du}{dx} = m b e^{mx} = m(u-a) \rightarrow dx = \frac{du}{m(u-a)}
+\eee
+
+And the integral becomes
+
+\bee
+\int \frac{dx}{a+be^{mx}} = \int \frac{1}{u} \frac{du}{m(u-a)} = \frac{1}{m} \int \frac{du}{u(u-a)}
+\eee
+
+which can be solved via partial fraction decomposition.
