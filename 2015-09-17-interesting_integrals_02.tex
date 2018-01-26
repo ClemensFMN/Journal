@@ -1,0 +1,86 @@
+\DiaryEntry{Interesting Integrals, 2}{2015-09-17}{Integrals}
+
+
+\subsubsection{Integrals based on arctan}
+
+Consider the integral (based on differentiation of arctan; see blog entry from 2015-08-25.
+
+
+\[\int \frac{dx}{1+x^2} = \arctan x\]
+
+From this we get for the definite integrals
+
+\[ \int_0^1 \frac{dx}{1+x^2} = \arctan 1 = \frac{\pi}{4}\]
+
+and
+
+\[ \int_1^\infty \frac{dx}{1+x^2} = \arctan \infty - \arctan 1 = \frac{\pi}{4}\]
+
+Funny that these integrals yield the same value.
+
+The case of $\int\frac{x}{1+x^2}$ is simpler; set $u=1+x^2 \rightarrow dx = \frac{du}{2x}$, and we get
+
+\[\int\frac{x}{1+x^2} = \frac{1}{2} \int \frac{du}{u} = \frac{1}{2} \ln(1+x^2)\]
+
+A slightly more tricky integral is
+
+\[\int \frac{1}{a+x^2} dx = \frac{1}{a} \int \frac{dx}{x^2/a+1}\]
+
+With $u^2 = x^2/a$, we get $u = x / \sqrt{a} \rightarrow \frac{du}{dx} = 1 / \sqrt{a}$ and $dx = \sqrt{a} du$. Substitution back into the integral yields
+
+\[ \frac{1}{a} \int \frac{dx}{x^2/a+1} = \frac{1}{a} \int \frac{\sqrt{a} du}{1+u^2} = \frac{\arctan (x/\sqrt{a})}{\sqrt{a}}\]
+
+This is nice and useful and allows integration of
+
+\[\int \frac{dx}{x^2+x+1} = \int \frac{dx}{(x+1/2)^2 + 3/4} \]
+
+by completing the square. Setting $u = x+1/2$, we obtain $\frac{du}{dx} = 1$, and therefore
+
+\[\int \frac{dx}{(x+1/2)^2 + 3/4} = \int \frac{du}{u^2 + 3/4} = \frac{\arctan (u/\sqrt{3/4})}{\sqrt{3/4}} = \frac{\arctan \left( \frac{x+1/2}{\sqrt{3/4}} \right)}{\sqrt{3/4}}\]
+
+which can be further simplified to
+
+\[ \int \frac{dx}{x^2+x+1} = \frac{2 \arctan \left( \frac{2x+1}{\sqrt{3}} \right)}{\sqrt{3}} \]
+
+The final generalization is the integral $\int\frac{dx}{x^2+bx+c}$ which can be calculated by completing the square according to
+$x^2+bx+c = (x+b/2)^2 + c - b^2/4$. With $u=x+b/2$ we
+obtain $du=dx$, and finally
+
+\[ \int\frac{dx}{x^2+bx+c} = \int \frac{du}{u^2 + c - b^2/4} = \frac{\arctan \frac{x+b/2}{\sqrt{c-\frac{b^2}{4}}}}{\sqrt{c-\frac{b^2}{4}}}\]
+
+\subsubsection{Integrals based on arcsin}
+
+From the blog entry on 2015-08-25 we have
+
+\[\int \frac{dx}{\sqrt{1-x^2}} = \arcsin x\]
+
+Generalizing, we obtain
+
+\[\int \frac{dx}{\sqrt{a^2-x^2}} = \int \frac{dx}{a\sqrt{1-x^2/a^2}} \]
+
+Substituting $u=x/a$, we get $dx = a du$ and finally
+
+\[\int \frac{dx}{a\sqrt{1-x^2/a^2}} = \int \frac{du}{\sqrt{1-u^2}} = \arcsin \frac{x}{a}\]
+
+Now consider the integral
+
+\[ \int \frac{dx}{\sqrt{1-x-x^2}} \]
+
+We can manipulate the expression
+$1-x-x^2$ as follows
+
+\[1-x-x^2= 1-(x^2+x) = 1-\left(x+\frac{1}{2}\right)^2+\frac{1}{4} = \frac{5}{4} - \left( x+\frac{1}{2} \right)^2\]
+
+Setting $u=x+\frac{1}{2}$, we obtain for the integral
+
+\[ \int \frac{dx}{\sqrt{1-x-x^2}} = \int \frac{du}{\sqrt{\frac{5}{4} - u^2}} = \arcsin \frac{u}{\sqrt{5/4}} = \arcsin \frac{2x+1}{\sqrt{5}}\]
+
+\subsubsection{Trick: Completing the Square}
+
+Most integrals were solved by a complenting the square trick: Consider $x^2+x+1$. We can use an expression of the form $(x+1/2)^2 = x^2 + x + 1/4$ where the coefficients for $x^2$ and
+$x$ are correct; only the coefficient for $x^0$ is wrong. We can correct this coefficient by adding a constant to the expression so that it becomes correct:
+
+\[ x^2+x+1 = \left(x+\frac{1}{2}\right)^2 + \frac{3}{4} \]
+
+Now we can e.g.~substitute $u=x+\frac{1}{2}$ which has the
+additional advantage that $\frac{du}{dx} = 1$.
