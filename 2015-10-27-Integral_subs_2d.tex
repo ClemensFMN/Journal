@@ -1,0 +1,62 @@
+\DiaryEntry{2D Integral Substitution}{2015-10-27}{Integrals}
+
+We want to solve a 2D-integral
+
+\[ I = \int_x \int_y f(x,y) dy dx \]
+
+and want to perform a substitution: $x = x(u, v); y = y(u; v)$. The integrand then becomes $f(u,v)$. In addition we need to transform the "$dx dy$-square" into its equivalent "$du dv$-square". This is
+achieved by the Jacobian matrix which is defined as:
+
+\[ J(u,v) = \left( \begin{array}{cc}
+\frac{\partial x(u,v)}{\partial u} & \frac{\partial x(u,v)}{\partial v}  \\
+\frac{\partial y(u,v)}{\partial u} & \frac{\partial y(u,v)}{\partial v} 
+\end{array} \right) \]
+
+Then the integral can be rewritten as
+
+\[ I = \int_x \int_y f(x,y) dy dx = \int_u \int_v f(u,v) |J(u,v)| dv du \]
+
+with $|J(u,v)|$ denoting the determinant of the Jacobian Matrix.
+
+\subsubsection{Simple Example}
+
+As a toy example, consider the integral which can be solved by
+elementary means
+
+\[ I = \int_{x=0}^1 \int_{y=0}^1 x y^2 dy dx = \frac{1}{6}\]
+
+Making the substitution $u=x/2, v=3y$ leads to $x=2u, y=v/3$ and to the following Jacobian Matrix:
+
+\[J(u,v) = \left( \begin{array}{cc} 2 & 0 \\ 0 & \frac{1}{3} \end{array} \right) \]
+
+With the determinant being
+$|J(u,v)| = \frac{2}{3}$, we arrive at (note the changed integration intervals!):
+
+\[I = \int_{u=0}^{\frac{1}{2}} \int_{v=0}^3 2u \frac{v^2}{9} \frac{2}{3} dv du = \frac{1}{6}\]
+
+\subsubsection{Solving the Integrals with SymPy}
+
+... works as follows:
+
+\begin{verbatim}
+import sympy as sym
+x, y = sym.symbols("x y")
+
+res = sym.integrate(x*y**2, (x,0,1), (y,0,1))
+sym.pprint(res)
+
+res_subs = sym.integrate(2/3*2*x*y**2/9, (x,0,1/2), (y,0,3))
+sym.pprint(res)
+\end{verbatim}
+
+\subsubsection{Polar Coordinates}
+
+Consider the substitution from rectangular coordinates to polar
+coordinates with the transformation rules $x = r \cos \phi; y = r \sin \phi $. The Jacobian therefore becomes
+
+\[J(r, \phi) = \left( \begin{array}{cc} \frac{\partial x}{\partial r} & \frac{\partial x}{\partial \phi} \\ \frac{\partial y}{\partial r} & \frac{\partial y}{\partial \phi} \end{array} \right)
+ = \left( \begin{array}{cc} \cos \phi & -r \sin \phi \\ \sin \phi & r \cos \phi \end{array} \right) \]
+
+The determinant is $|J(r, \phi)| = r \cos^2 \phi + r \sin^2 \phi = r$ and therefore we have for the integral
+
+\[ I = \int_x \int_y f(x,y) dy dx = \int_r \int_\phi f(r \cos\phi, r \sin\phi) r dr d\phi \]
