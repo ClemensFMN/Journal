@@ -1,0 +1,83 @@
+\DiaryEntry{Interesting Sums, 1}{2015-09-19}{Sums}
+
+
+\subsubsection{Geometric Series}
+
+We want to calculate the sum
+
+\[ S_N = \sum_{k=1}^N a s^k \]
+
+Consider the following expression
+
+\[ S_N + a s^{N+1} = a s^0 + \sum_{k=0}^N a s^{k+1} = a s^0 + s \sum_{k=0}^N a s^k = a s^0 + s S_N \]
+
+From this we obtain \textbackslash{}( S\_N (1 - s) = a - a s\^{}\{N+1\}
+\textbackslash{}) and can finally express the sum as
+
+\[ S_N = a \frac{1 - s^{N+1} }{1 - s} \]
+
+If $|s| < 1$, then the sum converges for $N \rightarrow \infty$ to $S\_\infty=\frac{a}{1-s}$.
+
+\subsubsection{Calculating $\sum k a^k$}
+
+Next we want to tackle the sum
+
+\[ S_N = \sum_{k=1}^N k a^k = a + 2a^2 + 3a^3 + \cdots + Na^N\]
+
+We write down $a S\_N$ as follows
+
+\[ a S_N = \sum_{k=1}^N k a^{k+1} = \sum_{k=1}^{N+1} (k-1) a^{k} = \sum_{k=1}^{N} (k-1) a^{k} + N a^{N+1} = a^2 + 2 a^3 + 3 a^4 + \cdots + N a^{N+1}\]
+
+From this we see that the difference $S\_N - a S\_N$ has an easy form:
+
+\[ S_N - a S_N = \sum_{k=1}^N k a^k - \left( \sum_{k=1}^{N} (k-1) a^{k} + N a^{N+1} \right) = \sum_{k=1}^N a^k - N a^{N+1} \]
+
+The sum is the one we calculated above, so we have
+
+\[ S_N - a S_N = \frac{a - a^{N+1} }{1 - a} - N a^{N+1} = \frac{a - a^{N+1} - N a^{N+1}(1-a)}{1-a} = \frac{a - a^{N+1} - N a^{N+1} + N a^{N+2}}{1-a} \]
+
+Solving the equation for $S_N$, we get
+
+\[S_N = \frac{a - a^{N+1}(N+1) + N a^{N+2}}{(1-a)^2} \]
+
+If $|a| < 1$, then the sum converges for $N \rightarrow \infty$ to $S\_\infty = \frac{a}{(1-a)^2}$.
+
+There is a different way (see blog entry on 2015-09-07 "Generating Functions 03") which may be easier: Start with
+
+\[ \sum_{k=1}^N a^k = \frac{1 - a^{N+1} }{1 - a} \]
+
+Taking the derivative on both sides and multiplying with $a$, we obtain
+
+\[ \sum_{k=1}^N k a^k = a \frac{d}{da} \frac{1 - a^{N+1} }{1 - a} \]
+
+We can check all 3 results with Python / Julia as follows. Start with Julia and calculate the ``ground truth''
+
+\begin{verbatim}
+n = 1:10
+a=0.4
+
+sum(n.*a.^n)
+1.110295552
+\end{verbatim}
+
+In Python we can check with Sympy
+
+\begin{verbatim}
+import sympy as sym
+
+x, n, a = sym.symbols("x n a")
+f = (x**(n+1)-1)/(x-1)
+g = sym.diff(f, x)
+res = g*x
+sym.pprint(res.subs(x,0.4).subs(n,10))
+1.110295552
+\end{verbatim}
+
+which is the same as the expression calculated above. Finally
+
+\begin{verbatim}
+print( (a - (N+1)*a**(N+1) + N*a**(N+2))/(1-a)**2)
+1.110295552
+\end{verbatim}
+
+which shows the correctness of the approach taken above.
