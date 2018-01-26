@@ -1,0 +1,91 @@
+\DiaryEntry{Interesting SSums, 2}{2015-09-19}{Sums}
+
+\subsection{$\sum \frac{1}{k^2} = \frac{\pi^2}{6}$
+
+
+We consider the infinite sum $\sum_{k=1}^\infty \frac{1}{k^2}$;
+the derivation is based on \href{http://math.stackexchange.com/questions/8337/different-methods-to-compute-sum-limits-k-1-infty-frac1k2}{this discussion}.
+
+In the interval $0 < x < \pi/2$, we have $0 < \sin x < x < \tan x$ and therefore
+
+\[\frac{1}{\tan^2 x} < \frac{1}{x^2} < \frac{1}{\sin^2 x} \]
+
+Using the fact that $1/\tan^2 x = 1/\sin^2 x -1$, we obtain
+
+\[\frac{1}{\sin^2 x} - 1 < \frac{1}{x^2} < \frac{1}{\sin^2 x} \]
+
+To get a sum, we split the interval $(0, \pi/2)$ (the one the inequality above holds) into $2^n$ equal parts, and sum the
+inequality over the gridpoints
+
+\[ \sum_{k=1}^{2^n-1} \left( \frac{1}{\sin^2 x_k} - 1 \right) < \sum_{k=1}^{2^n-1} \frac{1}{x_k^2} < \sum_{k=1}^{2^n-1} \frac{1}{\sin^2 x_k} \]
+
+where the gridpoints are defined as $x_k = \frac{\pi}{2} \frac{k}{2^n}$. Denoting the right sum as $S_n$, we can write
+
+\[ S_n - (2^n-1)  < \sum_{k=1}^{2^n-1} \left( \frac{2 \cdot 2^n}{\pi}\right)^2 \frac{1}{k^2} < S_n \]
+
+This is already quite close to the equality we want to show. Next steps ae (i) calculate $S_n$ and (ii) show that the mid-expression is ``sandwiched'' between the left and right expression.
+
+In order to evaluate $S_n$, start with the observation that $\sin (\pi/2 - x) = \cos x$ and therefore
+
+\[ \frac{1}{\sin^2 x} + \frac{1}{\sin^2 (\pi/2 - x)} = \frac{\cos^2 x + \sin^2 x}{\cos^2 x \sin^2 x} = \frac{4}{\sin^2 2x}\]
+
+That is, instead of calculating the sum $S_n$ on $2^n$ points, we can consider four times the sum $S_{n-1}$ (consisting
+of only $2^{n-1}$ points) and consider the contribution of the interval midpoint $\pi/4$ which equals 2 in order to arrive at the relation
+
+\[S_n = 4 S_{n-1} + 2\]
+
+We use generating functions in order to find a closed-form expression for $S_n$; this is done in the appendix. We arrive at the following expression:
+
+\[S_n = \frac{2}{3}(4^n-1)\]
+
+And now we have
+
+\[ \frac{2}{3}(4^n-1) - (2^n-1)  < \sum_{k=1}^{2^n-1} \left( \frac{2 \cdot 2^n}{\pi}\right)^2 \frac{1}{k^2} < \frac{2}{3}(4^n-1) \]
+
+which we can rewrite as
+
+\[ \frac{2}{3}(4^n-1) - (2^n-1)  < \frac{4^{n+1}}{\pi^2} \sum_{k=1}^{2^n-1} \frac{1}{k^2} < \frac{2}{3}(4^n-1) \]
+
+If we divide by the factor in front of the sum, we obtain
+
+\[ \frac{\pi^2}{4^{n+1}} \frac{2}{3}(4^n-1) - \frac{\pi^2}{4^{n+1}} (2^n-1)  < \sum_{k=1}^{2^n-1} \frac{1}{k^2} < \frac{\pi^2}{4^{n+1}} \frac{2}{3}(4^n-1) \]
+
+and this can be further simplified to
+
+\[ \frac{2}{3} \pi^2 \frac{4^n-1}{4^{n+1}} - \frac{\pi^2}{4^{n+1}} (2^n-1) < \sum_{k=1}^{2^n-1} \frac{1}{k^2} < \frac{2}{3} \pi^2 \frac{4^n-1}{4^{n+1}} \]
+
+In the event that $n\rightarrow \infty$, the second term on the left goes to zero and the remaining terms on the left and right side are equal. There the sum in the middle is squeezed in by the RHS and LHS and converges to
+
+\[\sum_{k=1}^\infty \frac{1}{k^2} = \frac{2}{3} \pi^2 \frac{1}{4} = \frac{\pi^2}{6} \]
+
+\subsection{Appendix: Closed-form expression of $S_n$}
+
+We seek a closed-form expression for
+
+\[S_n = 4 S_{n-1} + 2, \quad S_1 = 2\]
+
+According to the procedure described in the generating function series,
+we have to convert this as follows:
+
+\[S_{n+1} = 4 S_{n} + 2, \quad S_1 = 2\]
+
+i.e.~there shall be no $n-1,n-2,\ldots$. The initial conditions are also tricky in case of a difference equation of first order (time delay is 1), there must be an initial condition for $S_0$,
+\textbf{not} for $S_1$.
+
+But this is easy; we can use the recurrence equation to determine
+$S_0$:
+
+\[ S_1 = 4 S_0 + 2 \rightarrow S_0 = 1/4 \times (S_1-2) = 0 \]
+
+Now things become easy: Transforming the recurrence equation yields
+
+\[\frac{A(z)-S_0}{z} = 4A(z) + \frac{2}{1-z} \rightarrow \frac{A(z)}{z} = 4A(z) + \frac{2}{1-z} \]
+
+where $A(z)$ is the generating function of $S_n$. From this we obtain
+
+\[ A(z) =  \frac{2z}{(1-z)(1-4z)} = \frac{2}{3} \left( \frac{1}{1-4z} - \frac{1}{1-z} \right)\]
+
+(the partial fraction expansion was done via Wolfram Alpha) and conclude
+that
+
+\[ S_n = \frac{2}{3} \left(4^n - 1\right) \]
