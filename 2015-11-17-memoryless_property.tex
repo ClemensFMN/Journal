@@ -1,0 +1,46 @@
+\DiaryEntry{Memoryless Property}{2015-11-17}{Stochastic}
+
+Based on the entry random processes from 2015-08-30, a \textbf{non- negative} RV $X$ is defined memory-less, if
+
+\[ P(X>t+s|X>t) = P(X>s)\]
+
+for $s, t$ positive. The interpretation of this property is: When $X$ has made it beyond $t$, the random variable is ``started anew''.
+
+Note that the events $X>t$ and $X>s$ are not independent; if they were, we would have the following property
+
+\[ P(X>s|X>t) = P(X>s)\]
+
+The only continuous distribution which fulfills the memoryless property is the exponential distribution.
+
+\subsubsection{Uniform Distribution}
+
+As a counter-example we consider the uniform distribution on
+${[}0;1{]}$.
+
+\begin{figure}[H]
+\includegraphics[scale=0.7]{images/memory_less_1.png}
+\end{figure}
+
+Next we obtain
+
+\[ P(X>t+s|X>t) = \frac{P(X>t+s, X>t)}{P(X>t)} = \frac{P(X>t+s)}{P(X>t)} \]
+
+where in the last step we used the fact that $s$ and $t$ are positive (if $X$ is bigger than $t+s$, it is also bigger than $t$).
+
+We seek an expression as function of $s$, parametrized by $t$. Fix $t=1/2$ and we have
+
+\[ f(s; t=1/2) = P(X>s+1/2|X>t) = \frac{P(X>s+1/2)}{1/2} \]
+
+For $s=0$, we have $f(s=0; t=1/2)=1$ and for $s=1/2$, we have $f(s=1/2; t=1/2)=0$. With the help of wolfram alpha, we can fill in the missing points (also for other values of $t$ and the distributions $P(X>t+s|X>t)$ have the following form:
+
+\begin{figure}[H]
+\includegraphics[scale=0.7]{images/memory_less_2.png}
+\end{figure}
+
+Comparing with the upper right Figure, we see that $P(X>t+s | X>t)
+\neq P(X>s)$; the uniform distribution is not memoryless.
+
+\subsubsection{Exponential Distribution}
+
+should be memoryless, but sympy does not allow for this... to be
+continued :-(
