@@ -1,0 +1,43 @@
+\DiaryEntry{Inside Interesting Integrals, 1 (Section 1.5, even/odd Functions)}{2016-02-09}{Integrals}
+
+Consider the integral
+
+\[
+\int_{-1}^1 g(x) dx = \int_{-1}^1 \frac{\cos x}{d(x)+1} dx
+\]
+
+with a general function \(d(x)\). We can split the integrand into an
+even and odd part; \(g(x) = g_e(x) + g_o(x)\) with \(g_e(x) = g_e(-x)\)
+and \(g_o(x) = -g_o(-x)\). Conversely, we have
+
+\[
+g_e(x) = \frac{g(x) + g(-x)}{2}
+\]
+
+and
+
+\[
+g_o(x) = \frac{g(x) - g(-x)}{2}
+\]
+
+When the integration bounds are symmetric, the integral of the odd
+function becomes zero and we have
+
+\[
+\int_{-1}^1 g(x) dx = \int_{-1}^1 g_e(x) dx
+\]
+
+Next, we calculate the even part of \(g(x)\):
+
+\[
+g_e(x) = \frac{1}{2} \left[ \frac{\cos(x)}{d(x) + 1} + \frac{\cos(x)}{d(-x) + 1}\right] = \frac{\cos(x)}{2}  \frac{2 + d(-x) + d(x)}{ 1 + d(x) + d(-x) + d(x)d(-x) }
+\]
+
+When the function \(d(x)\) fulfills the condition \(d(x)d(-x) = 1\)
+things become very simple and we arrive at
+
+\[
+g_e(x) = \frac{\cos(x)}{2}  \frac{2 + d(-x) + d(x)}{ 2 + d(x) + d(-x) } = \frac{\cos(x)}{2}
+\]
+
+Integrating this expression is trivial.

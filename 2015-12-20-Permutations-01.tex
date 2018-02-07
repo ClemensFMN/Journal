@@ -1,0 +1,231 @@
+\DiaryEntry{Permutations, 1}{2015-12-20}{Combinatorics}
+
+There is a rather good and comprehensive Wikipedia
+\href{https://en.wikipedia.org/wiki/Permutation}{article}.
+
+Short summary:
+
+\begin{itemize}
+\item
+  There is a set of items \(\mathcal{S}\).
+\item
+  We consider ``arrangements'' of the element's set. E.g.
+  \(\mathcal{S} = \\{1,2,3\\}\). Arrangement in this context means, that
+  the elements are reshuffled.
+\item
+  No duplicates are allowed i.e.~no \((1,1,2)\) and order is important;
+  i.e. \((1,2,3) \neq (1,3,2)\).
+\end{itemize}
+
+If the set has size \(k\), i.e. \(\|\mathcal{S}\| = k\), there are
+\(k!\) permutations possible: The first position can be filled with
+\(k\) different values, the second position can be filled with \(k-1\)
+and so on, till only one element is left for the \(k\)-th position.
+
+\subsubsection{Bijection Interpretation}
+
+Seen another way, a permutation is a bijection from \(\mathcal{S}\) onto
+\(\mathcal{S}\). A bijection is a one-to-one function. This view allows
+to interpret a permutation as a function (mapping from \(\mathcal{S}\)
+to \(\mathcal{S}\)) and can be composed.
+
+The two-line notation lists the elements of \(\mathcal{S}\) in the first
+row and the image (the ``permutation's output'') on the second row.
+
+For example, we have
+
+\[
+\sigma=\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+2 & 5 & 4 & 3 & 1\end{pmatrix}
+\]
+
+which means that 1 is mapped onto 2 (written as \(\sigma(1) = 2\)), 2 is
+mapped onto 5 (\(\sigma(2) = 5\)) and so on.
+
+The permutation does not change when the columns are rearranged;
+e.g.~above permuation can also be rewritten as
+
+\[
+\sigma=
+\begin{pmatrix}
+2 & 5 & 4 & 3 & 1 \\
+5 & 1 & 3 & 4 & 2
+\end{pmatrix}
+\]
+
+\subsubsection{Permutation Cycles}
+
+If we repeatedly apply the permutation to an element \(x\) we obtain a
+sequence \(x, \sigma(x), \sigma(\sigma(x)), \cdots\). After some length,
+the sequence will return to the initial element \(x\) and the
+corresponding sequence is called an orbit / cycle of the permutation.
+Choosing any other value from \(\mathcal{S}\) which is not element of
+the orbit, one obtains another orbit and so on until all element of
+\(\mathcal{S}\) are covered. A permutation can also be represented by
+listing it cycles.
+
+The cycles of the permutation above are \((1,2,5), (3,4)\). Note that
+the representation is not unique; e.g. \((2,5,1), (4,3)\) represents the
+same permutation.
+
+A cycle of length k is called a \(k\)-cycle. An element in a \(1\)-cycle
+is a fixed point of the permutation \(\sigma\): The element does not
+change position under the permutation.
+
+A permutation without a \(1\)-cycle is called a derangement; in this
+case, all element are placed into a new position and no element stays on
+its position.
+
+\subsubsection{Permutation Composition}
+
+Composition of two permutations \(\sigma_1, \sigma_2\) means that first
+the permutation \(\sigma_1\) is applied to a sequence \(x\) and then the
+second permutation \(\sigma_2\) is applied to the result; i.e.
+\(\sigma_2(\sigma_1(x))\).
+
+The composition can be obtained by rearranging the columns of the second
+(leftmost) permutation so that its first row is identical with the
+second row of the first (rightmost) permutation. The product can then be
+written as the first row of the first permutation over the second row of
+the modified second permutation. For the example permutation above we
+obtain
+
+\[
+\sigma(\sigma) = 
+\begin{pmatrix}
+2 & 5 & 4 & 3 & 1 \\
+5 & 1 & 3 & 4 & 2
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+2 & 5 & 4 & 3 & 1
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+5 & 1 & 3 & 4 & 2
+\end{pmatrix}
+\]
+
+From the result the effect of the \(2\)-cycle \((3,4)\) can be seen
+clearly.
+
+Multyplying the permutation in a third time, we obtain
+
+\begin{align*}
+\sigma(\sigma(\sigma)) &= 
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+2 & 5 & 4 & 3 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+5 & 1 & 3 & 4 & 2
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 & 1 & 3 & 4 & 2 \\
+1 & 2 & 4 & 3 & 5
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+5 & 1 & 3 & 4 & 2
+\end{pmatrix}
+ \\ & =
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+1 & 2 & 4 & 3 & 5
+\end{pmatrix}
+\end{align*}
+
+Now the effect of the \(3\)-cycle becomes visible; the \(2\)-cycle
+exchanges elements \(3\) and \(4\).
+
+In general the composition of two permutations is not commutative, but
+it is associative.
+
+The identity permutation, which maps every element of the set to itself,
+is the neutral element for this product and has the following form:
+
+\[
+\begin{pmatrix}
+1 & 2 & 3 & \ldots & n \\
+1 & 2 & 4 & \ldots & n
+\end{pmatrix}
+\]
+
+Since a permutation is a bijection, it has an inverse \(\sigma^{-1}\)
+which can be obtain by exchanging the first and second line (followed by an optional rearrangement of columns):
+
+\[
+\sigma^{-1} = 
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+2 & 5 & 4 & 3 & 1
+\end{pmatrix}^{-1} = 
+\begin{pmatrix}
+2 & 5 & 4 & 3 & 1 \\
+1 & 2 & 3 & 4 & 5
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5\\
+5 & 1 & 4 & 3 & 2
+\end{pmatrix}
+\]
+
+In order to check the result, we compose \(\sigma\) with \(\sigma^{-1}\)
+and obtain
+
+\[
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5 \\
+2 & 5 & 4 & 3 & 1
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5\\
+5 & 1 & 4 & 3 & 2
+\end{pmatrix}
+=
+\begin{pmatrix}
+5 & 1 & 4 & 3 & 2 \\
+1 & 2 & 3 & 4 & 5
+\end{pmatrix}
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5\\
+5 & 1 & 4 & 3 & 2
+\end{pmatrix}
+=
+\begin{pmatrix}
+1 & 2 & 3 & 4 & 5\\
+1 & 2 & 3 & 4 & 5
+\end{pmatrix}
+\]
+
+which is the identity permutation again.
+
+\subsubsection{Matrix Representation}
+
+We can also represent a permutation in matrix notation; the
+\(n \times n\) matrix associated with the permutation \(\sigma\) has one
+\(1\) in every row and every column and is zero otherwise. The entry
+\(M_{i,j}\) of the matrix is one if \(\sigma(j) = i\). From this it can
+be clearly seen that permutation composition is not commutative.
+Furthermore, the identity permutation becomes the \(n \times n\)
+identity matrix.
+
+For our example, we have the following matrix
+
+\[
+M = 
+\begin{pmatrix}
+0 & 1 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 1\\
+0 & 0 & 0 & 1 & 0\\
+0 & 0 & 1 & 0 & 0\\
+1 & 0 & 0 & 0 & 0
+\end{pmatrix}
+\]
+
+In the matrix \(M_{3,4} = 1\) because \(\sigma(4 = 3\).

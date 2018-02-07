@@ -1,0 +1,70 @@
+\DiaryEntry{AM-GM Inequality}{2016-02-02}{Maths}
+
+Proof that
+
+\[
+(a_1 \cdots a_n)^{1/n} \leq \frac{a_1 + \cdots + a_n}{n}
+\]
+
+For \(n=2\) this is easy: We have
+\((x-y)^2 = x^2 + y^2 - 2xy \geq 0 \rightarrow \frac{x^2 + y^2}{2} \geq xy\).
+If we replace \(x\) with \(\sqrt{x}\) and \(y\) with \(\sqrt{y}\), we
+arrive at
+
+\[
+\frac{x + y}{2} \geq \sqrt{xy}
+\]
+
+For \(n=4\), we apply the inequality for \(n=2\) two times: The first
+time to \((a_1 a_2)^{1/2}\) and \((a_3 a_4)^{1/2}\):
+
+\[
+(a_1 a_2 a_3 a_4)^{1/4} = \left( (a_1 a_2)^{1/2}(a_3 a_4)^{1/2} \right)^{1/2} \leq \frac{(a_1 a_2)^{1/2} + (a_3 a_4)^{1/2}}{2}
+\]
+
+Applying the inequality a second time to we arrive at
+
+\[
+(a_1 a_2 a_3 a_4)^{1/4} \leq \frac{1}{2} \frac{a_1 + a_2}{2} + \frac{1}{2} \frac{a_3 + a_4}{2} = \frac{a_1 a_2 a_3 a_4}{4}
+\]
+
+By repeatedly applying this inequality, we can extend to cases
+\(n = 2^k\):
+
+\begin{equation}
+\label{eq:amgm2k}
+(a_1 a_2 \cdots a_{2^k})^{1/2^k} \leq \frac{a_1 + \cdots + a_{2^k}}{2^k}
+\end{equation}
+
+The question is how to proof the inequality for general \(n\). To this
+end we take an \(n < 2^k\) and define a sequence \(\alpha_i\) as
+follows:
+
+\[
+\alpha_i = \begin{cases}
+a_i & \mbox{if } i \leq n \\
+A & \mbox{if } i > n \end{cases}
+\]
+
+where \(A = \frac{a_1 + \cdots + a_n}{n}\). In other words, we simply
+pad the original sequence \(a_i\) with the arithmetic average \(A\) to
+give a length-\(2^k\) sequence. The average \(A\) is contained
+\(2^k - n\) times in the sequence \(\alpha_i\) and therefore equation
+\eqref{eq:amgm2k} yields
+
+\[
+(a_1 a_2 \cdots a_n A^{2^k - n})^{1/2^k} \leq \frac{a_1 + \cdots + a_n + (2^k - n) A}{2^k} = \frac{nA + 2^k A - nA}{2^k} = A
+\]
+
+We can move the \(A\) term to the right side as follows:
+
+\[
+(a_1 a_2 \cdots a_n)^{1/2^k} A^{(2^k - n)\frac{1}{2^k}} = (a_1 a_2 \cdots a_n)^{1/2^k} A^{1 - \frac{n}{2^k}} \leq A \rightarrow (a_1 a_2 \cdots a_n)^{1/2^k} \leq A^{1 - (1 - \frac{n}{2^k})} = A^{\frac{n}{2^k}}
+\]
+
+Raising both sides to \(2^k / n\), we finally obtain the AM-GM
+inequality
+
+\[
+(a_1 a_2 \cdots a_n)^{1/n} \leq A = \frac{a_1 + \cdots + a_n}{n}
+\]

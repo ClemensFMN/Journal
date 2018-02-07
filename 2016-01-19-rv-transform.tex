@@ -1,0 +1,66 @@
+\DiaryEntry{Transformation of Random Variables}{2016-01-19}{Stochastic}
+\todo{Figure}
+
+%\begin{figure}
+%\centering
+%\includegraphics{/images/rv_transform_0001.png}
+%\caption{Page1}
+%\end{figure}
+
+The proof runs somewhere along the line that we calculate
+
+\[
+P(Y < a) = \int_{-\infty}^a f_Y(u) du
+\]
+
+and differentiate with respect to \(a\) in order to obtain \(f_Y\).
+
+We make a substitution to evaluate the integral in terms of \(f_X\). In
+order to do that, the bounds change, the integrand is changed to
+\(f_X(g^{-1}(v))\), and finally the derivative of \(g^{-1}\) sneaks in.
+
+It is interesting to see, that whenever \(g(x)\) has a zero slope, the
+pdf \(f_Y\) attains a value of \(\infty\).
+
+\todo{figure}
+
+%\begin{figure}
+%\centering
+%\includegraphics{/images/rv_transform_0002.png}
+%\caption{Page1}
+%\end{figure}
+
+\hypertarget{appendix-a}{%
+\subsubsection{Appendix A}\label{appendix-a}}
+
+If we consider the example of \(g(x) = x^2\), then both \(x=-1\) and
+\(x=1\) contribute to \(y=1\). Therefore, we need to sum the RV
+transformation formula over all values \(x\) which contribute to the
+same value of \(y\).
+
+\hypertarget{example}{%
+\subsubsection{Example}\label{example}}
+
+\todo{figure}
+
+%\begin{figure}
+%\centering
+%\includegraphics{/images/rv_transform_0003.png}
+%\caption{Page1}
+%\end{figure}
+
+If we have another transform function we have
+
+\[
+f_Y(y) = \sum_{y = g(x)}\left| \frac{d g^{-1}(y)}{dy} \right| f_X(g^{-1}(y))
+\]
+
+where the summation indicates to sum over all values of \(x\) which
+yield \(y = g(x)\).
+
+If we have a symmetric distribution of \(X\), the expression simplifies
+to
+
+\[
+f_Y(y) = 2 \left| \frac{d g^{-1}(y)}{dy} \right| f_X(g^{-1}(y))
+\]

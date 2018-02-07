@@ -1,0 +1,62 @@
+\DiaryEntry{Interesting Integrals, 4}{2016-02-12}{Integrals}
+
+Consider the integral
+
+\[
+I = \int \frac{ax+b}{x^2 + c x + d} dx
+\]
+
+There are two cases: The denominator has real roots and it has no real
+roots.
+
+\subsubsection{Denominator with Real Roots}
+
+The denominator has two real roots \(r_1, r_2\) and we can make a
+partial fraction expansion as
+
+\[
+\frac{ax+b}{x^2 + c x + d} = \frac{A}{x-r_1} + \frac{B}{x-r_2}
+\]
+
+with \(A, B\) being real numbers. The the integral becomes
+
+\[
+I = \int \frac{ax+b}{x^2 + c x + d} = A \ln(x-r_1) + B \ln(x-r_2)
+\]
+
+and we are finished.
+
+\subsubsection{No Real Roots}
+
+In this case we can split the integrand into two parts: In the first
+part we choose the enumerator so that it becomes the derivative of the denumerator. The second part then ``fixes'' the overall expression.
+
+As example consider
+
+\[
+I = \int \frac{x+3}{x^2+2x+5} dx
+\]
+
+We note that \((x^2+2x+5)' = 2x+2\). Therefore, we split the integrand
+as follows
+
+\[
+\frac{x+3}{x^2+2x+5} = \frac{1}{2} \frac{2x+2}{x^2+2x+5} + \frac{2}{x^2+2x+5}
+\]
+
+The second part is needed that the RHS equals the LHS.
+
+For the first integral we substitute \(u = x^2+2x+5\) and
+\(dx = \frac{du}{2x+2}\). For the second part we complete the square of
+the denumerator: \(x^2+2x+5 = (x+1)^2+4\) and substitute \(v = x+1\).
+The we have
+
+\[
+I = \frac{1}{2} \int \frac{2x+2}{u} \frac{du}{2x+2} + \int \frac{2 dv}{v^2 + 4}
+\]
+
+Both integrals can be solved and we obtain
+
+\[
+I = \frac{1}{2} \ln(x^2+2x+5) + \arctan \frac{x+1}{2}
+\]

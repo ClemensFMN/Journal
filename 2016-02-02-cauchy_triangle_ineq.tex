@@ -1,0 +1,55 @@
+\DiaryEntry{Cauchy Inequality}{2016-02-02}{Maths}
+
+Any norm \(d(x,y)\) must fulfill four properties:
+
+\begin{itemize}
+\item
+  It must be positive for any \(x,y\): \(d(x,y) \leq 0\).
+\item
+  It must be only zero if and only if \(x = y\)
+\item
+  It must be commutative; i.e. \(d(x,y) = d(y,x)\)
+\item
+  It must fulfill the triangle inequality:
+  \(d(x,y) \leq d(x,z) + d(z, y)\)
+\end{itemize}
+
+One norm function is the Euclidian norm; for a d-dimensional space it
+has the following form:
+
+\[
+d(x,y) = \sqrt{(y_1 - x_1)^2 + \cdots + (y_d - x_d)^2}
+\]
+
+The first three norm properties are quite straightforward; the triangle
+inequality can be shown using the Cauchy inequality as follows.
+
+Without loss of generality, we can set \(x = 0\), \(y = u+v\), and
+\(z = v\) in the triangle inequality. Note that the Euclidian norm is
+translation invariant; i.e. \(d(x+w, y+w) = d(x,y)\) for all \(w\). This
+allows to express the triangle inequality as follows:
+
+\[
+d(0, u+v) \leq d(0, v) + d(v, u+v) = d(0, v) + d(0, u)
+\]
+
+where the last equality follows from translation invariance. Inserting
+the definition of the norm into the last expression, we obtain:
+
+\[
+\sqrt{\sum(u_j + v_j)^2} \leq \sqrt{\sum u_j^2} + \sqrt{\sum v_j^2}
+\]
+
+Squaring both sides, we obtain
+
+\[
+\sum(u_j + v_j)^2 = \sum u_j^2 + 2 \sum u_j v_j + \sum v_j^2 \leq \sum u_j^2 + 2 \sqrt{\sum u_j^2} \sqrt{\sum v_j^2} + \sum v_j^2
+\]
+
+and cancelling terms on both sides yields
+
+\[
+\sum u_j v_j  \leq \sqrt{\sum u_j^2} \sqrt{\sum v_j^2}
+\]
+
+which is exactely the Cauchy inequality.

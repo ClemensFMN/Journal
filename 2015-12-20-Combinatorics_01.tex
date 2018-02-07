@@ -1,0 +1,105 @@
+\DiaryEntry{Combinatorics, 1}{2015-12-20}{Combinatorics}
+
+\subsection{Consecutive Elements in Permutations}
+
+Given a set \(\mathcal{S}_n = \{1,2,3,\ldots,n\}\) and consider
+permutations of this set (there are \(n!\) of them). How many
+permutations are there, with \(1\) directly followed by a \(2\), up to
+\(k\)?
+
+For example, have \(n=4\) and \(k=2\), then a ``valid'' permutation is
+\((3,1,2,4)\).
+
+Consider a permutation where the sequence \((1,2,\ldots,k)\) is at the
+beginning:
+
+\[
+(1,2,\ldots,k,x,\ldots,x)
+\]
+
+where \(x\) denotes any number from \(k+1\) to \(n\). These are \(n-k\)
+numbers and there are \((n-k)!\) possibilities to place them.
+
+Next we shift the ``\((1,2,\ldots,k)\) group'' one place to the right
+
+\[
+(x, 1,2,\ldots,k,x,\ldots,x)
+\]
+
+Again, there are \((n-k)!\) possibilities to place the \(x\) values.
+
+We note that there are \(n-k+1\) ways to place the ``\((1,2,\ldots,k)\)
+group'' (from the very left to the very right); thus in total there are
+\((n-k+1)(n-k)!\) permutations.
+
+\subsubsection{Extreme Cases}
+
+For \(k=n-1\) we obtain for the number of permutations
+\([n-(n-1)+1][n-(n-1)]! = 2+1! = 2\). There are only two possibilities
+of the form ``\((1,2,\ldots,k,n)\) and''\((n,1,2,\ldots,k)\).
+
+For \(k=1\) we have \((n-1+1)(n-1)! = n(n-1)! = n!\): We are free to
+place all elements in any order - therefore we get the numbe of
+permutations of the original set \(\mathcal{S}_n\).
+
+\subsubsection{Example for \(n=4\)}
+
+Below the ``good'' cases are shown. The values 3 and 4 can be placed
+onto the x's; for each row, there are \(2!=2\) ways to place them
+(\((3,4)\) and \((4,3)\)). Therefore in total there are
+\(3 \times 2 = 6\) possible placements.
+
+
+\begin{align*}
+&(1,2,x,x)\\
+&(x,1,2,x)\\
+&(x,x,1,2)
+\end{align*}
+
+
+\subsection{Number of Words}
+
+The number of words with length \(k\) in an alphabet with \(n\) elements
+is \(n^k\). This is easy. Now add the constraint, that two consecutive
+letters must be different.
+
+The first letter can be chosen independently, so we have \(n\)
+possibilities. The second letter must be different from the first,
+therefore there are only \(n-1\) possibilities left. This argument holds
+for all letters except the first; therefore, there are \(n(n-1)^{k-1}\)
+possibilities.
+
+\subsection{Set-Partitioning into 2 Subsets}
+
+The set \(\mathcal{S}\) has \(n\) elements. In how many ways can the set
+be partitioned into two subsets \(\mathcal{A}\) and \(\mathcal{B}\)
+which are not necessarily disjoint and whose union is \(\mathcal{S}\):
+\(\mathcal{A} \cup \mathcal{B} = \mathcal{S}\).
+
+For every element \(x \in \mathcal{S}\), there are three cases:
+
+\begin{itemize}
+\item
+  \(x \in \mathcal{A}, x \notin \mathcal{B}\)
+\item
+  \(x \notin \mathcal{A}, x \in \mathcal{B}\)
+\item
+  \(x \in \mathcal{A}, x \in \mathcal{B}\)
+\end{itemize}
+
+Therefore, there are \(3^n\) ways to choose \(\mathcal{A}\) and
+\(\mathcal{B}\).
+
+We can arrive at this result via induction as well. Start with \(n=1\);
+i.e. \(\mathcal{S} = \\{1\\}\). Then we can place (i) 1 into
+\(\mathcal{A}\) and leave \(\mathcal{B}\) empty, (ii) place 1 into
+\(\mathcal{B}\) and leave \(\mathcal{A}\) empty or (iii) put 1 into both
+\(\mathcal{A}, \mathcal{B}\).
+
+So, for \(n=1\), we have \(3\) possibilities. If we add a second element to \(\mathcal{S}\), we use the same argument for placing the second element \textbf{independently} form the first one. Therefore, there are \(3^n\) ways to select the subsets.
+
+Note that the Stirling Numbers of the second kind \({n \brace k}\) count the number of \(n\) elements into \(k\) \textbf{non-empty} partitions. For \(k=2\), we have the special relation \({n \brace 2} = 2^{n-1}-1\).
+
+We can prove this as follows: A binary string \((b_1, \ldots,b_n)\)
+represents a partition. If \(b_i = 0\), then \(i \in \mathcal{A}\), if \(b_i = 1\), then \(i \in \mathcal{B}\). The all-zero and the all-one string are not allowed as the would leave one of the two sets empty. Furthermore, we double count; i.e.~we treat
+\(\mathcal{A} = \{1,2\}, \mathcal{B} = \{3\}\) and \(\mathcal{A} = \{3\}, \mathcal{B} = \{1,2\}\) as separate partitions (which they are not). Therefore, we have \({n \brace 2} = \frac{2^{n}-2}{2} = 2^{n-1}-1\).

@@ -1,0 +1,62 @@
+\DiaryEntry{Inside Interesting Integrals, 3 (Section 2.1)}{2016-02-16}{Maths}
+
+These integrals use substitution in a ``backwards'' manners. See below,
+what this means.
+
+\subsubsection{Integral 2.1.a}
+
+We have the integral
+
+\[
+I = \int \frac{dx}{(x+a)\sqrt{x-1}}
+\]
+
+We set \(t^2 = x-1\) from which we have \(t=\sqrt{x-1}\) and
+\(x=1+t^2\). Therefore \(\frac{dx}{dt} = 2t = 2\sqrt{x-1}\). Note that
+here we have expressed the derivative not in terms of \(t\) but in terms
+of \(x\). It is this ``trick'' which allows to solve the integral. We
+have
+
+\[
+I = \int \frac{1}{(1+t^2+a)\sqrt{x-1}}2\sqrt{x-1}dt = 2 \int \frac{dt}{t^2+a+1} = 2 \frac{\arctan {\sqrt{\frac{x-1}{a+1}}}}{\sqrt{a+1}}
+\]
+
+The ``trick'' causes the \(\sqrt{x-1}\) terms to cancel and brings the
+integral into a standard form.
+
+If we want to calculate the definite integral \(\int_1^\infty\) we
+obtain
+
+\[
+\int_1^\infty \frac{dx}{(x+a)\sqrt{x-1}} = 2 \frac{\arctan \infty}{\sqrt{a+1}} = \frac{\pi}{\sqrt{a+1}}
+\]
+
+\subsubsection{Integral 2.1.d}
+
+In a similar spirit, we can solve the integral
+
+\[
+I = \frac{dx}{1+e^{ax}}
+\]
+
+We substitute \(u = e^{ax}\) and obtain
+\(\frac{du}{dx} = a e^{ax} = au\). The last step is again expressing the
+derivative not in terms of \(x\) but in terms of \(u\). Therefore,
+\(dx = \frac{du}{au}\) and we have
+
+\[
+I = \int \frac{1}{1+u} \frac{du}{au} = \frac{1}{a} \int \frac{du}{u(1+u)} = \frac{1}{a} \int \frac{1}{u} - \frac{1}{1+u} du
+\]
+
+where we made a partial fraction expansion in the last step. The
+integral can now be solved according to
+
+\[
+I = \frac{1}{a} \left( \ln u - \ln (1+u) \right) = \frac{1}{a} \ln \frac{e^{ax}}{1+e^{ax}}
+\]
+
+Calculating the definite integral yields
+
+\[
+I = \int_0^\infty \frac{dx}{1+e^{ax}} = \frac{1}{a} \left( \ln 1 - \ln 1/2 \right) = -\frac{\ln 1/2}{a} = \frac{\ln 2}{a}
+\]
