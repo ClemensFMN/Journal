@@ -1,0 +1,56 @@
+\DiaryEntry{Project Euler 6 - Analytical Result}{2018-02-07}{Maths}
+
+The problem asks for a comparison of the squared sum of the first $N$ natural numbers and the first $N$ squared natural numbers.
+
+We have
+
+\bee
+\sum_{k=1}^N k = \frac{N(N+1)}{2}, \quad \sum_{k=1}^N k^2 = \frac{N(N+1)(2N+1)}{6}
+\eee
+
+We want to compare
+
+\bee
+\left( \sum_{k=1}^N k \right)^2 = \frac{N^2(N+1)^2}{4} \sim N^4
+\eee
+
+and
+
+\bee
+\sum_{k=1}^N k^2 \sim N^3
+\eee
+
+Comparison in Julia shows us that
+
+\bee
+\left( \sum_{k=1}^N k \right)^2 > \sum_{k=1}^N k^2
+\eee
+
+for all values $N$ as shown in the table below
+
+\bee
+\begin{array}{cccccc}
+	\hline
+	           k            & 1 & 2 & 3  &  4  & 5   \\ \hline
+	        \sum k          & 1 & 3 & 6  & 10  & 15  \\ \hline
+	\left( \sum k \right)^2 & 1 & 9 & 36 & 100 & 225 \\ \hline
+	          k^2           & 1 & 4 & 9  & 16  & 25  \\ \hline
+	       \sum k^2         & 1 & 5 & 14 & 30  & 55  \\ \hline
+\end{array}
+\eee
+
+Intuitively, $\sum k$ grows quadratically in $N$, therefore the square grows with $N^4$. On the other hand, the summands $k^2$ grow quadratically, therefore their sum grows only with $N^3$.
+
+By the way, we have the following bound
+
+\bee
+\sum_{k=1}^N k^n \leq \sum_{k=1}^N N^n = N N^n = N^{n+1}
+\eee
+
+i.e. the sum of $k^n$ scales according to a power law with exponent $n+1$. A more general result is obtained by using results from \ref{2015-10-29:entry}; in particular
+
+\bee
+\sum_{0 \leq x < N} x^{\underline{n}} = \frac{x^{\underline{n+1}}}{n+1} \bigg|_0^N = \frac{N^{\underline{n+1}}}{n+1}
+\eee
+
+Here, $x^{\underline{n}}$ has terms up to $x^n$ and the sum expression contains terms up to $N^{n+1}$. \qed
