@@ -51,4 +51,27 @@ Use Maxima to solve the equation system:
 (%o1)	[a=3/2,b=5/2,c=1]
 \end{verbatim}
 
+\subsection{Centered Pentagonal Numbers}
 
+Slightly different are the so called centered pentagonal numbers which are shown in the following Figure.
+
+\begin{figure}[H]
+	\includegraphics[scale=1]{images/pentagon_numbers_centered.png}
+\end{figure}
+
+Let us denote the sum of points as $\tilde{p}(n)$ and we have
+
+\begin{align*}
+\tilde{p(0)} &= 1 \\
+\tilde{p(1)} &= 1 + 5  = 6\\
+\tilde{p(2)} &= 1 + 5 + 10 = 16\\
+\tilde{p(3)} &= 1 + 5 +10 + 15 = 31\\
+\end{align*}
+
+We observe that at value $n$, a pentagon with $5n$ points is added. For the sum of points (i.e. $\tilde{p})$), we therefore have
+
+\bee
+\tilde{p}(n) = 1 + \sum_{k=1}^n 5k = 1 + 5 \sum_{k=1}^n k = 1 + 5 \frac{n(n+1)}{2} = \cdots = \frac{5n^2 + 5n +2}{2}
+\eee
+
+Note: The \href{https://en.wikipedia.org/wiki/Centered_pentagonal_number}{Wikipedia article} is wrong.
