@@ -1,0 +1,105 @@
+\DiaryEntry{GUI Frameworks}{2018-03-01}{General}
+
+
+\subsection{Tasks}
+
+Write visualisation for Game of Life
+
+\begin{itemize}
+	\item Display board with cells
+	\item Allow start / stop / reset of simulation
+	\item Click-able cells to change state
+\end{itemize}
+
+Write infection spread simulation
+
+\begin{itemize}
+	\item Observe state of single persons
+	\item Change parameters (density, infection prob...)
+	\item Create diagrams with number of healthy / infected / dead persons
+	\item Store time series in file
+\end{itemize}
+
+Other Ideas: Hex Viewer, which displays file content as hex, allows editing...
+
+\subsection{Solutions}
+
+\paragraph{General Observation}
+
+\begin{itemize}
+	\item Writing a GUI framework is a lot of work and a hard task
+	\item Therefore, there are not that many options
+	\item New ("modern") languages (e.g. Rust, Scala...) reuse existing stuff and do not create new frameworks. There is some kind of "impedance mismatch" between the new languages and the "old" frameworks
+\end{itemize}
+
+
+
+\subsection{General Purpose}
+
+Qt + C++
+\begin{itemize}
+	\item The "full-blown", maximum-complexity solution
+	\item Qt hides some complexity of C++, but still - it is there
+\end{itemize}
+
+
+Qt + QML/C++
+\begin{itemize}
+	\item No experience with QML
+	\item QML seems only to reduce the GUI complexity (it is a declarative description of the GUI); apart from very simple things, the business logic cannot be done in QML
+	\item A more complex application logic needs Javascript or C++ and the interplay does not seem to be dead-easy.
+\end{itemize}
+
+
+React.js
+\begin{itemize}
+	\item Completely unknown, no experience in Javascript
+	\item Toolchain?, editor support?
+	\item Don't know if a browser-based solution fulfills all requirements (e.g. storing to disk, network operations)
+	Seems to be widely used
+\end{itemize}
+
+Pharo
+\begin{itemize}
+	\item The language and GUI look nice and seem to be fairly comprehensive
+	\item Good documentation, but don't know how big the community is
+	\item A new language, no experience
+\end{itemize}
+
+
+Lazarus
+- Phew, I don't know :-) Pascal
+- It looks fairly complete
+- Don't know about the documentation quality
+- Some people in microcontroller.net are pretty fanatic about it
+
+CSharp + WinForms/GTKSharp
+- Linux availability? Monodevelop?
+- CSharp is pretty nice and modern; the monodevelop GUI developer is very nice
+
+Rust + GTK
+- Looks fairly complete and useful
+- On the other hand, the whole borrowing concept seems to be rather painful with GUIs, especially callbacks
+- don't know if the language is a good match for the task
+- long compile times
+
+Python + GTK
+- Way easier (at least it seems so now)
+- Comprehensive documentation?
+- Quick development cycle
+
+Python + Qt
+- More or less the same arguments as for Python + GTK
+- Qt is more comprehensive
+- I have more experience with Qt (Qucs)
+- It's possible to draw the GUI, save ui files, and use them from Python...
+
+Special Multi-Agent Simulation Frameworks
+
+There actually tons of them
+https://repast.github.io/index.html -> looks rather complex
+http://gama-platform.org -> looks also rather complex
+http://ccl.northwestern.edu/netlogo -> this looks nice and simple
+
+
+
