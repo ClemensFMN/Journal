@@ -28,7 +28,9 @@ I = \frac{\pi}{2} - \left. \left( x \ln(x) - x \right) \right|_{0}^{\pi/2} = \fr
 So we have
 
 \bee
-I = \int_{0}^{\pi/2} \ln \left\{\frac{\sin(x)}{x} \right\} dx = \frac{\pi}{2} (1 - \log \pi) \approx -0.277 \qed
+\boxed{
+I = \int_{0}^{\pi/2} \ln \left\{\frac{\sin(x)}{x} \right\} dx = \frac{\pi}{2} (1 - \log \pi) \approx -0.277
+} \qed
 \eee
 
 The integrand is shown in the following Figure:
@@ -55,7 +57,7 @@ and we further obtain
 \ln(\cos \phi) = -\frac{1}{2} \ln(1 + \tan^2 \phi)
 \eee
 
-From th Journal entry \ref{2016-02-17:entry} we also have 
+From the Journal entry \ref{2016-02-17:entry} we also have 
 
 \bee
 \int_0^{\pi/2} \ln(a \sin x) dx = \int_0^{\pi/2} \ln(a \cos x) dx = \frac{\pi}{2} \ln \frac{a}{2}
@@ -81,9 +83,12 @@ dx = \cos^2 x du = \frac{1}{1 + \tan^2 x} du = \frac{du}{1 + u^2}dx
 
 Here we have used "standard trick" to use the original substitution in expressing $dx$. Using this, we obtain
 
-\bee
+\be
+\label{2018-03-21:eq2}
+\boxed{
 \int_0^\infty \frac{ \ln(1 + u^2)}{1+u^2} du = \pi \ln 2 \approx 2.178
-\eee
+}
+\ee
 
 where we have transformed the limits as follows $x=0 \rightarrow u = \tan 0 = 0$ and $x=\pi/2 \rightarrow u = \tan \pi/2 = \infty$. The following Figure shows a plot of the integrand.
 
@@ -108,3 +113,41 @@ We can plot and calculate the integral in Maxima as follows
 \end{verbatim}
 
 \qed
+
+We can use this result to solve some other integral. We first split the integral into $\int_0^1 + \int_1^\infty$ and substitute $u = 1/x$ in the second one. We have $du/dx=-1/x^2 \rightarrow dx = -x^2 du = -1/u^2 du$. Inserting this into the second integral (the one going from $1\ldots \infty$) yields
+
+\bee
+- \int_1^0 \frac{\ln(1+1/u^2)}{1+1/u^2} \frac{du}{u^2} = \int_0^1 \frac{\ln(1+1/u^2)}{1+u^2} du
+\eee
+
+where we have adapted the integration limits and swapped the integration limits in the second equation (this reverses the sign). Therefore the integral from $0\ldots \infty$ becomes (we have substituted $u$ by $x$ in the integral $0\ldots\infty$)
+
+\bee
+I = \int_0^1 \frac{\ln(1+x^2)}{1+x^2}dx + \int_0^1 \frac{\ln(1+\frac{1}{x^2})}{1+x^2}dx = \int_0^1 \frac{\ln(1+x^2) +  \ln(1+\frac{1}{x^2})}{1+x^2} dx
+\eee
+
+We can combine the logarithms and obtain
+
+\begin{align*}
+I = \int_0^1 \frac{\ln \left[ (1+x^2) (1+\frac{1}{x^2})\right]}{1+x^2} dx = \int_0^1 \frac{\ln \left( \frac{(1+x^2)^2}{x^2}\right)}{1+x^2} dx & \\ = 2 \int_0^1 \frac{\ln \left( \frac{1+x^2}{x}\right)}{1+x^2} dx & = 2 \int_0^1 \frac{\ln \left( x + \frac{1}{x}\right)}{1+x^2} dx = \pi \ln 2
+\end{align*}
+
+where the integral value is from \eqref{2018-03-21:eq2}. We therefore have
+
+\bee
+\boxed{
+\int_0^1 \frac{\ln \left( x + \frac{1}{x}\right)}{1+x^2} dx = \frac{\pi}{2} \ln 2
+} \qed
+\eee
+
+The substitution $u = 1/x$ is quite helpful and can (also) be used to solve the following integral
+
+\bee
+\int_0^\infty \frac{\ln(x^a+1)}{x^2-bx+1} dx
+\eee
+
+Substituting $u = 1/x$ yields
+
+\bee
+xxx
+\eee
