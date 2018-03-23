@@ -143,11 +143,31 @@ where the integral value is from \eqref{2018-03-21:eq2}. We therefore have
 The substitution $u = 1/x$ is quite helpful and can (also) be used to solve the following integral
 
 \bee
-\int_0^\infty \frac{\ln(x^a+1)}{x^2-bx+1} dx
+I = \int_0^\infty \frac{\ln(x^a+1)}{x^2-bx+1} dx
 \eee
 
 Substituting $u = 1/x$ yields
 
 \bee
-xxx
+I = - \int_\infty^0 \frac{\ln\left(\frac{1}{u^a}+1\right)}{\frac{1}{u^2}-\frac{b}{u}+1}  \frac{du}{u^2} = \int_0^\infty \frac{\ln\left(\frac{1 + u^a}{u^a}\right)}{1 - bu + u^2} du = \int_0^\infty \frac{\ln(1 + u^a)}{1 - bu + u^2} du - a \int_0^\infty \frac{\ln(u)}{1 - bu + u^2} du
 \eee
+
+But now we have
+
+\bee
+\int_0^\infty \frac{\ln(x^a+1)}{x^2-bx+1} dx = \int_0^\infty \frac{\ln(1 + u^a)}{1 - bu + u^2} du - a \int_0^\infty \frac{\ln(u)}{1 - bu + u^2} du
+\eee
+
+and from this follows
+
+\bee
+\boxed{
+\int_0^\infty \frac{\ln(u)}{1 - bu + u^2} du = 0
+} \qed
+\eee
+
+The following Figure shows the integrand for $b=0$.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.7]{images/interesting_integrals_06_3.png}
+\end{figure}
