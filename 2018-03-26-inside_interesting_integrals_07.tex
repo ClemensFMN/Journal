@@ -1,0 +1,49 @@
+\DiaryEntry{Inside Interesting Integrals, 7 (Section 2.5)}{2018-03-26}{Integrals}
+
+Challenge problem C2.2 asks for the integral
+
+\bee
+\int_0^1 \frac{dx}{x^3+1}
+\eee
+
+We first make a partial fraction expansion as follows
+
+\begin{align*}
+\int_0^1 \frac{dx}{x^3+1} &= \int_0^1 \frac{1}{3}\frac{1}{x+1} - \frac{1}{3}\frac{x-2}{x^2-x+1} dx \\ &= \int_0^1 \frac{1}{3}\frac{1}{x+1} - \int_0^1 \frac{1}{3} \left[ \frac{1}{2} \frac{2x-1}{x^2-x+1} - \frac{3}{2} \frac{1}{x^2-x+1} \right] dx = I_1 + I_2 + I_3
+\end{align*}
+
+where in the second step we split the terms and sneaked in factors so that the enumerator is the derivative of the denominator: $(x^2 - x+1)' = 2x-1$. IN the following, we solve one of the three integrals.
+
+\paragraph{Integral $I_1$:} We set $u=x+1$ and obtain
+
+\bee
+\int_0^1 \frac{1}{3}\frac{1}{u} du = \frac{1}{3} \left. \ln (x+1) \right|_0^1 = \frac{1}{3} \ln 2
+\eee
+
+\paragraph{Integral $I_2$:} Here we make the substitution $u = x^2-x+1, du/dx = 2x-1, du/(2x-1) = dx$ and arrive at
+
+\bee
+\int \frac{2x-1}{x^2-x+1} dx = \int \frac{2x-1}{u} \frac{du}{2x-1} = \ln u = \left. \ln(x^2-x+1) \right|_0^1 = \ln 1 - \ln 1 = 0
+\eee
+
+Therefore $I-2 = 0$.
+
+\paragraph{Integral $I_3$:} This integral is solved by completing the square:
+
+\bee
+\int \frac{dx}{x^2-x+1} = \int \frac{dx}{x^2-x+\frac{1}{4} + \frac{3}{4}} = \int \frac{dx}{\left(x-\frac{1}{2}\right)^2 + \frac{3}{4}} = \int \frac{dx}{u^2 + \frac{3}{4}}
+\eee
+
+where we have set $u=x-1/2$ (and $du/dx=1$). This integral can be solved and we obtain
+
+\bee
+I_3 = \frac{1}{2} \frac{2 \arctan \frac{2u}{\sqrt{3}}}{\sqrt{3}} = \left. \frac{ \arctan \frac{2(x-1/2)}{\sqrt{3}}}{\sqrt{3}} \right|_0^1 = \cdots = \frac{\pi}{\sqrt{27}}
+\eee
+
+Combining everything together, we arrive at
+
+\bee
+\boxed{
+\int_0^1 \frac{dx}{x^3+1} = \frac{1}{3} \ln 2 + \frac{\pi}{\sqrt{27}}
+}
+\eee
