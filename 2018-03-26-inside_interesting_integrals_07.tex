@@ -36,9 +36,9 @@ Therefore $I-2 = 0$.
 
 where we have set $u=x-1/2$ (and $du/dx=1$). This integral can be solved and we obtain
 
-\bee
-I_3 = \frac{1}{2} \frac{2 \arctan \frac{2u}{\sqrt{3}}}{\sqrt{3}} = \left. \frac{ \arctan \frac{2(x-1/2)}{\sqrt{3}}}{\sqrt{3}} \right|_0^1 = \cdots = \frac{\pi}{\sqrt{27}}
-\eee
+\begin{align*}
+I_3 = \frac{1}{2} \frac{2 \arctan \frac{2u}{\sqrt{3}}}{\sqrt{3}} = \left. \frac{ \arctan \frac{2(x-1/2)}{\sqrt{3}}}{\sqrt{3}} \right|_0^1 & = \frac{\arctan 1/\sqrt{3}}{\sqrt{3}} - \frac{\arctan \left(-1/\sqrt{3}\right) }{\sqrt{3}} \\ & = 2 \arctan \left(1/\sqrt{3}\right)/\sqrt{3} = \frac{\pi}{\sqrt{27}}
+\end{align*}
 
 Combining everything together, we arrive at
 
@@ -47,3 +47,18 @@ Combining everything together, we arrive at
 \int_0^1 \frac{dx}{x^3+1} = \frac{1}{3} \ln 2 + \frac{\pi}{\sqrt{27}}
 }
 \eee
+
+We can do this in Maxima as well
+
+\begin{verbatim}
+(%i1)	integrate(1/(x^3+1), x, 0, 1);
+(%o1)	(6*log(2)+sqrt(3)*%pi)/18+%pi/(2*3^(3/2))
+(%i2)	float((6*log(2)+sqrt(3)*%pi)/18+%pi/(2*3^(3/2))), numer;
+(%o2)	0.8356488482647211
+(%i3)	partfrac(1/(x^3+1), x);
+(%o3)	1/(3*(x+1))-(x-2)/(3*(x^2-x+1))
+(%i4)	atan(1/sqrt(3));
+(%o4)	%pi/6
+(%i5)	float(log(2)/3+%pi/3^(3/2)), numer;
+(%o5)	0.8356488482647211
+\end{verbatim}
