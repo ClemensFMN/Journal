@@ -138,7 +138,29 @@ We can demonstrate \eqref{2018-03-26:eq1} with a simple example: $\int_0^1 x^3 d
 \int_0^1 x^3 dx = \frac{1}{2} \cdot x^2 \bigg|_0^1 - \int_0^1 \frac{x^2}{2} 2x dx = \frac{1}{2} - \frac{x^4}{4}\bigg|_0^1 = \frac{1}{2} - \frac{1}{4} = \frac{1}{4} \qed
 \eee
 
-A real usage example of partial integration is
+\subsubsection{Partial Integration - Examples}
+
+A very simple integral is
+
+\bee
+\int x \sin(x) dx
+\eee
+
+Here we choose $u$ and $v$ so, that $v'$ is simpler: $u'=\sin(x) \rightarrow u = -\cos(x)$ and $v=x \rightarrow v'=1$. Then we have
+
+\bee
+\int x \sin(x) dx = -x \cos(x) + \int \cos(x) dx = \sin(x) - x \cos(x) \qed
+\eee
+
+In a similar spirit, we obtain
+
+\bee
+\int x e^x dx = xe^x - \int e^x dx = e^x(x-1) \qed
+\eee
+
+with $u'=e^x \rightarrow u=e^x$ and $v=x \rightarrow v'=1$. 
+
+A slightly more complicated example is
 
 \bee
 I = \int \frac{\ln(x)}{x^2}dx
