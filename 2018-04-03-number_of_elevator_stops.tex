@@ -25,19 +25,23 @@ E \left( \sum_{i=0}^N P(x_i=1) \right) = N \left[ 1-e^{-A} \right]
 The calculation depends on the independence of the persons and floors but does not depend on the uniform probability. If person $k$ stops at floor $i$ with probability $p_{ik}$, then the expected number of stops is
 
 \bee
-\sum_{i=1}^P \left[ 1-\prod_{k=1}^N (1-p_{ik}) \right]
+\sum_{i=1}^N \left[ 1-\prod_{k=1}^P (1-p_{ik}) \right]
 \eee
 
 If all persons have the same preference regarding the stops; i.e. $p_{ik} = p_i$, then the expected number of stops is
 
 \bee
-\sum_{i=1}^P \left[ 1- (1-p_{i})^P \right]
+\sum_{i=1}^N \left[ 1- (1-p_{i})^P \right]
 \eee
 
 \subsection{Results}
 
 Assume $P=10$ and $N = 10$.
 
-Scenario 1: $p_1 = \cdots = p_10 = 0.1$ (uniform distribution).
+\begin{itemize}
+	\item Scenario 1: $p_1 = \cdots = p_{10} = 0.1$ (uniform distribution). This yields an expected number of steps as $6.513$. If we increase the number of people to $P=100$, the expected number of steps becomes $10$.
+	
+	\item Scenario 2: $p_1 = p_2 = p3 = p_7 = \cdots= p_{10} = 0, p_4 = p_5 = p_6 = 1/3$. This yields an expected number of steps as $2.948$, and for $P=100$ the expected number of steps is $3$.
+\end{itemize}
 
-Scenario 2: peaky around some value $i$.
+
