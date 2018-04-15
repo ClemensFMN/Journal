@@ -8,9 +8,18 @@ We define a unit ball $\Sc_N$ as the following $N$-dimensional set
 
 where $|\cdot|$ is the normal $2$-norm. According to \href{https://en.wikipedia.org/wiki/Volume_of_an_n-ball}{Wikipedia}, the volume of such a ball is given by
 
+
 \bee
 V(\Sc_N) = \frac{\pi^{N/2}}{\Gamma(N/2+1)}
 \eee
+
+The following Figure shows a plot of this function. It is "interesting" to see that the volume has a maximum for $N=5$; however, we caution in interpreting too much into this fact, as I'm not sure whether a comparison of volumes in \emph{different dimensions} is really meaningful (e.g. what does the comparison between a circle's area and a sphere's volume mean).
+
+
+\begin{figure}[H]
+	\includegraphics[scale=0.7]{images/high_dim_02_02.png}
+\end{figure}
+
 
 A unit box $\Bc_N$ is defined as the $N$-dimensional set
 
@@ -26,12 +35,11 @@ V(\Bc_N) = 2^N
 
 Suppose we generate random points in the unit box uniformly and ask for the probability with which these points are contained in the unit ball. This probability is given by the ratio of the two volumes; i.e.
 
-\todo{check formula and plot}
 \bee
 \frac{\pi^{N/2}}{2^N \Gamma(N/2+1)}
 \eee
 
-The following Figure shows this ratio.
+The following Figure shows this ratio. Interestingly, for increasing dimensions, it becomes very rare to hit a point inside the ball. Note that this is a more meaningful question, as we are now comparing probabilities for evens in different dimensions.
 
 \begin{figure}[H]
 	\includegraphics[scale=0.7]{images/high_dim_02_01.png}
