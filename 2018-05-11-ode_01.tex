@@ -92,4 +92,17 @@ Separation of variables yields the following expression for $y(t)$:
 \frac{dy}{y(t)} = \sin(t^2)dt \rightarrow y(t) = c \exp \left( \int_{u=0}^t \sin(u^2) du \right)
 \eee
 
-I don't know, whether this can be solved in closed form.
+I don't know, whether this can be solved in closed form. \qed
+
+
+The general problem of ODEs with time-varying coefficients has the following form
+
+\bee
+y'(t) - a(t)y(t) = 0 \rightarrow \frac{dy(t)}{dt} = a(t)y(t)
+\eee
+
+We can separate variables again, integrate both sides and obtain
+
+\bee
+\ln y(t) = \int_{s=0}^t a(s) ds + C \rightarrow y(t) = c \exp \left( \int_{s=0}^t a(s) ds \right) \qed
+\eee

@@ -14,7 +14,7 @@ is given by
 y(t) = y_0 \exp \left( \int_0^t a(s) ds \right) + \int_0^t g(s) \left( \exp \int_s^t a(r)dr \right) ds
 \eee
 
-The first integral is the solution to the homogeneous ODE $y'(t) - a(t)y(t) = 0$ (see also previous post). The second integral considers the effect of the RHS $g(t)$: Like an initial condition, $g(t)$ is multiplied with $\exp \int_s^t a(r)dr$, however we integrate the product with respect to $s$.
+The first integral is the solution to the homogeneous ODE $y'(t) - a(t)y(t) = 0$ (see also last integral in the previous post). The second integral considers the effect of the RHS $g(t)$: Like an initial condition, $g(t)$ is multiplied with $\exp \int_s^t a(r)dr$; but $g(t)$ acts "longer" on the solution, therefore we integrate over all contributions over time (up to $t$).
 
 \paragraph{Constant Input.} We start with the most simple example
 
