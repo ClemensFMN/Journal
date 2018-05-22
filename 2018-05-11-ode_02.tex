@@ -2,7 +2,7 @@
 
 \subsubsection{In-homogenuous ODEs}
 
-The solution to the generic in-homogenuous ODE
+The solution to the generic in-homogeneous ODE
 
 \bee
 y'(t) - a(t)y(t) = g(t), \quad y(0) = y_0
@@ -14,13 +14,31 @@ is given by
 y(t) = y_0 \exp \left( \int_0^t a(s) ds \right) + \int_0^t g(s) \left( \exp \int_s^t a(r)dr \right) ds
 \eee
 
-Consider a simple example
+The first integral is the solution to the homogeneous ODE $y'(t) - a(t)y(t) = 0$ (see also previous post). The second integral considers the effect of the RHS $g(t)$: Like an initial condition, $g(t)$ is multiplied with $\exp \int_s^t a(r)dr$, however we integrate the product with respect to $s$.
+
+\paragraph{Constant Input.} We start with the most simple example
+
+\bee
+y'(t) - a y(t) = g, \quad y(0) = y_0
+\eee
+
+Inserting this into the solution, we obtain
+
+\begin{align*}
+y(t) & = y_0 \exp (at) + \int_{s=0}^t g \exp \left[ a(t-s)\right] ds \\
+&= y_0 \exp(at) +gexp(at) \int_{s=0}^t g \exp \left[ -as \right] ds \\
+&= e^{at} (y_0 + g/a) - g/a
+\end{align*}
+
+From this we see that the constant input contributes in two ways to $y(t)$: (i) It acts like an (additional) initial value and correspondingly follows $e^{at}$, and (ii), affects the steady state $\lim_{t \rightarrow \infty} y(t)$, after all transients have decayed. We can see the latter effect by assuming a constant $y(t)$, therefore $y' = 0$: We have $-ay(t) = g \rightarrow y(t) = -g/a$. Assuming $a < 0$ (otherwise there is no steady solution!), $y(t) = g/a$ for $t \rightarrow \infty$. The constant $a$ can be interpreted as "damping factor"; the larger $a$ is, the smaller the contribution from $g(t)$.
+
+\paragraph{Sinus Input.} We next consider a sinusoidal input function,
 
 \bee
 y'(t) - ay(t) = \sin(t)
 \eee
 
-In this case, $a(t)$ is a constant which simplifies things. The solution from above yields
+The solution from above yields
 
 \begin{align*}
 y(t) &= y_0 \exp \left( \int_0^t a ds \right) + \int_0^t \sin(s) \left( \exp \int_s^t a dr \right) ds = y_0 \exp \left( at \right) + \int_0^t \sin(s) \exp \left( a(t-s) \right) ds \\
@@ -33,6 +51,9 @@ The integral can be calculated analytically and the whole expression can be simp
 y(t) = y_0 \exp \left( at \right) - \frac{a \sin(t)+\cos(t) - e^{a t}}{a^2+1} =  \frac{\left[ y_0(a^2+1) + 1 \right] e^{a t} - a \sin(t)-  \cos(t) }{a^2+1}
 \eee
 
+We again see two contributions: An effect of the initial conditions (which decay for $a < 0$) and a steady-state solution which is controlled by $g(t)$. As in the previous example, the factor $a$ controls how strongly $y(t)$ is affected by $g(t)$.
+
+
 A solution by Maxima can be obtained as follows
 
 \begin{verbatim}
@@ -43,3 +64,13 @@ A solution by Maxima can be obtained as follows
 (%i27)	ic1(gsoln, t=0, u=y0), ratsimp;
 (%o27)	u=((a^2+1)*%e^(a*t)*y0-a*sin(t)-cos(t)+%e^(a*t))/(a^2+1)
 \end{verbatim}
+
+\todo{plot}
+
+\paragraph{Sinus Input with varying frequency.} We can extend the previous example to
+
+\bee
+y'(t) - ay(t) = \sin(\omega t)
+\eee
+
+\todo{continue, plot}
