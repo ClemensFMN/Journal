@@ -1,0 +1,45 @@
+\DiaryEntry{First Order Differential Equations (II)}{2018-05-15}{ODE}
+
+\subsubsection{In-homogenuous ODEs}
+
+The solution to the generic in-homogenuous ODE
+
+\bee
+y'(t) - a(t)y(t) = g(t), \quad y(0) = y_0
+\eee
+
+is given by
+
+\bee
+y(t) = y_0 \exp \left( \int_0^t a(s) ds \right) + \int_0^t g(s) \left( \exp \int_s^t a(r)dr \right) ds
+\eee
+
+Consider a simple example
+
+\bee
+y'(t) - ay(t) = \sin(t)
+\eee
+
+In this case, $a(t)$ is a constant which simplifies things. The solution from above yields
+
+\begin{align*}
+y(t) &= y_0 \exp \left( \int_0^t a ds \right) + \int_0^t \sin(s) \left( \exp \int_s^t a dr \right) ds = y_0 \exp \left( at \right) + \int_0^t \sin(s) \exp \left( a(t-s) \right) ds \\
+&= y_0 \exp \left( at \right) + \exp(at) \int_0^t \sin(s) \exp (-as) ds
+\end{align*}
+
+The integral can be calculated analytically and the whole expression can be simplified to
+
+\bee
+y(t) = y_0 \exp \left( at \right) - \frac{a \sin(t)+\cos(t) - e^{a t}}{a^2+1} =  \frac{\left[ y_0(a^2+1) + 1 \right] e^{a t} - a \sin(t)-  \cos(t) }{a^2+1}
+\eee
+
+A solution by Maxima can be obtained as follows
+
+\begin{verbatim}
+(%i19)	de:'diff(u,t)-a*u-sin(t);
+(de)	'diff(u,t,1)-a*u-sin(t)
+(%i20)	gsoln:ode2(de,u,t);
+(gsoln)	u=%e^(a*t)*((%e^(-a*t)*(-a*sin(t)-cos(t)))/(a^2+1)+%c)
+(%i27)	ic1(gsoln, t=0, u=y0), ratsimp;
+(%o27)	u=((a^2+1)*%e^(a*t)*y0-a*sin(t)-cos(t)+%e^(a*t))/(a^2+1)
+\end{verbatim}
