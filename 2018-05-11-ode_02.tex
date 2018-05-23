@@ -32,6 +32,21 @@ y(t) & = y_0 \exp (at) + \int_{s=0}^t g \exp \left[ a(t-s)\right] ds \\
 
 From this we see that the constant input contributes in two ways to $y(t)$: (i) It acts like an (additional) initial value and correspondingly follows $e^{at}$, and (ii), affects the steady state $\lim_{t \rightarrow \infty} y(t)$, after all transients have decayed. We can see the latter effect by assuming a constant $y(t)$, therefore $y' = 0$: We have $-ay(t) = g \rightarrow y(t) = -g/a$. Assuming $a < 0$ (otherwise there is no steady solution!), $y(t) = g/a$ for $t \rightarrow \infty$. The constant $a$ can be interpreted as "damping factor"; the larger $a$ is, the smaller the contribution from $g(t)$.
 
+The following Figure shows the solution $y(t)$ for $a=-1, g=0$ and initial condition $y_0 = 1$.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/ode_02_01.png}
+\end{figure}
+
+As a contrast, we plot $y(t)$ with $g=1$ and initial condition $y_0 = 0$ and two different values $a$.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/ode_02_02.png}
+\end{figure}
+
+The effect of $g$ on the steady state of $y(t)$ can be seen and also the effect of $a$ on the time till the steady state is reached.
+
+
 \paragraph{Sinus Input.} We next consider a sinusoidal input function,
 
 \bee
@@ -51,8 +66,20 @@ The integral can be calculated analytically and the whole expression can be simp
 y(t) = y_0 \exp \left( at \right) - \frac{a \sin(t)+\cos(t) - e^{a t}}{a^2+1} =  \frac{\left[ y_0(a^2+1) + 1 \right] e^{a t} - a \sin(t)-  \cos(t) }{a^2+1}
 \eee
 
-We again see two contributions: An effect of the initial conditions (which decay for $a < 0$) and a steady-state solution which is controlled by $g(t)$. As in the previous example, the factor $a$ controls how strongly $y(t)$ is affected by $g(t)$.
+We again see two solution parts: An effect of the initial conditions (which decay for $a < 0$) and a steady-state solution which is controlled by $g(t)$. As in the previous example, the factor $a$ controls how strongly $y(t)$ is affected by $g(t)$ - in addition to before (since $g(t)$ is time-varying), $a$ also affects the phase between $g(t)$ and $y(t)$.
 
+
+The following Figure shows $y(t)$ for two values of $a$ and $y_0=0$ together with $g(t)$. The effect of $a$ on both the amplitude of $y(t)$ and the phase can be clearly seen.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/ode_02_03.png}
+\end{figure}
+
+The next Figure shows the effect of the initial value condition for $y_0 = 2$ and two values of $a$. The parameter controls how fast the initial disturbance of the initial condition  dies off (in addition to the damping/phase shift effects already discussed above).
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/ode_02_04.png}
+\end{figure}
 
 A solution by Maxima can be obtained as follows
 
@@ -65,7 +92,7 @@ A solution by Maxima can be obtained as follows
 (%o27)	u=((a^2+1)*%e^(a*t)*y0-a*sin(t)-cos(t)+%e^(a*t))/(a^2+1)
 \end{verbatim}
 
-\todo{plot}
+
 
 \paragraph{Sinus Input with varying frequency.} We can extend the previous example to
 
@@ -73,4 +100,28 @@ A solution by Maxima can be obtained as follows
 y'(t) - ay(t) = \sin(\omega t)
 \eee
 
-\todo{continue, plot}
+It is possible to solve this ODE with the same method as the one above; however, the process is rather tedious. Maxima to the rescue yields
+
+\begin{verbatim}
+(%i6)	de:'diff(u,t)-a*u-sin(w*t);
+gsoln:ode2(de,u,t);
+ic1(gsoln, t=0, u=y0), ratsimp;
+(de)	-sin(t*w)+'diff(u,t,1)-a*u
+(gsoln)	u=%e^(a*t)*((%e^(-a*t)*(-a*sin(t*w)-w*cos(t*w)))/(w^2+a^2)+%c)
+(%o6)	u=((%e^(a*t)*w^2+a^2*%e^(a*t))*y0-a*sin(t*w)-w*cos(t*w)+%e^(a*t)*w)/(w^2+a^2)
+\end{verbatim}
+
+The solution can be written in "mathematical" notation as
+
+\bee
+u=\frac{\left( {{e}^{a t}}\, {{w}^{2}}+{{a}^{2}}\, {{e}^{a t}}\right) \, y_0-a \sin{\left( t w\right) }-w \cos{\left( t w\right) }+{{e}^{a t}} w}{{{w}^{2}}+{{a}^{2}}}
+\eee
+
+Besides the transients, we see that the amplitude of the steady state signal decreases with $a^2 + \omega^2$; i.e. lower amplitudes for higher damping and higher frequency.
+
+
+The following Figure shows $y(t)$ for two different frequencies.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.5]{images/ode_02_05.png}
+\end{figure}
