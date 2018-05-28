@@ -1,0 +1,25 @@
+\DiaryEntry{First Order Differential Equations (III)}{2018-05-28}{ODE}
+
+Based on Differential Equations, 4th ed, Blanchard et al.
+
+There is an existence theorem for first order differential equations as follows: Suppose $f(t,y)$ is a continuous function in the rectangle $a < t < b, c < y < d$. If $(t_0, y_0$) is a point in the rectangle, then there exists an $\epsilon>0$ and a function $y(t)$ defined for $t_0-\epsilon < t < t_0 + \epsilon$ that solves the initial value problem
+
+\bee
+\frac{dy(t)}{dt} = f(t,y), \quad y(t_0) = y_0
+\eee
+
+In other words, as long as $f(t,y)$ is reasonable within a rectangle, there will exist a solution to the first oder ODE problem. Note however, that $\epsilon$ may be very small; in particular smaller than the $y-t$ rectangle $a < t < b, c < y < d$.
+
+Regarding uniqueness, there is also a theorem: Suppose $f(t,y)$ and $\partial f / \partial y$ are continuous functions in a rectangle $a < t < b, c < y < d$. If $(t_0, y_0$) is a point in the rectangle and if $y_1(t,y)$ and $y_2(t,y)$ are two functions that solve the initial value problem
+
+\bee
+\frac{dy(t)}{dt} = f(t,y), \quad y(t_0) = y_0
+\eee
+
+for all $t_0-\epsilon < t < t_0 + \epsilon$ (with $\epsilon>0$), then
+
+\bee
+y_1(t) = y_2(t), \quad t_0-\epsilon < t < t_0 + \epsilon
+\eee
+
+In particular this means, that solutions to ODEs must not cross; as an example see the solutions to $y' + \cos(y)y = 0$ (\ref{2018-05-11:entry}): Solutions come arbitrarily close, but do not meet (nor cross). This - together with a slope field - allows us to get a qualitative feeling for the ODE and its solutions.
