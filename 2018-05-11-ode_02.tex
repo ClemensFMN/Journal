@@ -125,3 +125,30 @@ The following Figure shows $y(t)$ for two different frequencies.
 \begin{figure}[H]
 	\includegraphics[scale=0.5]{images/ode_02_05.png}
 \end{figure}
+
+
+When we are interested in the steady-state only, we make the following Ansatz for $y(t)$ and use a complex function for $g(t)$:
+
+\bee
+y(t) = c \exp(j\omega t)
+\eee
+
+Inserting this into the ODE, we obtain
+
+\bee
+j c \omega \exp(j\omega t) - a c \exp(j\omega t) = \exp(j\omega t)
+\eee
+
+which can be simplified to
+
+\bee
+jc \omega - ac = 1 \rightarrow c = \frac{1}{j\omega - a} = \frac{-a-j\omega}{a^2 + \omega^2}
+\eee
+
+In order to arrive at a real solution with $g(t) = \sin(\omega t)$, we take the imaginary part of $c \exp(j \omega t)$:
+
+\bee
+\Im \left( c \exp(j \omega t) \right) = \Im \left( \frac{-a-j\omega}{a^2 + \omega^2}  \exp(j \omega t) \right) = \frac{-a \sin (\omega t) - \omega \cos (\omega t)}{a^2 + \omega^2}
+\eee
+
+Note that this corresponds with the steady-state solution from Maxima.
