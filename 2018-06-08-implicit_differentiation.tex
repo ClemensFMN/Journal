@@ -1,0 +1,44 @@
+\DiaryEntry{Differentiation of Implicit Functions}{2018-06-08}{Maths}
+
+An implicit function is given in the following form
+
+\bee
+f(x) + g(y) + h(x,y) = 0
+\eee
+
+A simple example is the equation for the circle, $x^2 + y^2 - 1 = 0$. We want to calculate $y' = \frac{dy}{dx}$.
+
+One solution is to rearrange the equation in an explicit expression $y u(x)$ and differentiate afterwards. This can be tedious (as in the circle equation), and in some cases not even possible because there is no closed-form expression for $y$. We therefore need a different method and that's differentiating the implicit function. We take the derivative wrt to $x$; in the terms $g(y)$ and $h(x,y)$ we need to apply the chain rule and arrive at the following expression
+
+\bee
+\frac{df(x)}{dx} + \frac{dg(y)}{dy} \frac{dy}{dx} + \frac{\partial h(x,y)}{\partial x} + \frac{\partial h(x,y)}{\partial y}\frac{dy}{dx} = 0
+\eee
+
+From this expression it may be possible to obtain a closed-form expression for $\frac{dy}{dx}$.
+
+Continuing with the example of the circle, we have
+
+\bee
+2x + 2y \frac{dy}{dx} = 0 \rightarrow \frac{dy}{dx} = -\frac{x}{y}
+\eee
+
+We can consider the following special cases: At $x=0$, the derivative is zero, the tangent is a horizontal line and that's correct. At $y=0$, the derivative becomes infinity, the tangent is a vertical line and that's correct, too. For both $x,y > 0$ and $x,y<0$, the derivative is negative, and if $x>0, y<0$ and $x<0, y>0$, the derivative is positive - this matches the circle as well.
+
+\paragraph{Other Examples.} Consider $y(x-1) - x^3 = 0$. We differentiate the implicit function and arrive at
+
+\bee
+y + (x-1) \frac{dy}{dx} - 3x^2 = 0 \rightarrow \frac{dy}{dx} = \frac{3x^2 - y}{x-1}
+\eee
+
+Note that the first two terms correspond to $\frac{\partial h(x,y)}{\partial x} + \frac{\partial h(x,y)}{\partial y}\frac{dy}{dx}$. Without knowing $y$ that would be the end of the story. However, this is an example which allows for an explicit expression as $y = \frac{x^3}{x-1}$. We can substitute this into the above result and obtain
+
+\bee
+\frac{dy}{dx} = \frac{3x^2 - y}{x-1} = \frac{3x^2 - \frac{x^3}{x-1}}{x-1} = \frac{3x^2 (x-1) - x^3}{(x-1)^2}
+\eee
+
+We can also directly differentiate $y = \frac{x^3}{x-1}$ and arrive at
+
+\bee
+\frac{dy}{dx} = \frac{3x^2(x-1)-x^3}{(x-1)^2} \qed
+\eee
+
