@@ -1,0 +1,60 @@
+\DiaryEntry{Differentiation of Inverse Functions}{2018-06-12}{Maths}
+
+There is already some material in \ref{2015-08-25:entry}. We have a function $y = f(x)$ with an inverse $x = g(y) = f^{-1}(y)$ and want to differentiate it.
+
+The trick is to treat the derivative $\frac{dy}{dx} = f'(x)$ like a fraction and obtain the derivative of the inverse function  as $\frac{dx}{dy} = 1 / f'(x)$. This expression depends on $x$, though; by substituting $x=f^{-1}(y)$, we obtain the derivative $\frac{dx}{dy}$ 
+
+\bee
+g'(y) = \left( f^{-1}(y) \right)' = \frac{1}{f'(f^{-1}(y))}
+\eee
+
+Let's start with a simple example with $y = x^2$. The inverse function is $x = g(y) = y^{1/2}$ and we want to differentiate this function. We first use the formula derived above:
+
+\bee
+g'(y) = \frac{1}{2x} = \frac{1}{2y^{1/2}}
+\eee
+
+We can - of course - differentiate the inverse function $g(y)$ directly and obtain $g'(y) = \frac{1}{2} y^{-1/2}$ which corresponds to the result obtained from the formula. \qed
+
+\todo{Make a graph of $x^2$ and the inverse function.}
+
+\paragraph{Khan Academy - Problems.} Let $g$ and $h$ be inverse functions with the following values:
+
+\begin{align*}
+g(-2) = 7 &, h(-2) = 0, h'(-2) = -1 \\
+g(0) = -2 &, h(0) = 5, h'(0) = 3
+\end{align*}
+
+and want to know $g'(0)$. Using the formula, we arrive at
+
+\bee
+g'(0) = \frac{1}{h'(h^{-1}(0))} = \frac{1}{h'(-2)} = \frac{1}{-1} = -1 \qed
+\eee
+
+Let $h(x) = 7 - x - 2x^5$ and $f$ is the inverse function of $g$. We also have $h(-1) = 10$. In order to calculate $f'(10)$, we use the formula as follows
+
+\bee
+f'(10) = \frac{1}{h'(h^{-1}(10))} = \frac{1}{h'(-1)} = \frac{1}{-1 - 10x^4} = \frac{1}{-1 - 10 \cdot 1} = - \frac{1}{11}
+\eee
+
+where we have used $h'(x) = -1-10x^4$ and $h^{-1}(10) = -1$. \qed
+
+Finally, we have $g(x) = 3-2x-x^3$ with inverse function $f$ and $g(1) = 0$. We want $f'(0)$ and proceed as follows
+
+\bee
+f'(0) = \frac{1}{g'(g^{-1}(0))} = \frac{1}{g'(1)} = \frac{1}{-2-3} = - \frac{1}{5} \qed
+\eee
+
+where we have used $g'(x) = -2 - 3x^2$ and $g^{-1}(0) = 1$
+
+\paragraph{Inverse Trigonometric Functions.} Let us start with a simple $y = \arccos x$ and its inverse $x = \cos y$. We do the following
+
+\bee
+(\arccos x)' = \frac{1}{(\cos y)'} = - \frac{1}{\sin y} = - \frac{1}{\sin \arccos x} = - \frac{1}{ \sqrt{1 - \cos^2 \arccos x} } = - \frac{1}{\sqrt{1 - x^2}} \qed
+\eee
+
+In a similar spirit, we have
+
+\bee
+(\arcsin x)' = \frac{1}{(\sin y)'} = \frac{1}{\cos y} = \frac{1}{\cos \arcsin x} = - \frac{1}{ \sqrt{1 - \sin^2 \arcsin x} } = \frac{1}{\sqrt{1 - x^2}} \qed
+\eee
