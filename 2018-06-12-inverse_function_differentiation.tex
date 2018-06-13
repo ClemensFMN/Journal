@@ -58,3 +58,15 @@ In a similar spirit, we have
 \bee
 (\arcsin x)' = \frac{1}{(\sin y)'} = \frac{1}{\cos y} = \frac{1}{\cos \arcsin x} = - \frac{1}{ \sqrt{1 - \sin^2 \arcsin x} } = \frac{1}{\sqrt{1 - x^2}} \qed
 \eee
+
+Finally, we let's consider $\arctan$. We start with differentiating $y = \tan x = \frac{\sin x}{\cos x}$ using the quotient rule:
+
+\bee
+\frac{d \tan x}{dx} = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = 1 + \tan^2 x = \frac{1}{\cos^2 x}
+\eee
+
+We can then differentiate the inverse function $\arctan$ and arrive at
+
+\bee
+\frac{d \arctan x}{dx} = \frac{1}{1 + \tan^2 y} = \frac{1}{1 + \tan^2 (\arctan x)} = \frac{1}{1+x^2} \qed
+\eee
