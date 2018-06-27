@@ -1,11 +1,26 @@
 \DiaryEntry{Various Differentiation Notes}{2018-06-26}{Maths}
 
-Differentiate $\ln(x), \log_a(x), a^x$
-
 \paragraph{Differentiate $\ln(x)$.} We start with $y = f(x)=e^x$ and $x = g(y) = \ln y$. In order to calculate the derivative of the inverse function, we do (with slight abuse of notation)
 
 \bee
 g'(y) = \frac{1}{f' \left( f^{-1}(y) \right)} = \frac{1}{e^x} = \frac{1}{e^{\ln y}} = \frac{1}{y} \qed
 \eee
 
-\paragraph{Differentiate $\log(x)$.}
+\paragraph{Differentiate $\log(x)$.} We have $y = a^x$ and therefore $y = x \ln a$ and $x = \frac{\ln y}{\ln a} = \log_a y$. Differentiating both sides yields
+
+\bee
+\frac{d\log_a x}{dx} = \frac{1}{x \ln a}
+\eee 
+
+
+\paragraph{Differentiate $y = a^x$.} We take $\ln$ on both sides and yield $\ln y = x \ln a$ from which we obtain
+
+\bee
+\ln y = x \ln a \rightarrow y = e^{x \ln a} = e^{(\ln a)x} \qed
+\eee
+
+Differentiating this expression yields
+
+\bee
+\frac{dy}{dx} = \ln a e^{(\ln a)x} = \ln a \cdot a^x \qed
+\eee
