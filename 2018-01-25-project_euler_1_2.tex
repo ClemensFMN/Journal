@@ -38,36 +38,64 @@ This problem deals with the sum of the even Fibonacci numbers.
 
 From this we see that every fourth Fibonacci number is even. This is explained, because only the sum of two odd numbers is even. Starting with $1,1$, the third Fibonacci number is therefore even, the fourth Fibonacci number is odd (sum of an even and an odd number), as is the fifth. For the sixth Fibonacci number we add two odd numbers and it is therefore even again. This argument can be repeated for higher numbers.
 
-Solving the linear recurrence equation for the Fibonacci numbers yields the following closed-form expression
+The sum of the first $N$ even Fibonacci numbers, $S_N$, is therefore
+
+\bee
+S_N = F_3 + F_6 + F_9 + \cdots + F_{3N}
+\eee
+
+We can calculate this sum using a closed-form expression for the Fibonacci numbers which is
 
 \bee
 F_n = \frac{1}{\sqrt{5}} \left( A^n  - B^n\right)
 \eee
 
-with $A = (1+\sqrt{5})/2, \, B = (1-\sqrt{5})/2$.
-
-The sum $S$ of the even Fibonacci numbers can be obtained as follows: Based on the observations above, we have
+with $A = (1+\sqrt{5})/2, \, B = (1-\sqrt{5})/2$. Therefore, 
 
 \bee
-S = F_3 + F_6 + F_9 + \cdots
+S_N = F_3 + F_6 + F_9 + \cdots + F_{3N} = \frac{1}{\sqrt{5}} \sum_{n=1}^{N} \left( A^{3n}  - B^{3n} \right) = \frac{1}{\sqrt{5}} \sum_{n=1}^{N} \left( (A^3)^n  - (B^3)^n \right)
 \eee
 
-and using the closed-form expression, we can rewrite this as
+where in the second equation we have brought this into a form $\sum_k a^k$ which can be summed with the geometric sum series. Because $B<1$, we can approximate the closed-form Fibonacci expression for large $n$ to
 
-\bee
-S = \frac{1}{\sqrt{5}} \sum_{n=1}^N A^(3n)  - B^(3n) = \frac{1}{\sqrt{5}} \sum_{n=1}^N (A^3)^n  - (B^3)^n
-\eee
-
-where in the second equation we have brought this into a form $\sum_k a^k$ which can be summed with the geometric sum series.
-
-The problem asks for the sum of the even Fibonacci numbers smaller than $10^6$. Because $B<1$, we can approximate the closed-form Fibonacci expression for large $n$ to
-
-\bee
+\be\label{eq2018-01-25:approx_fib}
 F_n \approx \frac{1}{\sqrt{5}} A^n
-\eee
+\ee
 
-and from this we obtain
+and
+
+\be\label{eq2018-01-25:approx_fib_sum}
+S_N \approx \frac{1}{\sqrt{5}} \sum_{n=1}^{N} (A^3)^n = \frac{1}{\sqrt{5}} \frac{A^3-A^{3(N+1)}}{1-A^3}
+\ee
+
+where we used the sum formula
 
 \bee
-n = \left\lfloor \frac{\log ( \sqrt{5} \cdot 10^6)}{\log A} \right\rfloor = 31
+\sum_{n=1}^N q^n = \frac{q-q^{N+1}}{1-q}
 \eee
+
+Sidenote: We can (of course) also use \eqref{eq2018-01-25:approx_fib} also use to approximately calculate the sum of the first $N$ Fibonacci numbers, $s_N$:
+
+\bee
+s_N = \sum_{n=1}^N F_n \approx \frac{1}{\sqrt{5}} \sum_{n=1}^N A^n = \frac{1}{\sqrt{5}} \frac{A - A^{N+1}}{1-A}
+\eee
+
+We can compare the approximation quality in the following table:
+
+\bee
+\begin{array}{c||cc|cc|ccc}
+	n  & F_n & F_n (approx) & S_N (exact) & S_N (approx) & s_N (exact) & s_N (approx) &  \\
+	1  &  1  &   0.723607   & 2           & 1.89443      & 1           & 0.723607     &  \\ \hline
+	2  &  1  &   1.17082    & 10          & 9.91935      & 2           & 1.89443      &  \\ \hline
+	3  &  2  &   1.89443    & 44          & 43.9135      & 4           & 3.78885      &  \\ \hline
+	4  &  3  &   3.06525    & 188         & 187.915      & 7           & 6.8541       &  \\ \hline
+	5  &  5  &   4.95967    & 798         & 797.915      & 12          & 11.8138      &  \\ \hline
+	6  &  8  &   8.02492    & 3382        & 3381.91      & 20          & 19.8387      &  \\ \hline
+	7  & 13  &   12.9846    & 14328       & 14327.9      & 33          & 32.8233      &  \\ \hline
+	8  & 21  &   21.0095    & 60696       & 60695.9      & 54          & 53.8328      &  \\ \hline
+	9  & 34  &   33.9941    & 257114      & 2.57114e5    & 88          & 87.8269      &  \\ \hline
+	10 & 55  &   88.9978    & 1089154     & 1.08915e6    & 143         & 142.831      &
+\end{array} 
+\eee
+
+The approximations become really good, even for small values of $n$.
