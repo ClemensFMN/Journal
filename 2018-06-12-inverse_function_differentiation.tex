@@ -2,10 +2,10 @@
 
 There is already some material in \ref{2015-08-25:entry}. We have a function $y = f(x)$ with an inverse $x = g(y) = f^{-1}(y)$ and want to differentiate it.
 
-The trick is to treat the derivative $\frac{dy}{dx} = f'(x)$ like a fraction and obtain the derivative of the inverse function  as $\frac{dx}{dy} = 1 / f'(x)$. This expression depends on $x$, though; by substituting $x=f^{-1}(y)$, we obtain the derivative $\frac{dx}{dy}$ 
+The trick is to treat the derivative $\frac{dy}{dx} = f'(x)$ like a fraction and obtain the derivative of the inverse function  as $g'(y) = \frac{dx}{dy} = 1 / f'(x)$. This expression depends on $x$, though; by substituting $x=f^{-1}(y)$, we obtain the derivative $\frac{dx}{dy}$ 
 
 \bee
-g'(y) = \left( f^{-1}(y) \right)' = \frac{1}{f'(f^{-1}(y))}
+g'(y) = \left( f^{-1}(y) \right)' = \frac{1}{\left. f'(x) \right|_{x=f^{-1}(y)}} = \frac{1}{f'(f^{-1}(y))}
 \eee
 
 Let's start with a simple example with $y = x^2$. The inverse function is $x = g(y) = y^{1/2}$ and we want to differentiate this function. We first use the formula derived above:
@@ -15,8 +15,6 @@ g'(y) = \frac{1}{2x} = \frac{1}{2y^{1/2}}
 \eee
 
 We can - of course - differentiate the inverse function $g(y)$ directly and obtain $g'(y) = \frac{1}{2} y^{-1/2}$ which corresponds to the result obtained from the formula. \qed
-
-\todo{Make a graph of $x^2$ and the inverse function.}
 
 \paragraph{Khan Academy - Problems.} Let $g$ and $h$ be inverse functions with the following values:
 
