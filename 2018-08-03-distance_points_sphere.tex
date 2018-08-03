@@ -1,0 +1,66 @@
+\DiaryEntry{IN PROGRESS Expected Distance between random Points on the Unit-sphere}{2018-08-03}{Maths}
+
+
+We can generate random points uniformly on the unit sphere using \href{https://stats.stackexchange.com/questions/7977/how-to-generate-uniformly-distributed-points-on-the-surface-of-the-3-d-unit-sphe}{this link}
+
+\subsection{2-dimensional case}
+
+Fix one point $A = (1,0)$ and choose the other one $B$ randomly: $B = (x, \sqrt{1-x^2})$. The distance $d$ between the two is
+
+\bee
+d^2 = (1-x)^2 + 1 - x^2 = 2(1-x)
+\eee
+
+In th 2-dimensional case $x$ is \emph{not} distributed uniformly, however $x = \cos \phi$ and $\phi$ is distributed uniformly on the interval $[0, 2\pi]$. Therefore, the expected values for $d^2$ and $d$ become
+
+\bee
+\mE(d^2) = \frac{1}{2 \pi} \int_0^{2\pi} 2(1-\cos \phi)d\phi = \cdots = 2
+\eee
+
+and
+
+\bee
+\mE(d) = \frac{1}{2 \pi} \int_0^{2\pi} \sqrt{2(1-\cos \phi)} d\phi = \cdots = \frac{4}{\pi}
+\eee
+
+respectively.
+
+\subsection{3-dimensional Case}
+
+We proceed in a similar manner, fixing $A = (1,0,0)$ and choosing $B$ randomly: $B = (x,y,z)$. The distance $d^2$ then becomes
+
+\bee
+d^2 = (1-x)^2 + y^2 + z^2 = (1-x)^2 + 1 - x^2 = 2(1-x)
+\eee
+
+where we have used that the point $B$ is on the unit-sphere; i.e. $x^2 + y^2 + z^2 = 1$. According to the \href{http://mathworld.wolfram.com/ArchimedesHat-BoxTheorem.html}{Archimedes hat theorem}, $x$ is distributed uniformly on $[-1,1]$, and we have the following expected values of $d^2$ and $d$
+
+\bee
+\mE(d^2) = \frac{1}{2} \int_{-1}^{1} 2(1-x)dx = \cdots = 2
+\eee
+
+and
+
+\bee
+\mE(d) = \frac{1}{2} \int_{-1}^{1} \sqrt{2(1-x)} dx = \cdots = \frac{4}{3}
+\eee
+
+respectively.
+
+\subsection{Higher Dimensions}
+
+For $D > 3$, the expression for $d$ stays the same,
+
+\bee
+d^2 = (1-x_1)^2 + x_2^2 + x_3^2 + \cdots x_D^2 = (1-x_1)^2 + 1 - x_1^2 = 2(1-x_1)
+\eee
+
+because we have the generalized unit sphere definition $\sum_k x_k^2 = 1$. However, $x$ does \emph{not} have a uniform distribution anymore, and therefore above calculation does not work.
+
+The coordinate $x_1$ is given as
+
+\bee
+x_1 = \frac{X_1}{\sqrt{X_1^2 + X_2^2 + \cdots + X_D^2}}
+\eee
+
+where $X_D \sim \Nc(0,1)$. I have no idea how to obtain the distribution for this...
