@@ -2,10 +2,10 @@
 
 The predator-prey system is a system of 2 ODEs with $R(t)$ denoting the amount of prey and $F(t)$ denoting the amount of predators. A simple model governing the population change over time is
 
-\begin{align*}
-\frac{dR}{dt} &= 2R - 1.2RF \\
+\begin{align}\label{2018-07-30-eq1}
+\frac{dR}{dt} &= 2R - 1.2RF \nonumber \\
 \frac{dF}{dt} &= -F + 0.9RF
-\end{align*}
+\end{align}
 
 In the first equation, the $2F$ term models the exponential growth of prey, when there are no predators, whereas the -1.2RF term corresponds to the negative effect on the prey of predator-prey interaction. In the second equation, the $-F$ term corresponds to the assumption that the predators die when there is no prey, whereas the $0.9RF$ term corresponds to the positive effect on the predators of the predator-prey interaction. The actual coefficients depend on the involved species.
 
@@ -32,3 +32,48 @@ The following Figure shows a plot of $R(t), F(t)$ for $R(t=0) = 1.0, F(t=0) = 0.
 
 The solution is periodic and the peaks and lows of predator / prey are shifted: First the prey population increases which causes an increase in predators as well. When a certain number of predators is reached, the prey distribution decreases, causing a delayed decrease in predator population. With the chosen coefficients and initial conditions, the prey population comes very close to zero, but seems to recover and the cycle starts anew.
 
+Below is the plot of $R(t), F(t)$ for the equilibrium values $R(t=0) = 1/0.9, F(t=0) = 2/1.2$ which shows a constant population. Note that \emph{both} values must be equal to the equilibrium values; otherwise the solution oscillates.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.65]{images/ode_04_02.png}
+\end{figure}
+
+We can visualize the model better by means of plotting $R(t)$ vs $F(t)$; i.e. a phase plot. Such a plot is shown in the following for different initial values. In the middle the "equilibrium eye" can be seen; all other solutions are periodic.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.65]{images/ode_04_03.png}
+\end{figure}
+
+If we change the model coefficients, then the system shows different behavior. As a start, we consider 
+
+\begin{align*}
+\frac{dR}{dt} &= 3R - 1.2RF \\
+\frac{dF}{dt} &= -F + 0.9RF
+\end{align*}
+
+and a comparison to \eqref{2018-07-30-eq1} is shown in the following Figure (green and purple are the population according to the new model). Since the prey growth rate is higher, their number increases faster than before. This, however, causes a larger increase in the predators as well. 
+
+\begin{figure}[H]
+	\includegraphics[scale=0.65]{images/ode_04_04.png}
+\end{figure}
+
+Changing the model by adapting the "cross-term" coefficients 
+
+\begin{align*}
+\frac{dR}{dt} &= 2R - 1.5RF \\
+\frac{dF}{dt} &= -F + 0.4RF
+\end{align*}
+
+we obtain the following results - a rather different solution.
+
+
+\begin{figure}[H]
+	\includegraphics[scale=0.65]{images/ode_04_05.png}
+\end{figure}
+
+
+This is also evident from the phase plot as shown below.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.65]{images/ode_04_06.png}
+\end{figure}
