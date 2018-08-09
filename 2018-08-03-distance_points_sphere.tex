@@ -1,4 +1,4 @@
-\DiaryEntry{IN PROGRESS Expected Distance between random Points on the Unit-sphere}{2018-08-03}{Maths}
+\DiaryEntry{Expected Distance between random Points on the Unit-sphere}{2018-08-03}{Maths}
 
 
 We can generate random points uniformly on the unit sphere using \href{https://stats.stackexchange.com/questions/7977/how-to-generate-uniformly-distributed-points-on-the-surface-of-the-3-d-unit-sphe}{this link}
@@ -11,7 +11,7 @@ Fix one point $A = (1,0)$ and choose the other one $B$ randomly: $B = (x, \sqrt{
 d^2 = (1-x)^2 + 1 - x^2 = 2(1-x)
 \eee
 
-In th 2-dimensional case $x$ is \emph{not} distributed uniformly, however $x = \cos \phi$ and $\phi$ is distributed uniformly on the interval $[0, 2\pi]$. Therefore, the expected values for $d^2$ and $d$ become
+In the 2-dimensional case $x$ is \emph{not} distributed uniformly, however $x = \cos \phi$ and $\phi$ is distributed uniformly on the interval $[0, 2\pi]$. Therefore, the expected values for $d^2$ and $d$ become
 
 \bee
 \mE(d^2) = \frac{1}{2 \pi} \int_0^{2\pi} 2(1-\cos \phi)d\phi = \cdots = 2
@@ -51,11 +51,11 @@ respectively.
 
 For $D > 3$, the expression for $d$ stays the same,
 
-\bee
+\be\label{2018-08-03:eqgen}
 d^2 = (1-x_1)^2 + x_2^2 + x_3^2 + \cdots x_D^2 = (1-x_1)^2 + 1 - x_1^2 = 2(1-x_1)
-\eee
+\ee
 
-because we have the generalized unit sphere definition $\sum_k x_k^2 = 1$. However, $x$ does \emph{not} have a uniform distribution anymore, and therefore above calculation does not work.
+because we have used the generalized unit sphere definition $\sum_k x_k^2 = 1$. However, $x$ has a \emph{different} distribution anymore, and therefore above calculation does not work.
 
 The coordinate $x_1$ is given as
 
@@ -63,4 +63,15 @@ The coordinate $x_1$ is given as
 x_1 = \frac{X_1}{\sqrt{X_1^2 + X_2^2 + \cdots + X_D^2}}
 \eee
 
-where $X_D \sim \Nc(0,1)$. I have no idea how to obtain the distribution for this...
+where $X_D \sim \Nc(0,1)$. \todo{How can we derive the following empirical results?}
+
+Empirically (Julia), the distribution of $d^2$ looks Gaussian with mean $2$. However, this is not really true, as $d^2$ must be larger than $0$ and - choosing the "worst case" $x_1 = -1$ - smaller than $4$ (check with \eqref{2018-08-03:eqgen}). The following Figure shows a histogram for $D = 10$.
+
+\begin{figure}[H]
+	\includegraphics[scale=0.65]{images/distance_point_sphere_1.png}
+\end{figure}
+
+For larger $D$, the distribution becomes more centered around $d^2 = 2$.
+
+Next we investigate the angle between the vector $0A$ (connecting the zero point $(0,\ldots,0)$ with $A = (1,0,\ldots,0)$) and $0B$ (connecting the zero point with $B = (x_1, x_2, \ldots , x_D)$). Empirically, it can be shown that the dot product between these two vectors becomes zero; i.e. the vectors are orthogonal to each other. Since both vectors have length $1$ (they are on the unit sphere), their squared distance is therefore $d^2 = 2$.
+
