@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   width="200"
+   height="200"
+   viewBox="0 0 200 200"
+   id="svg12746"
+   sodipodi:docname="divisibility_7.svg"
+   inkscape:version="0.92.2 2405546, 2018-03-11">
+  <metadata
+     id="metadata12750">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="933"
+     id="namedview12748"
+     showgrid="false"
+     inkscape:zoom="3.5215625"
+     inkscape:cx="100"
+     inkscape:cy="100"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12746" />
+  <defs
+     id="defs12639">
+    <style
+       type="text/css"
+       id="style12637"><![CDATA[
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+text { font-family: "PT Sans", "Helvetica Neue", Arial, sans-serif; }
+
+]]></style>
+  </defs>
+  <style
+     id="style12641">text {font-family: 'PT Sans', 'Helvetica Neue', Arial, sans-serif}</style>
+  <defs
+     id="defs12646">
+    <marker
+       id="arrowhead"
+       markerWidth="10"
+       markerHeight="10"
+       markerUnits="strokeWidth"
+       refX="3"
+       refY="3"
+       orient="auto">
+      <path
+         d="M0,0L0,6L9,3Z"
+         fill="red"
+         id="path12643" />
+    </marker>
+  </defs>
+  <g
+     transform="translate(100,100)"
+     id="g12744">
+    <g
+       id="g12696">
+      <circle
+         r="79.33333333333333"
+         stroke="lightgray"
+         stroke-width="2"
+         fill="none"
+         id="circle12652" />
+      <g
+         id="g12658">
+        <path
+           transform="translate(34.42144330332628,-71.47686352025858)rotate(25.714285714285708)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12654" />
+        <circle
+           cx="0"
+           cy="-79.33333333333333"
+           r="2"
+           fill="red"
+           id="circle12656" />
+      </g>
+      <g
+         id="g12664">
+        <path
+           transform="translate(77.34428103309133,-17.653327427200946)rotate(77.14285714285714)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12660" />
+        <circle
+           cx="62.02529760913036"
+           cy="-49.46352428079286"
+           r="2"
+           fill="red"
+           id="circle12662" />
+      </g>
+      <g
+         id="g12670">
+        <path
+           transform="translate(62.02529760913037,49.46352428079285)rotate(128.57142857142858)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12666" />
+        <circle
+           cx="77.34428103309133"
+           cy="17.653327427200935"
+           r="2"
+           fill="red"
+           id="circle12668" />
+      </g>
+      <g
+         id="g12676">
+        <path
+           transform="translate(9.715531273235668e-15,79.33333333333333)rotate(180)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12672" />
+        <circle
+           cx="34.421443303326285"
+           cy="71.47686352025858"
+           r="2"
+           fill="red"
+           id="circle12674" />
+      </g>
+      <g
+         id="g12682">
+        <path
+           transform="translate(-62.025297609130355,49.46352428079287)rotate(231.42857142857142)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12678" />
+        <circle
+           cx="-34.421443303326264"
+           cy="71.47686352025858"
+           r="2"
+           fill="red"
+           id="circle12680" />
+      </g>
+      <g
+         id="g12688">
+        <path
+           transform="translate(-77.34428103309133,-17.653327427200928)rotate(-77.1428571428572)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12684" />
+        <circle
+           cx="-77.34428103309133"
+           cy="17.653327427200956"
+           r="2"
+           fill="red"
+           id="circle12686" />
+      </g>
+      <g
+         id="g12694">
+        <path
+           transform="translate(-34.42144330332629,-71.47686352025858)rotate(-25.71428571428575)"
+           d="M-5,-3L5,0L-5,3Z"
+           fill="lightgray"
+           id="path12690" />
+        <circle
+           cx="-62.02529760913037"
+           cy="-49.463524280792846"
+           r="2"
+           fill="red"
+           id="circle12692" />
+      </g>
+    </g>
+    <g
+       id="g12726">
+      <g
+         id="g12700">
+        <path
+           d="M0,-79.33333333333333A10,10 0 1,0 -7,-82.33333333333333"
+           transform="translate(0,-79.33333333333333)rotate(0)translate(0,79.33333333333333)"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12698" />
+      </g>
+      <g
+         id="g12704">
+        <path
+           d="M62.02529760913036,-49.46352428079286L36.2016107749768,63.67744022280399"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12702" />
+      </g>
+      <g
+         id="g12708">
+        <path
+           d="M77.34428103309133,17.653327427200935L-54.81754666591102,-45.99245436785238"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12706" />
+      </g>
+      <g
+         id="g12712">
+        <path
+           d="M34.421443303326285,71.47686352025858L72.35636261822147,23.907979286945174"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12710" />
+      </g>
+      <g
+         id="g12716">
+        <path
+           d="M-34.421443303326264,71.47686352025858L-72.35636261822147,23.907979286945192"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12714" />
+      </g>
+      <g
+         id="g12720">
+        <path
+           d="M-77.34428103309133,17.653327427200956L54.81754666591101,-45.992454367852396"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12718" />
+      </g>
+      <g
+         id="g12724">
+        <path
+           d="M-62.02529760913037,-49.463524280792846L-36.20161077497678,63.67744022280399"
+           stroke="red"
+           stroke-width="1"
+           fill="none"
+           marker-end="url(#arrowhead)"
+           id="path12722" />
+      </g>
+    </g>
+    <g
+       id="g12742">
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="0"
+         y="-90.33333333333333"
+         id="text12728">0</text>
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="70.62544391627868"
+         y="-56.32191210123893"
+         id="text12730">1</text>
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="88.0684880670914"
+         y="20.101057700720393"
+         id="text12732">2</text>
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="39.19416443361943"
+         y="81.38752106718518"
+         id="text12734">3</text>
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="-39.194164433619406"
+         y="81.38752106718519"
+         id="text12736">4</text>
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="-88.0684880670914"
+         y="20.101057700720418"
+         id="text12738">5</text>
+      <text
+         text-anchor="middle"
+         font-size="16.666666666666668"
+         dy="6"
+         x="-70.6254439162787"
+         y="-56.321912101238915"
+         id="text12740">6</text>
+    </g>
+  </g>
+</svg>
