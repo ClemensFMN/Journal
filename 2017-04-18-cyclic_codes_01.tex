@@ -21,7 +21,7 @@ As a simple example, consider $(\mZ_6, +, \cdot)$ with addition and multiplicati
   \includegraphics[scale=0.75]{images/cyclic_codes_01.png}
 \end{figure}
 
-Note that the set does not form a group under multiplication (it does under addition, though). However, this does not contradict the ring definition; i.e. it is a ring.
+Note that the set does not form a group under multiplication because (i) of the element $0$ and (ii) because elements $2,3,4$ do not have an inverse. The set forms a group under addition as required by the definition. It is therefore a valid ring.
 
 
 \subsection{Repetition - Rings of Polynomials}
@@ -32,7 +32,7 @@ If $R$ is a ring, then the set of all polynomials with coefficients in $R$ form 
 f(x) = \sum_{i=0}^n a_i x^i, a_i \in R
 \eee
 
-Addition (adding coefficients with the same degree according to the ring operation) of polynomials yields another polynomial in the ring, the same holds for multiplication. The inverrse of a polynomial will in general not be another polynomial (e.g. $(1 + 4x)^{-1}$), but note that a ring need not have multiplicative inverses (it's not a field after all).
+Addition (adding coefficients with the same degree according to the ring operation) of polynomials yields another polynomial in the ring, the same holds for multiplication. The inverse of a polynomial will in general not be another polynomial (e.g. $(1 + 4x)^{-1}$), but note that a ring need not have multiplicative inverses (it's not a field after all).
 
 \paragraph{Example.} Taking $R$ to be $(\mZ_6, +, \cdot)$, we obtain a polynomial ring as $R[x]$ with some example elements $f_1(x) = 3 + x, f_2(x) = 5 + 3x^2$. For example, we have $f_1 + f_2 = 2 + x + 3x^2$ and $f_1 f_2 = 3 + 5x + 3x^2 + 3x^3$.
 
@@ -185,3 +185,8 @@ c(x) = \cbf = c_0 + c_1 x + c_2 x^2 + \cdots c_{n-1} x^{n-1}
 \eee
 %
 A non-cyclic right-shift is then represented as $xc(x)$ and a cyclic right-shift is represented by $xc(x) \mod (c^n-1)$.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
