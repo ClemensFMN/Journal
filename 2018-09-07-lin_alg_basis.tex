@@ -65,7 +65,7 @@ For $\phi = \pi/2$, this becomes $a_1 = x_1$ and $a_2 = x_2$. In case of small a
 and calculate the matrix condition number. E.g., for $\phi=0.1$, we obtain a condition number of $\approx 400$ which is a rather high value and shows the high sensitivity.
 
 
-\subsection{Polynomials (Legendre Polynomials}
+\subsection{Polynomials (Legendre Polynomials)}
 
 From the above discussion we see that an orthonormal basis (i) allows easy basis expansion and (ii) is not sensitive for errors. If we think of expressing a function by means of polynomials, we have lots of options for the ``basis functions''. One obvious choice would be $\Bc = \{1, x, x^2, x^3, \ldots\}$; however these functions are not orthogonal (on the interval $[-1;1]$
 
@@ -76,7 +76,7 @@ From the above discussion we see that an orthonormal basis (i) allows easy basis
 \end{cases}
 \eee
 
-The Legendre polynomials are orthonormal on $[-1,1]$
+The Legendre polynomials are orthonormal on $[-1,1]$ \todo{add definition}
 
 
 \paragraph{Using Maxima.} See the following example session
@@ -95,7 +95,7 @@ For the fun of it, we express $x^2$ in terms of Legendre polynomials $P_0(x) = 1
 <P_M,P_n> = \frac{2}{2m+1} \delta_{m,n}
 \eee
 
-We therefore the normed Legendre polynomials as
+We therefore define the normed Legendre polynomials as
 
 \bee
 \tilde{P}_m(x) = \sqrt{\frac{2m+1}{2}} P_m(x)
