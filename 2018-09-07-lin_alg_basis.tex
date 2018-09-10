@@ -76,8 +76,49 @@ From the above discussion we see that an orthonormal basis (i) allows easy basis
 \end{cases}
 \eee
 
-The Legendre polynomials are orthonormal on $[-1,1]$ \todo{add definition}
+The Legendre polynomials $P_n(x)$ are orthogonal on $[-1,1]$. There are several definitions for them, one is as solution for the Legendre differential equation,
 
+\bee
+\frac{d}{dx} \left[ (1-x^2) \frac{dP_n(x)}{dx}  \right] + n(n+1)P_n(x) = 0
+\eee
+
+with the ``initial'' condition $P_n(1) = 1$. A direct formula for the polynomials is
+
+\bee
+P_n(x) = \frac{1}{2^n n!}\frac{d^n}{dx^n}(x^2 - 1)^n
+\eee
+
+and a recursive definition is
+
+\bee
+(n+1)P_{n+1}(x) = (2n+1)xP_n (x) - nP_{n-1}(x)
+\eee
+
+todo\todo{Proofs for the above relations}
+
+We also obtain the Legendre polynomials (up to a factor) when we perform a Gram-Schmidt orthogonalization on the set $1,x,x^2, \ldots$. The first two elements are already orthogonal,
+
+\bee
+<1,x> = \int_{-1}^1 x dx = 0
+\eee
+
+the third basis vector $\ubf_3$ becomes
+
+\bee
+\ubf_3 = \vbf_3 - \frac{\ubf_1, \vbf_3}{\ubf_1, \ubf_1} \ubf_1 - \frac{\ubf_2, \vbf_3}{\ubf_2, \ubf_2} \ubf_2
+\eee
+
+With $\ubf_1 = 1, \ubf_2 = x$, and $\vbf_3 = x^2$ we obtain
+
+\bee
+\ubf_3 = x^2 - \frac{<1,x^2>}{1,1}1 - \frac{<x,x^2>}{<x,x>}x = \cdots = \frac{1}{3}(3x^2-1)
+\eee
+
+Anyway, the first few Legendre polynomials are
+
+\bee
+P_0(x) = 1, P_1(x) = x, P_2(x) = \frac{1}{2}(3x^2-1), P_3(x) = \frac{1}{2}(5x^3 - 3x), \ldots
+\eee
 
 \paragraph{Using Maxima.} See the following example session
 
