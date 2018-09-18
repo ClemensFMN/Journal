@@ -64,7 +64,27 @@ For $\phi = \pi/2$, this becomes $a_1 = x_1$ and $a_2 = x_2$. In case of small a
 
 and calculate the matrix condition number. E.g., for $\phi=0.1$, we obtain a condition number of $\approx 400$ which is a rather high value and shows the high sensitivity.
 
-\paragraph{Simulation Resuts\todo{simulate random pertubations around fixed x1, x2 and show variance of a1, a2 for different phi}}
+\paragraph{Simulation Resuts.} We model the point $\xbf$ with a constant displacement and some random pertubations. For every point, we calculate the coefficients $a_1, a_2$ and calculate their variance wrt $\phi$. This is done in the following Julia code
+
+\begin{verbatim}
+using Statistics
+
+x = [2;3]
+phi = pi/2
+N = 10000
+
+x1 = x[1] .+ randn(N)
+x2 = x[2] .+ randn(N)
+
+a1 = x1 - x2 / tan(phi)
+a2 = x2 / sin(phi)
+
+println(var(a1))
+println(var(a2))
+\end{verbatim}
+
+
+For $\phi=\pi/2$ we obtain variances of $\approx 1.0$, for $\phi=\pi/4$ we obtain variances $\approx 2.0$ and for $\phi=\pi/8$ we get $\approx 6.8$. This shows that the impact of noice on the coefficients increases with $\phi$ getting smaller.
 
 \subsection{Polynomials (Legendre Polynomials)}
 
