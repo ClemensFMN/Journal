@@ -10,10 +10,10 @@ We consider the continuous case only. The distribution is given by
 f(x) \propto x^{-\alpha}
 \eee
 
-for $x \geq x_{text{min}}$ with the scaling parameter $\alpha$. Below $x_{\text{min}}$ it is zero. For the normalization we calculate
+for $x \geq x_{\text{min}}$ with the scaling parameter $\alpha$. Below $x_{\text{min}}$ it is zero. For the normalization we calculate
 
 \bee
-\int_{x_{text{min}}}^\infty c x^{-\alpha} dx = c \left. \frac{x^{-\alpha+1}}{-\alpha+1} \right|_{x_{\text{min}}}^\infty = c \left. \frac{x^{1-\alpha}}{1-\alpha} \right|_{x_{\text{min}}}^\infty = -c  \frac{x_{\text{min}}^{1-\alpha}}{1-\alpha}
+\int_{x_{\text{min}}}^\infty c x^{-\alpha} dx = c \left. \frac{x^{-\alpha+1}}{-\alpha+1} \right|_{x_{\text{min}}}^\infty = c \left. \frac{x^{1-\alpha}}{1-\alpha} \right|_{x_{\text{min}}}^\infty = -c  \frac{x_{\text{min}}^{1-\alpha}}{1-\alpha}
 \eee
 
 This shall equal $1$; therefore the constant $c$ becomes
@@ -34,41 +34,45 @@ f(x) = \begin{cases}
 
 \subsection{Generating Power-law Distributed RVs (Section D)}
 
-This is actually a really interesting problem: We have a RNG with generates random numbers $r$ uniformly in $0 \leq r < 1$ (call this distribution $p(r)$) and we want to transform $r$, so that $x = t(r)$ has distribution $p(x)$. We first note that $p(x)$ and $p(r)$ are related according to
+This Section takes ``some'' notational shortcuts and a rework didn't improve the situation; a more detailed and correct discussion is here \ref{2018-09-27:entry}. The original text is commented out in the LaTex source; the end result is correct, though.
 
-\bee
-p(x) = p(r) \frac{dr}{dx} = \frac{dr}{dx}
-\eee
 
-where we have used the fact that $r$ has uniform distribution ($p(r) = 1$ for $0 \leq r < 1$). Integrating this wrt to x, we get
+%This is actually a really interesting problem: We have a RNG with generates random numbers $r$ uniformly in $0 \leq r < 1$ (call this distribution $p(r)$) and we want to transform $r$, so that $x = t(r)$ has distribution $p(x)$. We first note that $p(x)$ and $p(r)$ are related according to
 
-\bee
-P(x) = \int_x^\infty p(x') dx' = \int_x^\infty \frac{dr}{dx'} dx' = \int_r^1 dr = 1-r
-\eee
+%\bee
+%p(x) = p(r) \frac{dr}{dx} = \frac{dr}{dx}
+%\eee
 
-where $P(x)$ is the cdf of the RV $x$. We can calculate $x$ according to
+%where we have used the fact that $r$ has uniform distribution ($p(r) = 1$ for $0 \leq r < 1$). We next calculate the complementary cumulative distribution function (ccdf) $P(x)$ as
 
-\be\label{2017-12-01-rvgen}
-x = P^{-1}(1-r)
+%\bee
+%P(x) = \int_x^\infty p(x') dx' = \int_x^\infty \frac{dr}{dx'} dx' = \int_r^1 dr = 1-r
+%\eee
+
+%We can calculate $x$ according to
+
+%\be\label{2017-12-01-rvgen}
+%x = P^{-1}(1-r)
+%\ee
+
+%where $P^{-1}$ is the inverse function of the RV $x$ ccdf. Using \eqref{2017-12-01:pdf}, we obtain the ccdf via
+
+%\bee
+%P(x) = \int_{u=x}^\infty f(u) du = \frac{\alpha-1}{x_{\text{min}}} \int_{u=x}^\infty \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha} dx = \cdots = \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha+1}
+%\eee
+
+%Inverting this yields
+
+%\bee
+%x = x_{\text{min}} P^{1/(1-\alpha)}(x)
+%\eee
+
+%and inserting \eqref{2017-12-01-rvgen}, we obtain
+
+\be\label{2017-12-01:eq1}
+x = x_{\text{min}} (1-r)^{1/(1-\alpha)} = x_{\text{min}} (1-r)^{-1/(\alpha-1)}
 \ee
 
-where $P{-1}$ is the inverse cdf of the RV $x$. Using \eqref{2017-12-01:pdf}, we obtain the cdf via
-
-\bee
-P(x) = \int_{u=x}^\infty f(u) du = \frac{\alpha-1}{x_{\text{min}}} \int_{u=x}^\infty \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha} dx = \cdots = \left(\frac{x}{x_{\text{min}}}\right)^{-\alpha+1}
-\eee
-
-Inverting this yields
-
-\bee
-x = x_{\text{min}} F^{1/(1-\alpha)}(x)
-\eee
-
-and inserting \eqref{2017-12-01-rvgen}, we obtain
-
-\bee
-x = x_{\text{min}} (1-r)^{1/(1-\alpha)} = x_{\text{min}} (1-r)^{-1/(\alpha-1)}
-\eee
 
 \subsection{Estimating the scaling parameter (Section B.1)}
 
@@ -107,3 +111,11 @@ and by setting this to zero, we obtain the maximum likelihood estimate as
 \subsection{Conclusion}
 
 The problem is, that often $x_{\text{min}}$ is not known (exactly). Fig. 3.3 in the paper shows the error in the $\alpha$ estimate, when a wrong value of $x_{\text{min}}$ is used. Further Sections (Section 3.3) of the paper deal with estimating $x_{\text{min}}$.
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
