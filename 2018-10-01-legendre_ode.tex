@@ -1,0 +1,169 @@
+\DiaryEntry{Legendre Polynomials - Recurrence Relation and ODE}{2018-10-01}{Maths}
+
+\label{2018-10-01:entry1}
+
+\subsection{Recurrence Relation}
+
+Let us write down the generating function of the Legendre Polynomials,
+
+\bee
+g(t,x) = \frac{1}{\sqrt{1-2xt+t^2}} = \sum_{n=0}^\infty P_n(x) t^n
+\eee
+
+and differentiate with respect to $t$,
+
+\bee
+\frac{\partial g(t,x) }{\partial t} = \frac{x-t}{\left( 1-2xt+t^2 \right)^{3/2}} = \sum_{n=0}^\infty n P_n(x) t^{n-1}
+\eee
+
+We can rewrite this and substitute the generating function
+
+\bee
+\frac{x-t}{\left( 1-2xt+t^2 \right) \left( 1-2xt+t^2 \right)^{1/2}} = \sum_{n=0}^\infty n P_n(x) t^{n-1} \rightarrow \frac{(x-t)g(t,x)}{\left( 1-2xt+t^2 \right)} = \sum_{n=0}^\infty n P_n(x) t^{n-1}
+\eee
+
+Finally, we obtain
+
+\bee
+(1-2xt+t^2) \sum_{n=0}^\infty n P_n(x) t^{n-1} + (t-x) \sum_{n=0}^\infty P_n(x) t^{n} = 0
+\eee
+
+Separating the sums, we get the following expression
+
+\bee
+\sum_{n=0}^\infty n P_n(x) t^{n-1} - \sum_{n=0}^\infty 2nx P_n(x) t^{n} + \sum_{n=0}^\infty n P_n(x) t^{n+1} + \sum_{n=0}^\infty P_n(x) t^{n+1} - \sum_{n=0}^\infty x P_n(x) t^{n} = 0
+\eee
+
+These are power series in $t$; we can compare coefficients with the same power $t^n$. To this end, we change the summation indices in the first, third, and fourth term and arrive at
+
+\bee
+\sum_{n=0}^\infty (n+1) P_{n+1}(x) t^{n} - \sum_{n=0}^\infty 2nx P_n(x) t^{n} + \sum_{n=0}^\infty (n-1) P_{n-1}(x) t^{n} + \sum_{n=0}^\infty P_{n-1}(x) t^{n} - \sum_{n=0}^\infty x P_n(x) t^{n} = 0
+\eee
+
+Now we can compare the coefficients and obtain the following recurrence relation,
+
+\bee
+(n+1)P_{n+1}(x) - (2n+1)xP_n(x) + nP_{n-1}(x) = 0
+\eee
+
+
+\subsection{ODE}
+
+Now we differentiate the generating function with respect to $x$ and obtain
+
+\bee
+\frac{\partial g(t,x) }{\partial x} = \frac{t}{\left( 1-2xt+t^2 \right)^{3/2}} = \sum_{n=0}^\infty P_n'(x) t^{n}
+\eee
+
+where we can substitute the generating function definition back in in order to arrive at
+
+\bee
+(1-2xt+t^2) \sum_{n=0}^\infty P_n'(x) t^{n} - t \sum_{n=0}^\infty P_n(x) t^{n} = 0
+\eee
+
+Expanding the terms yields
+
+\bee
+\sum_{n=0}^\infty P_n'(x) t^{n} - \sum_{n=0}^\infty 2xP_n'(x) t^{n+1} + \sum_{n=0}^\infty P_n'(x) t^{n+2} - \sum_{n=0}^\infty P_n(x) t^{n+1} = 0
+\eee
+
+and bringing the terms to the same power of $t^{n+1}$ yields
+
+\bee
+\sum_{n=0}^\infty P_{n+1}'(x) t^{n+1} - \sum_{n=0}^\infty 2xP_{n}'(x) t^{n+1} + \sum_{n=0}^\infty P_{n-1}'(x) t^{n+1} - \sum_{n=0}^\infty P_{n}(x) t^{n+1} = 0
+\eee
+
+From this we obtain the ODE
+
+\be\label{2018-10-01:eq1}
+P_{n+1}'(x) - 2xP_{n}'(x) + P_{n-1}'(x) -P_{n}(x) = 0 \leftrightarrow P_{n+1}'(x)  + P_{n-1}'(x) = 2xP_{n}'(x) + P_{n}(x)
+\ee
+
+which is not overly looking nice. Let's take the recurrence relation
+
+\bee
+(n+1)P_{n+1}(x) - (2n+1)xP_n(x) + nP_{n-1}(x) = 0
+\eee
+
+and differentiate it with respect to $x$ to arrive at
+
+\bee
+(n+1)P_{n+1}'(x) - (2n+1)P_n(x) - (2n+1)x P_n'(x) + nP_{n-1}'(x) = 0
+\eee
+
+Multiplying with $2$ and adding to $2n+1$-times \eqref{2018-10-01:eq1}, we obtain
+
+\be\label{2018-10-01:eq2}
+P_{n+1}'(x) - P_{n-1}'(x) = (2n+1)P_n(x)
+\ee
+
+We can have a lot of fun with these equations (in the end, we want to arrive at the Legendre ODE): Let's start with adding \eqref{2018-10-01:eq1} and \eqref{2018-10-01:eq2} to arrive at
+
+\be\label{2018-10-01:eq3}
+P_{n+1}'(x) = xP_{n}'(x) + (n+1)P_n(x)
+\ee
+
+and by subtracting \eqref{2018-10-01:eq2} from \eqref{2018-10-01:eq1}, we obtain
+
+\be\label{2018-10-01:eq4}
+P_{n-1}'(x) = xP_{n}'(x) - nP_n(x)
+\ee
+
+By substituting $n \rightarrow n-1$ in \eqref{2018-10-01:eq3}, we obtain
+
+\be\label{2018-10-01:eq5}
+P_{n}'(x) = xP_{n-1}'(x) + n P_{n-1}(x)
+\ee
+
+and adding this to $x \eqref{2018-10-01:eq4}$, we obtain
+
+\be
+(1-x^2) P_n'(x) = n P_{n-1}(x) - nx P_n(x)
+\ee
+
+Differentiating this with respect to $x$ yields
+
+\bee
+P_n''(x)-2xP_n'(x) - x^2P_n''(x) = nP_{n-1}'(x) - nP_n(x) - nxP_n'(x)
+\eee
+
+Inserting \eqref{2018-10-01:eq5} allows us to get rid of $P_{n-1}'(x)$,
+
+\bee
+P_n''(x)-2xP_n'(x) - x^2P_n''(x) = -n^2 P_{n}(x) +nx P_n'(x) - nP_n(x) - nxP_n'(x)
+\eee
+
+and simplifying yields
+
+\bee
+(1-x^2)P_n''(x) - 2xP_n'(x) + n(n+1)P_n(x) = 0
+\eee
+
+which is the famous Legendre ODE.
+
+\subsection{Summary}
+
+This was all very nice and exciting and I have no idea how to arrive at the results when I wouldn't know what I wanted to show (and even then i'm not sure). Anyway, a short summary. We started with the generating function
+
+\bee
+g(t,x) = \frac{1}{\sqrt{1-2xt+t^2}} = \sum_{n=0}^\infty P_n(x) t^n
+\eee
+
+and from this we obtained a recurrence relation for the $P_n(x)$,
+
+\bee
+(n+1)P_{n+1}(x) - (2n+1)xP_n(x) + nP_{n-1}(x) = 0
+\eee
+
+Combining the generating function and the recurrence relation, we obain the Legendre ODE which the $P_n(x)$ must fullfill,
+\bee
+(1-x^2)P_n''(x) - 2xP_n'(x) + n(n+1)P_n(x) = 0
+\eee
+
+In \ref{2018-09-12:entry}, we show that the Legendre polynomials are orthogonal. Why orthogonal polynomials are nice and useful is discussed in entry \ref{2018-09-07:entry}.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
