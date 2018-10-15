@@ -1,0 +1,31 @@
+\DiaryEntry{Reservoir Sampling}{2018-10-15}{Stochastic}
+
+Imagine a source provides an \emph{unknown} number of random elements $e_1, e_2, \ldots, e_N$ from a set $\Sc$. Although we do not know the number $N$ of elements we will receive, we shall select an element from the stream in a uniform distribution. The \emph{reservoir sampling} algorithm (\href{https://math.stackexchange.com/questions/1058500/can-you-select-random-entry-from-unknown-number-of-entries}{here}) solves this problem.
+
+Letting $x \in \Sc$ the drawn element, the algorithm can be stated as follows
+
+\begin{enumerate}
+  \item After reception of the first value $e_1$, let $x = e_1$ be this value.
+
+  \item After having recevied the $k$-th entry $e_k$, generate a random variable $u$ uniformly in $[0;1]$. If $u < \frac{1}{k}$, then discard the value $x$ and set $x = e_k$ equal the (just received) $k$-th entry.
+
+  \item Repeat this until no further elements are received and declare $x$ as the algorithm output.
+
+\end{enumerate}
+
+The algorithm will provide an $x$ which is drawn uniformly from $\Sc$. \emph{Note: The algorithm chooses one of the elements $e_1, e_2, \ldots, e_N$ in a uniform manner; if they are all different, this amounts to a uniform distribution of the values $e_1, e_2, \ldots, e_N$. If some of the values are equal, the values are not uniform}.
+
+
+In order to show this, we use an inductive proof.
+
+If the source provides $2$ elements, the algorithm first sets $x = e_1$. After reception of $e_2$, it discards $x=e_1$ with probability $1/2$ and sets $x=e_2$. Therefore $x=e_1$ with probability $1/2$ and $x = e_2$ with probability $1/2$.
+
+Now we make the induction step: We have already observed $M$ elements and assume (induction hypothesis) that we have chosen $x$ in a uniform manner from these $M$ observations. How are the probabilities after observation of the $M+1$-th element? The algorithm draws $u$ uniformly from $[0;1]$ and chooses $x=e_{M+1}$ if $u < \frac{1}{N+1}$. Therefore, the probability for outputting $x=e_{M+1}$ is $\frac{1}{M+1}$. However, since the algorithm changes $x$, this affects the probability of the other $M$ elements: Before, they we chosen with probability $1/M$ (induction hypothesis). After observation of the $M+1$-th element, we keep the previous selection with probability $1 - \frac{1}{M+1} = \frac{M}{M+1}$. The probability of keeping a \emph{specific} previous selection is then $\frac{1}{M} \frac{M}{M+1} = \frac{1}{M+1}$; i.e. all items are chosen uniformly. \qed
+
+I simulated the algorithm in Julia \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/reservoir_sampling.jl}{here}; looks good, interesting question is, how does one determine whether a number of samples are actually uniformly distributed? To be continued...
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
