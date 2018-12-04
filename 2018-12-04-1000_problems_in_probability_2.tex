@@ -1,0 +1,119 @@
+\DiaryEntry{1000 Problems in Probability - 2}{2018-12-04}{Stochastic}
+
+\subsection{Section 3.1, Problem 1}
+
+\paragraph{Geometric Distribution.} We consider the geometric distribution with pdf
+
+\bee
+f(k) = C (1-p)^k, k=0,\ldots,\infty
+\eee
+
+Note, that this is the ``Julia'' definition and is different than in the book (there it is $f(k) = Cp^k$ and $k$ starts with $1$). Let us first calculate the constant $C$,
+
+\bee
+C \sum_{k=0}^\infty (1-p)^k = C \frac{1}{1-(1-p)} = \frac{C}{p} \doteq 1 \rightarrow C = p
+\eee
+
+and the pdf therefore becomes
+
+\bee
+f(k) =  p (1-p)^k
+\eee
+
+Next we calculate the probability $P(X>0) = 1 - P(X=0) = 1-p$. The probability that $X$ is even is given by
+
+\begin{align*}
+P(X \text{even}) &= p \sum_{k=0,2,4,\ldots}^\infty (1-p)^k = p \sum_{k=0,1,\ldots}^\infty (1-p)^{2k} = p \sum_{k=0,1,\ldots}^\infty \left((1-p)^{2}\right)^k \\ &= \frac{p}{1-(1-p)^2} = \frac{1}{2-p}
+\end{align*}
+
+We can simulate a large number of RVs in Julia, ``measure'' the probabilities and compare with the analytical results: \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/geom_rv_2.jl}{see here}. Exemplary results for $p=0.73$:
+
+\begin{verbatim}
+P(X>0): measured = 0.269944; analytical = 0.27
+P(X even): measured = 0.787224; analytical = 0.7874015748031495
+\end{verbatim}
+
+
+\paragraph{Poisson Distribution.} Now we consider the pdf
+
+\bee
+f(k) = C \frac{a^k}{k!}, k=0,\ldots,\infty
+\eee
+
+Summing over $k$ allows calculation of $C$:
+
+\bee
+C \sum_{k=0}^\infty \frac{a^k}{k!} = C \exp(a) \doteq 1 \rightarrow C = \exp(-a)
+\eee
+
+and the pdf becomes
+
+\bee
+f(k) = \exp(-a) \frac{a^k}{k!}
+\eee
+
+The probability $P(X > 0)$ is given by $P(X>0) = 1 - P(X=0) = 1-\exp(-a)$. The probability that $X$ is even is given by
+
+\bee
+P(X \text{even}) = \exp(-a) \sum_{k=0,2,4,\ldots}^\infty \frac{a^k}{k!} = \exp(-a) \sum_{k=0,1,\ldots}^\infty \frac{a^{2k}}{(2k)!} = \exp(-a) \left( \frac{a^0}{0!} + \frac{a^2}{2!} + \frac{a^4}{4!} + \cdots \right)
+\eee
+
+It seems like we are stuck, but we can make the following Ansatz:
+
+\begin{align*}
+\sum_k \frac{a^{2k}}{(2k)!} &= \frac{1}{2} \left(\frac{a^0}{0!} + \frac{a^1}{1!} + \frac{a^2}{2!} + \cdots \right) + \frac{1}{2} \left(\frac{a^0}{0!} - \frac{a^1}{1!} + \frac{a^2}{2!} \mp \cdots \right) \\ &= \frac{1}{2} \left( \sum_k \frac{a^k}{k!} + \sum_k \frac{(-a)^k}{k!} \right) = \frac{1}{2} \left(e^a + e^{-a} \right)
+\end{align*}
+
+using the fact that the $a^k/k!$ with odd $k$ cancel in the two expressions. Therefore, the probability becomes
+
+\bee
+P(X \text{even}) = \exp(-a) \sum_{k=0,1,\ldots}^\infty \frac{a^{2k}}{(2k)!} = \frac{1}{2} e^{-a} \left(e^a + e^{-a} \right) = \frac{1}{2} (1 + e^{-2a})
+\eee
+
+Julia simulation (\href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/poisson_rv.jl}{see here}) yields exemplary results for $a=0.4$:
+
+\begin{verbatim}
+P(X>0): measured = 0.32944; analytical = 0.3296799539643607
+P(X even): measured = 0.7257; analytical = 0.7246644820586108
+\end{verbatim}
+
+
+\paragraph{Logarithmic Distribution.} It has the following form
+
+\bee
+f(k) = C \frac{a^k}{k}
+\eee
+
+We cannot directly sum the expression; instead we will use a series expansion ``in the backward'' direction. Consider the series expansion
+
+\bee
+-\ln(1-a) = a + \frac{a^2}{2} + \frac{a^3}{3} + \cdots = \sum_{k>0} \frac{a^k}{k}
+\eee
+
+we obtain for the pdf
+
+\bee
+f(k) = -\frac{1}{\ln(1-a)} \frac{a^k}{k}
+\eee
+
+The probability for drawing an even number can be obtained as follows,
+
+\bee
+P(X \text{even}) = -\frac{1}{\ln(1-a)} \sum_{k=2,4,\ldots}^\infty \frac{a^k}{k} = -\frac{1}{\ln(1-a)} \sum_{k>0} \frac{a^{2k}}{2k} = -\frac{1}{2\ln(1-a)} \ln(1-a^2) = \frac{1}{2} \ln(1+a)
+\eee
+
+This time we just verify the summation via Julia
+
+\begin{verbatim}
+a=0.2
+k=2:2:20
+-1/log(1-a)*sum(a.^k ./ k)
+>> 0.0914702537443563
+1/2*log(1+a)
+>> 0.0911607783969773
+\end{verbatim}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
