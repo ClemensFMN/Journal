@@ -22,7 +22,64 @@ The following plot shows the pmf $f_Z$ for $\alpha=0.2, \beta=0.3$. The pmf star
 \end{figure}
 
 
+If the two RVs have the same geometric distribution with parameter $p$, $f_X(k) = p(1-p)^ k$, the pmf of their sum becomes
 
+\be\label{2018-12-18:eq1}
+f_Z(z) = \sum_{k=0}^z p (1-p)^k (1-p)^{z-k} = p^2 \sum_{k=0}^z (1-p)^z = z p^2 (1-p)^z
+\ee
+
+
+\subsection{Section 3.8, Problem 4}
+
+Now we add $r$ geometric RVs, $X_i$ with the same parameter $p$, and want to show that $Z = X_1 + \cdots + X_r$ has a negative binomial distribution according to
+
+\bee
+f_Z(z; r) = {r+z-1 \choose z} (1-p)^z p^r
+\eee
+
+Note: Varous books and Wikipedia define the parameters slightly different; the chosen ones are consistent within this entry.
+
+We show this via induction. Start for $r=2$,
+
+\bee
+f_Z(z; 2) = {z+1 \choose z} (1-p)^z p^2 = z (1-p)^z p^2
+\eee
+
+which equals \eqref{2018-12-18:eq1}. Ok, now for the induction step $r \rightarrow r+1$:
+
+\bee
+f_Z(z; r+1) = \sum_{k=0}^z f_Z(k;r) f_X(z-k) = \sum_{k=0}^z {r+k-1 \choose k} (1-p)^k p^r p(1-p)^{z-k}
+\eee
+
+Moving all constant terms in front of the sum yields
+
+\bee
+f_Z(z; r+1) = p^{r+1}(1-p)^z \sum_{k=0}^z {r+k-1 \choose k} = p^{r+1}(1-p)^z {r+z \choose z}
+\eee
+
+where we have guessed (made numerical experiments) in the last equation). The last expression is $f_Z(z; r+1) = {r+z \choose z} (1-p)^z p^{r+1}$ .\qed
+
+\subsection{Section 3.11, Problem 6}
+
+If $X$ and $Y$ are Poisson-distributed with parameter $\lambda$ and $\mu$, respectively, then their sum $Z = X+Y$ is also Possin-distributed with parameter $\lambda + \mu$. We have $f_X(k) = \lambda^k e^{-\lambda}/k!$ and the pmf of the sum is
+
+\bee
+f_Z(z) = \sum_{k=0}^z f_X(k) f_Y(z-k) = \sum_{k=0}^z \frac{\lambda^k e^{-\lambda}}{k!} \frac{\mu^{z-k} e^{-\mu}}{(z-k)!} = \frac{e^{-(\lambda+\mu)}}{z!} \sum_{k=0}^z \lambda^k \mu^{z-k} \frac{z!}{k!(z-k)!}
+\eee
+
+The fraction at the end is a Binomial coefficient; $\frac{z!}{k!(z-k)!} = {z \choose k}$ and we obtain
+
+\bee
+f_Z(z) = \frac{e^{-(\lambda+\mu)}}{z!} (\lambda + \mu)^z \qed
+\eee
+
+The conditional distribution, $f(X|X+Y=z)$ is given as
+
+\begin{align*}
+f(X|X+Y=n) &= \frac{f(X=k, X+Y=n)}{f(X+Y)=n} = \frac{f(X=k) f(Y = n-k)}{f(X+Y)=n} = \frac{ \frac{\lambda^k e^{-\lambda} }{k!} \frac{\mu^{n-k} e^{-\mu} }{(n-k)!} }{ \frac{(\lambda + \mu)^n e^{-(\lambda+\mu)}}{n!} } \\ &= \frac{\lambda^k \mu^{n-k} n!}{(\lambda+\mu)^n k! (n-k)!} = {n \choose k} \frac{\lambda^k \mu^{n-k}}{(\lambda+\mu)^n}
+\end{align*}
+
+which is a Binomial distribution \qed.
 
 %%% Local Variables:
 %%% mode: latex
