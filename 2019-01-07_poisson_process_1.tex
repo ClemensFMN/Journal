@@ -1,0 +1,112 @@
+\DiaryEntry{Poisson Process, 1}{2019-01-07}{Stochastic}
+
+Based on \href{https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-262-discrete-stochastic-processes-spring-2011/course-notes/MIT6_262S11_chap02.pdf}{these notes.}
+
+\subsection{Arrival Process}
+
+An arrival process is a sequence of increasing RVs, $0 < S_1 < S_2 < \cdots$, where the $S_i$ are called arrival times or arrival epochs. They could be interpreted as the times some repeating phenomenon occurs. The process starts at time $0$ and note that events cannot happen at the same time (since the $S_is$ are distinct values).
+
+In order to describe the arrival process, the joint pdf of the $S_i$s must be known.
+
+There are two additional description methods: The first one is via the interarrival times $X_i = S_i - S_{i-1}$ (with the special case $X_1 = S_1$); the arrival times can be obtained via
+
+\bee
+S_n = \sum_{i=0}^n X_i
+\eee
+
+The joint distribution of the $X_i$s is sufficient and typically easier to obtain as the interarrival times are usually iid.
+
+The second description method is the counting process $\{N(t); t>0\}$ where $N(t)$ counts the number of arrivals between $0$ and up to (and including) $t$ (i.e. in the interval $(0,t]$). In other words, $N(t) = n$ for $S_n \leq n \leq S_{n+1}$. $N(0)$ is defined as $N(0) = 0$ and we have $N(t) \geq N(\tau)$ for $t \geq \tau > 0$.
+
+The whole story is best explained via the following Figure
+
+\begin{figure}[H]
+  \includegraphics[scale=0.8]{images/poisson_process_1_1.png}
+\end{figure}
+
+The counting process and the arrival times are related according to
+
+\bee
+\{S_n \leq t\} = \{N(t) \geq n\}
+\eee
+
+and
+
+\bee
+\{S_n > t\} = \{N(t) < n\}
+\eee
+
+
+\subsection{Poisson Process}
+
+We have the following two definitions:
+
+\begin{definition}[Renewal Process]
+  A renewal process is an arrival process for which the sequence of interarrival times is a sequence of iid RVs.
+\end{definition}
+
+
+\begin{definition}[Poisson Process]
+
+  A Poisson Process is a renewal process in which the interarrival times have an exponential distribution; i.e. each $X_i$ has the pdf
+
+  \bee
+    f_X(x) = \lambda e^{-\lambda x}, \quad \lambda > 0
+  \eee
+  
+\end{definition}
+
+The Poisson process is unique among renewal processes in that its interarrival times are  memoryless.
+
+\begin{definition}[Memoryless RVs]
+A positive RV $X$ is called memoryless, if it has the following property ($x,t \geq 0$)
+
+\bee
+P(X_i > t+x) = P(X_i > t) P(X_i > x)
+\eee
+
+where $\lambda$ denotes the rate of the process.
+
+\end{definition}
+
+For an exponential distribution, we have
+
+\bee
+P(X>t) = \int_t^\infty \lambda e^{-\lambda x} dx = e^{-\lambda t}
+\eee
+
+and therefore
+
+\bee
+P(X > t+x) = e^{-\lambda (t+x)} = e^{-\lambda t} e^{- \lambda x} = P(X > t)P(X > x) \qed
+\eee
+
+The exponential distribution is the only continuous distribution having the memoryless property. From the memorylessness follows
+
+\bee
+P(X>t+x|X>t) = \frac{P(X>t+x, X>t)}{P(X>t} = \frac{P(X>t+x)}{P(X>t} = \frac{P(X>t)P(X>x)}{P(X>t)} = P(X>x)
+\eee
+
+This can be interpreted as follows: If an event has not occured until time $t$, the distribution of the remaining waiting time $x$ is the same as the distribution of the original waiting time; i.e. the remaining waiting time has no memory of the previous waiting.
+
+\subsection{Further Results}
+
+The $n$-th arrival time $S_n$ is given as sum of $n$ RVs each having exponential distribution. The pdf of $S_n$ is then the $n$-fold convolution of these exponential distributions which can be shown to be the Erlang distribution
+
+\bee
+f_{S_n}(t) = \frac{\lambda^n t^{n-1}e^{-\lambda t}}{(n-1)!}
+\eee
+
+Finally, the pmf for $N(t)$ is the Poisson distribution
+
+\bee
+f_{N(t)}(n) = \frac{(\lambda t)^n e^{-\lambda t} }{ n!  }
+\eee
+
+Proofs will follow...
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
