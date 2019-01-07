@@ -11,7 +11,7 @@ In order to describe the arrival process, the joint pdf of the $S_i$s must be kn
 There are two additional description methods: The first one is via the interarrival times $X_i = S_i - S_{i-1}$ (with the special case $X_1 = S_1$); the arrival times can be obtained via
 
 \bee
-S_n = \sum_{i=0}^n X_i
+S_n = \sum_{i=1}^n X_i
 \eee
 
 The joint distribution of the $X_i$s is sufficient and typically easier to obtain as the interarrival times are usually iid.
@@ -30,12 +30,15 @@ The counting process and the arrival times are related according to
 \{S_n \leq t\} = \{N(t) \geq n\}
 \eee
 
-and
+This can be understood as follows: For a fixed point in time $t$ (see Figure above), if the event $S_n \leq t$ has happened, then $N(t)$ must be $\geq n$.
+
+Conversely, we have
 
 \bee
-\{S_n > t\} = \{N(t) < n\}
+\{S_n > t\} = \{N(t) < n\};
 \eee
 
+i.e. when the event $S_n > t$ (for a fixed time $t$), then $N(t)$ must be $< n$. 
 
 \subsection{Poisson Process}
 
@@ -83,9 +86,9 @@ P(X > t+x) = e^{-\lambda (t+x)} = e^{-\lambda t} e^{- \lambda x} = P(X > t)P(X >
 
 The exponential distribution is the only continuous distribution having the memoryless property. From the memorylessness follows
 
-\bee
-P(X>t+x|X>t) = \frac{P(X>t+x, X>t)}{P(X>t} = \frac{P(X>t+x)}{P(X>t} = \frac{P(X>t)P(X>x)}{P(X>t)} = P(X>x)
-\eee
+\begin{align*}
+P(X>t+x|X>t) = \frac{P(X>t+x, X>t)}{P(X>t} = \frac{P(X>t+x)}{P(X>t} &= \frac{P(X>t)P(X>x)}{P(X>t)} \\ &= P(X>x)
+\end{align*}
 
 This can be interpreted as follows: If an event has not occured until time $t$, the distribution of the remaining waiting time $x$ is the same as the distribution of the original waiting time; i.e. the remaining waiting time has no memory of the previous waiting.
 
@@ -97,7 +100,46 @@ The $n$-th arrival time $S_n$ is given as sum of $n$ RVs each having exponential
 f_{S_n}(t) = \frac{\lambda^n t^{n-1}e^{-\lambda t}}{(n-1)!}
 \eee
 
-Finally, the pmf for $N(t)$ is the Poisson distribution
+The mean can be calculated as follows
+
+\bee
+E\{S_n\} = \int \frac{\lambda^n t^{n}e^{-\lambda t}}{(n-1)!} dt = \frac{\lambda^n}{(n-1)!} \int t^{n}e^{-\lambda t} dt
+\eee
+
+With a small substitution the integral can be solved by the Gamma function: $u=\lambda t \rightarrow t=u/\lambda, dt = du/\lambda$ and we have
+
+\bee
+E\{S_n\} = \frac{\lambda^n}{(n-1)!} \frac{1}{\lambda} \int \left(\frac{u}{\lambda}\right)^n e^{-u} du = \frac{1}{\lambda (n-1)!} \Gamma(n+1) = \frac{1}{\lambda (n-1)!} n! = \frac{n}{\lambda}
+\eee
+
+This can be interpreted that every event contributes $1/\lambda$ to the mean of $S_n$. \qed
+
+The maximum of the distribution (the mode), $t^\star$, can be obtained by setting the derivative (wrt $t$) to zero. The derivative is
+
+\bee
+\frac{d f_{S_n}(t)}{dt} \propto (n-1) t^{n-2}e^{-\lambda t} - \lambda t^{n-1}e^{-\lambda t}
+\eee
+
+Setting it to zero yields for the mode
+
+\bee
+t^\star = \frac{n-1}{\lambda} \qed
+\eee
+
+\paragraph{Proof of Erlang distribution.} The distribution of $S_2$ is given by
+\bee
+f_{S_2}(x) = \int f_{X_1}(t) f_{X_2} (x-t) dt = \int \lambda e^{-\lambda t} \lambda e^{-\lambda (x-t)} dt = \lambda^2 \int e^{-\lambda x}dt \propto t e^{-\lambda t}
+\eee
+
+Interestingly, the $e^{\lambda t}$ terms cancel, leaving something constant (in $t$). Integrating this over $t$, yields the constant times something proportional in $t$. The distribution of $S_3$ can be obtained similarly,
+
+\bee
+f_{S_3}(x) = \int f_{X_1}(t) f_{S_2} (x-t) dt \propto \int \lambda e^{-\lambda t} (x-t) e^{-\lambda (x-t)} dt \propto t^2 e^{-\lambda t}
+\eee
+
+This (more or less) confirms that $S_n$ has an Erlang distribution. \qed
+
+The PMF for $N(t)$ is the Poisson distribution
 
 \bee
 f_{N(t)}(n) = \frac{(\lambda t)^n e^{-\lambda t} }{ n!  }
