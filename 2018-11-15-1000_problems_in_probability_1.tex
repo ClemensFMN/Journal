@@ -32,13 +32,13 @@ An upper bound for $P(\Ac \cup \Bc)$ is obtained by noting that $P(\Ac \cup \Bc)
 P(A \sim B | A \not\sim C) = &\frac{P(A \sim B \cap A \not\sim C)}{P(A \not\sim C)} = \frac{P(A \sim B \cap B \not\sim C)}{1 - P(A \sim C)} = \frac{P(A \sim B) P(B \not\sim C)}{1 - P(A \sim B \cap B \sim C)} \\ = & \frac{P(A \sim B) P(B \not\sim C)}{1 - P(A \sim B) P(B \sim C)} = \frac{(1-p^2)p^2}{1-(1-p^2)^2}
 \end{align*}
 
-\paragraph{Extension.} Assume we have $n$ different paths linking $A$ and $B$, each failing independently with probability $p_i (i=1...n)$. In oder to calculate the probability that there is no path between $A$ and $B$, we note that this is the probability that all $n$ paths are failing:
+\paragraph{Extension.} Assume we have $n$ different parallel paths linking $A$ and $B$, each failing independently with probability $p_i (i=1...n)$. In oder to calculate the probability that there is no path between $A$ and $B$, we note that this is the probability that all $n$ paths are failing:
 
 \be\label{2018-11-15:eq1}
 P(A \not\sim B) = P(\text{link 1 fails} \cap \text{link 2 fails} \cap \cdots \cap \text{link n fails}) = \prod_{i=1}^n p_i
 \ee
 
-where we we have used the fact that the failures are independent. The probability for a link between $A$ and $B$ is then $P(A \sim B) = 1 - \prod_{i=1}^n p_i$. Since all $p_i < 1$, the product can be bound by the maximum: $\prod_{i=1}^n p_i \leq \min_i p_i$ and therefore $P(A \sim B) \leq \min_i p_i$. In other words, parallel links always help in increasing reliability. 
+where we we have used the fact that the failures are independent. The probability for a link between $A$ and $B$ is then $P(A \sim B) = 1 - \prod_{i=1}^n p_i$. Since all $p_i < 1$, the product can be bound by the maximum: $\prod_{i=1}^n p_i \leq \min_i p_i$ and therefore $P(A \sim B) \geq 1 - \min_i p_i$. In other words, parallel links always help in increasing reliability. 
 
 Assuming that all $p_i$ are equal $p$, we have
 
