@@ -10,9 +10,9 @@ In order to describe the arrival process, the joint pdf of the $S_i$s must be kn
 
 There are two additional description methods: The first one is via the interarrival times $X_i = S_i - S_{i-1}$ (with the special case $X_1 = S_1$); the arrival times can be obtained via
 
-\bee
+\be\label{2019-01-07_eq0}
 S_n = \sum_{i=1}^n X_i
-\eee
+\ee
 
 The joint distribution of the $X_i$s is sufficient and typically easier to obtain as the interarrival times are usually iid.
 
@@ -26,9 +26,9 @@ The whole story is best explained via the following Figure
 
 The counting process and the arrival times are related according to
 
-\bee
+\be\label{2019-01-07:eq1}
 \{S_n \leq t\} = \{N(t) \geq n\}
-\eee
+\ee
 
 This can be understood as follows: For a fixed point in time $t$ (see Figure above), if the event $S_n \leq t$ has happened, then $N(t)$ must be $\geq n$.
 
@@ -94,7 +94,7 @@ This can be interpreted as follows: If an event has not occured until time $t$, 
 
 \subsection{Further Results}
 
-The $n$-th arrival time $S_n$ is given as sum of $n$ RVs each having exponential distribution. The pdf of $S_n$ is then the $n$-fold convolution of these exponential distributions which can be shown to be the Erlang distribution
+\paragraph{Distribution of $S_n$.} The $n$-th arrival time $S_n$ is given as sum of $n$ RVs each having exponential distribution. The pdf of $S_n$ is then the $n$-fold convolution of these exponential distributions which can be shown to be the Erlang distribution
 
 \bee
 f_{S_n}(t) = \frac{\lambda^n t^{n-1}e^{-\lambda t}}{(n-1)!}
@@ -139,13 +139,62 @@ f_{S_3}(x) = \int f_{X_1}(t) f_{S_2} (x-t) dt \propto \int \lambda e^{-\lambda t
 
 This (more or less) confirms that $S_n$ has an Erlang distribution. \qed
 
+\paragraph{Distribution of $N(t)$.}
+
 The PMF for $N(t)$ is the Poisson distribution
 
 \bee
 f_{N(t)}(n) = \frac{(\lambda t)^n e^{-\lambda t} }{ n!  }
 \eee
 
-Proofs will follow...
+The (probably) simpler proof is to start from the Poisson process definition, that $N(t)$ is Poisson distributed and show that the interarrival times have exponential distribution as consequence.
+
+Let us start with the distribution of $X_1$. The probability that it happens after $t$ is given by
+
+\bee
+P(X_1 > t) = P(\text{no arrival in } (0,t]) = P(N(t) = 0) = \frac{(\lambda t)^0 e^{-\lambda t} }{ 0!  } = e^{-\lambda t} 
+\eee
+
+We continue with $X_2$: Assume the previous event $X_1$ happened at time $s$, we can calculate 
+\bee
+P(X_2 > t | X_1=s) = P(\text{no arrival in } (s,s+t] | X_1 = s) = P(\text{no arrival in } (s,s+t]) = e^{-\lambda s}
+\eee
+
+where we have used the memoryless property of the process and from which follows that $X_2$ also has exponential distribution. The generalization follows. \qed
+
+The other approach is to start at \eqref{2019-01-07:eq1},
+
+\bee
+\{N(t) \geq n\} = \{S_n \leq t\}
+\eee
+
+and equate the probabilities of these two events
+
+\bee
+\sum_{i=n}^\infty p_{N(t)}(i) = \int_0^t f_{S_n}(\tau) d\tau
+\eee
+
+Inserting the Poisson distribution on the left, and taking the derivative on both sides, we obtain an Erlang distribution for $S_n$, which confirms that $N(t)$ follows a Poisson distribution. \qed
+
+\subsection{Simulation Results}
+
+In \href{}{this simulation}, we simulatea Poisson process by creating interarrival times with exponential distribution. By using \eqref{2019-01-07_eq0} we create the corresponding arrival times and finally count them in a window. Some care has to be taken that there are enough arrivals in the window by proper choice of parameters.
+
+
+\begin{verbatim}
+mean arrivals, simulation: 3.333635
+mean arrivals, analytical result: 3.3333333333333335
+k: 1 simulation: 0.118755 analytical result: 0.11891331115750799
+k: 2 simulation: 0.198199 analytical result: 0.19818885192917998
+k: 3 simulation: 0.220271 analytical result: 0.22020983547686668
+k: 4 simulation: 0.183716 analytical result: 0.18350819623072223
+k: 5 simulation: 0.122088 analytical result: 0.12233879748714817
+k: 6 simulation: 0.068142 analytical result: 0.0679659986039712
+k: 7 simulation: 0.032288 analytical result: 0.03236476123998628
+k: 8 simulation: 0.013467 analytical result: 0.013485317183327622
+k: 9 simulation: 0.005091 analytical result: 0.004994561919750971
+k: 10 simulation: 0.001654 analytical result: 0.0016648539732503236
+\end{verbatim}
 
 
 %%% Local Variables:
