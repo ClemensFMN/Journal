@@ -1,0 +1,57 @@
+\DiaryEntry{Legendre Polynomials - Polynomial Ansatz}{2019-01-11}{Maths}
+
+The Legendre polynomials $P_n(x)$ solve the Legendre ODE
+
+\bee
+\frac{d}{dx} \left[ (1-x^2) \frac{dP_n(x)}{dx}  \right] + n(n+1)P_n(x) = 0
+\eee
+
+In order to solve the ODE, we can make a Polynomial Ansatz
+
+\bee
+P_n(x) = \sum_{i=0}^n a_i x^i
+\eee
+
+insert it into the ODE and solve for the coefficients $a_i$. The above Ansatz uses the assumption that $P_n(x)$ is a polynomial of degree $n$. This assumption is correct; however, I am not sure how to justify it (with looking at the ODE only). If we drop the assumption, the Ansatz becomes $P_n(x) = \sum_{i=0}^\infty a_n x^n$. We can still insert into the ODE and obtain coefficients (see below).
+
+I am really too lazy to work this out manually and used Maxima instead. As an example, for $n=3$ we have
+
+\begin{verbatim}
+
+(%i2)	n:2;
+	P:a0+a1*x+a2*x^2;
+(n)	2
+(P)	a2*x^2+a1*x+a0
+
+(%i3)	LHS:diff((1-x^2)*diff(P,x,1), x,1) + n*(n+1)*P;
+(LHS)	6*(a2*x^2+a1*x+a0)+2*a2*(1-x^2)-2*x*(2*a2*x+a1)
+
+(%i4)	ratsimp(LHS);
+(%o4)	4*a1*x+2*a2+6*a0
+
+(%i11)	eq0:ratcoeff(LHS,x,0);
+	eq1:ratcoeff(LHS,x,1);
+	eq2:ratcoeff(LHS,x,2);
+
+(eq0)	2*a2+6*a0
+(eq1)	4*a1
+(eq2)	0
+
+(%i12)	solve([eq0=0, eq1=0, eq2=0], [a0,a1,a2]);
+solve: dependent equations eliminated: (3 7 6 5 4)
+
+(%o12)	[[a0=-%r5/3,a1=0,a2=%r5]]
+
+\end{verbatim}
+
+From this we obtain $P_2(x) = -\frac{C}{3} + Cx^2$ with the unknown value $C$. This can be obtained from the boundary condition $P_n(1) = 1$ as $C = 3/2$ and we obtain
+
+\bee
+P_2(x) = \frac{1}{2}(3x^2-1) \qed
+\eee
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
