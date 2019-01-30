@@ -1,0 +1,79 @@
+\DiaryEntry{Transformation of RVs}{2019-01-31}{Stochastic}
+
+This entry replaces \ref{2016-01-19:entry}.
+
+We have a transform function
+
+\bee
+g: \mR \rightarrow \mR
+\eee
+
+which is not necessaritly one-to-one. We next define the inverse image of a set $\Ac$,
+
+\bee
+g^{-1}(\Ac) = \{x \in \mR | g(x) \in \Ac \}
+\eee
+
+For the singleton set $\Ac = \{y\}$ we write $g^{-1}(y)$.
+
+It can be shown that the inverse image fulfills the axioms of probability and therefore
+
+\bee
+A \rightarrow P\{g(X) \in A \} = P\{X \in g^{-1}(A)\}
+\eee
+
+is a probability. It depends on the probability of $X$ and the function $g(\cdot)$.
+
+\subsection{Discrete RVs}
+
+If $X$ is a discrete RV with pmf $f_X(x)$, then the pmf $f_Y(y)$ of $Y = g(X)$ is given by
+
+\bee
+f_Y(y) = \sum_{x \in g^{-1}(y)} f_X(x)
+\eee
+
+We can interpret this that we sum over all probabilities of the values $x_i$ which end up with the value $y = g(x_i), \forall i$. In case the function $g$ is one-to-one, there is nothing to sum over and we obtain
+
+\bee
+f_Y(y) = f_X(x = g^{-1}(y))
+\eee
+
+\paragraph{Example.} A simple example is $X$ having a uniform distribution for $x=-2,-1,0,1,2$. Then $f_X(x) = 1/5, x=-2,-1,0,1,2$. Now assume a transformation function $g(x) = a + x$ with a deterministic and constant $a$ (i.e. a shift). The $Y$ has a uniform distribution in $-2+a,\ldots,2+a$.
+
+In case of a transformation function $g(x) = x^2$, we have
+
+\bee
+f_Y(y) = \begin{cases} \frac{2}{5} , \quad y=1,2 \\ \frac{1}{5}, \quad y=0 \end{cases}
+\eee
+
+As the negative $x$-values are ``mirrored'' to the right, their probabilities are summed; i.e. $f_Y(x=1) = f_X(x=-1) + f_X(x=1)$. The value fo $x=0$ is transformed into $y=0$ and its probability stays the same ($1/5$).
+
+\subsection{Continuous RVs}
+
+The principle of summing is the same; in addition we need to consider the clope of the pdf's as well. The pdf of $Y$, $f_Y(y)$ of $Y = g(X)$ is given by
+
+\bee
+f_Y(y) = \sum_{y = g(x)} \left| \frac{dg^{-1}(y)}{dy} \right| f_X(g^{-1}(y))
+\eee
+
+Where we sum over all values $x$ for which $g(x) = y$.
+
+\paragraph{Example.} Consider a uniform distribution in $[-1/2;1/2]$; i.e. $p_X(x) = 1$ in this interval (and zero outside). Choosing $y=g(x) = x^2$, we have $x = g^{-1}(y) = \sqrt{y}$ and
+
+\bee
+\frac{dg^{-1}(y)}{dy} = \pm \frac{1}{2\sqrt{y}}
+\eee
+
+Taking the square mirrors all negative values into positive ones (e.g. $x=-1/2$ is mapped to $y=1/4$ like $x=1/2$ is) and therefore the sum $y=g(x)$ yields two times the same value. We therefore arrive at
+
+\bee
+f_Y(y) = \frac{1}{\sqrt{y}}, \quad y \in [0;1/4]
+\eee
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
