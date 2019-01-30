@@ -26,16 +26,15 @@ This suggests the following steps for generating samples from $f_X$:
 
 \end{enumerate}
 
-\paragraph{Interpretation.} The following Figure shows what's going on.
+\paragraph{Interpretation.} The following Figure shows what's going on. On the left, the function $F_X$ is shwown; on the right the uniform distribution is shown. The sampling works from ``right to left'';  i.e. we sample a uniform point, project it to the left till we touch the function $F_X$ and go down to output the corresponding value $x$. This path is shown in green in the below Figure.
 
 \begin{figure}[H]
-	\includegraphics[scale=1.0]{images/generating_rvs.png}
+	\includegraphics[scale=1.2]{images/generating_rvs.png}
 \end{figure}
 
+A high probability $f_X$ in an interval causes a steep cdf $F_X(x) = \int_{-\infty}^x f_X(u) du$ (in the same interval). Such an interval is shown in blue. This steep slope causes a large interval of $u$-values to be mapped onto a small interval of $x$-values, thereby causing a lot of ``probability'' to concentrate in this $x$-interval.
 
-A high probability $f_X$ causes a steep cdf $F_X(x) = \int_{-\infty}^x f_X(u) du$ (in the same interval). This causes a large interval of $u$-values to be mapped onto a small interval of $x$-values, thereby causing a lot of ``probability'' to concentrate in this $x$-interval. This is illustrated in blue in the Figure. 
-
-The opposite case of a smaller probability, causing a flatter cdf and less probability concentration on the same interval is shown in red in the Figure.
+The opposite case of a smaller probability in some interval, is shown in red. It causes a flatter cdf and therefore less probability to be concentrated in the interval.
 
 \subsection{Example - Asymmetric Triangluar Distribution}
 
