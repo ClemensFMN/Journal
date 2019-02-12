@@ -171,7 +171,7 @@ Let $r_{ij}$ be the expected number of times that state $j$ is visited, given th
 R = \sum_{n=0}^\infty P^n
 \eee
 
-To gain further insight, we rearrange bthe states so that the transient states come before the recurrent ones. This allows partitioning the matrix $P$ according to
+To gain further insight, we rearrange the states so that the transient states come before the recurrent ones. This allows partitioning the matrix $P$ according to
 
 \be\label{20190207:eq2}
 P = \begin{pmatrix} T & U \\ 0 & V\end{pmatrix}
@@ -198,7 +198,7 @@ Note that the $T$ and $V$ matrices are quadratic (as they describe transitions b
 
 We consider a state $i$ and the elements on row $i$: Depending on the classification of states, several possibilities occur.
 
-\paragraph{Recurrent state $i$.} When a state $i$ is recurrent, the Markoc chain returns to it an infinite number of times. Therefore $r_{ii} = \infty$. Furthermore, for $j$ of the states communicating with $i$ (the class $C(i)$) are also $i_{ij} = \infty$. All other row elements are zero. All in al, we have
+\paragraph{Recurrent state $i$.} When a state $i$ is recurrent, the Markoc chain returns to it an infinite number of times. Therefore $r_{ii} = \infty$. Furthermore, for $j$ of the states communicating with $i$ (the class $C(i)$) are also $r_{ij} = \infty$. All other row elements are zero. All in all, we have
 
 \bee
 r_{ij} = \begin{cases} \infty, \quad & j \in C(i) \\ 0 \quad & \text{otherwise} \end{cases}
@@ -206,12 +206,12 @@ r_{ij} = \begin{cases} \infty, \quad & j \in C(i) \\ 0 \quad & \text{otherwise} 
 
 \paragraph{Transient state $i$, recurrent state $j$.}
 
-If a transient state $i$ can reach any state in the recurrent class $C(j)$, then $r_{ik} = \infty$. Reaching ``any state'' means, that there is an $n$, for which $p^{(n)}_{ij} > 0$.
+If a transient state $i$ can reach any state $k$ in the recurrent class $C(j)$, then $r_{ik} = \infty$. Reaching ``any state'' means, that there is an $n$, for which $p^{(n)}_{ij} > 0$.
 
 If the transient state cannot reach any state in $C(j)$, then
 
 \bee
-r_{ik} = 0, k \in C(j)
+r_{ik} = 0, \quad k \in C(j)
 \eee
 
 \paragraph{Transient states $i$ and $j$.} In this case, we calculate $P^n$ by means of the partitioned $P$ \eqref{20190207:eq2} first,
@@ -226,7 +226,7 @@ and insert this into the definition of $R$,
 R = \sum_{n=0}^\infty P^n = \begin{pmatrix}\sum_n T^n & \sum_n \tilde{U}(n) \\ 0 & \sum_n V^n  \end{pmatrix}
 \eee
 
-and define the fundamental matrix $S = \sum_n T^n$. The $r_{ij}$ in this matrix $S$ are the only elements which are different from zero or infinity. The $ij$-th element of $S$ gives the expected number of times the chain is in transient state $j$ when it started in transient state $i$.
+where $\tilde{U}(n)$ is some matrix (depending on $n$). We define the fundamental matrix $S = \sum_n T^n$. The $r_{ij}$ in this matrix $S$ are the only elements which are different from zero or infinity. The $ij$-th element of $S$ gives the expected number of times the chain is in transient state $j$ when it started in transient state $i$.
 
 The fundamental matrix $S$ can be obtained by
 
