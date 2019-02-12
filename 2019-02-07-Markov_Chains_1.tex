@@ -163,7 +163,7 @@ If $i \rightarrow j$ and $j \rightarrow i$, then the states are said to be commu
 
 
 
-\subsection{Potential, Fundamental, and Reachability Matrices}
+\subsection{Fundamental Matrix}
 
 Let $r_{ij}$ be the expected number of times that state $j$ is visited, given that the chain starts in chain $i$. We collect all these values into a matrix $R$ called the potential matrix which can be calculated as
 
@@ -233,6 +233,72 @@ The fundamental matrix $S$ can be obtained by
 \bee
 S = I + T + T^2 + T^3 + \cdots = (I - T)^{-1}
 \eee
+
+
+\subsection{The Reachability Matrix and Absorption Probabilites}
+
+The elements $f_{ij}$ of the reachability matrix $F$ give the probability of reaching state $j$ upon leaving state $i$. Simialar to the $r_{ij}$, the values $f_{ij}$ depend on the state classifications as follows.
+
+\paragraph{Both states recurrent but in different communicating classes.} In other words, $j \notin C(i)$ and theefore, the chain will never be reach state $j$ as the chain will stay within the communicating class $C(i)$. Therefore $f_{ij} = 0$.
+
+\paragraph{Recurrent state $i$ and transient state $j$.} The chain will stay within $C(i)$ and not go back to the transient state $j$. Therefore $f_{ij} = 0$.
+
+\paragraph{Both states are transient.} Let $H$ denote the upper left corner of $F$ corresponding to transient states, then
+
+\bee
+H = (S-I)\text{diag}\{S\}^{-1}
+\eee
+
+
+\paragraph{States $i$ is transient, state $j$ is recurrent.} If $j$ can be reached from $i$, then all states in $C(j)$ can be reached as well (and with the same probability). Therefore,
+
+\bee
+f_{ik} = f_{ij}, \quad \forall k \in C(j)
+\eee
+
+Therefore it is sufficient to calculate the probability of entering any state of a recurrent class. These probabilities are called absorption probabilities. For simplification, we combine all states in an irreducible recurrent set into a single state and compute the absorption probability for entering this state. 
+
+In our running example, we would combine states $6$ and $7$ into one state; state $8$ is not changed. The modified probability transition matrix $\bar{P}$ then becomes
+
+\bee
+\bar{P} = \left(\begin{array}{ccccc|cc}
+      0 & 0   & 0.5 & 0.5 & 0    &   0    &  0    \\
+      0 & 0   & 0   & 0   & 1    &   0    &  0   \\
+      0 & 0   & 0   & 0.3 & 0    &   0.7  &  0   \\
+      0 & 0   & 1   & 0   & 0    &   0    &  0    \\
+      0 & 0   & 0   & 0   & 0.6  &   0.2  &  0.2  \\ \hline
+      0 & 0   & 0   & 0   & 0    &   1    &  0   \\
+      0 & 0   & 0   & 0   & 0    &   0    &  1                    
+\end{array}\right)
+\eee
+
+Similar to before, we partition $\bar{P}$ into transient and recurrent parts,
+
+
+\bee
+\bar{P} = \begin{pmatrix} T & B \\ 0 & I\end{pmatrix}
+\eee
+
+The $n$-th power then becomes
+
+\be\label{20190207:eq3}
+\bar{P}^n = \begin{pmatrix} T^n & B^n \\ 0 & I\end{pmatrix}
+\ee
+
+and we define the limit
+
+\bee
+A = \lim_{n \rightarrow \infty} B^n =(I - T)^{-1}B
+\eee
+
+which $ij$-th element is the probability that the chain reaches the $j$-th irreducible recurrent class starting from transient state $i$.
+
+%There is one interesting property of $A$, which simplifies its calculation. Let
+%
+%\bee
+%\bar{A} = \begin{pmatrix} o & A \\ 0 & I\end{pmatrix}
+%\eee
+
 
 
 
