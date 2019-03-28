@@ -4,7 +4,7 @@ Convolutional codes are linear codes that have additional structure in their gen
 
 \subsection{Code Structure, Encoder}
 
-The encoder consists of several 1-bit storage devices (shift registers) connected sequentially. The input information bits (denoted as $x_k$) pass from left to right through the shift registers. The outputs of the shift registers are xored together and form the $K$ different output streams. Which shift registers are xored together can be expressed by a binary vector; usually this vector is represented as octal number and called a generator polynom.
+The encoder consists of $M$ 1-bit storage devices (shift registers) connected sequentially. The input information bits (denoted as $x_k$) pass from left to right through the shift registers. The outputs of the shift registers are xored together and form the $K$ different output streams. Which shift registers are xored together can be expressed by a binary vector; usually this vector is represented as octal number and called a generator polynom.
 
 For example, assume two output streams ($K = 2$) denoted as $c_{k}^{(1)}$ and $c_{k}^{(2)}$, which we can express as follows
 
@@ -13,9 +13,7 @@ c_{k}^{(1)} &= x_k + x_{k-2} \\
 c_{k}^{(2)} &= x_k + x_{k-1} + x_{k-2}
 \end{align*}
 
-This code would have generator polynomials $g_1 = 101_2 = 5_8$ and $g_2 = 111_2 = 7_8$.
-
-An example decoder is shown in the following Figure.
+This code would have generator polynomials $g_1 = 101_2 = 5_8$ and $g_2 = 111_2 = 7_8$ and require $M=2$ storage elements. A corresponding encoder is shown in the following Figure.
 
 \begin{figure}[h]
   \includegraphics[scale=1.5]{images/convcodes_1_1.png}
@@ -24,7 +22,15 @@ An example decoder is shown in the following Figure.
 
 \subsection{Trellis Structure}
 
-\todo{add figure}
+We can interpret the content of the $M$ shift registers as state (there are $2^M$ states) and the input values cause the values of the shift registers to change; i.e. state transitions. In addition, such a state transition produces an output (the $K$ values of $c_k^{(i)}$). The state transitions caused by inputs and the corresponding output can be visualized in a Trellis diagram. It shows the states (the content of the shift registers from left to right) before and after an input, with lines connecting the state transitions. A state transition is denoted by $b/c_1,\ldots c_k$.
+
+The following Figure shows the Trellis diagram for the above code. For example, when in state $01$, an input $1$ causes a new state $10$ (the one from the input is shifted in from the left, causing the one on the right in the previous state to "falls out"), and an output of $00$.
+
+\begin{figure}[h]
+  \includegraphics[scale=1.2]{images/convcodes_1_2.png}
+\end{figure}
+
+
 
 \subsection{Viterbi Decoding}
 
@@ -103,10 +109,16 @@ M_N(q) = - \sum_{i=0}^{N} \log f(r_i|x_i) = - \sum_{i=0}^{N-1} \log f(r_i|x_i) -
 
 ; i.e. it is the metric of the path $\Gamma_N$ (which is defined by the sequence $\xbf_{0}^{N-1}$ and terminates in state $p$) and a metric update moving the encoder from state $p$ to $q$.
 
-The principle of the Viterbi algorithm is: To obtain the shortest path through the trellis, the path to state $q$ must be the shortest. When two paths mergwe into a state, the path with the smaller metric wins; i.e. it is retained and the other (longer) path is eliminated from futher consideration. The Viterbi algorithm keeps a list of paths into every state together with their metrics. When moving to the next state, it calculates all metric updates. Into state $p$, two paths merge from the previous time - the Viterbi algorithm adds the metric updates to the old metrics and finds the smallest of the two. It then updates the path into the new state together with the new metric.
+The principle of the Viterbi algorithm is: To obtain the shortest path through the trellis, the path to state $q$ must be the shortest. When two paths merge into a state, the path with the smaller metric wins; i.e. it is retained and the other (longer) path is eliminated from futher consideration. The Viterbi algorithm keeps a list of paths into every state together with their metrics. When moving to the next state, it calculates all metric updates. Into state $p$, two paths merge from the previous time - the Viterbi algorithm adds the metric updates to the old metrics and finds the smallest of the two. It then updates the path into the new state together with the new metric.
 
-\todo{Figure}
 
+This merging procedure is shown in the following Figure: Two previous states, $p_1, p_2$ merge into state $q$. The two previous states have path metrics $M_{N-1}(p_1)$ and $M_{N-1}(p_2)$, respectively. Transition from $p_1$ into $q$ is caused by $\hat x_1$ and transition from $p_2$ into $q$ is caused by $\hat x_2$. The observation of $r$ gives rise to the two likelihood values $f(r|\hat x_1)$ and $f(r|\hat x_2)$, respectively. This allows calculating two candidates for the path metric $M_N(q)$: One when the path from $p_1$ is used, one when the path from $p_2$ is used. With the arguments from above, the path with the smaller metric is selected while the other one is pruned.
+
+
+
+\begin{figure}[h]
+  \includegraphics[scale=1.0]{images/convcodes_1_3.png}
+\end{figure}
 
 
 %%% Local Variables:
