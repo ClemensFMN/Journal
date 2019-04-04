@@ -36,7 +36,7 @@ The following Figure shows the Trellis diagram for the above code. For example, 
 
 \subsubsection{Notation}
 
-The input sequence $x_0, \ldots, x_{L-1}$ is denoted as vector $\xbf$. The vector of all $K$ codes bits at time $k$ is denoted as $\cbf_k$; the sequence of all code bits is denoted as $\cbf$. The code bits are mapped onto symbols $a$; for smplicity we assume a 1:1 mapping between code bits and symbols (e.g. BPSK). After the channel, the value $r$ is received.
+The information bit sequence $x_0, \ldots, x_{L-1}$ is denoted as vector $\xbf$. The vector of all $K$ code bits at time $k$ is denoted as $\cbf_k$ (the corresponding information bit is $x_k$); the sequence of all code bits is denoted as $\cbf$. For transmission, the code bits are mapped onto symbols $a$; for smplicity we assume a 1:1 mapping between code bits and symbols (e.g. BPSK). After the channel, the value $r$ is received. The received value corresponding to $\cbf_k$ is denoted as $\rbf_k$.
 
 We consider two channel models, a BSC channel with 
 
@@ -64,14 +64,13 @@ f(r|a) = \left( \frac{p_c}{1-p_c}\right)^{d_H(r,a)} (1-p_c)^n
 
 where $d_H$ denotes the Hamming distance between two binary values. For the AWGN we have
 
-
 \bee
 f(r|a) = \frac{1}{(\sqrt{2\pi \sigma_w^2)^n}} \exp \left\{ - \frac{1}{2\sigma_w^2} (r - a)^2 \right\}
 \eee
 
 \subsubsection{Algorithm Description}
 
-We want to find the maximum likelihood sequence; i.e. the sequence $\xbf$ which maximizes $f(\rbf|\xbf)$. Since there is a one-to-one correspondence between $\xbf$, $\cbf$, and $\abf$, $f(\rbf|\xbf) = f(\rbf|\abf)$.
+We want to find the maximum likelihood sequence; i.e. the sequence $\xbf$ which maximizes $f(\rbf|\xbf)$. Since there is a one-to-one correspondence between $\xbf$, $\cbf$, and $\abf$, $f(\rbf|\xbf) = f(\rbf|\cbf) = f(\rbf|\abf)$.
 
 Maximizing the likelihood is equivalent to minimizing the metric; in case of the BSC the metric is $d_H(r,a)$; in case of the AWGN channel the metric is $(r-a)^2$.
 
@@ -79,47 +78,88 @@ The basic idea of the Viterbi algorithm is as follows. A sequence $\cbf$ (or, eq
 
 A naive approach would be to compute all paths through the trellis, calculate their metric (wrt to $\rbf$) and select the "closest" one. This is computationllay infeasible, as the number of paths grows exponentially with time.
 
-The Viterbi algorithm is based on the observation that the path metric of a path can be expressed as sum of branch metrics. 
+The Viterbi algorithm is based on the observation that the path metric of a path can be expressed as sum of branch metrics and that all branch metrics are positive. This allows pruning of trellis paths and a big reduction in complexity.
 
-We introduce the following notation: The sequence $r_0,\ldots,r_{L-1}$ is denoted as $\rbf_{0}^{L-1}$ and the sequence $x_0,\ldots,x_{L-1}$ is denoted as $\xbf_{0}^{L-1}$. The likelihood is
-
-\bee
-f(\rbf|\xbf) = f(\rbf_{0}^{L-1} | \rbf_{0}^{L-1}) = \prod_{i=0}^{L-1} f(r_l|x_l)
-\eee
-
-which follows from the memoryless channel. Considering log-likelihoods instead, we have
+We introduce the following notation: The sequence $\rbf_0,\ldots,\rbf_{L-1}$ is denoted as $\rbf_{0}^{L-1}$ and the sequence $x_0,\ldots,x_{L-1}$ is denoted as $\xbf_{0}^{L-1}$. The likelihood is
 
 \bee
-\log f(\rbf|\xbf) = \log f(\rbf_{0}^{L-1} | \rbf_{0}^{L-1}) = \sum_{i=0}^{L-1} \log f(r_l|x_l)
+f(\rbf|\xbf) = f(\rbf_{0}^{L-1} | \rbf_{0}^{L-1}) = \prod_{i=0}^{L-1} f(\rbf_l|x_l)
 \eee
 
-Consider now a length-$N$ sequence $\xbf_{0}^{N-1}$ which leaves the trellis in state $\Psi_N = p$ at time $N$; the corresponding path through the trellis is denoted as $\Gamma_N = (\Psi_0,\ldots,\Psi_N)$. The log-likelihood of this sequence is
+which follows from the memoryless channel property. Considering log-likelihoods instead, we have
 
 \bee
-\log f(\rbf_{0}^{N-1} | \xbf_{0}^{N-1}) = \sum_{i=0}^{N-1} \log f(r_i|x_i)
+\log f(\rbf|\xbf) = \log f(\rbf_{0}^{L-1} | \rbf_{0}^{L-1}) = \sum_{i=0}^{L-1} \log f(\rbf_l|x_l)
 \eee
 
-and let $M_{N-1}(p) = -\log f(\rbf_{0}^{N-1} | \xbf_{0}^{N-1})$ denote the negative log-likelihood (or path metric) for this path $\Gamma_N$ which is defined by the sequence $\xbf_{0}^{N-1}$ and terminates in state $p$. 
-
-Now let's see what happens when we append a symbol $\hat x_N$ to $\xbf_{0}^{N-1}$ and received value $r_N$ to $\rbf_{0}^{N-1}$. Suppose that the state at time $N+1$ is $\Psi_{N+1} = q$. The path metric for this longer path is then
+Consider now a length-$N$ sequence $\xbf_{0}^{N-1}$ which leaves the trellis in state $\Psi_N = p$ at time $N$; the corresponding path through the trellis is denoted as $\Gamma_N = (\Psi_0,\ldots,\Psi_N)$. The negative log-likelihood of this sequence will be denoted as path metric $M_{N-1}(p)$ along the path $\Gamma_N$ and is given by
 
 \bee
-M_N(q) = - \sum_{i=0}^{N} \log f(r_i|x_i) = - \sum_{i=0}^{N-1} \log f(r_i|x_i) - f(r_N|x_N) = M_{N-1}(p) - \log f(r_N|\hat x_N)
+M_{N-1}(p) = - \log f(\rbf_{0}^{N-1} | \xbf_{0}^{N-1}) = - \sum_{i=0}^{N-1} \log f(r_i|x_i)
 \eee
 
-; i.e. it is the metric of the path $\Gamma_N$ (which is defined by the sequence $\xbf_{0}^{N-1}$ and terminates in state $p$) and a metric update moving the encoder from state $p$ to $q$.
+Now consider transmission of another information bit (in the next timeslot) and reception of a corresponding $\rbf_N$. We want to obtain the path metric along the path $\Gamma_N$ augmented by a new end state $q$; $\Gamma_{N+1} = (\Psi_0,\ldots,\Psi_N, q)$. The path metric for this longer path is then
 
-The principle of the Viterbi algorithm is: To obtain the shortest path through the trellis, the path to state $q$ must be the shortest. When two paths merge into a state, the path with the smaller metric wins; i.e. it is retained and the other (longer) path is eliminated from futher consideration. The Viterbi algorithm keeps a list of paths into every state together with their metrics. When moving to the next state, it calculates all metric updates. Into state $p$, two paths merge from the previous time - the Viterbi algorithm adds the metric updates to the old metrics and finds the smallest of the two. It then updates the path into the new state together with the new metric.
+\begin{align*}
+M_N(q) & = - \sum_{i=0}^{N} \log f(\rbf_i|x_i) = - \sum_{i=0}^{N-1} \log f(\rbf_i|x_i) - f(\rbf_N|x_N) \\ &= M_{N-1}(p) - \log f(\rbf_N|x_N)
+\end{align*}
+
+This is the path metric of $\Gamma_N$ plus a path metric update caused by the state transition from $p$ to $q$.
+
+The principle of the Viterbi algorithm is as follows: To obtain the shortest path through the trellis for the complete sequence $\xbf$, the path to every state in between must be the shortest. This is because the metric updates are strictly positive; i.e. a too large path metric cannot be reduced later on by a negative metric update.
+
+This is relevant, when two paths merge into a state (see Figure below): Assume the two paths come from different states $p_1$ and $p_2$ and each has a different path metric $M_{N-1}(p_1)$ and $M_{N-1}(p_2)$, respectively. Observing the received value $\rbf_N$ allows calculating the path metric update as above (Note that the state transition from $p_1$ to $q$ and $p_2$ to $q$ is caused by a different $x_N$ and corresponidng $\cbf_N$). It is enough to retain only the path with the smaller metric, while the other path can be eliminated from futher consideration.
 
 
-This merging procedure is shown in the following Figure: Two previous states, $p_1, p_2$ merge into state $q$. The two previous states have path metrics $M_{N-1}(p_1)$ and $M_{N-1}(p_2)$, respectively. Transition from $p_1$ into $q$ is caused by $\hat x_1$ and transition from $p_2$ into $q$ is caused by $\hat x_2$. The observation of $r$ gives rise to the two likelihood values $f(r|\hat x_1)$ and $f(r|\hat x_2)$, respectively. This allows calculating two candidates for the path metric $M_N(q)$: One when the path from $p_1$ is used, one when the path from $p_2$ is used. With the arguments from above, the path with the smaller metric is selected while the other one is pruned.
-
-
-
-\begin{figure}[h]
+\begin{figure}[ht]
   \includegraphics[scale=1.0]{images/convcodes_1_3.png}
 \end{figure}
 
+The Viterbi algorithm maintains the following data
+
+\begin{itemize}
+
+	\item A path metric to each state at time $t$.
+
+	\item A path (list of states) to each state at time $t$.
+
+\end{itemize}
+
+The Viterbi algorithm therefore works as follows
+
+\begin{enumerate}
+
+\item Start with a list of empty paths to each state.
+
+\item Start with an initial path metric $M(0) = 0$ and $M(p) = \infty, p \neq 0$. This ensures that the initial encoder state is $0$.
+
+\item For each state $q$ at time $t$:
+
+	\begin{enumerate}
+
+		\item Find the path metric for each path to state $q$. According to the Figure above, there will be two candidate paths (with corresponding candidate path metrics).
+
+		\item Choose the path the smaller metric.
+
+		\item Extend the path by the chosen path.
+
+		\item Update the path metric according to the chosen path.
+
+	\end{enumerate}
+
+\item Advance to the next time step
+
+\item When done:
+
+	\begin{itemize}
+
+		\item When the encoder terminated in a known state (by zero-padding the information bit sequence), return the sequence of information bits along the path to that kown state.
+
+		\item When the encoder terminated in any state known state, return the sequence of information bits along the path with the smallest metric.
+
+	\end{itemize}
+
+\end{enumerate}
 
 %%% Local Variables:
 %%% mode: latex
