@@ -277,12 +277,16 @@ P_d = Q \left( \sqrt{\frac{2dE_c}{N_0} } \right)
 Several bounds later, we arrive at
 
 \bee
-P_b > \frac{1}{k} b_{d_{free}} Q \left( \sqrt{\frac{2 d_{free} E_c}{N_0} } \right) = \frac{1}{2k} b_{d_{free}} \erf \left( \sqrt{\frac{d_{free} E_c}{N_0} } \right)
+P_b > \frac{1}{k} b_{d_{free}} Q \left( \sqrt{\frac{2 d_{free} E_c}{N_0} } \right) = \frac{1}{2k} b_{d_{free}} \text{erfc} \left( \sqrt{\frac{d_{free} E_c}{N_0} } \right)
 \eee
 
-For the running example of the $(5,7)$ code, $k=2, d_{free} = 5$ and $b_{d_{free}} = 1$.
+For the running example of the $(5,7)$ code, we have $k=1, d_{free} = 5$ and $b_{d_{free}} = 1$.
 
+The following Figure shows a comparison of the analytical bound and the simulated BER performance. There is a gap of about $3.5$dB wich is caused by the use of hard informaton in the Viterbi algorithm(?)
 
+\begin{figure}[ht]
+  \includegraphics[scale=0.5]{images/convcodes_2_1.png}
+\end{figure}
 
 %%% Local Variables:
 %%% mode: latex
