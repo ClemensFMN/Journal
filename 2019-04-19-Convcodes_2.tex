@@ -206,9 +206,83 @@ where we have made a series expansion as well. The series expansion provides the
 
 \subsection{Error Analysis}
 
-Difficult to do exactely, most important is the \emph{free distance} of the code; i.e. the number and code bit weight of the path with information bit weight $1$.
+Let $\mathcal{P}_j$ denote the set of all error paths that diverge from node $j$ of the all-zero path in the trelis and remerge later. Let $p_{i,j}$ be one such path and let $\Delta M(p_{i,j})$ be the difference between the metric accumulated along this path and the all-zero path. An error event (at node $j$) occurs due to path $p_{i,j}$, if $\Delta M(p_{i,j}) < 0$. Denoting with $P_e(j)$ the probability of an error event at node $j$, we have
 
-\todo{provide bound for bit error rate}
+\bee
+P_e(j) \leq Pr \left[ \cup_i \{ \Delta M(p_{i,j}) < 0 \} \right]
+\eee
+
+The paths $p_{i,j}$ are not disjoint but may share branches so the events in above expression are not disjoint. This makes an exact calculation very difficult and we consider a union bound instead,
+
+\bee
+P_e(j) \leq \sum_i Pr(\Delta M(p_{i,j}) < 0)
+\eee
+
+Each term in this summation is a pairwise event between the paths $p_{i,j}$ and the all-zero path. For a memoryless channel, $\Delta M(p_{i,j})$ depends only on those branches for which $p_{i,j}$ is nonzero. Let $d$ be the Hamming weight of $p_{i,j}$, let$a(d)$ be the number of paths at distance $d$ away from the all-zero path, and let $P_d$ be the probability of the event that this path has a lower metric than the all-zero path. The node error probability can then be rewritten as
+
+\bee
+P_e(j) \leq \sum_{d=d_{free}}^\infty a(d) P_d
+\eee
+
+Wew ill show below that $P_d < Z^d$ for some function $Z$ depending on the channel. With this, we can write
+
+\bee
+P_e(j) \leq \sum_{d=d_{free}}^\infty a(d) Z^d = T(D)|_{D=Z}
+\eee
+
+where we have used the path enumerator $T(D) = \sum_{d=d_{free}}^\infty a(d) D^d$. The above is a bound on the node error probability from which we can obtain a bound on the bit error probability by enumerating the number of bits in error for each node error. The derivative
+
+\bee
+\frac{\partial}{\partial N} H(D,N)
+\eee
+
+brins exponents down as multipliers in each term of the series. The average number of bits in error along a branch of the trellis is
+
+\bee
+\frac{\partial}{\partial N} H(D,N)|_{N=1, D=Z}
+\eee
+
+For a rate $R=k/n$ code, each branch corresponds to $k$ information bits, so that
+
+\bee
+P_b < \frac{1}{k} \frac{\partial}{\partial N} H(D,N)|_{N=1, D=Z}
+\eee
+
+If we consider only the first term in the series (which is a good approximation for large SNR values), we have
+
+\bee
+\frac{\partial}{\partial N} H(D,N)|_{N=1} = D^{d_{free}} (n_1 + n_2 + \cdots ) + D^{d_{free}+1} (\cdots) + \cdots
+\eee
+
+and the number $b_{d_{free}} = n_1 + n_2 + \cdots$ is the number of non-zero information bits associated with code words of weight $d_{free}$.
+
+In our running example of $H(N,L) = \frac{ND^5}{1-2ND} = ND^5 + 2N^2D^6 + 4N^3D7 + \cdots$, we have $d_{free} = 5$ and there are $b_{d_{free}} = 1$ information bits associated with this code word.
+
+This allows for the final bound
+
+\bee
+P_b > \frac{1}{k} b_{d_{free}} D^{d_{free}}
+\eee
+
+
+
+\subsection{A bound on $P_d$ for the AWGN channel}
+
+The error detection probability on the AWGN channel is given by
+
+\bee
+P_d = Q \left( \sqrt{\frac{2dE_c}{N_0} } \right)
+\eee
+
+Several bounds later, we arrive at
+
+\bee
+P_b > \frac{1}{k} b_{d_{free}} Q \left( \sqrt{\frac{2 d_{free} E_c}{N_0} } \right) = \frac{1}{2k} b_{d_{free}} \erf \left( \sqrt{\frac{d_{free} E_c}{N_0} } \right)
+\eee
+
+For the running example of the $(5,7)$ code, $k=2, d_{free} = 5$ and $b_{d_{free}} = 1$.
+
+
 
 %%% Local Variables:
 %%% mode: latex
