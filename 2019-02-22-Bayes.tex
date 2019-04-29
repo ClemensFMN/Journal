@@ -1,0 +1,47 @@
+\DiaryEntry{Bayesian Parameter Estimation - Intuition}{2019-02-22}{Stochastic}
+
+A funny example from the book "Statistical Rethinking" (info \href{https://xcelab.net/rm/statistical-rethinking/}{here}).
+
+Suppose we have a medical test which tests whether a person is ill or not. The test is positive when a person is ill with probability
+
+\bee
+P(pos. test | ill) = 0.95
+\eee
+
+and a "false alarm" probability
+
+\bee
+P(pos. test | healthy) = 0.1
+\eee
+
+Note that these two probabilities need not sum to one; however, $P(neg. test | ill) + P(pos. test | ill) = 1$.
+
+In addition, we know that illness is very rare; the prior information
+
+\bee
+P(ill) = 0.001
+\eee
+
+We want to know the posterior probability that a person is ill when she has a positive test result,
+
+\begin{align*}
+P(ill|pos. test) &= \frac{P(pos. test | ill)P(ill)}{P(pos. test)} \\ &= \frac{P(pos. test | ill)P(ill)}{P(pos. test|illP(ill) + P(pos. test | healthy)P(healthy))} \\ &= \frac{0.95 \cdot 0.001}{0.95 \cdot 0.001 + 0.01 \cdot 0.999} \approx 0.086
+\end{align*}
+
+This is a pretty bad result - although the test is positive, it is highly unlikely that the person is ill! In this case, the extremely low probability for illness is "shifting" the posterior probability to lower values.
+
+This can be seen when the prior probability is increased to $P(ill) = 0.1$, the posterior probability becomes
+
+\bee
+P(ill|pos.test) = 0.91
+\eee
+
+In this case, the power of our test is still high; i.e. a person with a positive test is ill with high probability.
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
