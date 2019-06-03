@@ -33,8 +33,25 @@ The Gamma function $\Gamma(x)$ is defined according to
 \bee
 \Gamma(x) = \int_0^\infty t^{x-1}e^{-t} dt
 \eee
-%
-and fulfills the following recurrence relation
+
+The following Figure shows a plot of the integrand for $x=1, x=2, x=3$, respectively. Note that with increasing $x$, the maximum moves to the right and the area under the curve increases.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.7]{images/gamma_integrand_plot.png}
+\end{figure}
+
+\pagebreak
+
+Note, that the Gamma function is also defined for negative values of $x$; the following Figure shows plots of the integrand for $x=-1, x=-2, x=-3$, respectively. It diverges at $t=0$, and falls off for increasing $t$.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.7]{images/gamma_integrand_neg_plot.png}
+\end{figure}
+
+
+The Gamma function fulfills the following recurrence relation
 %
 \bee
 \Gamma(x+1) = x \Gamma(x)
