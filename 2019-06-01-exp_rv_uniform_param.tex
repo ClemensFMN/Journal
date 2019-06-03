@@ -61,13 +61,13 @@ P(X > L) = \int_L^\infty Ax^{-1}e^{-Ax} + x^{-2} e^{-Ax} dx - \int_L^\infty Bx^{
 Considering the first integral, we substitute $u = Ax \rightarrow x^{-1} = Au^{-1}, x^{-2} = A^2 x^{-2}$, $\frac{du}{dx} = A$, and $\frac{dx}{du} = 1/A$ and obtain
 
 \bee
-\int_L^\infty Ax^{-1}e^{-Ax} + x^{-2} e^{-Ax} dx = \int_{LA}^\infty A^2 u^{-1}e^{-u} + A^2 u^{-2} e^{-u} \frac{du}{A} = A \Gamma(0, LA) + A \Gamma(1, LA)
+\int_L^\infty Ax^{-1}e^{-Ax} + x^{-2} e^{-Ax} dx = \int_{LA}^\infty A^2 u^{-1}e^{-u} + A^2 u^{-2} e^{-u} \frac{du}{A} = A \Gamma(0, LA) + A \Gamma(-1, LA)
 \eee
 
 Note that the integral limit have also changed due to the substitution. Therefore the probability becomes
 
 \bee
-P(X > L) = A \Gamma(0, LA) + A \Gamma(1, LA) - B \Gamma(0, LB) - B \Gamma(1, LB)
+P(X > L) = A \Gamma(0, LA) + A \Gamma(-1, LA) - B \Gamma(0, LB) - B \Gamma(-1, LB)
 \eee
 
 
