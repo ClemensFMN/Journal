@@ -70,8 +70,27 @@ Note that the integral limit have also changed due to the substitution. Therefor
 P(X > L) = A \Gamma(0, LA) + A \Gamma(-1, LA) - B \Gamma(0, LB) - B \Gamma(-1, LB)
 \eee
 
+Note: It seems to be rather tricky to evaluate the incomplete Gamma function (e.g. in Julia); one way is to use the cdf of a Gamma distribution, but (at least in Julia), negative values for $s$ are not supported.
 
-\todo{What happens when we consider $f_X(X|a) \propto e^{-a^2 x}$ instead? Of course, the pdf of $a^2$ has a different pdf but the resulting $f_X(x)$ should be the same(?)} 
+What is also interesting is to reparametrize the pdf $f(a)$ to e.g.
+
+\bee
+\tilde{f}(X|a) = a^2 e^{-a^2 x}, \quad x \geq 0
+\eee
+
+This will not change the pdf $f_X(x)$ the whole reparametrization can be treated as integral substitution with $a = u^2$,
+
+\begin{align*}
+f_X(x) = \int_a f(X|a) f(a) da &= \int_{a=A}^B a e^{-ax} da = \int_{u=\sqrt{A}}^{\sqrt{B}} u^2 e^{-u^2 x} 2u du \\ &= \int_{u=\sqrt{A}}^{\sqrt{B}} 2 u^3 e^{-u^2 x} du = \int_{u=\sqrt{A}}^{\sqrt{B}} 2 u u^2 e^{-u^2 x} du = \int_{u=\sqrt{A}}^{\sqrt{B}} \tilde{f}(u) \tilde{f}(X|u) du
+\end{align*}
+
+from which follows that the distribution of $u$, $\tilde{f}(u)$ is
+
+\bee
+\tilde{f}(u) = \begin{cases} 2u & \quad \sqrt{A} \leq a \leq \sqrt{B} \\ 0 & \quad \text{otherwise} \end{cases}
+\eee
+
+
 
 %%% Local Variables:
 %%% mode: latex
