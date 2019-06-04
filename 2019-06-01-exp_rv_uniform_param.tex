@@ -78,7 +78,7 @@ What is also interesting is to reparametrize the pdf $f(a)$ to e.g.
 \tilde{f}(X|a) = a^2 e^{-a^2 x}, \quad x \geq 0
 \eee
 
-This will not change the pdf $f_X(x)$ the whole reparametrization can be treated as integral substitution with $a = u^2$,
+This will not change the pdf $f_X(x)$ and the whole reparametrization can be treated as integral substitution with $a = u^2, da = 2u du$,
 
 \begin{align*}
 f_X(x) = \int_a f(X|a) f(a) da &= \int_{a=A}^B a e^{-ax} da = \int_{u=\sqrt{A}}^{\sqrt{B}} u^2 e^{-u^2 x} 2u du \\ &= \int_{u=\sqrt{A}}^{\sqrt{B}} 2 u^3 e^{-u^2 x} du = \int_{u=\sqrt{A}}^{\sqrt{B}} 2 u u^2 e^{-u^2 x} du = \int_{u=\sqrt{A}}^{\sqrt{B}} \tilde{f}(u) \tilde{f}(X|u) du
