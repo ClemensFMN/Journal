@@ -1,0 +1,32 @@
+\DiaryEntry{BPSK Transmission over a Fading Channel}{2019-06-05}{Stochastic}
+
+We have a binary sequence with bits $b$ which we map onto BPSK symbols $s$ ($0 \rightarrow -1, 1 \rightarrow 1$) and transmit across a channel with gain $h$. After demodulation, the receiver observes $y$ according to
+
+\bee
+y = h s + w, \quad w \sim \Nc(0, \sigma_w^2)
+\eee
+
+The receiver makes a hard decision to obtain bit estimates $\hat b$ according to
+
+\bee
+\hat b = \begin{cases} 1 \, \text{if}\, y > 0 \\ 0 \, \text{if}\, y \leq 0 \end{cases}
+\eee
+
+The conditional pdf $f(y|b$ is given by 
+
+\bee
+f(y|s) = \Nc(y, hs, \sigma_w^2)
+\eee
+
+and from this we can retrieve the error probability
+
+\bee
+P(\Ec) = f(y \leq 0 | s = 1) = \int_{y \leq 0} \Nc(y, h, \sigma_w^2) dy = \frac{1}{2} \left[ 1 + \erf \left( \frac{-h}{\sqrt{2\sigma_w^2}} \right) \right]
+\eee
+
+\todo{Assume that h has Gaussian distribution, we can now average the error probability over h...}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
