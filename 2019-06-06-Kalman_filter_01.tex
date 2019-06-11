@@ -32,7 +32,7 @@ The posterior mean is a mixture of the prior $\hat\xbf$ and the scaled differenc
 \lim_{\Sigmabf \rightarrow \zerobf} \hat\xbf + \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T + \Rbf )^{-1} (\ybf - \Gbf \hat\xbf) = \hat\xbf
 \eee
 
-i.e. the prior information alone is considered. In the other extreme case of erfect observation $\Rbf \rightarrow \zerobf$, we have
+i.e. the prior information alone is considered. In the other extreme case of perfect observation $\Rbf \rightarrow \zerobf$, we have
 
 \bee
 \lim_{\Rbf \rightarrow \zerobf} \hat\xbf + \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T + \Rbf )^{-1} (\ybf - \Gbf \hat\xbf) = \hat\xbf + \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T)^{-1} (\ybf - \Gbf \hat\xbf) = \hat\xbf + \Gbf^{-1} (\ybf - \Gbf \hat\xbf) = \Gbf^{-1} \ybf
@@ -49,18 +49,41 @@ The Kalman filter solves the problem of estimating a sequence of hidden RVs, $\{
 \xbf_{k+1} = \Abf \xbf_k + \wbf_{k+1}, \quad \wbf_k \sim \Nc(\zerobf, \Qbf)
 \eee
 
-and the "model noise" $\wbf_k$ being independent for different $k$. At time $k=1$, the system is in an initial state, given by the prior $\xbf_1 \sim \Nc(\hat \xbf_1, \Sigmabf_1)$. The observations are given by
+and the "model noise" $\wbf_k$ being independent for different $k$, $E\{\wbf_k \wbf_l\} = \Qbf \delta_{k,l}$. At time $k=1$, the system is in an initial state, given by the prior $\xbf_1 \sim \Nc(\hat \xbf_1, \Sigmabf_1)$. The observations are given by
 
 \bee
-\ybf_k = \Gbf \xbf_k + \vbf, \quad \vbf \sim \Nc(\zerobf, \Rbf)
+\ybf_k = \Gbf \xbf_k + \vbf, \quad \vbf_k \sim \Nc(\zerobf, \Rbf)
 \eee
 
-with the observation noise $\vbf$ being independent for different $k$.
+with the observation noise $\vbf$ being independent for different $k$, $E\{\wbf_k \wbf_l\} = \Qbf \delta_{k,l}$.
 
-Upon observation of $\ybf_1$, the Kalman filter treats its knowledge of $\hat \xbf_1$ and $\Sigmabf_1$ as prior and calculates the posterior density which is a Gaussian with mean $\hat\xbf_1^F$ and covariance matrix $\Sigmabf_1^F$. This is called the \emph{filtering step} of the filter. The posterior density is then used in the \emph{prediction step} to form an estimate for $\xbf_2$ in the form of the mean $\hat\xbf_2^P$ and covariance matrix $\Sigmabf_2^P$.
+\paragraph{Principle of Operation.} Upon observation of $\ybf_1$, the Kalman filter treats its knowledge of $\hat \xbf_1$ and $\Sigmabf_1$ as prior and calculates the posterior density which is a Gaussian with mean $\hat\xbf_1^F$ and covariance matrix $\Sigmabf_1^F$. This is called the \emph{filtering step} of the filter. The posterior density is then used in the \emph{prediction step} to form an estimate for $\xbf_2$ in the form of the mean $\hat\xbf_2^P$ and covariance matrix $\Sigmabf_2^P$.
 
 After observing $\ybf_2$, the filter uses the predictions $\hat\xbf_2^P$ and $\Sigmabf_2^P$ as prior and performs a filtering and prediction step. The filter continues this process.
 
+\paragraph{Filtering Step.} Our prior for $\xbf$ is $\Nc(\hat\xbf_1, \Sigmabf_1)$ and from the previous Subsection we know
+
+\bee
+\xbf_1 | \ybf_1 \sim \Nc(\xbf_1^F, \Sigmabf_1^F)
+\eee
+
+with posterior mean
+
+\bee
+\xbf_1^F = \hat\xbf_1 + \Sigmabf_1 \Gbf^T (\Gbf \Sigmabf_1 \Gbf^T + \Rbf)^{-1} (\ybf_1 - \Gbf \hat\xbf_1)
+\eee
+
+and covariance matrix
+
+\bee
+\Sigmabf_1^F = \Sigmabf_1 - \Sigmabf_1 \Gbf^T (\Gbf \Sigmabf_1 \Gbf^T + \Rbf)^{-1} \Gbf \Sigmabf_1
+\eee
+
+\paragraph{Prediction Step.} Now we use the state space equations to obtain a prediction for $\xbf_2$. Since everything is Gaussian, we have
+
+\bee
+\xbf_2 | \ybf_1 \sim \Nc(\hat\xbf_2^P, \Sigmabf_2^P) = \Nc(\Abf \xbf_1^F, \Abf \Sigmabf_1^F \Abf^T + \Rbf)
+\eee
 
 
 %%% Local Variables:
