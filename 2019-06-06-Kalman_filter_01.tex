@@ -40,6 +40,32 @@ i.e. the prior information alone is considered. In the other extreme case of per
 
 i.e. the observation alone is considered.
 
+\paragraph{Impact of Correlation.} Assume that $\xbf$ is zero-mean and uncorrelated,
+
+\bee
+\xbf \sim \Nc(\zerobf, \Ibf)
+\eee
+
+we observe both components ($\Gbf = \Ibf$) with uncorrelated noise ($\Rbf = 0.1 \Ibf$). Then the posterior covariance matrix is
+
+\bee
+\Sigmabf - \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T + \Rbf)^{-1} \Gbf \Sigmabf \approx \begin{pmatrix} 0.0909091  & 0.0 \\ 0.0 & 0.0909091\end{pmatrix}
+\eee
+
+The error is uncorrelated and has variance slighlty less than the noise variance; this is because the prior information reduces the estimator variance. Now let's see what happens if $\xbf$ is highly correlated,
+
+\bee
+\xbf \sim \Nc(\zerobf, \begin{pmatrix} 1.0 & 0.9999 \\ 0.9999 & 1.0 \end{pmatrix})
+\eee
+
+The observation $\Gbf$ and $\Rbf$ are the same as above and we have
+
+\bee
+\Sigmabf - \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T + \Rbf)^{-1} \Gbf \Sigmabf \approx \begin{pmatrix} 0.0476689 & 0.047569 \\ 0.047569 & 0.0476689  \end{pmatrix}
+\eee
+
+In this case the variance is approx. half the noise variance. This makes sense, as both $\xbf$ components are the same (because of the high correlation) and we effectively observe the same value twice, thereby reducing the variance by half.
+
 
 \subsection{Kalman Filter}
 
@@ -84,6 +110,56 @@ and covariance matrix
 \bee
 \xbf_2 | \ybf_1 \sim \Nc(\hat\xbf_2^P, \Sigmabf_2^P) = \Nc(\Abf \xbf_1^F, \Abf \Sigmabf_1^F \Abf^T + \Qbf)
 \eee
+
+
+\subsection{Results}
+
+We consider movement of a particle with unknown (i.e. to be estimated) velocity. The state vector $\xbf$ contains the position and the velocity of the particle
+
+\bee
+\xbf = \begin{pmatrix} x \\ \dot x \end{pmatrix} 
+\eee
+
+and the state update equation are given by
+
+\bee
+\begin{pmatrix} x_{k+1} \\ \dot x_{k+1} \end{pmatrix} = \begin{pmatrix} x_{k} + \dot x_k \\ \dot x_{k} \end{pmatrix} + \wbf_{k+1}
+\eee
+
+with state space update matrix
+
+\bee
+\Abf = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}
+\eee
+
+We do not observe the velocity, only the position $x$, therefore $\Gbf$ has the following form
+
+\bee
+\Gbf = \begin{pmatrix} 1 & 0 \end{pmatrix}
+\eee
+
+The covariance matrices are given by
+
+\bee
+\Qbf = \begin{pmatrix} 0.1 & 0 \\ 0 & 0.001 \end{pmatrix}, \quad \Rbf = \begin{pmatrix} 0.01 \end{pmatrix}
+\eee
+
+i.e. there is "some" random change in position, but a smaller random change in the (unknown) velocity.
+
+For the simulation we started with a velocity of $\dot x = 1$ for $k<25$ and then increased the velocity to $\dot x=5$. We first show a plot of the true (red) vs the estimated (filtered) position (blue). The stimate follows the true value quite closely.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.5]{images/kalman_1_1.png}
+\end{figure}
+
+Next, we show a plot of the true (red) vs estimated (filtered) velocity (blue). After the velocity step it takes about 25 time steps for the estimate to reach the new velocity.
+
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.5]{images/kalman_1_2.png}
+\end{figure}
 
 
 %%% Local Variables:
