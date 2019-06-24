@@ -2,7 +2,19 @@
 
 \subsection{Introduction}
 
-The entry \ref{2017-02-01:entry} considered the posterior distribution of Gaussian RVs. In particular, a random vector $\xbf$ has distribution
+We have two vectors $\xbf, \ybf$ which are jointly Gaussian with mean and covariance
+
+\bee
+\begin{pmatrix} \bar \xbf \\ \bar \ybf \end{pmatrix}, \quad \begin{pmatrix} \Sigmabf_{xx} & \Sigmabf_{xy} \\ \Sigmabf_{yx} & \Sigmabf_{yy} \end{pmatrix}
+\eee
+
+The distribution of $\xbf | \ybf$ is also Gaussian with (conditional) mean and (conditional) covariance as follows
+
+\bee
+\hat \xbf  + \Sigmabf_{xy} \Sigmabf_{yy}^{-1} (\ybf - \hat \ybf), \quad \Sigmabf_{xx}  - \Sigmabf_{xy} \Sigmabf_{yy}^{-1} \Sigmabf_{yx} 
+\eee \qed
+
+We next apply above theorem to an estimation problem (see also entry \ref{2017-02-01:entry}). Assume a random vector $\xbf$ has distribution
 
 \bee
 p(\xbf) = \Nc(\xbf|\hat\xbf, \Sigmabf)
@@ -20,11 +32,26 @@ and therefore has the following conditional distribution
 p(\ybf | \xbf) = \Nc(\ybf | \Gbf \xbf, \Rbf)
 \eee
 
-The posterior distribution of $\xbf | \ybf$ is then given according to
+Stacking $\xbf$ and $\ybf$ and calculating the mean yields
+
+\bee
+E\left\{ \begin{pmatrix} \xbf \\ \ybf \end{pmatrix} \right\} = \begin{pmatrix} \hat \xbf \\ \Gbf \hat \xbf \end{pmatrix}
+\eee
+
+The correlation matrices are given as follows
+
+\begin{align*}
+\Sigmabf_{xx} &= E\left\{ \xbf \xbf^T \right\} = \Sigmabf \\
+\Sigmabf_{xy} &= E\left\{ \xbf \ybf^T \right\} =  E\left\{ \xbf (\Gbf \xbf + \vbf)^T \right\} = E\left\{ \xbf \xbf^T \Gbf^T \right\} = \Sigmabf \Gbf^T \\
+\Sigmabf_{yx} &= E\left\{ \ybf \xbf^T \right\}  =  \Gbf \Sigmabf \\
+\Sigmabf_{yy} &= E\left\{ \ybf \ybf^T \Gbf^T \right\} = E\left\{ (\Gbf \xbf + \vbf)(\Gbf \xbf + \vbf)^T \Gbf^T \right\} = E\left\{ (\Gbf \xbf \xbf^T + \vbf \vbf^T \right\} = \Gbf \Sigmabf \Gbf^T + \Rbf
+\end{align*}
+
+where we (also) have used statistical independence of $\xbf$ and $\vbf$; i.e. $E\left\{ \xbf \vbf^T \right\} = \zerobf$. The posterior distribution of $\xbf | \ybf$ is then given according to
 
 \bee
 p(\xbf | \ybf) = \Nc(\xbf | \hat\xbf + \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T + \Rbf )^{-1} (\ybf - \Gbf \hat\xbf), \Sigmabf - \Sigmabf \Gbf^T (\Gbf \Sigmabf \Gbf^T + \Rbf)^{-1} \Gbf \Sigmabf
-\eee
+\eee \qed
 
 The posterior mean is a mixture of the prior $\hat\xbf$ and the scaled difference $(\ybf - \Gbf \hat\xbf)$. In the extreme case of perfect prior knowledge $\Sigmabf \rightarrow \zerobf$, we have
 
