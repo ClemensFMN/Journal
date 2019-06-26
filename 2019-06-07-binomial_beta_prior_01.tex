@@ -1,0 +1,74 @@
+\DiaryEntry{Binomial Distribution with Beta prior}{2019-06-07}{Stochastic}
+
+We have a Binomial distribution 
+
+\bee
+P(y=k) = {n \choose k} p^k (1-p)^{n-k}
+\eee
+
+For fun and completeness, let us calculate the maximum-likelihood estimator of $p$ (given $n$ and $k$). We differentiate $P$ wrt to $p$ and set the derivative to zero,
+
+\bee
+\frac{dP}{dp} = {n \choose k} k p^{k-1} (1-p)^{n-k} + {n \choose k} p^k (-1) (1-p)^{n-k-1} = 0
+\eee
+
+Simplifying yields
+
+\begin{align*}
+k p^{k-1} (1-p)^{n-k} - p^k (1-p)^{n-k-1} & = 0 \\
+k(1-p) - (n-k)p &= 0 \\
+\rightarrow p &= \frac{k}{n}
+\end{align*}
+
+This makes intuitively sense as we divide the number of successes $k$ versus the total number of observations, $n$ to get the probability of success, $p$.
+
+\subsection{Beta Distribution}
+
+The Beta distribution of a RV $X$ is defined on $X \in [0,1]$, has two parameters $\alpha, \beta$, and is given by
+
+\bee
+P(X = x) = \frac{x^{\alpha-1} (1-x)^{\beta-1}}{B(\alpha, \beta)}
+\eee
+
+where $B(\alpha, \beta)$ is the Beta function (see also entry \ref{2016-03-30:entry}) which normalizes the pdf; the Beta function is defined exactely this way,
+
+\bee
+B(\alpha, \beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} dx
+\eee
+
+Depending on $\alpha, \beta$, the Beta distribution can take on a variety of different shapes \todo{Make plots}.
+
+\todo{Calc mean}
+
+\bee
+E(X) = \int_0^1 x \frac{x^{\alpha-1} (1-x)^{\beta-1}}{B(\alpha, \beta)} dx = \frac{1}{B(\alpha, \beta)} \int_0^1 x^{\alpha} (1-x)^{\beta-1} dx = \frac{B(\alpha+1, \beta)}{B(\alpha, \beta)} 
+\eee
+
+We can insert the definition of the Beta function, $B(\alpha, \beta) = \frac{B(\alpha) B(\beta)}{B(\alpha+\beta)}$ and obtain
+
+\bee
+E(X) = \frac{ \frac{\Gamma(\alpha+1) \Gamma(\beta)}{\Gamma(\alpha+\beta+1)} }{ \frac{\Gamma(\alpha) \Gamma(\beta)}{\Gamma(\alpha + \beta)} } = \frac{\Gamma(\alpha+1) \Gamma(\alpha+\beta)}{\Gamma(\alpha) \Gamma(\alpha+\beta+1)} = \frac{\alpha}{\alpha + \beta}
+\eee
+
+where we have used the (defining) property of the Gamma function $\Gamma(x+1) = x \Gamma(x)$. \qed
+
+
+What (additionally) makes the Beta distribution interesting is that it is the conjugate prior to the Bernoulli distribution; i.e. a Bernoulli distribution with $p$ distributed according to a  Beta distribution.
+
+We are interested in the posterior pdf 
+
+\bee
+f(p|y) = \frac{P(y | p) f(p)}{P(y)} \propto p^k (1-p)^{n-k} p^{\alpha-1} (1-p)^{\beta-1} = p^{k+\alpha-1} (1-p)^{n-k+\beta-1}
+\eee
+
+This is a Beta distribution with parameters $k+\alpha, n-k+\beta$. The MMSE estimator is the mean of $f(p|y)$ and therefore
+
+\bee
+\hat p_{MMSE} = \frac{k + \alpha}{n + \alpha + \beta}
+\eee
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
