@@ -36,9 +36,23 @@ where $B(\alpha, \beta)$ is the Beta function (see also entry \ref{2016-03-30:en
 B(\alpha, \beta) = \int_0^1 x^{\alpha-1} (1-x)^{\beta-1} dx
 \eee
 
-Depending on $\alpha, \beta$, the Beta distribution can take on a variety of different shapes \todo{Make plots}.
+Depending on $\alpha, \beta$, the Beta distribution can take on a variety of different shapes. We first show plots for $\alpha=0.3, \beta=0.8$ (blue), $\alpha=0.8, \beta=0.3$ (red), and $\alpha=0.5, \beta=0.5$ (green).
 
-\todo{Calc mean}
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.5]{images/beta_dist_1.png}
+\end{figure}
+
+Plots for $\alpha=1.3, \beta=2.5$ (blue), $\alpha=0.3, \beta=1.8$ (red) are shown in the following Figure.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.5]{images/beta_dist_2.png}
+\end{figure}
+
+
+
+We next calculate the mean,
 
 \bee
 E(X) = \int_0^1 x \frac{x^{\alpha-1} (1-x)^{\beta-1}}{B(\alpha, \beta)} dx = \frac{1}{B(\alpha, \beta)} \int_0^1 x^{\alpha} (1-x)^{\beta-1} dx = \frac{B(\alpha+1, \beta)}{B(\alpha, \beta)} 
@@ -55,18 +69,41 @@ where we have used the (defining) property of the Gamma function $\Gamma(x+1) = 
 
 What (additionally) makes the Beta distribution interesting is that it is the conjugate prior to the Bernoulli distribution; i.e. a Bernoulli distribution with $p$ distributed according to a  Beta distribution.
 
-We are interested in the posterior pdf 
+We observe a Bernouli RV $Y=k$ and are interested in the posterior pdf 
 
 \bee
-f(p|y) = \frac{P(y | p) f(p)}{P(y)} \propto p^k (1-p)^{n-k} p^{\alpha-1} (1-p)^{\beta-1} = p^{k+\alpha-1} (1-p)^{n-k+\beta-1}
+f(p|Y=k) = \frac{P(y | p) f(p)}{P(Y=k)} = \frac{{n \choose k} p^k (1-p)^{n-k} \frac{p^{\alpha-1} (1-p)^{\beta-1}}{B(\alpha, \beta)} }{P(Y=k)}
 \eee
 
-This is a Beta distribution with parameters $k+\alpha, n-k+\beta$. The MMSE estimator is the mean of $f(p|y)$ and therefore
+We first tackle $P(Y=k)$,
+
+\begin{align*}
+P(Y=k) = \int_p {n \choose k} p^k (1-p)^{n-k} \frac{p^{\alpha-1} (1-p)^{\beta-1}}{B(\alpha, \beta)} dp &= {n \choose k} \frac{1}{B(\alpha, \beta)} \int_p p^{k + \alpha-1} (1-p)^{n-k+\beta-1} dp \\
+&= {n \choose k} \frac{ B(k + \alpha, n-k+\beta) }{B(\alpha, \beta)}
+\end{align*}
+
+and inserting into $f(p|Y=k)$ yields
 
 \bee
-\hat p_{MMSE} = \frac{k + \alpha}{n + \alpha + \beta}
+f(p|Y=k) = \frac{{n \choose k} p^k (1-p)^{n-k} \frac{p^{\alpha-1} (1-p)^{\beta-1}}{B(\alpha, \beta)} }{ {n \choose k} \frac{ B(k + \alpha, n-k+\beta) }{B(\alpha, \beta)} } = \frac{1}{B(k + \alpha, n-k+\beta} p^{k+\alpha-1} (1-p)^{n-k+\beta-1}
 \eee
 
+This is a Beta distribution with parameters $k+\alpha, n-k+\beta$. The MMSE estimator is the mean of $f(p|Y=k)$ and therefore
+
+\bee
+\hat p_{\text{MMSE}} = \frac{k + \alpha}{n + \alpha + \beta}
+\eee
+
+We used Turing.jl to obtain an MCMC estimate of $p$ (given parameters $\alpha=0.4, \beta=1.0$ and observation $k=2$): The simulation yields 
+
+\begin{verbatim}
+ Row  parameters  mean      std      naive_se  mcse        ess     r_hat  
+      Symbol      Float64   Float64  Float64   Float64     Any     Any    
+
+ 1    p           0.209182  0.1154   0.001154  0.00295325  1274.4  0.9999 
+\end{verbatim}
+
+whereas the anayltcial result yields $\hat p_{\text{MMSE}} \approx 0.2105$.
 
 %%% Local Variables:
 %%% mode: latex
