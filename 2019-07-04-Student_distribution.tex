@@ -1,0 +1,146 @@
+\DiaryEntry{Student Distribution}{2019-07-04}{Stochastic}
+
+\subsection{Estimating Mean and Variance}
+
+We have $N$ observations $x_1 \cdots x_N$ of a Gaussian RV, $X \sim \Nc(\mu, \sigma^2)$ and want to obtain estimates for mean and variance from the samples.
+
+The \emph{sample mean} $\hat \mu$ is given by
+
+\bee
+\hat \mu = \frac{1}{N} \sum_{i=1}^N x_i
+\eee
+
+Its expected value is
+
+\bee
+E\{\hat \mu\} = E\left\{ \frac{1}{N} \sum_{i=1}^N x_i \right\} = \mu
+\eee
+
+which means the estimator is \emph{consistent}. \qed
+
+An intuitive estimator for the variance would be
+
+\bee
+\hat \sigma^2 = \frac{1}{N} \sum_{i=1}^N (x_i - \hat\mu)^2
+\eee
+
+however it turns out that this estimator is \emph{not} consistent; i.e.
+
+\bee
+E\{\hat\sigma^2\} = E\left\{ \frac{1}{N} \sum_{i=1}^N (x_i - \hat\mu)^2 \right\} = \frac{1}{N} \sum_{i=1}^N E\left\{ (x_i - \hat\mu)^2 \right\} = \frac{1}{N} \sum_{i=1}^N E\left\{ x_i^2 - 2 x_i \hat\mu + \hat\mu^2 \right\}
+\eee
+
+Let's tackle the terms one-by-one: We have
+
+\bee
+E\left\{ x_i^2 \right\} = \mu^2 + \sigma^2
+\eee
+
+The next one is a bit more complicated,
+
+\bee
+E\left\{ x_i \hat\mu \right\} = E\left\{ x_i \frac{1}{N} \sum_{j=1}^N x_i \right\} = \frac{1}{N} \left( (N-1) \mu^2 + \mu^2 + \sigma^2 \right) = \mu^2 + \frac{\sigma^2}{N}
+\eee
+
+Here we have used the fact that 
+
+\bee
+E\{x_i x_j\} = \begin{cases} \mu^2 \quad i \neq j \\ \mu^2 + \sigma^2 \quad i=j \\  \end{cases}
+\eee
+
+The two RVs $x_i, x_j$ can be interpreted as mixed DC/AC signals and $E\{x_i x_j\}$ measures the power: If $i \neq j$, then just the power from the DC part (i.e. $\mu$) is relevant as the AC parts cancel each other out (the RVs are independent). If $i = j$, then the full DC and AC power is observed. The first case appears $N-1$-times in the sum above; the latter case only once.
+
+Finally, we have
+
+\bee
+E\left\{ \hat\mu^2 \right\} = E\left\{ \frac{1}{N} \sum_i x_i \sum_j x_j \right\} = \frac{1}{N^2} \left( N (\mu^2 + \sigma^2) + (N^2-N) \mu^2 \right) = \frac{\sigma^2 + N \mu^2}{N}
+\eee
+
+Putting it all together, we obtain
+
+\begin{align*}
+E\{\hat\sigma^2\} &= \frac{1}{N} \sum_{i=1}^N \left( \mu^2 + \sigma^2 - 2 \left( \mu^2 + \frac{\sigma^2}{N} \right) + \frac{\sigma^2 + N \mu^2}{N} \right) = \frac{1}{N} \sum_{i=1}^N \sigma^2 \left(1 - \frac{1}{N} \right) \\ &= \sigma^2 \left(1 - \frac{1}{N} \right) = \sigma^2 \frac{N-1}{N}
+\end{align*}
+
+The bad news is that the estimator is \emph{not} consistent; the good news is that we can derive a consistent estimator $\hat S$ easily as follows. Let's define this new estimator as
+
+\bee
+\hat S = A \hat \sigma^2
+\eee
+
+and we therefore have $E\{\hat S\} = A \sigma^2 \frac{N-1}{N}$. We ask for a value $A$ that $\hat S$ becomes consistent; i.e.
+
+\bee
+A \sigma^2 \frac{N-1}{N} = \sigma^2 \rightarrow A = \frac{N}{N-1}
+\eee
+
+and therefore the consistent estimator becomes
+
+\bee
+\hat S = \frac{1}{N-1} \sum_{i=1}^N (x_i - \hat\mu)^2 \qed
+\eee
+
+A Julia simulation is done \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/student_0.jl}{here}, showing the difference between the biased and unbiased estimator.
+
+
+\subsection{Student Distribution}
+
+If we shift and normalize $\hat \mu$, it becomes Gaussian according to
+
+\bee
+\frac{\hat \mu - \mu}{\sigma / \sqrt{N}} \sim \Nc(0, 1)
+\eee
+
+If we replace the true variance with the sample mean, we obtain
+
+\bee
+t_{n-1} = \frac{\hat \mu - \mu}{\sqrt{\hat S / N} }
+\eee
+
+which has a Student distribution with $N-1$ degrees of freedom. The pdf is given by
+
+\bee
+f_n(x) = \frac{\Gamma\left(\frac{n+1}{2}\right)} {\sqrt{n\pi}~\Gamma\left(\frac{n}{2}\right)}\left(1+\frac{x^{2}}{n}\right)^{-\frac{n+1}{2}}
+\eee
+
+The following Figure shows the pdf: It can be seen that the Student distribution is "fatter" than the Normal distribution; i.e. it falls off less quickly. This effect is stronger for smaller values of $N$.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.65]{images/Student_2.png}
+\end{figure}
+
+
+A simulation result for $N=3$ is shown in the following Figure. The blue dots correspond to the histogram of the simulation, the red curve is the Student distribution and the green curve curve is a $\Nc(0,1)$ Normal distribution.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.65]{images/Student_1.png}
+\end{figure}
+
+Using the fact from above that 
+
+\bee
+t_{n-1} = \frac{\hat \mu - \mu}{\sqrt{\hat S / N} }
+\eee
+
+has Student distribution, we can give confidence intervals for the sample mean $\hat \mu$. The distance between mean $\mu$ and sample mean $\hat \mu$ is therefore distributed according to $t_{n-1} \sqrt{\hat S / N}$ and we have
+
+\bee
+\hat \mu - t^\star \sqrt{\hat S / N} \leq \mu \leq \hat \mu + t^\star \sqrt{\hat S / N}
+\eee
+
+where $t^\star$ is chosen so that a percentage of $p$P (a given confidence interval) is in the interval $[-t^\star; t^\star]$. We define $F_N(t)$ as the cdf of the Student distribution with $N$ degrees of freedom; i.e. $P(T<t) = F(t)$. Since the Student distribution is symmetric, we have $p = F(t^\star) - F(-t^\star)$. Furthermore, if $p$ is concentrated in $[-t^\star; t^\star]$, we must have $\frac{1-p}{2}$ to "the left" and to "the right"; i.e.
+
+\bee
+F(t^\star) = \frac{1-p}{2} + p = \frac{p+1}{2}
+\eee
+
+From this, $t^\star$ can be obtained and therefore the confidence interval. Simulations seem to be tricky as the confidence interval depends on the sample mean (it is around it). When a simulation generates a large batch of $N$ Gaussian RVs per batch, their sample mean will vary (and so the confidence interval).
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
