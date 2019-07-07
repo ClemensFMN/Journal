@@ -136,7 +136,7 @@ where $t^\star$ is chosen so that a percentage of $p$P (a given confidence inter
 F(t^\star) = \frac{1-p}{2} + p = \frac{p+1}{2}
 \eee
 
-From this, $t^\star$ can be obtained and therefore the confidence interval. Simulations seem to be tricky as the confidence interval depends on the sample mean (it is around it). When a simulation generates a large batch of $N$ Gaussian RVs per batch, their sample mean will vary (and so the confidence interval).
+From this, $t^\star$ can be obtained and therefore the confidence interval. Simulation is a bit tricky as the confidence interval depends on the sample mean (it is around it). What we did instead was to generate $N$ normal samples, calculate the confidence interval, and check how often the true mean falls within the confidence interval  
 
 
 
