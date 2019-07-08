@@ -6,9 +6,9 @@ We have $N$ observations $x_1 \cdots x_N$ of a Gaussian RV, $X \sim \Nc(\mu, \si
 
 The \emph{sample mean} $\hat \mu$ is given by
 
-\bee
+\be\label{2019-07-04:eq1}
 \hat \mu = \frac{1}{N} \sum_{i=1}^N x_i
-\eee
+\ee
 
 Its expected value is
 
@@ -76,9 +76,9 @@ A \sigma^2 \frac{N-1}{N} = \sigma^2 \rightarrow A = \frac{N}{N-1}
 
 and therefore the consistent estimator becomes
 
-\bee
+\be\label{2019-07-04:eq2}
 \hat S = \frac{1}{N-1} \sum_{i=1}^N (x_i - \hat\mu)^2 \qed
-\eee
+\ee
 
 A Julia simulation is done \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/student_0.jl}{here}, showing the difference between the biased and unbiased estimator.
 
@@ -126,9 +126,9 @@ t_{n-1} = \frac{\hat \mu - \mu}{\sqrt{\hat S / N} }
 
 has Student distribution, we can give confidence intervals for the sample mean $\hat \mu$. The distance between mean $\mu$ and sample mean $\hat \mu$ is therefore distributed according to $t_{n-1} \sqrt{\hat S / N}$ and we have
 
-\bee
+\be\label{2019-07-04:eq3}
 \hat \mu - t^\star \sqrt{\hat S / N} \leq \mu \leq \hat \mu + t^\star \sqrt{\hat S / N}
-\eee
+\ee
 
 where $t^\star$ is chosen so that a percentage of $p$P (a given confidence interval) is in the interval $[-t^\star; t^\star]$. We define $F_N(t)$ as the cdf of the Student distribution with $N$ degrees of freedom; i.e. $P(T<t) = F(t)$. Since the Student distribution is symmetric, we have $p = F(t^\star) - F(-t^\star)$. Furthermore, if $p$ is concentrated in $[-t^\star; t^\star]$, we must have $\frac{1-p}{2}$ to "the left" and to "the right"; i.e.
 
@@ -136,7 +136,9 @@ where $t^\star$ is chosen so that a percentage of $p$P (a given confidence inter
 F(t^\star) = \frac{1-p}{2} + p = \frac{p+1}{2}
 \eee
 
-From this, $t^\star$ can be obtained and therefore the confidence interval. Simulation is a bit tricky as the confidence interval depends on the sample mean (it is around it). What we did instead was to generate $N$ normal samples, calculate the confidence interval, and check how often the true mean falls within the confidence interval  
+From this, $t^\star$ can be obtained and therefore the confidence interval \eqref{2019-07-04:eq3}. The cool thing is that we observe $N$ RVs from which we \emph{only} know that they are Gaussian, both mean and variance are unknown. Equations \eqref{2019-07-04:eq1}, \eqref{2019-07-04:eq2} provide estimates for mean and variance, and \eqref{2019-07-04:eq3} gives the confidence interval for the mean estimate. Sidenote: A confidence interval for the variance would also be interesting...
+
+Simulation is a bit tricky as the confidence interval depends on the sample mean (it is around it). What we did instead was to generate (lots of) $N$ normal samples, calculate the confidence interval, and check how often the true mean falls within the confidence interval. Simulation is \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/stochastic/student_3.jl}.
 
 
 
