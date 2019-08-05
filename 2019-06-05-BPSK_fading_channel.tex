@@ -6,25 +6,63 @@ We have a binary sequence with bits $b$ which we map onto BPSK symbols $s$ ($0 \
 y = h s + w, \quad w \sim \Nc(0, \sigma_w^2)
 \eee
 
-The receiver makes a hard decision to obtain bit estimates $\hat b$ according to
-
-\bee
-\hat b = \begin{cases} 1 \, \text{if}\, y > 0 \\ 0 \, \text{if}\, y \leq 0 \end{cases}
-\eee
-
 The conditional pdf $f(y|b$ is given by 
 
 \bee
 f(y|s) = \Nc(y, hs, \sigma_w^2)
 \eee
 
-and from this we can retrieve the error probability
+and the receiver makes a hard decision to obtain bit estimates $\hat b$ according to the ML decision rule
 
 \bee
-P(\Ec) = f(y \leq 0 | s = 1) = \int_{y \leq 0} \Nc(y, h, \sigma_w^2) dy = \frac{1}{2} \left[ 1 + \erf \left( \frac{-h}{\sqrt{2\sigma_w^2}} \right) \right]
+\hat b = \arg \max_s f(y|s) = \begin{cases} 1 \quad \text{if}\, yh > 0 \\ 0 \quad \text{if}\, yh \leq 0 \end{cases}
 \eee
 
-\todo{Assume that h has Gaussian distribution, we can now average the error probability over h...}
+From this we can retrieve the error probability
+
+\bee
+P(\Ec) = f(y \leq 0 | s = 1) = \int_{y \leq 0} \Nc(y, h, \sigma_w^2) dy = \frac{1}{2} \left[ 1 + \erf \left( \frac{-h}{\sqrt{2\sigma_w^2}} \right) \right] = \frac{1}{2} \erfc \left( \frac{h}{\sqrt{2\sigma_w^2}} \right)
+\eee
+
+We have the bound $\erfc(x) \leq e^{-x^2}$ whihc becomes close with increasing $x$. \qed
+
+Assume that $h$ is zero-mean Gaussian with unit variance,
+
+\bee
+f(h) = \frac{1}{\sqrt{2 \pi}} e^{-h^2 / \sqrt{2}}
+\eee
+
+Then we can average the error probability over $h$
+
+\bee
+\bar P(\Ec)  = \int_h \frac{1}{2} \erfc \left( \frac{h}{\sqrt{2\sigma_w^2}} \right) \frac{1}{\sqrt{2 \pi}} e^{-h^2 / \sqrt{2}} dh \leq \frac{1}{2 \sqrt{2 \pi} } \int_h e^{ - \frac{h^2}{2 \sigma_w^2}} e^{- \frac{h^2}{\sqrt{2}}} dh
+\eee
+
+where we have used the bound for the complementary error function. We can further rewrite this as
+
+\bee
+\bar P(\Ec) \leq \frac{1}{2 \sqrt{2 \pi} } \int_h \exp \left(- h^2 \frac{ \sqrt{2} + 2\sigma_w^2}{2 \sqrt{2\sigma_w^2}}  \right) dh
+\eee
+
+In order to evaluate this further, we note
+
+\bee
+\int_x \frac{1}{\sqrt{2\pi \sigma^2}} e^{- \frac{-x^2}{2\sigma^2}} dx = 1 \rightarrow A \int_x  e^{- \frac{-x^2}{2\sigma^2}} dx = A \sqrt{2\pi \sigma^2}
+\eee
+
+In our error expression, we have
+
+\bee
+\sigma^2 = \frac{\sqrt{2\sigma_w^2}}{\sqrt{2} + 2\sigma_w^2}
+\eee
+
+and the result becomes
+
+\bee
+\bar P(\Ec) \leq \frac{1}{2 \sqrt{2 \pi} } \sqrt{2 \pi \frac{\sqrt{2\sigma_w^2}}{\sqrt{2} + 2\sigma_w^2} }
+\eee
+
+\todo{This produces a different slope in the simulation - maybe something is wrong here...}
 
 %%% Local Variables:
 %%% mode: latex
