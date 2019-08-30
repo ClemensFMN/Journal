@@ -74,7 +74,7 @@ E &= 1 \rho(1-\rho) + 2 \rho^2(1-\rho)+  3 \rho^3(1-\rho) + \cdots \\
   &= (1-\rho) \rho \frac{1}{(1-\rho)^2} = \frac{\rho}{1 - \rho} \qed
 \end{align*}
 
-At present, this is somewhat complicated to simulate... Let's see.
+Simulation can be found \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/SimJulia/discrete_time_queue.jl}{here}. Basic idea is to realize that the state transitions are governed by a categorical distribution (which, howeve,r is different for the zero-state and all other states) with probabilities according to above Figure.
 
 
 %%% Local Variables:
