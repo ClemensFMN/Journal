@@ -1,0 +1,97 @@
+\DiaryEntry{Exponential Distribution, 1}{2019-08-30}{Stochastic}
+
+The exponential distribution is given by
+
+\bee
+f(x) = \lambda e^{- \lambda x}, \quad x \geq 0
+\eee
+
+with corresponding CDF
+
+\bee
+F(x) = P(X < x) = \int_{t=0}^x \lambda e^{- \lambda t} dt = \left. -e^{-\lambda t} \right|_{t=0}^x = 1 - e^{-\lambda x}
+\eee
+
+and complementary cdf
+
+\bee
+\bar F(x) = P(X > x) = e^{-\lambda x} 
+\eee
+
+The exponential distribution has the memoryless property (it is the only continuous distribution with this property),
+
+\bee
+P(X > s+t | X > s) = \frac{P(X > s+t)}{P(X>s)} = \frac{e^{-\lambda (s+t)}}{e^{-\lambda s}} = e^{-\lambda t} = P(X > t)
+\eee
+
+We can understand this by interpreting $X$ as a the lifetime of a device. Modeling $X$ as memoryless means that the probability for the device surving another $t$ seconds after it has already survived $s$ seconds of operation is the same as the probability that the device has survived $t$ seconds (independent of $s$).
+
+We can extend this by introducing the \emph{failure rate function} $r(t)$ as follows,
+
+\bee
+r(t) = \frac{f(t)}{\bar F(t)}
+\eee
+
+We can interpret this expression by considering the probability that a $t$-year old item will fail during the next $dt$ seconds
+
+\bee
+P(X \in (t + dt) | X > t) = \frac{P(X \in (t + dt))}{P(X>t)} \approx \frac{f(t) dt}{\bar F(t)} = r(t) dt
+\eee
+
+and therefore $r(t)$ is the instantenuous failure rate of a $t$-year old item. When $r(t)$ is increasing with $t$, we talk of an increasing failure rate. The longer the device has survived, the more likely a failure becomes. This is the case with an old car where we expect (more) issues after a certain lifespan.
+
+When $r(t)$ is decreasing with $t$, we talk of a decreasing failure rate. The longer the device has survived, the less likely it is to break. This is the case in chip fabrication where chips tend to fail early on and when they have survided this phase, are less likely to fail.
+
+The middle case of a constant failure rate function yields an exponential distribution.
+
+
+\subsection{Delta Steps}
+
+tbd
+
+\subsection{Interesting Properties}
+
+The exponential distribution has a number of nice properties which we discuss in the following.
+
+\paragraph{Probability of $X_1 < X_2$.}. We consider two RVs with an exponential distribution and parameter $\lambda_1, \lambda_2$, respectively. We calculate the probability $P(X_1 < X_2)$ as follows,
+
+\bee
+P(X_1 < X_2) = \int_{a=0}^\infty P(X_1 < X_2 | X_2 = a) f_2(a) da = \int_{a=0}^\infty (1 - e^{-\lambda_1 a}) \lambda_2 e^{-\lambda_2 a} da = \cdots = \frac{\lambda_1}{\lambda_1 + \lambda_2}
+\eee
+
+\paragraph{Probability of $X_1 > X_2$.} Same setup, different probability,
+
+\bee
+P(X_1 > X_2) = \int_{a=0}^\infty P(X_1 > X_2 | X_2 = a) f_2(a) da = \int_{a=0}^\infty e^{-\lambda_1 a} \lambda_2 e^{-\lambda_2 a} da = \cdots = \frac{\lambda_2}{\lambda_1 + \lambda_2}
+\eee
+
+\paragraph{Distribution of Minimum.} Now we define a new RV $X$ as
+
+\bee
+X = \min (X_1, X_2)
+\eee 
+
+We calculate the CCDF $P(X > t)$ as
+
+\begin{align*}
+P(X > t) &= P( \min(X_1, X_2) > t) = P( X_1 > t \, \text{and} \, X_2 > t) = P(X_1 > t) P(X_2 > t) \\ &= e^{-\lambda_1 t} e^{-\lambda_2 t} = e^{- (\lambda_1 + \lambda_2)t}
+\end{align*}
+
+where we have used the fact for being $X_1$ and $X_2$ independent. The CCDF is the CCDF of an exponential distribution with parameter $\lambda_1 + \lambda_2$. So
+
+\bee
+X = \min (X_1, X_2) \sim \text{Exponential}(\lambda_1 + \lambda_2)
+\eee
+
+\paragraph{Distribution of Maximum.} Now we define a new RV $X$ as
+
+\bee
+X = \max (X_1, X_2)
+\eee 
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
