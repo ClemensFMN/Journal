@@ -18,6 +18,40 @@ and complementary cdf
 \bar F(x) = P(X > x) = e^{-\lambda x} 
 \eee
 
+
+For completeness, we note that the mean $E(X)$ is given by
+
+\begin{align*}
+E(X) &= \int_{t=0}^\infty x \lambda e^{- \lambda x} dx = \lambda \int_{t=0}^\infty x e^{- \lambda x} dx = \lambda \left( -\frac{1}{\lambda} x e^{-\lambda x} \left. \right|_{x=0}^\infty + \int_{t=0}^\infty \frac{1}{\lambda} e^{- \lambda x} dx \right) \\
+&= \lambda \left( 0 + \frac{1}{\lambda}  \int_{t=0}^\infty e^{- \lambda x} dx \right) = \cdots = \frac{1}{\lambda}
+\end{align*}
+
+where we used partial integration with $u' = e^{-\lambda x}$ and $v = x$. Then $u = -\frac{1}{\lambda}e^{-\lambda x}$, and $v' = 1$.
+
+The variance calculation seems to be even more messier ($\int x^2 \lambda e^{-\lambda x}dx$), let us go via the moment generating function (MGF) instead. The MGF $M_X(t)$ is defined according to
+
+\bee
+M_X(t) = E(e^{t X}) = \int_{x=0}^\infty e^{tx} \lambda e^{-\lambda x} dx = \lambda \int_{x=0}^\infty e^{(t - \lambda) x} dx = \frac{1}{t - \lambda} e^{x(t-\lambda)}\left. \right|_{x=0}^\infty = \frac{\lambda}{\lambda-t} \qed
+\eee
+
+We can use the MGF to calculate moments as follows,
+
+\bee
+E{X^n} = \frac{d^n M_X(t)}{dt^n}\left. \right|_{t=0}
+\eee
+
+and for the exponential distribution we have (using Maxima)
+
+\bee
+E(X^2) = \frac{d^2 M_X(t)}{dt^2}\left. \right|_{t=0} = \frac{2 \lambda}{(\lambda-t)^3}\left. \right|_{t=0} = \frac{2}{\lambda^2}
+\eee
+
+The variance is then
+
+\bee
+E(X^2) - E^2(X) = \frac{2}{\lambda^2} - \frac{1}{\lambda^2} = \frac{1}{\lambda^2} \qed
+\eee
+
 The exponential distribution has the memoryless property (it is the only continuous distribution with this property),
 
 \bee
@@ -44,10 +78,6 @@ When $r(t)$ is decreasing with $t$, we talk of a decreasing failure rate. The lo
 
 The middle case of a constant failure rate function yields an exponential distribution.
 
-
-\subsection{Delta Steps}
-
-tbd
 
 \subsection{Interesting Properties}
 
@@ -83,11 +113,36 @@ where we have used the fact for being $X_1$ and $X_2$ independent. The CCDF is t
 X = \min (X_1, X_2) \sim \text{Exponential}(\lambda_1 + \lambda_2)
 \eee
 
+This can be generalized to the case of $n$ exponential RVs,
+
+\bee
+X = \min (X_1, X_2, \ldots, X_n)
+\eee
+
+which has CCDF
+
+\bee
+P(X > t) = P(X_1 > t) \cdots P(X_n > t) = e^{-\lambda_1 t} \cdots e^{-\lambda_n t} = e^{-(\lambda_1 + \cdots \lambda_n) t}
+\eee
+
+which is an exponential RV with parameter $\lambda_1 + \cdots \lambda_n$.
+
 \paragraph{Distribution of Maximum.} Now we define a new RV $X$ as
 
 \bee
 X = \max (X_1, X_2)
 \eee 
+
+In this case the CDF can be expressed simply; we have
+
+\begin{align*}
+P(X < t) &= P( X_1 < t \, \text{and} \, X_2 < t) = P(X_1 < t) P(X_2 < t) \\
+&= (1-e^{-\lambda_1 t})(1-e^{-\lambda_2 t}) = 1 - e^{-\lambda_1 t} - e^{-\lambda_2 t} + e^{-(\lambda_1 + \lambda_2)t}
+\end{align*}
+
+This looks nice for sure, but is not an exponential distribution (we can also check the pdf, $f(t) = dP(X<t) / dt$).
+
+
 
 
 
