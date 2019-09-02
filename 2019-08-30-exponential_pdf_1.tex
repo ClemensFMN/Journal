@@ -143,8 +143,23 @@ P(X < t) &= P( X_1 < t \, \text{and} \, X_2 < t) = P(X_1 < t) P(X_2 < t) \\
 This looks nice for sure, but is not an exponential distribution (we can also check the pdf, $f(t) = dP(X<t) / dt$).
 
 
+\paragraph{Sum of two exponential RVs.} Now consider
 
+\bee
+Z = X_1 + X_2
+\eee
 
+and obtain the pdf by convolving the two pdfs,
+
+\begin{align*}
+f_Z(z) &= \int_{x=0}^z f_{X_1}(x) f_{X_2}(z - x) dx = \int_{x=0}^z \lambda_1 e^{-\lambda_1 x} \lambda_2 e^{-\lambda_2(z-x)} dx \\ &= \lambda_1 \lambda_2 e^{-\lambda_2 z} \int_{x=0}^z e^{-\lambda_1 x + \lambda_2 x} dx = \cdots \frac{\lambda_1 \lambda_2}{\lambda_2 - \lambda_1} \left( e^{-\lambda_1 z} - e^{-\lambda_2 z} \right)
+\end{align*}
+
+Slightly different is the case when $\lambda_1 = \lambda_2 = \lambda$. We have
+
+\bee
+f_Z(z) = \lambda^2 e^{-\lambda z} \int_{x=0}^z e^{-\lambda x} e^{\lambda x} dx = \lambda^2 z e^{-\lambda z}
+\eee
 
 %%% Local Variables:
 %%% mode: latex
