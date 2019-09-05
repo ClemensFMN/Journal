@@ -1,17 +1,20 @@
-\DiaryEntry{Queueung Theory, Continuous-time Markov Chain}{2019-09-02}{Stochastic}
+\DiaryEntry{Queuing Theory, Continuous-time Markov Chain}{2019-09-02}{Stochastic}
 
-The main idea behind a continuous-time Markov chain (CTMC) is to have a Markov chain which changes state at time according to a Poisson process.
+Heavily based on Mor Harchol-Balter, "Performance Modeling and Design of Computer Systems".
 
-\begin{itemize}
+The main idea behind a continuous-time Markov chain (CTMC) is to have a Markov chain which changes state at time according to a Poisson process. There are two equivalent views on how the state transitions work.
 
-	\item Each time the process enters state $i$, it stays in this state for a random time distributed according to an exponential distribution with parameter $\delta_i$ before it goes into the next state.
+\paragraph{View 1.} When the process enters state $i$, the amount of time the process stays in the state $i$ before maing a transition follows an exponential distribution with some rate $\nu_i$. When the process leaves the state $i$, it will enter state $j$ with some probability $p_{ij}$.
 
-	\item When the process makes a state transition, it goes from state $i$ to state $j$ with a certain transition probability.
+This probability $p_{ij}$ is constant and independent of "absolue" time $t$ and is also independent of the time spent in state $i$. At the point in time before we make the state transition, the only thing that matters is that we are in state $i$. 
 
-\end{itemize}
+\paragraph{View 2.} Here we consider several RVs, $X_i \sim \text{Exponential}(\nu_i p_{ij})$ each representing the time to transition from state $i$ to $j$. The time to actually leaving state $i$ is then $\min X_i$ and the new state is $\arg \min X_i$.
 
 
-The formal definition is as follows: A continuous-time Markov chain $\{X_t, t > 0\}$ is defined by the property that for all real numbers $s,t \leq 0$ and $0 \leq v < s$ and integers $i,j,k \geq 0$
+
+\subsection{Markov Property}
+
+The Markov property for CTMCs is as follows: For all real numbers $s,t \leq 0$ and $0 \leq v < s$ and integers $i,j,k \geq 0$ we have
 
 \bee
 P(X_{t+s} =j | X_t=i, X_v=k_v, v \leq t) = P(X_{t+s} = j | X_t = i) = P_{ij}(t)
@@ -23,9 +26,9 @@ In addition, we define the quantitiy $\tau_i$ as the time the CTMC leaves state 
 
 
 
-\subsection{Example}
 
-Let us consider an example with an inifinte queue in front of a server as shown below. Jobs arrive according to a Poisson process with rate $\lambda$, the computation time (service demand in the Figure) follows an exponential distribution with prameter $\mu$.
+
+Let us consider a system with an inifinte queue in front of a server as shown below. Jobs arrive according to a Poisson process with rate $\lambda$, the computation time (service demand in the Figure) follows an exponential distribution with prameter $\mu$.
 
 \begin{figure}[hbt!]
 \centering
@@ -65,11 +68,13 @@ What we are interested in are the limiting probabilties for being in state $i$,
 \pi_i = \lim_{t \rightarrow \infty} P_{ij}(t)
 \eee
 
-The idea is to convert the DTMC from above into a DTMC and solve this for the limiting probabilities: The arrival and departures are independent and we model them by flipping two coins simultaneously every $\delta$-step (with $\delta \rightarrow 0$).
+The idea is to convert the DTMC from above into a DTMC and solve this for the limiting probabilities. This is done in the following. 
+
+The arrival and departures are independent and we model them by flipping two coins simultaneously every $\delta$-step (with $\delta \rightarrow 0$).
 
 The first coin represents arrivals, is flipped every $\delta$-step, and returns "arrival" with probability $\lambda \delta$; with probability $(1-\lambda)\delta$ nothing happens.
 
-In a similar spirit, the second coin represents departrues, is flipped every $\delta$-step, and returns "departure" with probability $\mu \delta$; with probability $(1-\mu)\delta$ nothing happens.
+In a similar spirit, the second coin represents departures, is flipped every $\delta$-step, and returns "departure" with probability $\mu \delta$; with probability $(1-\mu)\delta$ nothing happens.
 
 Now we can combine the outcome of the two (independent) coin flips
 
@@ -87,12 +92,12 @@ Now we can combine the outcome of the two (independent) coin flips
 
 The corresponding DTMC is shown below.
 
-\begin{figure}[hbt!]
+\begin{figure}[hbt]
 \centering
 \includegraphics[scale=0.75]{images/queuing_02_03.png}
 \end{figure}
 
-We can solve this DTMC with observing $\delta^2 \rightarrow 0$ and arrive at the following set of equations
+Omitting several steps (which are rather sloppy / shortened in the book as well), we can solve this DTMC with observing $\delta^2 \rightarrow 0$. Then we arrive at the following set of equations
 
 \begin{align*}
 \pi_0 \lambda &= \pi_1 \mu \\
@@ -100,18 +105,70 @@ We can solve this DTMC with observing $\delta^2 \rightarrow 0$ and arrive at the
 \pi_2(\lambda + \mu) &= \pi_1 \lambda + \pi_3 \mu
 \end{align*}
 
-Looking at the CTMC state diagram (replicated below), we can see that above equations are corresponding to it; however, $\mu$ and $\lambda$ are not probabilities.
+We can solve this system inductively and this yields the general expression,
 
-The general approach to solving a CTMC is therefore to write the balance equations down and solving them.
+\bee
+\pi_i = \left( \frac{\lambda}{\mu}\right)^i \pi_0
+\eee
+
+Together with the condition $\sum_i \pi_i = 1$ we obtain
+
+\bee
+\sum_i \pi_i = \pi_0 \sum_i \left( \frac{\lambda}{\mu} \right)^i = \pi_0 \frac{1}{1 - \frac{\lambda}{\mu} } = 1
+\eee
+
+from which follows $\pi_0 = 1 - \frac{\lambda}{\mu}$. We finally arrive at
+
+\bee
+\pi_i = \left( 1 - \frac{\lambda}{\mu} \right) \left(\frac{\lambda}{\mu}\right)^i
+\eee
+
+This equation is the basis for further analysis in the next entry.
 
 
-\begin{figure}[hbt!]
-\centering
-\includegraphics[scale=0.75]{images/queuing_02_02.png}
-\end{figure}
+\subsection{Simpler Example, $2$ States}
+
+Now consider a simple CTMC with two states, $1,2$. The rate for a state transition from $1$ to $2$ is $a$, the rate for going from state $2$ to state $1$ is $b$. This is shown in the following Figure.
 
 
+\vspace*{7mm}
 
+\begin{tikzpicture}
+
+  \SetUpEdge[lw=1.5pt, color=blue]
+
+  \GraphInit[vstyle=Normal]
+  \SetGraphUnit{4}
+  \tikzset{VertexStyle/.append style={fill}}
+
+  \Vertex[x=0, y=0]{1}
+  \Vertex[x=4, y=0]{2}
+  
+  \tikzset{EdgeStyle/.style={->}}
+
+  \Edge[label=$a$](1)(2)
+  
+  \tikzset{EdgeStyle/.append style = {bend right}}
+  
+  \Edge[label=$b$](2)(1)
+
+\end{tikzpicture}
+
+
+The balance equations are as follows,
+
+\begin{align*}
+\pi_1 a &= \pi_2 b \\
+\pi_1 + \pi_2 &= 1
+\end{align*}
+
+We can solve these equations and arrive at the following for the stationary probabilities,
+
+\bee
+\pi_1 = \frac{b}{a+b} ,\quad \pi_2 = \frac{a}{a+b}
+\eee
+
+The higher the "incoming" rate $b$ is compared to the "outgoing" rate $a$, the higher the probability to be in state $1$.
 
 
 %%% Local Variables:
