@@ -140,7 +140,34 @@ P(X < t) &= P( X_1 < t \, \text{and} \, X_2 < t) = P(X_1 < t) P(X_2 < t) \\
 &= (1-e^{-\lambda_1 t})(1-e^{-\lambda_2 t}) = 1 - e^{-\lambda_1 t} - e^{-\lambda_2 t} + e^{-(\lambda_1 + \lambda_2)t}
 \end{align*}
 
-This looks nice for sure, but is not an exponential distribution (we can also check the pdf, $f(t) = dP(X<t) / dt$).
+This looks nice for sure, but is not an exponential distribution. We can calculate the pdf according to
+
+\bee
+f_X(t) = \lambda_1 e^{-\lambda_1 t} + \lambda_2 e^{-\lambda_2 t} + (\lambda_1 + \lambda_2) e^{-(\lambda_1 + \lambda_2)t}
+\eee
+
+which (also) shows that this is not an exponential distribution. The mean is
+
+\bee
+E(X) = \frac{1}{\lambda_1} + \frac{1}{\lambda_2} - \frac{1}{\lambda_1 + \lambda_2}
+\eee
+
+When the $\lambda$s differ much in size, say $\lambda_2 \gg \lambda_1$, the distribution for $X_2$ falls off much steeper and the maximum $X$ is dominated by $X_1$. In this case we can approximate $X$ for large values with an exponential distribution
+
+\bee
+f_X(t) \approx \lambda_1 e^{- \lambda_1 t}
+\eee
+
+This is shown in the following Figure for $\lambda_1=0.5, \lambda_2=5$.
+
+The notable difference however, is that $f_X(0) = 0$ which does not hold true for the exponential distribution. In scenarios where this is important, the approximation will fail. 
+
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.5]{images/exp_pdf_1_1.png}
+\end{figure}
+
 
 
 \paragraph{Sum of two exponential RVs.} Now consider
