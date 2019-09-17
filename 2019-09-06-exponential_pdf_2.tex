@@ -20,7 +20,7 @@ and the pdf can be obtained as
 f_X(t) = \frac{dP(X<t)}{dt} = \lambda N e^{-\lambda t}\left( 1 - e^{-\lambda t}\right)^{N-1}
 \eee
 
-The following plot shows the pdf of $X_1$, the pdf of $X$ for $N=5$ and $N=10$, respectively.
+The following Figure shows the pdf of $X_1$ (blue), and the pdfs of $X$ for $N=5$ (red) and $N=10$ (green), respectively (for $\lambda = 1/2$).
 
 \begin{figure}[hbt!]
 \centering
@@ -33,8 +33,31 @@ Larger values of $N$ move the maximum of the pdf to the right; Maxima (see \href
 t^\star = \frac{\log N}{\lambda}
 \eee
 
+We can calculate the location of the minimumby standard methods; we have
 
+\bee
+\frac{d f_X(t)}{dt} = \lambda N (-\lambda) e^{-\lambda t} \left(1 - e^{-\lambda t} \right)^{N-1} + \lambda N e^{-\lambda t} (-\lambda) \left( - e^{-\lambda t} \right) (N-1) \left(1 - e^{-\lambda t} \right)^{N-2}
+\eee
 
+Setting this to zero and simplifying yields
+
+\bee
+\frac{d f_X(t)}{dt} = (N-1) e^{-\lambda t} - \left(1 - e^{-\lambda t} \right) = 0
+\eee
+
+and we further obtain
+
+\bee
+e^{-\lambda t} \left[N-1+1\right]-1 = 0
+\eee
+
+and from this follows
+
+\bee
+t^\star = \frac{\log N}{\lambda}
+\eee
+
+as location for the maximum. \qed
 
 %%% Local Variables:
 %%% mode: latex
