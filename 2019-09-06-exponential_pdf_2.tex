@@ -27,6 +27,8 @@ The following Figure shows the pdf of $X_1$ (blue), and the pdfs of $X$ for $N=5
 \includegraphics[scale=0.7]{images/exp_pdf_2_1.png}
 \end{figure}
 
+\subsection{Position of Maximum}
+
 Larger values of $N$ move the maximum of the pdf to the right; Maxima (see \href{files/2019-09-06-exponential_pdf_3.wxmx}{file}) indicates that the position $t^\star$ of the maximum follows
 
 \bee
@@ -58,6 +60,16 @@ t^\star = \frac{\log N}{\lambda}
 \eee
 
 as location for the maximum. \qed
+
+\subsection{Limit for large $N$}
+
+According to David, Nagaraja, Order Statistics, Problem 2.1.3, the limiting cdf for $N \rightarrow \infty$ becomes
+
+\bee
+e^{- e^{-x}} - \log N
+\eee
+
+Unsure how to show this and whether this is correct...
 
 %%% Local Variables:
 %%% mode: latex
