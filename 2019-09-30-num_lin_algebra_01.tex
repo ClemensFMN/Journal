@@ -1,0 +1,21 @@
+\DiaryEntry{Numerical Linear Algebra}{2019-09-30}{Numercial Maths}
+
+\subsection{Matrix $\times$ Vector}
+
+First we consider a multiplication $m \times n$ matrix $\Abf$ with an $n$-element vector $\abf$. We can rewrite the product as linear combination of the matrix columns with the vector elements as weigths,
+
+\bee
+\Abf \vbf = [\abf_1 \abf_2 \cdots \abf_n] \begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \end{bmatrix} = \abf_1 v_1 + \abf_2 v_2 + \cdots + \abf_n v_n
+\eee
+
+Based on this interpretation, we can define the \emph{range} of a matrix as the vector space spanned by the columns of $\Abf$. The \emph{nullspace} of the matrix $\Abf$ is the set of vectors for which $\Abf x = \zerobf$. The \emph{column rank} of a matrix is the dimension of its column space. The \emph{row rank} of a matrix is the dimension of its row space. Interestingly, the column rank is always equal the column rank.
+
+Therefore, an $m \times n$ matrix can have a maximum rank of $\min(m,n)$
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
