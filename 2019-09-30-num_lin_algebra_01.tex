@@ -8,12 +8,121 @@ First we consider a multiplication $m \times n$ matrix $\Abf$ with an $n$-elemen
 \Abf \vbf = [\abf_1 \abf_2 \cdots \abf_n] \begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \end{bmatrix} = \abf_1 v_1 + \abf_2 v_2 + \cdots + \abf_n v_n
 \eee
 
-Based on this interpretation, we can define the \emph{range} of a matrix as the vector space spanned by the columns of $\Abf$. The \emph{nullspace} of the matrix $\Abf$ is the set of vectors for which $\Abf x = \zerobf$. The \emph{column rank} of a matrix is the dimension of its column space. The \emph{row rank} of a matrix is the dimension of its row space. Interestingly, the column rank is always equal the column rank.
+Based on this interpretation, we can define the \emph{range} of a matrix as the vector space spanned by the columns of $\Abf$. The \emph{nullspace} of the matrix $\Abf$ is the set of vectors for which $\Abf x = \zerobf$.
 
-Therefore, an $m \times n$ matrix can have a maximum rank of $\min(m,n)$
+\paragraph{Rank.} The \emph{column rank} of a matrix is the dimension of its column space. The \emph{row rank} of a matrix is the dimension of its row space. Interestingly, the column rank is always equal the column rank.
 
+Therefore, an $m \times n$ matrix can have a maximum rank of $\min(m,n)$. If this is the case, the matrix is said to be \emph{full-rank}. In this case it maps to two distinct vectors to the same vector.
 
+If $\Abf$ is full-rank, then its columns are linearly independent and form a biass fir $\Abf$. This means that every $\bbf \in \text{range}(\Abf)$ has a unique expansion in terms of the columns of $\Abf$ and therefore $\bbf$ has a unique $\xbf$ such that $\bbf = \Abf \xbf$. If $\Abf$ is not full-rank, its columns are not independent and there is a non-trivial combination $\sum_i c_i \abf_i = \zerobf$. The non-zero vector $\cbf$ formed from the coefficients $c_j$ satisifies $\Abf \cbf = \zerobf$. But then $\Abf$ maps distinct vectors to the same vector because we have $\Abf \xbf = \Abf(\xbf + \cbf)$.
 
+\paragraph{Inverse.} 
+
+A \emph{nonsingular} or \emph{inverstible} matrix is a square matrix of full rank. The $m$ columns of a nonsingular $m \times m$ matrix $\Abf$ for a basis for the whole space $\mC^m$ or $\mR^m$. Any vector can therefore be uniquely expressed as a linear combination of its columns. In particular, the $j$-th unit vector $\ebf_j$ can be expressed as linear combination
+
+\bee
+\ebf_j = \sum _i z_{ij} \abf_i
+\eee
+
+Let $\Zbf$ be the matrix with entries $z_{ij}$ and let $\zbf_j$ denote the $j$-thcolumn. Then we have $\ebf_j = \Abf \zbf_j$ and $\Ibf = \Abf \Zbf$ wit identity matrix $\Ibf$ and \emph{inverse} of $\Abf$. We write $\Abf^{-1}$ for the inverse and therefore $\Abf \Abf^{-1} = \Ibf$.
+
+The following theorem links several conditions that hold when a square matrix is nonsingular.
+
+\begin{theorem}
+  For $\Abf \in \mC^{m \times m}$, the following conditions are equivalent:
+
+  \begin{itemize}
+  \item $\Abf$ has an inverse $\Abf^{-1}$,
+  \item $\text{rank}(\Abf) = m$,
+  \item $\text{range}(\Abf) = m$,
+  \item $\text{null}(\Abf) = \{0\}$,
+  \item $0$ is not an eigenvalue of $\Abf$,
+  \item $0$ is not a singular value of $\Abf$,
+  \item $\det(\Abf) \neq 0$.
+\end{itemize}
+\end{theorem}
+
+\subsection{Orthogonal Vectors and Matrices}
+
+A \emph{hermitian conjugate} or \emph{adjoint} $\Abf^\star$ of an $m \times n$ matrix $\Abf$ is the $n \times m$ matrix whose $i-j$-th entry is the complex conjugate of the $j-i$-th entry of $\Abf$. If $\Abf = \Abf^\star$, then $\Abf$ is \emph{hermitian}.
+
+In case of real $\Abf$, the adjoint interchanges rows and columns and is also denoted as \emph{transpose}, written as $\Abf^T$. 
+
+\paragraph{Innter Product.} The inner product of two vectors $\xbf$ and $\ybf$ is given by $\xbf^T \ybf$ and the Euclidian length of $\abf$ is
+
+\bee
+|| \xbf || = \sqrt{\xbf^T \xbf} = \left( \sum_i x_i^2 \right)^{1/2}
+\eee
+
+The cosine of the angle $\alpha$ between two vectors is given by
+
+\bee
+\cos \alpha = \frac{\xbf^T \ybf}{||\xbf|| ||\ybf||}
+\eee
+
+Two vectors are \emph{orthogonal} if their inner product is zero.
+
+The inner product is bilinear which means
+
+\begin{align*}
+  (\xbf_1 + \xbf_2)^T \ybf &= \xbf_1^T \ybf + \xbf_2^T \ybf \\
+  \xbf^T(\ybf_1 + \ybf_2) &= \xbf^T \ybf_1 + \xbf^T \ybf_2 \\
+  (\alpha \xbf)^T (\beta \ybf) &= \alpha \beta \xbf^T \ybf
+\end{align*}
+
+In a similar spirit, we also have for matices
+
+\bee
+(\Abf \Bbf)^T = \Bbf^T \Abf^T
+\eee
+
+and
+
+\bee
+(\Abf \Bbf)^{-1} = \Bbf^{-1} \Abf^{-1}
+\eee
+
+\paragraph{Orthogonal Vectors.} A set $\Sc$ of non-zero vectors is \emph{orthogonal} if the elements are pairwise orthogonal. The set is \emph{orthonormal} if it is orthogonal and all vectors have unit-length.
+
+Using orthonormal vectors, we can decompose any vector into orthogonal components. Suppose we have a set of orthonormal vectors, $\Sc = \{\qbf_1 , \ldots, \qbf_N\}$, and let $\vbf$ be an arbitrary vector. We can calculate the residual vector
+
+\bee
+\rbf = \vbf - (\vbf^T \qbf_1) \qbf_1 - (\vbf^T \qbf_2) \qbf_2 - \cdots - (\vbf^T \qbf_N) \qbf_N
+\eee
+
+This residual vector is orthogonal to $\Sc$ as
+
+\bee
+\qbf_k^T \rbf = \qbf_k^T \vbf - (\vbf^T \qbf_1) \qbf_k^T \qbf_1 - (\vbf^T \qbf_2) \qbf_k^T \qbf_2 - \cdots - (\vbf^T \qbf_N) \qbf_k^T \qbf_N 
+\eee
+
+All terms $\qbf_k^T \qbf_i$ vanish for $k \neq i$ and we have
+
+\bee
+\qbf_k^T \rbf = \qbf_k^T \vbf - (\vbf^T \qbf_k) \qbf_k^T \qbf_k = \qbf_k^T \vbf - (\vbf^T \qbf_k) = 0
+\eee
+
+Thus we see that we decompose $\vbf$ into $N+1$ orthogonal components
+
+\bee
+\vbf = \rbf + \sum_{i=1}^N (\qbf_i^T \vbf) \qbf_i
+\eee
+
+In this decomposition, $\rbf$ is the part of $\vbf$ which is orthogonal to the vector set $\Sc$. If the vector set $\Sc$ is a basis for $\mR^m$, then $n = m$ and $\rbf$ is the zero vector; i.e. we can decompose $\vbf$ into the $N$ vectors $\{\qbf_i\}$,
+
+\bee
+\vbf = \sum_{i=1}^N (\qbf_i^T \vbf) \qbf_i
+\eee
+
+\paragraph{Unitary Matrices.} A square matrix $\Qbf$ is \emph{unitary}, if $\Qbf^\star = \Qbf^{-1}$; i.e. if $\Qbf^\star \Qbf = \Ibf$. From the last expression we deduce that the columns of a unitary matrix form a basis for $\mC^m$.
+
+The inner product is an invariant under multiplication with unitary matrices; we have
+
+\bee
+(\Qbf \xbf)^T (\Qbf \xbf) = \xbf^T \Qbf^T \Qbf \xbf = \xbf^T \xbf
+\eee
+
+This also implies that the vector length does not change when the the vector is multiplied by a unitary matrix. If a unitary matrix $\Qbf$ is real and $\det \Qbf = 1$, then multiplication corresponds to a rigid rotation; if $\det \Qbf = -1$, then multiplication corresponds to reflection.
 
 %%% Local Variables:
 %%% mode: latex
