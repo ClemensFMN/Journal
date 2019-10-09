@@ -101,6 +101,83 @@ We can do this with a more complex matrix as well,
 We can solve this and obtain for the induced norm $5.465$; this matches with the largest singular value. The corresponding vector is $[0.576 \;\; 0.817]^T$.
 
 
+\subsection{Special Cases}
+
+\paragraph{$p$-Norm of a Diagonal Matrix.} Let the diagonal matrix be
+
+\bee
+\Dbf = \text{diag}(d_1 d_2 \cdots d_m)
+\eee
+
+then the norm is given by $|| \Dbf ||_p = \max_i d_i$.
+
+\paragraph{$1$-Norm of a Matrix.} We write $\Abf$ in terms of its columns;
+
+\bee
+\Abf = \left[ \abf_1 \abf_2 \cdots \abf_n \right]
+\eee
+
+with $\abf_i$ being the $i$-th column. The $1-$ norm is then
+
+\bee
+|| \Abf ||_1 = \max_i \abf_i
+\eee
+
+\subsection{Cauchy-Schwarz and Hölder Inequalities}
+
+Let $p$ and $q$ satisfy $1/p + 1/q = 1$ with $1 \leq p,q \leq \infty$. The \emph{Hölder inequality} states that , for any vectors $\xbf, \ybf$,
+
+\bee
+|\xbf^T \ybf| \leq || \xbf||_p || \xbf||_q
+\eee
+
+For the special case $p = q = 1/2$ we obtain the \emph{Cauchy-Schwarz inequality},
+
+\bee
+|\xbf^T \ybf| \leq || \xbf||_2 || \xbf||_2
+\eee
+
+\subsection{Hilbert-Schmidt or Frobenius Norm}
+
+This norm is not induced by a vector norm but considers the matrix as consisting of $mn$ entries. The norm fulfills the three properties of norms
+
+\begin{align*}
+  & || \Xbf || \geq 0, || \Xbf || = 0 \quad \text{iff} \quad \Xbf = \zerobf \\
+  & || \Xbf + \Ybf || \leq || \Xbf || + || \Ybf || \\
+  & || \alpha \Xbf || = |\alpha| || \Xbf ||
+\end{align*}
+
+and is given by
+
+\bee
+|| \Abf ||_F = \left( \sum_i \sum_j |a_{ij}^2| \right)^{1/2}
+\eee
+
+This is the same as th $2$-norm of the matrix when viewed as vector of $mn$ entries. We can express the Forobenius norm also in terms of columns and traces as below
+
+\bee
+|| \Abf ||_F = \left( \sum_i ||\abf_{i}||_2^2 \right)^{1/2} = \sqrt{ \text{tr}(\Abf^T \Abf)}
+\eee
+
+If we have two matrix $\Abf, \Bbf$, we can bound the Frobenius norm of their product $\Cbf = \Abf \Bbf$. Let $\abf_i^T$ denote the $i$-th row of $\Abf$ and $\bbf_i$ the $i$-th column of $\Bbf$, then $c_{ij} = \abf_i^T \bbf_j$ and by Cauchy-Schwarz, we have
+
+\bee
+|c_{ij}| \leq || \abf_i||_2 || \bbf_j||_2
+\eee
+
+Squaring both sides and summing acrss $i, j$, we obtain
+
+\bee
+\sum_{ij} |c_{ij}|^2 = || \Cbf ||_F^2 \leq \sum_{ij} || (\abf_i||_2)^2 (|| \bbf_j||_2)^2 = \sum_i (|| \abf_i||_2)^2 \sum_i (|| \bbf_i||_2)^2 = || \Abf ||_F^2 || \Bbf ||_F^2
+\eee
+
+Finally note that the $2$-norm and Frobenius norm are invariant under multiplication with unitary matrices (denoted $\Qbf$),
+
+\bee
+|| \Qbf \Abf ||_2 = || \Abf ||_2, \quad || \Qbf \Abf ||_F = || \Abf ||_F
+\eee
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
