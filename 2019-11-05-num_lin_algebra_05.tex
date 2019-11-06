@@ -1,0 +1,162 @@
+\DiaryEntry{(Numerical) Linear Algebra, Eigenvalues and Eigenvectors}{2019-11-05}{Linear Algebra}
+
+The eigenvalues and eigenvectos are defined for square matrices only; let $\Abf \in \mR^{n \times n}$ be such a matrix. Then $\lambda \in \mR$ is an \emph{eigenvalue} and $\xbf \in \mR^n \setminus \{\zerobf\}$ is the corresponding \emph{eigenvector} of $\Abf$ if
+
+\bee
+\Abf \xbf = \lambda \xbf
+\eee
+
+The eigenvectors are determined only up to a constant (non-zero) factor; i.e. if $\xbf$ is an eigenvector, so is $c \xbf$ with $c \in \mR \setminus\{0\}$.
+
+We define the characteristic equations as
+
+\bee
+\det (\Abf - \lambda \xbf) = 0
+\eee
+
+and $\lambda \in \mR$ is an eigenvalue of $\Abf$ iff $\lambda$ is a root of the characteristic equation.
+
+The \emph{algebraic multiplicity} of $\lambda_i$ is the number of times the root appears in the characteristic equation. The set of all eigenvalues is called the \emph{eigenspectrum}. The set of all eigenvectors associated with a specific eigenvalue spans a subspace of $\mR^n$ is called eigenspace of $\Abf$ with respect to $\lambda$ and denoted by $E_\lambda$. The number of linearly independent eigenvectors associated with a specific eigenvalue is called \emph{geometric multiplicity}. It is (also) the dimension of the eigenspace $E_\lambda$.
+
+For one specific eigenvalue, the geometric multiplicity is smaller or equal the algebraic multiplicity.
+
+
+\subsection{General $\Abf$}
+
+$\Abf$ and its transpose $\Abf^T$ have the same eigenvalues but not necessarily the same eigenvectors.
+
+There are several cases regarding distinct eigenvalues and eigenvectors:
+
+\begin{itemize}
+
+  \item In case of \emph{distinct} eigenvalues, the eigenvectors will be \emph{linearly independent}, but not necessariyl orthonormal.
+
+  \item When \emph{not} all eigenvalues are distinct, then
+
+    \begin{itemize}
+
+    \item There are $n$ linealry independent eigenvectors. in this case, the matrix $\Abf$ is \emph{non-defective}.
+
+    \item There are less than $n$ linearly independent eigenvectors; the matrix $\Abf$ is \emph{defective}. 
+
+    \end{itemize}
+
+\end{itemize}
+
+Eigenvectors belonging to different eigenvalues are linearly independent. \todo{proof?}
+
+\paragraph{Example.} We have the following Julia session
+
+\begin{verbatim}
+julia> A=[-2 0 1; 1 1 0;0 0 -2]
+3×3 Array{Int64,2}:
+ -2  0   1
+  1  1   0
+  0  0  -2
+
+julia> F=eigen(A)
+Eigen{Float64,Float64,Array{Float64,2},Array{Float64,1}}
+eigenvalues:
+3-element Array{Float64,1}:
+  1.0
+ -2.0
+ -2.0
+eigenvectors:
+3×3 Array{Float64,2}:
+ 0.0   0.948683  -0.948683 
+ 1.0  -0.316228   0.316228 
+ 0.0   0.0        4.213e-16
+
+julia> F.vectors'*F.vectors
+3×3 Array{Float64,2}:
+  1.0       -0.316228   0.316228
+ -0.316228   1.0       -1.0     
+  0.316228  -1.0        1.0     
+
+\end{verbatim}
+
+Note that the first and second (or first and third) eigenvector are linearly independent, but the second and eigenvectors are not. Moreover, the eigenvectors are not orthogonal.
+
+
+\subsection{Symmetric $\Abf$}
+
+In this case we have the \emph{spectral theorem}: Each eigenvalue is real and there exists an orthonormal basis for the corresponding vector space $V$ consisting of eigenvectors of $\Abf$. Note that the eigenvectors belonging to the same eigenvalue need not be orthogonal (orthonormal) but can be made orthogonal: Assume $\xbf_1, \xbf_2$ are two eigenvectors associated with $\lambda$. Then any linear combination of these eigenvectors is again an eigenvector, 
+
+\bee
+A(\alpha \xbf_1 + \beta \xbf_2) = \lambda(\alpha \xbf_1 + \beta \xbf_2)
+\eee
+
+\paragraph{Example.} We have
+
+\bee
+\Abf = \begin{pmatrix} 3 & 2 & 2 \\ 2 & 3 & 2 \\ 2 & 2 & 3 \end{pmatrix}
+\eee
+
+The characterisitc equation is $-(\lambda-1)^2(\lambda-7) = 0$ and from this we deduce $\lambda_1 = 1, \lambda_2 = 7$, where $\lambda_1$ has arithmetic multiplicity of two. The eigenspaces are
+
+\bee
+E_1 = \text{span} \left( \begin{pmatrix} -1 \\ 1 \\ 0 \end{pmatrix}, \begin{pmatrix} -1 \\ 0 \\ 1 \end{pmatrix} \right), \quad E_2 = \text{span} \left( \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix} \right) 
+\eee
+
+We can use Gram-Schmidt to obtain an orthonormal base for $E_1$ as
+
+\bee
+\xbf_1' = \begin{pmatrix}-1 \\ 1 \\ 0 \end{pmatrix}, \quad \xbf_2' = \frac{1}{2} \begin{pmatrix}-1 \\ -1 \\ 2 \end{pmatrix}
+\eee
+
+This can also be done in Julia; note that Juia outputs an orthonormal base right away
+
+\begin{verbatim}
+
+julia> A=[3 2 2;2 3 2;2 2 3]
+3×3 Array{Int64,2}:
+ 3  2  2
+ 2  3  2
+ 2  2  3
+
+julia> F=eigen(A)
+Eigen{Float64,Float64,Array{Float64,2},Array{Float64,1}}
+eigenvalues:
+3-element Array{Float64,1}:
+ 1.0              
+ 1.0              
+ 6.999999999999999
+eigenvectors:
+3×3 Array{Float64,2}:
+  0.707107  -0.408248  -0.57735
+ -0.707107  -0.408248  -0.57735
+  0.0        0.816497  -0.57735
+
+julia> F.vectors'*F.vectors
+3×3 Array{Float64,2}:
+  1.0          -5.55112e-17  -1.11022e-16
+ -5.55112e-17   1.0          -2.77556e-16
+ -1.11022e-16  -2.77556e-16   1.0        
+
+\end{verbatim}
+
+Eigenvectors belonging to different eigenvalues are orthogonal: Assume $\xbf$ and $\ybf$ are two eigenvectors belonging to eigenvales $\lambda \neq \mu$, respectively. We have
+
+\bee
+\lambda <\xbf, \ybf> = <\lambda \xbf, \ybf> = <\Abf \xbf, \ybf > = <\xbf , \Abf^T \ybf> = <\xbf, \Abf\ybf> = <\xbf, \mu \ybf> = \mu <\xbf, \ybf>
+\eee
+
+Here we have used the symmetry of $\Abf$ in the fourth step.  
+
+
+
+\subsection{Eigen Decomposition}
+
+If a matrix has $n$ linearly independent eigenvectors, it can be written in the following form
+
+\bee
+\Abf = \Qbf \mathbf{Lambda} \Qbf^{-1}
+\eee
+
+where $\Qbf$ holds the $n$ eigenvectors and $\mathbf{Lambda}$ is a diagonal matrix holding the $n$ eigenvalues on the main diagonal.  
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
