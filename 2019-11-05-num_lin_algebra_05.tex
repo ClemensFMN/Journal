@@ -77,6 +77,8 @@ julia> F.vectors'*F.vectors
 
 Note that the first and second (or first and third) eigenvector are linearly independent, but the second and eigenvectors are not. Moreover, the eigenvectors are not orthogonal.
 
+\todo{Include examples / figure from book - Mathematics of Machine Learning} 
+
 
 \subsection{Symmetric $\Abf$}
 
@@ -141,8 +143,19 @@ Eigenvectors belonging to different eigenvalues are orthogonal: Assume $\xbf$ an
 \lambda <\xbf, \ybf> = <\lambda \xbf, \ybf> = <\Abf \xbf, \ybf > = <\xbf , \Abf^T \ybf> = <\xbf, \Abf\ybf> = <\xbf, \mu \ybf> = \mu <\xbf, \ybf>
 \eee
 
-Here we have used the symmetry of $\Abf$ in the fourth step.  
+Here we have used the symmetry of $\Abf$ in the fourth step. Combining we have
 
+\bee
+(\lambda - \mu) <\xbf, \ybf> = 0
+\eee
+
+Since we assume that the eigenvaues are different, the second factor must be zero; i.e.
+
+\bee
+<\xbf, \ybf> = 0
+\eee
+
+and the corresponding eigenvectors are orthogonal.
 
 
 \subsection{Eigen Decomposition}
