@@ -140,33 +140,39 @@ julia> F.vectors'*F.vectors
 Eigenvectors belonging to different eigenvalues are orthogonal: Assume $\xbf$ and $\ybf$ are two eigenvectors belonging to eigenvales $\lambda \neq \mu$, respectively. We have
 
 \bee
-\lambda <\xbf, \ybf> = <\lambda \xbf, \ybf> = <\Abf \xbf, \ybf > = <\xbf , \Abf^T \ybf> = <\xbf, \Abf\ybf> = <\xbf, \mu \ybf> = \mu <\xbf, \ybf>
+\lambda \langle \xbf, \ybf \rangle = \langle \lambda \xbf, \ybf \rangle = \langle \Abf \xbf, \ybf \rangle = \langle \xbf , \Abf^T \ybf \rangle = \langle\xbf, \Abf\ybf\rangle = \langle\xbf, \mu \ybf\rangle = \mu \langle\xbf, \ybf\rangle
 \eee
 
 Here we have used the symmetry of $\Abf$ in the fourth step. Combining we have
 
 \bee
-(\lambda - \mu) <\xbf, \ybf> = 0
+(\lambda - \mu) \langle\xbf, \ybf \rangle = 0
 \eee
 
 Since we assume that the eigenvaues are different, the second factor must be zero; i.e.
 
 \bee
-<\xbf, \ybf> = 0
+\langle\xbf, \ybf\rangle = 0
 \eee
 
-and the corresponding eigenvectors are orthogonal.
+and the corresponding eigenvectors are orthogonal. \qed
 
 
 \subsection{Eigen Decomposition}
 
-If a matrix has $n$ linearly independent eigenvectors, it can be written in the following form
+We can collect the eigenvectors in a matrix $\Qbf$ and the corresponding eigenvalues in a diagonal matrix $\Dbf$. Then we can write
 
 \bee
-\Abf = \Qbf \mathbf{Lambda} \Qbf^{-1}
+\Abf \Qbf = \Dbf \Qbf
 \eee
 
-where $\Qbf$ holds the $n$ eigenvectors and $\mathbf{Lambda}$ is a diagonal matrix holding the $n$ eigenvalues on the main diagonal.  
+If the matrix $\Abf$ has has $n$ linearly independent eigenvectors, then $\Qbf$ is an invertible $n \times n$ matrix and we can rewrite above equation as
+
+\bee
+\Abf = \Qbf \Dbf \Qbf^{-1}
+\eee
+
+
 
 
 %%% Local Variables:
