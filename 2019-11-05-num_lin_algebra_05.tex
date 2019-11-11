@@ -6,7 +6,7 @@ The eigenvalues and eigenvectos are defined for square matrices only; let $\Abf 
 \Abf \xbf = \lambda \xbf
 \eee
 
-The eigenvectors are determined only up to a constant (non-zero) factor; i.e. if $\xbf$ is an eigenvector, so is $c \xbf$ with $c \in \mR \setminus\{0\}$.
+Intuitively, a linear mapping as defined by $\Abf$ may change the length but not the direction of vectors with a ``special'' direction. These vectors are the eigenvectors; the stretch factor is the corresponding eigenvalue. The eigenvectors are determined only up to a constant (non-zero) factor; i.e. if $\xbf$ is an eigenvector, so is $c \xbf$ with $c \in \mR \setminus\{0\}$.
 
 We define the characteristic equations as
 
@@ -19,7 +19,6 @@ and $\lambda \in \mR$ is an eigenvalue of $\Abf$ iff $\lambda$ is a root of the 
 The \emph{algebraic multiplicity} of $\lambda_i$ is the number of times the root appears in the characteristic equation. The set of all eigenvalues is called the \emph{eigenspectrum}. The set of all eigenvectors associated with a specific eigenvalue spans a subspace of $\mR^n$ is called eigenspace of $\Abf$ with respect to $\lambda$ and denoted by $E_\lambda$. The number of linearly independent eigenvectors associated with a specific eigenvalue is called \emph{geometric multiplicity}. It is (also) the dimension of the eigenspace $E_\lambda$.
 
 For one specific eigenvalue, the geometric multiplicity is smaller or equal the algebraic multiplicity.
-
 
 \subsection{General $\Abf$}
 
@@ -35,7 +34,7 @@ There are several cases regarding distinct eigenvalues and eigenvectors:
 
     \begin{itemize}
 
-    \item There are $n$ linealry independent eigenvectors. in this case, the matrix $\Abf$ is \emph{non-defective}.
+    \item There are $n$ linearly independent eigenvectors. in this case, the matrix $\Abf$ is \emph{non-defective}.
 
     \item There are less than $n$ linearly independent eigenvectors; the matrix $\Abf$ is \emph{defective}. 
 
@@ -77,7 +76,35 @@ julia> F.vectors'*F.vectors
 
 Note that the first and second (or first and third) eigenvector are linearly independent, but the second and eigenvectors are not. Moreover, the eigenvectors are not orthogonal.
 
-\todo{Include examples / figure from book - Mathematics of Machine Learning} 
+\paragraph{Eigenvectors and Eigenvalues of Specific Matrices.} In the following, we consider some special matrices and their eigenvalues and eigenvectors. We first start with a simple matrix scaling $x$-direction and $y$-direction by a different factor,
+
+\bee
+\Abf = \begin{pmatrix} 2 & 0 \\ 0 & 0.5 \end{pmatrix}
+\eee
+
+The eigenvalues and eigenvectors are
+
+\bee
+\lambda_1 = 2, \xbf=[1 0]^T, \quad \lambda_2 = 0.5, \xbf=[0 1]^T
+\eee
+
+which makes intuitively sense: Vectors in $x$- and $y$- direction are not changed; only their length changes. The determinant is $1$ and it is therefore an area-preserving transformation.
+
+We next consider a rotation matrix by rotation angle $\phi$,
+
+\bee
+\Abf = \begin{pmatrix} \cos\phi & -\sin\phi \\ \sin\phi & \cos\phi \end{pmatrix}
+\eee
+
+Apart from the special case $\phi=0$, the eigenvalues will be complex numbers and the eigenvectors have complex components. In case of a rotation, all vectors are changed; there is no special direction of vectors which will not change their direction.
+
+A shearing along the $x$-axis (it shear points along the $x$-axis to the right if they are on the positive half of the vertical axis and to the left otherwise) can be described by
+
+\bee
+\Abf = \begin{pmatrix} 1 & 0.5 \\ 0 & 1 \end{pmatrix}
+\eee
+
+There is an eigenvalue $1$ with algebraic multiplicity $2$ and one corresponding eigenvector $[1 0]^T$; i.e. it has geometric multiplicity $1$. This vector is not rotated by the shearing transformation. 
 
 
 \subsection{Symmetric $\Abf$}
