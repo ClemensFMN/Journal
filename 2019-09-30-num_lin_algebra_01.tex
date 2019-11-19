@@ -8,7 +8,35 @@ First we consider a multiplication $m \times n$ matrix $\Abf$ with an $n$-elemen
 \Abf \vbf = [\abf_1 \abf_2 \cdots \abf_n] \begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \end{bmatrix} = \abf_1 v_1 + \abf_2 v_2 + \cdots + \abf_n v_n
 \eee
 
-Based on this interpretation, we can define the \emph{range} of a matrix as the vector space spanned by the columns of $\Abf$. The \emph{nullspace} of the matrix $\Abf$ is the set of vectors for which $\Abf x = \zerobf$.
+Based on this interpretation, we can define the \emph{range} of a matrix as the vector space spanned by the columns of $\Abf$. The \emph{nullspace} of the matrix $\Abf$ is the set of vectors for which $\Abf \xbf = \zerobf$.
+
+If the vectors $\abf_i$ all point in different directions (i.e. are linearly independent), then no linear combination of them can become the zero vector. If one or more vectors point in the same direction, then a vector $\vbf \neq \zerobf$ can cause the linear combination to become $\zerobf$.
+
+As an example, consider
+
+\bee
+\Abf = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} \, , \quad \Abf \vbf = [v_1 \, v_2]^T
+\eee
+
+This will not become $\zerobf$ unless $v_1 = v_2 = 0$; i.e. $\vbf = \zerobf$. On the other hand, the two column vectors of the matrix
+
+\bee
+\Abf = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}
+\eee
+
+are linearly dependent and we have
+
+\bee
+\Abf \vbf = [v_1 + 2 v_2 \, 2 v_1 + 4_2]^T
+\eee
+
+This becomes zero whenever $v_1 = -2v_2$; i.e. vectors of the form
+
+\bee
+\vbf = [t \, -\frac{1}{2}t]^T \, , \quad t \in \mR
+\eee
+
+yield $\Abf \vbf = \zerobf$.
 
 \paragraph{Rank.} The \emph{column rank} of a matrix is the dimension of its column space. The \emph{row rank} of a matrix is the dimension of its row space. Interestingly, the column rank is always equal the column rank.
 
@@ -24,7 +52,7 @@ A \emph{nonsingular} or \emph{inverstible} matrix is a square matrix of full ran
 \ebf_j = \sum _i z_{ij} \abf_i
 \eee
 
-Let $\Zbf$ be the matrix with entries $z_{ij}$ and let $\zbf_j$ denote the $j$-thcolumn. Then we have $\ebf_j = \Abf \zbf_j$ and $\Ibf = \Abf \Zbf$ wit identity matrix $\Ibf$ and \emph{inverse} of $\Abf$. We write $\Abf^{-1}$ for the inverse and therefore $\Abf \Abf^{-1} = \Ibf$.
+Let $\Zbf$ be the matrix with entries $z_{ij}$ and let $\zbf_j$ denote the $j$-th column. Then we have $\ebf_j = \Abf \zbf_j$ and $\Ibf = \Abf \Zbf$ with identity matrix $\Ibf$ and $\Zbf$ begin the \emph{inverse} of $\Abf$. We write $\Abf^{-1}$ for the inverse and therefore $\Abf \Abf^{-1} = \Ibf$.
 
 The following theorem links several conditions that hold when a square matrix is nonsingular.
 
@@ -114,15 +142,28 @@ In this decomposition, $\rbf$ is the part of $\vbf$ which is orthogonal to the v
 \vbf = \sum_{i=1}^N (\qbf_i^T \vbf) \qbf_i
 \eee
 
-\paragraph{Unitary Matrices.} A square matrix $\Qbf$ is \emph{unitary}, if $\Qbf^\star = \Qbf^{-1}$; i.e. if $\Qbf^\star \Qbf = \Ibf$. From the last expression we deduce that the columns of a unitary matrix form a basis for $\mC^m$.
-
-The inner product is an invariant under multiplication with unitary matrices; we have
+\paragraph{Unitary Matrices.} A square matrix $\Qbf$ is \emph{unitary}, if $\Qbf^T = \Qbf^{-1}$; i.e. if $\Qbf^T \Qbf = \Ibf$. This means that the columns of a unitary matrix are orthonormal and form a basis for $\mC^m$. The inner product is an invariant under multiplication with unitary matrices; we have
 
 \bee
 (\Qbf \xbf)^T (\Qbf \xbf) = \xbf^T \Qbf^T \Qbf \xbf = \xbf^T \xbf
 \eee
 
 This also implies that the vector length does not change when the the vector is multiplied by a unitary matrix. If a unitary matrix $\Qbf$ is real and $\det \Qbf = 1$, then multiplication corresponds to a rigid rotation; if $\det \Qbf = -1$, then multiplication corresponds to reflection.
+
+\paragraph{Basis Expansion.} A basis expansion of a vector $\xbf$ in a basis given by the matrix columns $\qbf_i$ of the matrix $\Qbf$ finds the coefficients of the same vector in the new basis. Collecting these coefficients in a vector $\ybf$, we have
+
+\bee
+\Qbf \ybf = \xbf \rightarrow \ybf = \Qbf^{-1} \xbf
+\eee
+
+This shows that a basis expansion requires a full-rank matrix $\Qbf$; i.e. the column vector vectors have to be linearly independent. The range of a matrix with not full rank does not provide ``enough dimensions''. In particular, the columns need not be orthogonal. However, orthogonal basis vectors simplify things considerably, as we then have
+
+\bee
+\ybf = \Qbf^{-1} \xbf = \Qbf^H \xbf
+\eee
+
+This can be interpretated that the basis expansion corresponds to taking the inner products of $\langle \qbf_i, \xbf \rangle$.
+
 
 %%% Local Variables:
 %%% mode: latex
