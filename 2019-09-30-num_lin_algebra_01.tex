@@ -150,7 +150,7 @@ In this decomposition, $\rbf$ is the part of $\vbf$ which is orthogonal to the v
 
 This also implies that the vector length does not change when the the vector is multiplied by a unitary matrix. If a unitary matrix $\Qbf$ is real and $\det \Qbf = 1$, then multiplication corresponds to a rigid rotation; if $\det \Qbf = -1$, then multiplication corresponds to reflection.
 
-\paragraph{Basis Expansion.} A basis expansion of a vector $\xbf$ in a basis given by the matrix columns $\qbf_i$ of the matrix $\Qbf$ finds the coefficients of the same vector in the new basis. Collecting these coefficients in a vector $\ybf$, we have
+\subsection{Basis Expansion.} A basis expansion of a vector $\xbf$ in a basis given by the matrix columns $\qbf_i$ of the matrix $\Qbf$ finds the coefficients of the same vector in the new basis. Collecting these coefficients in a vector $\ybf$, we have
 
 \bee
 \Qbf \ybf = \xbf \rightarrow \ybf = \Qbf^{-1} \xbf
@@ -163,6 +163,26 @@ This shows that a basis expansion requires a full-rank matrix $\Qbf$; i.e. the c
 \eee
 
 This can be interpretated that the basis expansion corresponds to taking the inner products of $\langle \qbf_i, \xbf \rangle$.
+
+\paragraph{Examples.} As a first example, consider the matrix
+
+\bee
+\Abf = \begin{pmatrix} 2 & 1 \\ 0 & 1 \end{pmatrix}
+\eee
+
+which columns are linearly independent (but not orthonormal). The matrix is invertible with
+
+\bee
+\Abf^{-1} = \begin{pmatrix} 1/2 & -1/2 \\ 0 & 1 \end{pmatrix}
+\eee
+
+and a vector $\xbf=[2 \; 1]^T$ becomes $\ybf = [1/2 \; 1]^T$. As a contrast, the matrix
+\bee
+\Abf = \frac{1}{\sqrt{2}} \begin{pmatrix} 1 & -1 \\ 1 1 \end{pmatrix}
+\eee
+
+corresponds to a rotation by $\pi/4$. The columns are linearly independent and additionally, orthonormal: $\Abf \Abf^T = \Ibf$. A vector $\xbf=[2 \; 1]^T$ becomes $\ybf = [2.12 \; -0.707]^T$.
+
 
 
 %%% Local Variables:
