@@ -190,7 +190,7 @@ and the corresponding eigenvectors are orthogonal. \qed
 We can collect the eigenvectors in a matrix $\Qbf$ and the corresponding eigenvalues in a diagonal matrix $\Dbf$. Then we can write
 
 \bee
-\Abf \Qbf = \Dbf \Qbf
+\Abf \Qbf = \Qbf \Dbf
 \eee
 
 If the matrix $\Abf$ has has $n$ linearly independent eigenvectors, then $\Qbf$ is an invertible $n \times n$ matrix and we can rewrite above equation as
@@ -215,6 +215,66 @@ and the determinant of a matrix is the product of its eigenvalues,
 \eee
 
 When at least one eigenvalue is zero, the matrix is no longer full-rank, consequently its determinant becomes zero as well.
+
+\subsection{Examples}
+
+Consider the diagonal matrix
+
+\bee
+\Abf= \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}
+\eee
+
+Let's calculate the eigenvalues from the characteristic equation. We have
+
+\bee
+\det (\Abf - \lambda \Ibf) = (1-\lambda) (2 - \lambda) = 0 \rightarrow \lambda_1 = 1, \lambda_2 = 2
+\eee
+
+Next we solve $\Abf \xbf = \lambda \xbf$ for $\lambda_1 = 1$:
+
+\bee
+\begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+\eee
+
+from which we obtain
+
+\bee
+\xbf_1 = \begin{pmatrix} 1\\ 0 \end{pmatrix}
+\eee
+
+In a similar spirit, we obtain for the other eigenvector
+
+\bee
+\xbf_2 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
+\eee
+
+This is pretty intuitive; the matrix $\Abf$ does no change in the direction $[1 \, 0]^T$ and multiplies vectors by a factor of $2$ which are in the direction of $[0 \, 1]^T$. \qed
+
+Let's see what happens in case of a matrix with dependent columns,
+
+\bee
+\Abf= \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}
+\eee
+
+The characteristic equation and its solutions are
+
+\bee
+(1 - \lambda)(4 - \lambda) - 4 = 0 \rightarrow \lambda(\lambda - 5) = 0 \rightarrow \lambda_1 = 0, \lambda_2 = 5
+\eee
+
+The eigenvalue $\lambda_1 = 0$ yields $\Abf \xbf_1 = \zerobf$; i.e. the corresponding eigenvector lies in the nullspace of $\Abf$. We have
+
+\bee
+\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0\end{pmatrix}
+\eee
+
+and corresponds to $x_1 + 2x_2 = 0$ and $\xbf_1 = [t \, -t/2]^T$ with $t \in \mR$. The other eigenvector follows from
+
+\bee
+\begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} = 5 \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+\eee
+
+as $\xbf_1 = [t \, 2t]^T$ with $t \in \mR$.
 
 
 
