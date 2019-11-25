@@ -1,0 +1,66 @@
+\DiaryEntry{Linear Algebra - QR Decomposition}{2019-11-22}{Linear Algebra}
+
+The underlying idea of the QR decomposition is to factor a matrix $\Abf$ into $\Abf = \Qbf \Rbf$, where $\Qbf$ is an othogonal matrix and $\Rbf$ is an upper triangular matrix.
+
+\paragraph{Square Matrix.} We have $\Abf = \Qbf \Rbf$ with matrix $\Abf$ being an $n \times n$ matrix. If $\Abf$ is invertible (and therefore full-rank), then the factorization is unique if we require the diagonal elements of $\Rbf$ to be positive.
+
+If $\Abf$ has $n$ linearly independent columns, then the first $n$ columns of $\Qbf$ form an orthonormal basis for the column space of $\Abf$. More generally, the first $k$ columns of $\Qbf$ form an orthonormal basis for the span of the first $k$ columns of $\Abf$ for any $1 \leq k \leq n$. The fact that any column $k$ of $\Abf$ only depends on the first $k$ columns of $\Qbf$ is responsible for the triangular form of $\Rbf$.
+
+\paragraph{Rectangular Matrix.} In this case we can factor an $m \times n$ matrix $\Abf$, with $m \geq n$, as the product of an $m \times m$ unitary matrix $\Qbf$ and an $m \times n$ upper triangular matrix $\Rbf$. The bottom $m-n$ rows of $\Rbf$ consist of zeros; we therefore can write the QR decomposition in a partitioned form as
+
+\bee
+\Abf = \Qbf \Rbf = \Qbf \begin{bmatrix} \Rbf_1 \\ \zerobf \end{bmatrix} = \begin{bmatrix} \Qbf_1 & \Qbf_2 \end{bmatrix} \begin{bmatrix} \Rbf_1 \\ \zerobf \end{bmatrix} = \Qbf_1 \Rbf_1
+\eee
+
+where $\Rbf_1$ is an $n \times n$ upper triangular matrix, $\zerobf$ is an $m - n \times n$ zero matrix, $\Qbf_1$ is $m \times n$, $\Qbf_2$ is $m \times m - nn$, and $\Qbf_1$ and $\Qbf_2$ both have orthogonal columns.
+
+$\Qbf_1 \Rbf_1$ is sometimes called the \emph{reduced QR decomposition}. If we require that the diagonal elements of $\Rbf_1$ are positive then $\Rbf_1$ and $\Qbf_1$ are unique, but in general $\Qbf_2$ is not.
+
+\subsection{Gram-Schmidt Process}
+
+This is the simplest method for calculating the QR decomposition; however, it can have numerical problems. The idea is to start with the first column of $\Abf$, normalize it and thereby obtain $\qbf_1$,
+
+\bee
+\qbf_1 = \frac{\abf_1}{|| \abf_1 ||}
+\eee
+
+In the next step, we project $\abf_2$ onto $\qbf_1$ and subtract the result from $\abf_2$. Normalizing yields $\qbf_2$,
+
+\bee
+\ubf_2 = \abf_2 - \text{proj}_{q_1} \abf_2, \,\, \qbf_2 = \frac{\ubf_2}{|| \ubf_2 ||}
+\eee
+
+where the ``projection operator'' projects vector $\abf$ onto direction $\ubf$ according to
+
+\bee
+\text{proj}_{u} \abf = \frac{\langle \ubf, \abf \rangle}{\langle \ubf, \ubf \rangle} \ubf
+\eee
+
+Now we have a process we can follow iteratively as follows
+
+\bee
+\ubf_k = \abf_k - \sum_{j=1}^{k-1} \text{proj}_{q_j} \abf_k, \,\, \qbf_k = \frac{\ubf_k}{|| \ubf_k ||}
+\eee
+
+Going backwards, we can now express the $\abf_i$s in terms of the orthogonal basis $\qbf$,
+
+\begin{align*}
+  \abf_1 &= \langle \ebf_1, \abf_1 \rangle \qbf_1 \\
+  \abf_2 &= \langle \ebf_1, \abf_2 \rangle \qbf_1 + \langle \ebf_2, \abf_2 \rangle \qbf_2 \\
+  & \cdots \\
+  \abf_k & = \sum_j \langle \ebf_j, \abf_k \rangle \qbf_j
+\end{align*}
+
+If we collect the vectors $\qbf_i$ in a matrix $\Qbf$, then we obtain the following factorization
+
+\bee
+\Abf = \begin{pmatrix} \qbf_1 \qbf_2 \cdots \qbf_n \end{pmatrix} \begin{pmatrix} \langle \ebf_1, \abf_1 \rangle & \langle \ebf_1, \abf_2 \rangle & \langle \ebf_1, \abf_3 \rangle & \cdots \\ 0 & \langle \ebf_2, \abf_2 \rangle & \langle \ebf_3, \abf_2 \rangle & \cdots \\ 0 & 0 & \langle \ebf_3, \abf_3 \rangle & \cdots \\ \vdots & \vdots & \vdots & \vdots \end{pmatrix} = \Qbf \Rbf
+\eee
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
