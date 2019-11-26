@@ -2,6 +2,9 @@
 
 The underlying idea of the QR decomposition is to factor a matrix $\Abf$ into $\Abf = \Qbf \Rbf$, where $\Qbf$ is an othogonal matrix and $\Rbf$ is an upper triangular matrix.
 
+Writing $\Abf$ as a product $\Qbf \Rbf$ allows solving a linear equation system in a numercially stabel way: The equation $\Abf \xbf = \abf$ becomes $\Qbf \Rbf \xbf = \abf$ and from this we obtain $\Rbf \xbf = \Qbf^T \abf$ and this equation can be solved easily via back-substitution.
+
+
 \paragraph{Square Matrix.} We have $\Abf = \Qbf \Rbf$ with matrix $\Abf$ being an $n \times n$ matrix. If $\Abf$ is invertible (and therefore full-rank), then the factorization is unique if we require the diagonal elements of $\Rbf$ to be positive.
 
 If $\Abf$ has $n$ linearly independent columns, then the first $n$ columns of $\Qbf$ form an orthonormal basis for the column space of $\Abf$. More generally, the first $k$ columns of $\Qbf$ form an orthonormal basis for the span of the first $k$ columns of $\Abf$ for any $1 \leq k \leq n$. The fact that any column $k$ of $\Abf$ only depends on the first $k$ columns of $\Qbf$ is responsible for the triangular form of $\Rbf$.
@@ -36,27 +39,123 @@ where the ``projection operator'' projects vector $\abf$ onto direction $\ubf$ a
 \text{proj}_{u} \abf = \frac{\langle \ubf, \abf \rangle}{\langle \ubf, \ubf \rangle} \ubf
 \eee
 
-Now we have a process we can follow iteratively as follows
+Sidenote: The ``other part'' of projection of $\abf$ onto $\qbf$ is given by 
+
+\bee
+\abf - \langle \abf, \qbf \rangle \qbf
+\eee
+
+where we have assumed that $\qbf$ has unit-length. This vector is orthogonal to $\qbf$,
+
+\bee
+\langle \qbf, \abf - \langle \abf, \qbf \rangle \qbf \rangle = \langle \qbf, \abf \rangle - \langle \qbf, (\langle \abf, \qbf \rangle) \qbf \rangle = \langle \qbf, \abf \rangle - (\langle \abf, \qbf \rangle) \langle \qbf, \qbf \rangle =  \langle \qbf, \abf \rangle - \langle \abf, \qbf \rangle = 0
+\eee
+
+where we used $\langle \qbf, \qbf \rangle = 1$. \qed
+
+We can follow this process in an iterative manner, by using the component of $\abf_k$ which is orthogonal to the basis vectors $\ubf_1, \ldots,\ubf_{k-1}$ already obtained
 
 \bee
 \ubf_k = \abf_k - \sum_{j=1}^{k-1} \text{proj}_{q_j} \abf_k, \,\, \qbf_k = \frac{\ubf_k}{|| \ubf_k ||}
 \eee
 
-Going backwards, we can now express the $\abf_i$s in terms of the orthogonal basis $\qbf$,
+Going backwards, we can now express the $\abf_i$s in terms of the orthogonal basis $\qbf_1, \ldots, \qbf_k$,
 
 \begin{align*}
-  \abf_1 &= \langle \ebf_1, \abf_1 \rangle \qbf_1 \\
-  \abf_2 &= \langle \ebf_1, \abf_2 \rangle \qbf_1 + \langle \ebf_2, \abf_2 \rangle \qbf_2 \\
+  \abf_1 &= \langle \qbf_1, \abf_1 \rangle \qbf_1 \\
+  \abf_2 &= \langle \qbf_1, \abf_2 \rangle \qbf_1 + \langle \qbf_2, \abf_2 \rangle \qbf_2 \\
   & \cdots \\
-  \abf_k & = \sum_j \langle \ebf_j, \abf_k \rangle \qbf_j
+  \abf_k & = \sum_j \langle \qbf_j, \abf_k \rangle \qbf_j
 \end{align*}
 
-If we collect the vectors $\qbf_i$ in a matrix $\Qbf$, then we obtain the following factorization
+If we collect the vectors $\qbf_i$ in a matrix $\Qbf$, then we can write this as
 
 \bee
 \Abf = \begin{pmatrix} \qbf_1 \qbf_2 \cdots \qbf_n \end{pmatrix} \begin{pmatrix} \langle \ebf_1, \abf_1 \rangle & \langle \ebf_1, \abf_2 \rangle & \langle \ebf_1, \abf_3 \rangle & \cdots \\ 0 & \langle \ebf_2, \abf_2 \rangle & \langle \ebf_3, \abf_2 \rangle & \cdots \\ 0 & 0 & \langle \ebf_3, \abf_3 \rangle & \cdots \\ \vdots & \vdots & \vdots & \vdots \end{pmatrix} = \Qbf \Rbf
 \eee
 
+and this is exactely the QR factorization.
+
+\subsection{Householder Transformations}
+
+The Householder Transform generates a matrix which when multiplied with a vector can zero all components but one.
+
+Recall from previous entries that a matrix $\Pbf_v$ projecting a vector onto the subspace spanned by a vector $\vbf$ is given by
+
+\bee
+\Pbf_v = \frac{\vbf \vbf^H}{\vbf^H \vbf}
+\eee
+
+The complementary projection $\Pbf_v^\perp$ is given by
+
+\bee
+\Pbf_v^\perp = \Ibf - \Pbf_v
+\eee
+
+A Householder Transform matrix $\Hbf_v$ with respect to a \emph{Householder vector} $\vbf$ is defined as
+
+\bee
+\Hbf_v = \Ibf - 2 \Pbf_v = \Ibf - 2 \frac{\vbf \vbf^H}{\vbf^H \vbf}
+\eee
+
+It is not a projection matrix as we have
+
+\bee
+\Hbf_v^2 = (\Ibf - 2 \Pbf_v)^2 = \Ibf - 4 \Pbf_v + 4 \Pbf_v^2 = \Ibf - 4 \Pbf_v + 4 \Pbf_v = \Ibf \neq \Hbf_v
+\eee
+
+but applying $\Hbf_v$ twice leaves a vector unchanged.
+
+The Householder transform reflects a vector $\xbf$ along the direction of $\Pbf_v^\perp \xbf$. We can write
+
+\bee
+\xbf = \Pbf_v \xbf + \Pbf_v^\perp \xbf
+\eee
+
+and if we apply the Householder transform, we obtain
+
+\begin{align*}
+  \Hbf_v \xbf &= (\Ibf - 2 \Pbf_v) (\Pbf_v \xbf + \Pbf_v^\perp \xbf) = \Pbf_v \xbf + \Pbf_v^\perp \xbf - 2 \Pbf_v (\Pbf_v \xbf + \Pbf_v^\perp \xbf) = \\
+  &= \Pbf_v \xbf + \Pbf_v^\perp \xbf - 2 \Pbf_v \xbf - 2 \Pbf_v \Pbf_v^\perp \xbf = \Pbf_v^\perp \xbf - \Pbf_v \xbf
+\end{align*}
+
+using the fact that $\Pbf_v \Pbf_v^\perp \xbf = \Pbf_v (\Ibf - \Pbf_v) \xbf = (\Pbf_v - \Pbf_v) \xbf = \zerobf$. This makes intuitively sense, as projecting onto $\vbf$ first and then onto the complement should yield nothing. So we have
+
+\bee
+\Hbf_v \xbf = \Pbf_v^\perp \xbf - \Pbf_v \xbf
+\eee
+
+The $\xbf$-component perpendicular to $\vbf$ is not changed; the component in the direction of $\xbf$ is mirrored. In addition, we see that $\Hbf_v$ does not change the length of the vector; i.e.
+
+\bee
+|| \Hbf_v \xbf ||^2 = || \xbf ||^2
+\eee
+
+\todo{Add Figure}
+
+Now let's take a vector $\xbf=[x_1 ,\ldots x_n]^T$ and apply the Householder transform to it,
+
+\bee
+\Hbf_v \begin{pmatrix} x_1 \\ x_2 \\ \cdots \\ x_n \end{pmatrix} = \begin{pmatrix} \alpha \\ 0 \\ \cdots \\ 0 \end{pmatrix} = \alpha \ebf_1
+\eee
+
+Since the Householder transform does not change length, we have $\alpha = \pm || \xbf||$. The question is how to choose $\vbf$ from above equation. We have
+
+\bee
+\left( \Ibf - 2 \frac{\vbf \vbf^H}{\vbf^H \vbf} \right) \xbf = \alpha \ebf_1
+\eee
+
+and from this we obtain
+
+\bee
+\xbf - 2 \frac{\vbf \vbf^H}{\vbf^H \vbf} \xbf = \alpha \ebf_1 \rightarrow 2 \frac{\vbf^H \xbf}{\vbf^H \vbf} \vbf = \xbf - \alpha \ebf_1
+\eee
+
+This implies that $\vbf$ is a scalar multiple of $\xbf - \alpha \ebf_1$ and we can choose
+
+\bee
+\vbf = \xbf \pm || \xbf || \ebf_1
+\eee
 
 
 
