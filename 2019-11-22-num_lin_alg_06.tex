@@ -157,6 +157,32 @@ This implies that $\vbf$ is a scalar multiple of $\xbf - \alpha \ebf_1$ and we c
 \vbf = \xbf \pm || \xbf || \ebf_1
 \eee
 
+\paragraph{Example.} We take the vector $\xbf=[1, 4, 2]^T$ and calculate the Householder Transform in Julia as follows
+
+\begin{verbatim}
+x=[1;4;2]
+v=x + norm(x)*[1;0;0]
+3-element Array{Float64,1}:
+ 5.58257569495584
+ 4.0             
+ 2.0             
+Hv=diagm(0 =>[1,1,1])-2*v*v'/(v'*v)
+3×3 Array{Float64,2}:
+ -0.218218  -0.872872  -0.436436
+ -0.872872   0.374574  -0.312713
+ -0.436436  -0.312713   0.843644
+Hv*x
+3-element Array{Float64,1}:
+ -4.58257569495584      
+ -1.1102230246251565e-16
+  0.0
+norm(Hv*x)
+4.58257569495584
+norm(x)
+4.58257569495584
+
+\end{verbatim}
+
 
 
 %%% Local Variables:
