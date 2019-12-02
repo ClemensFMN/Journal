@@ -125,13 +125,18 @@ using the fact that $\Pbf_v \Pbf_v^\perp \xbf = \Pbf_v (\Ibf - \Pbf_v) \xbf = (\
 \Hbf_v \xbf = \Pbf_v^\perp \xbf - \Pbf_v \xbf
 \eee
 
-The $\xbf$-component perpendicular to $\vbf$ is not changed; the component in the direction of $\xbf$ is mirrored. In addition, we see that $\Hbf_v$ does not change the length of the vector; i.e.
+The $\xbf$-component perpendicular to $\vbf$ is not changed; the component in the direction of $\vbf$ is mirrored. In addition, we see that $\Hbf_v$ does not change the length of the vector; i.e.
 
 \bee
 || \Hbf_v \xbf ||^2 = || \xbf ||^2
 \eee
 
-\todo{Add Figure}
+A picture of the involved vectors and projections is shown in the following Figure.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.85]{images/num_lin_alg_06_01.png}
+\end{figure}
 
 Now let's take a vector $\xbf=[x_1 ,\ldots x_n]^T$ and apply the Householder transform to it,
 
@@ -156,6 +161,14 @@ This implies that $\vbf$ is a scalar multiple of $\xbf - \alpha \ebf_1$ and we c
 \bee
 \vbf = \xbf \pm || \xbf || \ebf_1
 \eee
+
+The whole procedure is shown in the following Figure.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.35]{images/num_lin_alg_06_02.png}
+\end{figure}
+
 
 \paragraph{Example.} We take the vector $\xbf=[1, 4, 2]^T$ and calculate the Householder Transform in Julia as follows
 
@@ -182,6 +195,51 @@ norm(x)
 4.58257569495584
 
 \end{verbatim}
+
+
+\paragraph{Application to QR Factorization.} The idea is rather simple; we subsequently zero out elements in the columns from left to right. These matrices are denoted $\Qbf_1, \Qbf_2, \ldots$.
+
+As illustration, we consider a $4 \times 3$ matrix $\Abf$. In a first step, we multiply with a appropriately chosen Householder matrix $\Hbf_1 = \Qbf_1$ to obtain
+
+\bee
+\Hbf_1 \Abf = \begin{pmatrix} \alpha_1 & x & x \\ 0 & x & x \\ 0 & x & x \\ 0 & x & x \end{pmatrix}
+\eee
+
+In this paragraph, we note non-zero elements with $x$. We next tackle the second column and zero all but the first two elements. This is achieved by matrix-multiplication with $\Qbf_2$ chosen as
+
+\bee
+\Qbf_2 = \begin{pmatrix} 1 & 0 \\ \Hbf_2 & 0 \end{pmatrix}
+\eee
+
+where $\Hbf_2$ is an appropriately chosen Householder matrix. Multiplying everything together yields
+
+\bee
+\Qbf_2 \Qbf_1 \Abf = \begin{pmatrix} \alpha_1 & x & x \\ 0 & \alpha_2  & x \\ 0 & 0 & x \\ 0 & 0 & x \end{pmatrix}
+\eee
+
+Applying the procedure a third time yields
+
+\bee
+\Qbf_3 \Qbf_2 \Qbf_1 \Abf = \begin{pmatrix} \alpha_1 & x & x \\ 0 & \alpha_2  & x \\ 0 & 0 & \alpha_3 \\ 0 & 0 & 0 \end{pmatrix}
+\eee
+
+with
+
+\bee
+\Qbf_3 = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & \Hbf_3 \end{pmatrix}
+\eee
+
+Denote the last matrix as $\Rbf$ and thereby we arrive at
+
+\bee
+\Qbf_3 \Qbf_2 \Qbf_1 \Abf = \Rbf
+\eee
+
+One can show that the $\Qbf_i$s are orthogonal and so is their product. We therefore have
+
+\bee
+\Abf = \Qbf_1 \Qbf_2 \Qbf_3 \Rbf
+\eee
 
 
 
