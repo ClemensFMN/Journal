@@ -197,7 +197,7 @@ norm(x)
 \end{verbatim}
 
 
-\paragraph{Application to QR Factorization.} The idea is rather simple; we subsequently zero out elements in the columns from left to right. These matrices are denoted $\Qbf_1, \Qbf_2, \ldots$.
+\paragraph{Application to QR Factorization.} The idea is rather simple; we subsequently zero out elements in the columns from left to right using Householder transformations. The Householder matrices are denoted $\Hbf_1, \Hbf_2, \ldots$, the matrices the Householder matrices are embedded into are denoted $\Qbf_1, \Qbf_2, \ldots$.
 
 As illustration, we consider a $4 \times 3$ matrix $\Abf$. In a first step, we multiply with a appropriately chosen Householder matrix $\Hbf_1 = \Qbf_1$ to obtain
 
@@ -241,6 +241,92 @@ One can show that the $\Qbf_i$s are orthogonal and so is their product. We there
 \Abf = \Qbf_1 \Qbf_2 \Qbf_3 \Rbf
 \eee
 
+\paragraph{Example.} Let's make this more clear by stepping through an exmaple with
+
+\bee
+\Abf =\begin{pmatrix} 1 & 2 & 3 \\ 4 & 5 & 6 \\ 7 & 8 & 9 \\ 10 & 11 & 15 \end{pmatrix}
+\eee
+
+For zeroing the first column we have the following Julia commands
+
+\begin{verbatim}
+x1 = A[:,1]
+v1 = x1 + norm(x1)*[1,0,0,0]
+H1 = diagm(0 => [1,1,1,1])-2*v1*v1'/(v1'*v1)
+
+H1*A
+4×3 Array{Float64,2}:
+ -12.8841       -14.5916    -18.6276  
+   4.44089e-16    0.219962   -0.230901
+   8.88178e-16   -0.365067   -1.90408 
+   8.88178e-16   -0.950095   -0.577254
+\end{verbatim}
+
+We continue with the second column
+
+\begin{verbatim}
+x2 = (H1*A)[2:4,2]
+v2 = x2+norm(x2)*[1;0;0]
+H2 = diagm(0 => [1,1,1])-2*v2*v2'/(v2'*v2)
+Q2 = zeros(4,4)
+Q2[1,1] = 1
+Q2[2:4,2:4] = H2
+
+Q2*H1*A
+4×3 Array{Float64,2}:
+ -12.8841       -14.5916       -18.6276  
+   1.33227e-15   -1.04132       -1.14545 
+   8.88178e-16    0.0           -1.63937 
+   2.22045e-16   -7.77156e-16    0.111655
+\end{verbatim}
+
+and finally, the third one
+
+\begin{verbatim}
+x3 = (Q2*H1*A)[3:4,3]
+v3 = x3+norm(x3)*[1;0]
+H3 = diagm(0 => [1,1])-2*v3*v3'/(v3'*v3)
+Q3 = zeros(4,4)
+Q3[1,1] = 1
+Q3[2,2] = 1
+Q3[3:4,3:4] = H3
+
+Q3*Q2*H1*A
+4×3 Array{Float64,2}:
+ -12.8841       -14.5916       -18.6276     
+   1.33227e-15   -1.04132       -1.14545    
+   0.0            0.0           -1.64317    
+   9.12488e-17    5.00054e-16   -3.63789e-15
+
+H1*Q2*Q3
+4×4 Array{Float64,2}:
+ -0.0776151  -0.833052  -0.365148   0.408248   
+ -0.31046    -0.451237   0.182574  -0.816497   
+ -0.543305   -0.069421   0.730297   0.408248   
+ -0.776151    0.312395  -0.547723  -1.80906e-15
+\end{verbatim}
+
+We can compare with Julia's built-in qr function which yields
+
+\begin{verbatim}
+qr(A)
+LinearAlgebra.QRCompactWY{Float64,Array{Float64,2}}
+
+Q factor:
+4×4 LinearAlgebra.QRCompactWYQ{Float64,Array{Float64,2}}:
+ -0.0776151  -0.833052   0.365148  -0.408248   
+ -0.31046    -0.451237  -0.182574   0.816497   
+ -0.543305   -0.069421  -0.730297  -0.408248   
+ -0.776151    0.312395   0.547723  -1.11022e-15
+
+R factor:
+3×3 Array{Float64,2}:
+ -12.8841  -14.5916   -18.6276 
+   0.0      -1.04132   -1.14545
+   0.0       0.0        1.64317
+\end{verbatim}
+
+So the $\Qbf_3 \Qbf_2 \Hbf_1 \Abf$ product equals the $\Rbf$-component and the $\Hbf_1 \Qbf_2 \Qbf_3$ equals the $\Qbf$-component. Julia seems to choose the signs slightly different, resulting in slight differences.
 
 
 %%% Local Variables:
