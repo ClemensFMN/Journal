@@ -1,0 +1,87 @@
+\DiaryEntry{Lempel–Ziv–Welch (LZW) Algorithm}{2019-12-17}{ALgorithms}
+
+Article based on \href{https://marknelson.us/posts/2011/11/08/lzw-revisited.html}{this one}.
+
+The LZW algorithm is a compression algorithm. It reads a sequence of symbols, groups the symbols into strings, and converts the strings into codes. The codes require less space than the strings and therefore compression is achieved. The conversion of strings into codes is done by a look-up table; the optimal look-up table would require upfront knowledge of the distribution of symbols / strings. This is now known in many scenarios, therefore the LZW algorithm builds a look-up dictionary on the fly based on the observed symbol sequence.
+
+The code is in Julia and stored \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/algorithms/lzw.jl}{here}.
+
+\paragraph{Encoder Operation.} The encoder initializes a dictionary with all length-one strings. Then the encoder subsequently reads a character from the input and appends it to a variable wc. If wc is still contained in the dictionary, the encoder will continue with the next character. This continues until a character is added to wc that is not in the dictionary. In this case, we add wc to the dictionary (with a new code) and output the code corresponding to all but the last character of wc. Then we set wc with the last observed character (i.e. the one which caused the dictionary look-up to fail) and start with the next character from the input.
+
+\paragraph{Encoding Example.} We next consider the encoder operation described above with an input sequence ``ABBABBBABBA''. The following table shows the input, encoder action, updates of the dictionary, and output code.
+
+
+\begin{longtabu} to \textwidth {
+    |X[1,c]|X[5,l]|X[1,c]|X[1,c]|}
+  \hline Input & Action & Dictionary Update & Output \\ \hline
+  A & Set wc=A . A is in the dictionary, so no output and continue with w=A. & - & - \\ \hline
+  B & Set wc=AB. AB is not in the dictionary, therefore add it to dictionary, and output 65 (A). Continue with w=B. & 257 (AB) & 65 (A) \\ \hline
+  B & Set wc=BB. BB is not in the dictionary, therefore add BB to it. Output 66 (B) and continue with w=B. & 258 (BB) & 66 (B) \\ \hline
+  A & Set wc=BA. BA is not in the dictionary, therefore add BA to it. Output 66 (B) and continue with w=A. & 259 (BA) & 66 (B) \\ \hline
+  B & Set wc=AB. AB is in the dictionary, so no output and  continue with w=AB. & - & - \\ \hline
+  B & Set wc=ABB. ABB is not in the dictionary, therefore add ABB to it. Output 257 (AB) and continue with B. & 260 (ABB) & 257 (AB) \\ \hline
+  B & Set wc=BB. BB is in the dictionary, so no output and continue with w=BB. & - & - \\ \hline
+  A & Set w=BBA. BBA is not in the dictionary, therefore BBA to it. Output 258 (BB) and continue with w=A. & 261 (BBA) & 258 (BB) \\ \hline
+  B & Set w=AB. AB is in the dictionary, so no output and continue with AB. & - & - \\ \hline
+  B & Set w=ABB. ABB is in the dictionary, so no output and continue with ABB. & - & - \\ \hline
+  A & Set w=ABBA. ABBA is not in the dictionary, therefore add ABBA to it. Output 260 (ABB) and continue with A. & 262 (ABBA) & 260 (ABB) \\ \hline
+  end & End of the input; exit the loop. w=A , output 65(A). & - & 65(A) \\ \hline
+\end{longtabu}
+
+From this we note that the encoder is running one step behind; i.e. it outputs a symbol one slotlater than the input characte ris received. 
+
+
+\paragraph{Decoder Operation.} The decoder starts with a dictionary containing all length-one strings. It then reads in one symbol after the other and performs two operations for every symbol received: (i) It uses the dictionary to actually decode the received symbol
+It updates the dictionary with new values.
+
+\paragraph{Decoding Example.} We continue the running example and feed the code sequence into the decoder.
+
+\begin{longtabu} to \textwidth {
+    |X[1,c]|X[5,l]|X[1,c]|X[1,c]|}
+  \hline Input & Action & Dictionary Update & Output \\ \hline
+  65 (A) & This is before the loop begins: Set w=65 (A) and output the corresponding character. & - & A \\ \hline
+  66 (B) & 66 (B) is in the dictionary, output B, update the dictionary with 257 (AB), and continue with w=B. & 257 (AB) & B \\ \hline
+  66 (B) & 66 (B) is in the dictionary, output B, update the dictionary with 258 (BB), and continue with w=B. & 258 (BB) & B \\ \hline
+  257 (AB) & 257 (AB) is in the dictionary, output AB, update the dictionary with 259 (BA), and continue with w=AB. &  259 (BA) & AB \\ \hline
+  258 (BB) & 258 (BB) is in the dictionary, output BB, update the dictionary with 260 (ABB), and continue with w=BB.& 260 (ABB) & BB \\ \hline
+  260(ABB) & 260 (ABB) is in the dictionary, output ABB, update the dictionary with 261 (BBA), and continue with w=ABB. & 261 (BBA) & ABB \\ \hline
+  65 (A) & 65 (A) is in the dictionary, output A, update the dictionary with 262 (ABBA) and we are done. & 262 (ABBA) & A \\ \hline
+\end{longtabu}
+
+Comparing the times when dictionary entries are available in the encoder and decoder, respectively, we see that the decoder lags behind by one step. For example, when 260 is sent, the encoder has already the dictionary entry 262 available and could send it as next symbol. However, the decoder requires sending of A to build up the dictionary entry for 262. So if the input sequence were different and the encoder would emit a 262 after sending 260, the decoder would not be able to decode it and throw an error.
+
+This is shown (again) in the following example.
+
+\begin{longtabu} to \textwidth {
+    |X[1,c]|X[5,l]|X[1,c]|X[1,c]|}
+  \hline Input & Action & Dictionary Update & Output \\ \hline
+  A & Set wc=A . A is in the dictionary, so no output and continue with w=A. & - & - \\ \hline
+  B & Set wc=AB. AB is not in the dictionary, therefore add it to dictionary, and output 65 (A). Continue with w=B. & 257 (AB) & 65 (A) \\ \hline
+  A & Set wc=BA. BA is not in the dictionary, therefore add BA to it. Output 66 (B) and continue with w=A. & 258 (BA) & 66 (B) \\ \hline
+  B & Set wc=AB. AB is in the dictionary, so no output and continue with w=AB. & - & - \\ \hline
+  A & Set wc=ABA. ABA is not in the dictionary, therefore add ABA to it. Output 257 (AB) and continue with A. & 259 (ABA) & 257 (AB) \\ \hline
+\end{longtabu}
+
+Up to this point, the decider would have built up the dictionary to 258 (BA). The following input sequence will cause the encoder to emit 259 (ABA) as next symbol and the decoder will not be able to decode this.
+
+\begin{longtabu} to \textwidth {
+    |X[1,c]|X[5,l]|X[1,c]|X[1,c]|}
+  \hline Input & Action & Dictionary Update & Output \\ \hline
+  B & Set wc=AB. AB is in the dictionary, so no output and continue with w=AB. & - & - \\ \hline
+  A & Set w=ABA. ABA is in the dictionary, so no output and continue with w=ABA. & - & - \\ \hline
+  C & Set w=ABAC. ABAC is not in the dictionary, therefore add to ABAC to it. Output 259 (ABA) and continue with w=C. & 260 (ABAC) & 259 (ABA) \\ \hline
+\end{longtabu}
+
+This case can be detected at the decoder: If the decoder receives a code wich is ``just'' has not in the dictionary, it shall output the characters it will add next to the dictionary. This is accomplished by the following additional elseif
+
+\begin{verbatim}
+elseif k == dictsize
+   entry = string(w, w[1])
+\end{verbatim}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
