@@ -62,7 +62,7 @@ This is shown (again) in the following example.
   A & Set wc=ABA. ABA is not in the dictionary, therefore add ABA to it. Output 257 (AB) and continue with A. & 259 (ABA) & 257 (AB) \\ \hline
 \end{longtabu}
 
-Up to this point, the decider would have built up the dictionary to 258 (BA). The following input sequence will cause the encoder to emit 259 (ABA) as next symbol and the decoder will not be able to decode this.
+Up to this point, the decoder has built up the dictionary up to entry 258 (BA). The following input sequence will cause the encoder to emit 259 (ABA) as next symbol and the decoder will not be able to decode this (as it does not yet know entry 259).
 
 \begin{longtabu} to \textwidth {
     |X[1,c]|X[5,l]|X[1,c]|X[1,c]|}
@@ -72,14 +72,14 @@ Up to this point, the decider would have built up the dictionary to 258 (BA). Th
   C & Set w=ABAC. ABAC is not in the dictionary, therefore add to ABAC to it. Output 259 (ABA) and continue with w=C. & 260 (ABAC) & 259 (ABA) \\ \hline
 \end{longtabu}
 
-This case can be detected at the decoder: If the decoder receives a code wich is ``just'' has not in the dictionary, it shall output the characters it will add next to the dictionary. This is accomplished by the following additional elseif
+However, this case can be detected at the decoder: If the decoder receives a code which it has ``just'' not in the dictionary, it shall output the characters it will add next to the dictionary. This is accomplished by the following additional elseif
 
 \begin{verbatim}
 elseif k == dictsize
    entry = string(w, w[1])
 \end{verbatim}
 
-
+This addition completes the LZW encoder / decoder.
 
 %%% Local Variables:
 %%% mode: latex
