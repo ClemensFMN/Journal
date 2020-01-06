@@ -1,0 +1,58 @@
+\DiaryEntry{Linear Algebra - QR Decomposition, Givens Rotations}{2020-01-06}{Linear Algebra}
+
+The Householder transform zeros out all matrix elements but one in a row. On contrast, the Givens rotation zeros out one matrix element. 
+
+Let's start with a simple two-dimensional case. We have a vector
+
+\bee
+\xbf = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}
+\eee
+
+and a rotation matrix
+
+\bee
+\Rbf = \begin{pmatrix} \cos \phi & -\sin\phi \\ \sin\phi & \cos\phi \end{pmatrix}
+\eee
+
+We can choose the rotation angle $\phi$ in such a way that the y-component becomes zero. This is achieved by choosing
+
+\bee
+\phi = \arctan \left( - \frac{x_2}{x_1} \right)
+\eee
+
+As an example, consider the following Julia session where we zero the second element of $\xbf$:
+
+\begin{verbatim}
+x=[2;5]
+2-element Array{Int64,1}:
+ 2
+ 5
+phi=atan(-5/2)
+-1.1902899496825317
+R=[cos(phi) -sin(phi); sin(phi) cos(phi)]
+2×2 Array{Float64,2}:
+  0.371391  0.928477
+ -0.928477  0.371391
+R*x
+2-element Array{Float64,1}:
+ 5.385164807134504    
+ 2.220446049250313e-16
+\end{verbatim}
+
+This method can be (i) extended to higher-dimensions and (ii) several rotation matrices can be (multiplicatively) combined to zero out more than one matrix element.
+
+
+\bee
+\Abf = \begin{pmatrix} 1 & 4 & 6 \\ -2 & 5 & 10 \\ 4 & 2 & -5 \end{pmatrix}
+\eee
+
+We start with zeroing out the element $-2$ using the rotation matrix
+
+\bee
+\Rbf_1 = \begin{pmatrix} \cos \phi_1 & -\sin\phi_1 & 0 \\ \sin\phi_1 & \cos\phi_1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
+\eee
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
