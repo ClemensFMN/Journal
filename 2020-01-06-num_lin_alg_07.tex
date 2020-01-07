@@ -39,18 +39,122 @@ R*x
  2.220446049250313e-16
 \end{verbatim}
 
-This method can be (i) extended to higher-dimensions and (ii) several rotation matrices can be (multiplicatively) combined to zero out more than one matrix element.
-
+This method can be (i) extended to higher-dimensions and (ii) several rotation matrices can be (multiplicatively) combined to zero out more than one matrix element. We will show this with a $3 \times 3$ example with matrix $\Abf$ given by
 
 \bee
 \Abf = \begin{pmatrix} 1 & 4 & 6 \\ -2 & 5 & 10 \\ 4 & 2 & -5 \end{pmatrix}
 \eee
 
-We start with zeroing out the element $-2$ using the rotation matrix
+We have three directions to rotate vectors; we can rotate in the $x-y$ plane (leaving $z$ unchanged) and given by the following matrix
 
 \bee
 \Rbf_1 = \begin{pmatrix} \cos \phi_1 & -\sin\phi_1 & 0 \\ \sin\phi_1 & \cos\phi_1 & 0 \\ 0 & 0 & 1 \end{pmatrix}
 \eee
+
+The next option is to rotate in the $x-z$ plane which is given by the matrix
+
+\bee
+\Rbf_2 = \begin{pmatrix} \cos \phi_2 & 0 & -\sin\phi_2 \\ 0 & 1 & 0 \\ \sin\phi_2 & 0 & \cos\phi_2 \end{pmatrix}
+\eee
+
+and finally, we can rotate in the $y-z$ plane which is given by the matrix
+
+\bee
+\Rbf_3 = \begin{pmatrix} 1 & 0 & 0 \\ 0 & cos \phi_3 & -\sin\phi_3 \\ 0 & \sin\phi_3 & \cos\phi_3 \\ 0 & 0 & 1 \end{pmatrix}
+\eee
+
+We can choose the three rotation angles in such a way that the three elements on the subdiagonal of $\Abf$ become zero. For the example matrix from above, this is done in the following Julia session (code is \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/qr_givens.jl}{here}).
+
+\begin{verbatim}
+A=[1 4 6;-2 5 10;4 2 -5]
+3×3 Array{Int64,2}:
+  1  4   6
+ -2  5  10
+  4  2  -5
+\end{verbatim}
+
+We start by zeroing out the element $-2$ by a rotation in the $x-y$ plane as follows
+
+\begin{verbatim}
+phi1 = atan(-A[2,1]/A[1,1])
+  1.1071487177940904
+R1 = [cos(phi1) -sin(phi1) 0; sin(phi1) cos(phi1) 0; 0 0 1]
+3×3 Array{Float64,2}:
+ 0.447214  -0.894427  0.0
+ 0.894427   0.447214  0.0
+ 0.0        0.0       1.0
+B = R1*A
+3×3 Array{Float64,2}:
+  2.23607      -2.68328  -6.26099
+ -2.22045e-16   5.81378   9.8387 
+  4.0           2.0      -5.0    
+\end{verbatim}
+
+With the next rotation, we zero out the element $4$.
+
+\begin{verbatim}
+phi2 = atan(-B[3,1]/B[1,1])
+  -1.0610566479633896
+R2 = [cos(phi2) 0 -sin(phi2); 0 1 0; sin(phi2) 0 cos(phi2)]
+3×3 Array{Float64,2}:
+  0.48795   0.0  0.872872
+  0.0       1.0  0.0     
+ -0.872872  0.0  0.48795 
+C=R2*R1*A
+3×3 Array{Float64,2}:
+  4.58258      0.436436  -7.41941
+ -2.22045e-16  5.81378    9.8387 
+  4.44089e-16  3.31806    3.02529
+\end{verbatim}
+
+Now we have zeroed the two elements in the first column. Last element is $3.318$ wich can be zeroed as follows
+
+\begin{verbatim}
+phi3 = atan(-C[3,2]/C[2,2])
+-0.5186145980395779
+R3 = [1 0 0; 0 cos(phi3) -sin(phi3); 0 sin(phi3) cos(phi3)]
+3×3 Array{Float64,2}:
+ 1.0   0.0       0.0     
+ 0.0   0.868507  0.495677
+ 0.0  -0.495677  0.868507
+R3*R2*R1*A
+3×3 Array{Float64,2}:
+ 4.58258      0.436436     -7.41941
+ 2.22045e-16  6.69399      10.0445 
+ 6.66134e-16  9.99201e-16  -2.24934
+\end{verbatim}
+
+We are done and have the following connections to the QR decomposition: $\Rbf_3 \Rbf_2 \Rbf_1 = \Qbf^T$ and $\Rbf_3 \Rbf_2 \Rbf_1 A = \Rbf$. We can compare with Julia's QR function
+
+\begin{verbatim}
+(R3*R2*R1)'
+3×3 Adjoint{Float64,Array{Float64,2}}:
+  0.218218  0.583323  -0.782378
+ -0.436436  0.775393   0.456387
+  0.872872  0.241866   0.423788
+R3*R2*R1*A
+3×3 Array{Float64,2}:
+ 4.58258      0.436436     -7.41941
+ 2.22045e-16  6.69399      10.0445 
+ 6.66134e-16  9.99201e-16  -2.24934
+using LinearAlgebra
+qr(A)
+LinearAlgebra.QRCompactWY{Float64,Array{Float64,2}}
+Q factor:
+3×3 LinearAlgebra.QRCompactWYQ{Float64,Array{Float64,2}}:
+ -0.218218  -0.583323  -0.782378
+  0.436436  -0.775393   0.456387
+ -0.872872  -0.241866   0.423788
+R factor:
+3×3 Array{Float64,2}:
+ -4.58258  -0.436436    7.41941
+  0.0      -6.69399   -10.0445 
+  0.0       0.0        -2.24934
+\end{verbatim}
+
+The results are the same apart from some signs.
+
+Note that the order in which elements are zeroed out \emph{is} important; for example, a rotation sequence $\Rbf_3, \Rbf_1, \Rbf_2$ does \emph{not} work; however, a sequence $\Rbf_2, \Rbf_1, \Rbf_3$ works.
 
 %%% Local Variables:
 %%% mode: latex
