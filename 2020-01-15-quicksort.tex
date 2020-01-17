@@ -68,13 +68,60 @@ It selects the last element as pivot and, as the routine runs, it partitions the
 
 The region between $p$ and $i$ contains elements already processed and which are smaller or equal than the pivot at position $r$ and being equal to $x$. The region between $i+1$ and $j-1$ contains elements already processed and which are larger than the pivot. Elements between $j$ and $r-1$ have not yet been processed by the procedure.
 
-The algorithm runs from left to right; the currently processed element is A[j]. If it is smaller than the pivot x, we make more space in the lighlty shaded region (i.e. the region holding elements smaller than the pivot) by exchanging A[i+1] with A[j] and incrementing i. This way A[j] is appended to the right region and i is updated correctly. Moving the element A[i+] to its new position is ok, as it larger than the pivot anyway.
+\paragraph{Algorithm.} The algorithm runs from left to right; the currently processed element is A[j]. If it is smaller than the pivot x, we make more space in the lighlty shaded region (i.e. the region holding elements smaller than the pivot) by incrementing i and move A[i+1] into this region by 
+by exchanging A[i+1] with A[j]. Moving the element A[i+1] to its new position is ok, as it larger than the pivot and stays within the correct region.
+
+This case is shown in the following Figure.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.7]{images/quicksort_3.png}
+\end{figure}
+
 
 If the currently processed element A[j] is larger than the pivot we do nothing; j will be increased in the next iteration and thereby correctly reflect the increase of the region holding elements larger than the pivot.
+
+This case is shown in the following Figure.
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.7]{images/quicksort_2.png}
+\end{figure}
+
 
 We are finished when we have processed all elements but the last (the pivot). In the last step we exchange the pivot with the element A[i+1]; this puts the pivot in the right region, the element A[i+1] stays in the region with elements being larger than the pivot.
 
 \paragraph{Example.}
+
+The following example (from Cormen) shows the algorithm in action.
+
+\begin{description}
+\item[a] The algorithm starts. Pivot $x = 4$, index $i=0$, and $p=1$ and we process index $j=1$ with $A[j]=2 < x$. Therefore, we exchange $A[j]$ with itself and increase $i$ to $1$. So the region with elements smaller than the pivot has size one; the region with elements larger than the pivot has size zero.
+
+\item[b] We consider element $A[j=2]=8 > x$ and do nothing. By the next increase of $j$ the region of elements larger than the pivot becomes $1$.
+
+\item[c] Similarly, $A[j=3]=7 > x$ and we do nothing.
+
+\item[d] Element $A[j=4]=1 \leq x$, therefore we exchange it with the first element of the region with elements larger than the pivot, $8$.
+  
+\item[e] Element $A[j=4]=3 \leq x$, and same procedure as in (d).
+
+\item[f] Similarly, $A[j=5]=5 > x$ and we do nothing.
+
+\item[g] Similarly, $A[j=6]=5 > x$ and we do nothing.
+
+\item[h] We are done, as we have processed all elements but the pivot.
+
+\item[i] In the last step, we exchange the pivot with the first element of the region with elements larger than the pivot.
+
+\end{description}
+
+\begin{figure}[hbt!]
+\centering
+\includegraphics[scale=0.5]{images/quicksort_4.png}
+\end{figure}
+
+
 
 %%% Local Variables:
 %%% mode: latex
