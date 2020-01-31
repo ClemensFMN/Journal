@@ -57,14 +57,110 @@ The max-heapfiy algorithm considers the node A[i] and its two siblings, A[left(i
 
 The running time is $\Oc(\log n)$; the exchange has constant complexity and max-heapify needs to run $\Oc(\log n)$ times (down to the bottom of the tree).
 
+\paragraph{Example.} As an example, we consider the following binary tree
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_2.png}
+\end{figure}
+
+Note that only the $4$ is ``wrong''; in particular, the subtrees left and right below the $4$ satisfy the max-heap property. In a first step, the $4$ is `exchanged with the $14$, yielding the following tree.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_3.png}
+\end{figure}
+
+Now we continue the subtree which root was changed (that's the left one) and run max-heapify with the new root $4$. We exchange $4$ with $8$ and finally arrive at the following tree. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_4.png}
+\end{figure}
+
+\qed
+
+
 \subsection{Build-Max-Heap Algorithm}
 
 We can use the max-heapify algorithm bottom up to convert an unordered array into a max-heap. We note that the elemnts in the second half of the earray $A[\lfloor n/2 \rfloor \ldots n]$ are the siblings. We therefore start the max-heapify algorithm at $A[\lfloor n/2 \rfloor]$ and work upwards to $A[1]$.
 
+\paragraph{Example.} We consider a slightly different example of the following tree
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_10.png}
+\end{figure}
+
+We first start withth meax-heapifying the tree at node $16$; since this subtree already has the max-heap property, nothing changes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_11.png}
+\end{figure}
+
+The subtree with root $2$ is max-heapified, yielding
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_12.png}
+\end{figure}
+
+Now we go onle level up, and consider the subtree with root at $3$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_13.png}
+\end{figure}
+
+The subtree with root $1$ is processed next, yielding a big change in the left subtree.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_14.png}
+\end{figure}
+
+And finally, we consider the root of the tree, yielding
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_15.png}
+\end{figure}
+
+\qed
 
 \subsection{Heapsort Algorithm}
 
 The heapsort algorithm uses the fact that the root of the tree contains the maximum element. We start with applying the build-max-heap algorithm to the whole array, which yields the maximum elements at the root. In the next step, we exchange A[1] with A[n] and consider a tree of size $n-1$. The new tree root might violate the max-heap property, therefore we restore it via the max-heapify algorithm. Now A[1] holds the largest element of the tree (and the seocnd largest element of the array to be sorted), so we replace A[1] with A[n-2] and continue. until we have a tree of size $1$.
+
+\paragraph{Example}
+
+We consider the following tree after the first max-heapify procedure
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_20.png}
+\end{figure}
+
+Now we remove the root $16$ and run max-heapify, yielding.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_21.png}
+\end{figure}
+
+Removing $14$ yields the following tree
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/heapsort_22.png}
+\end{figure}
+
+and so on and on. The sequence of removed tree roots is a sorted.
+
+
+
+\qed
 
 
 %%% Local Variables:
