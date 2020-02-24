@@ -1,0 +1,72 @@
+\DiaryEntry{Breadth-First Search}{2020-02-24}{Algorithms}
+
+We have a graph $G$ with vertex set $V$ and edge set $E$ and a source vertex $s$. Breadth-first starts at $s$ and systematically walks along the graph edges to visit each vertex. During this walk, it produces two results ``on the way'',
+
+\begin{itemize}
+\item It calculates the distance (smallest number of edges) from $s$ to every vertex. If a vertex is not reachable from $s$, the distance is $\infty$.
+\item It produces a breadth-first tree with root $s$ that contains all reachable vertices.
+\item It stores the parent vertex of each vertex.
+\end{itemize}
+
+The algorithm is called breadth-first because it advances uniformly across the breadth of the frontier. A depth-first algorithm digs to the leaves of the tree first.
+
+The algorithm keeps track of progress by assigning a different cvolor to each vertex as follows
+
+\begin{itemize}
+\item Initially, all vertices are colored \emph{white}.
+\item If a vertex is discovered, its color becomes non-white. Gray and black vertices, have been discovered; their difference is as follows
+  \begin{itemize}
+  \item If a vertex $v$ is black, then a neighbouring vertex $u$ with $(u,v) \in G$ is non-white.
+  \item A grey vertex may have some adjacent white vertices. The color grey therefore represents the frontier between discovered and undiscovered vertices.
+  \end{itemize}
+\end{itemize}
+
+The algorithm stores the vertex color, parent, and distance in additional attributes of a vertex. In addition, the algorithm uses a queue Q wich works in a first-in first-out fashion. It is this queue which enforces the breadth-first characteristic.
+
+In pseudo-code, the algorithm looks as follows
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+BFS(G,s)
+for each vertex u in G:V -s
+   u.color = WHITE
+   u.d = 1
+   u.parent = NULL
+s.color = GRAY
+s.d = 0
+s.parent = NULL
+enqueue(Q,s)
+while Q is non-empty
+   u = dequeue(Q)
+   for each v in adjacent(G,u)
+      if v.color == WHITE
+         v.color = GRAY
+         v.d = u.d + 1
+         v.parent = u
+         enqueue(Q,v)
+   u.color = BLACK
+\end{Verbatim}
+
+Lines 2 - 5 initialize all vertices. Lines 6 - 8 mark the source vertex as grey and enqueue it in Q (line 9). Then the algorithm works on the queued items (line 10): It takes a vertex u from the queue (line 11) and proceeds with its neighbours (line 12). If the vertex is white; i.e. has not been visited (line 13), it colors the vertex gray, updates distance and parent (lines 14 - 16) and enqueues it (line 17). Finally, it marks u as black.
+
+The check whether a vertex is white (line 13) prevents considering a vertex twice (and therefore introducing loops).
+
+The results provided by the BFS depend (of course) on the starting vertex. In addition, the same graph can have different order of vertices in the adjacency matrix (which is used in e.g. line 12), which may result in different parent attributes. The distances calculated will be same.
+
+Cormen et al contains some proofs that the breadth-first algorithm does what it is supposed to do; we skip that here. What is interesting, though, is a procedure to extract the path from a certain vertex $v$ to the root vertex $s$. Starting at vertex $v$, the algorithm goes ``up'' along v.parent until (i) it has reached $s$, or (ii) when the vertex has no parent. In the latter case, there is no path between $s$ and $v$.
+
+\begin{verbatim}
+print-path(G,s,v)
+   if v == s
+      print s
+   else if v.parent = NULL
+      print "no path"
+   else
+      print-path(G,s,v.parent)
+      print v
+\end{verbatim}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
