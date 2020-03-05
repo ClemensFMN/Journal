@@ -1,0 +1,13 @@
+digraph BST {
+v->s;
+v->w;
+w->x;
+t->u;
+t->v;
+x->z;
+u->t;
+u->v;
+z->w;
+z->y;
+}
+

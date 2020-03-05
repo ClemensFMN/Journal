@@ -1,0 +1,17 @@
+digraph BST {
+u -> v;
+v [label="v (13, 14)"]
+s -> w;
+w [label="w (2, 9)"]
+t [label="t (11, 16)"]
+w -> x;
+x [label="x (3, 8)"]
+t -> u;
+u [label="u (12, 15)"]
+x -> z;
+z [label="z (4, 7)"]
+s [label="s (1, 10)"]
+z -> y;
+y [label="y (5, 6)"]
+}
+
