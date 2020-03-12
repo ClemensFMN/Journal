@@ -4,6 +4,8 @@ The depth-first search algorithm searches ``deeper'' into the graph whenever pos
 
 Slightly different than BFS, the DFS algorithm proceeds if there are still unexplored vertices left: It takes a new source vertex and starts a depth-first search from there. This procedure repeats until all vertices have been visited. Each instance of the DFS algorithm produces a depth-first predecessor tree; in total a forest of predecessor tress is created.
 
+\subsection{Algorithm}
+
 The algorithm colors vertices like the BFS algorithm. It contains of two procedures: The first one (shown below) initialises the data structures (lines 2-4) and then runs over allvertices. If a vertex is white (un-visited) it starts the actual DFS algorithm(lines 6 - 8). It repeats unti all vertices have been explored.
 
 \begin{Verbatim}[numbers=left, xleftmargin=5mm]
@@ -82,6 +84,13 @@ Starting at root $t$, the DFS yields the following tree. The branch at vertex $v
 \end{figure}
 
 
+\subsection{Topological Sort}
+
+TBD
+
+\subsection{Strongly Connected Components}
+
+TBD
 
 
 %%% Local Variables:
