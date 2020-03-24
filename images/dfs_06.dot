@@ -1,0 +1,9 @@
+digraph BST {
+A -> B;
+C -> B;
+B -> D;
+B -> E;
+E -> F;
+F -> D;
+}
+

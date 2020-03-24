@@ -86,7 +86,42 @@ Starting at root $t$, the DFS yields the following tree. The branch at vertex $v
 
 \subsection{Topological Sort}
 
-TBD
+A topological sort of a directed acyclic graph (DAG) is a linear ordering of its vertices. If $G$ contains an edge $(u,v)$, then vertex $u$ appears before vertex $v$ in the topological sorting. Topological sort has many applications; one is the ordering of tasks (where some tasks need to be done before others).
+
+We can use the DFS algorithm to obtain a topological sort of its vertices: Run the DFS algoithm, record the finishing times for each vertex and order the vertices by their finish times; i.e. the vertex with the lowest finish time is the rightmose vertex, the one to the left is the one with the second-lowest finish time and so on. Note that \emph{only} the vertices are moved around, their connectons (edges) stay the same.
+
+\paragraph{Example.} 
+
+We use the following graph as an example.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/dfs_06.png}
+\end{figure}
+
+Running the DFS algorithm starting at vertex $A$ and then with ``C'' yields the following finish times for the vertices
+
+\begin{tabular}{c|c}
+  Vertex & Finish Time \\ \hline
+  A & 10 \\
+  B & 9 \\
+  C & 12 \\
+  D & 4 \\
+  E & 8 \\
+  F & 7
+\end{tabular}
+
+If we order the vertices in the order of their finishing times and redraw the graph, we obtain the presentation shown in the following.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/dfs_07.png}
+\end{figure}
+
+Note that we could have started the DFS algorithm with $C$ first and then continue with $A$ as well; in this case the finishing times of $A$ and $C$ would be exchanged, while all other finishing times stay the same. 
+
+
+
 
 \subsection{Strongly Connected Components}
 
