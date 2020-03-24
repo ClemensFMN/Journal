@@ -1,0 +1,117 @@
+\DiaryEntry{Summing $1/(n-1)-1/n$}{2020-03-12}{Maths}
+
+We consider the following sum (inspired by a BlackPenRedPen Youtube video),
+
+\bee
+S_1 = \sum_{n=2}^\infty \frac{1}{n-1} - \frac{1}{n}
+\eee
+
+As a first step, lets rewrite the expression,
+
+\bee
+S_1 = \sum_{n=2}^\infty = \frac{1}{n(n-1)}
+\eee
+
+From this we see - at least - that the summands asymptotically have the form $1/n^2$ and that therefore the sum should converge. Still, it is not obvious how we can tackle the sum; i.e. get a closed form expression for $S_1$. We use the following trick to express the summands via an integral. We have
+
+\bee
+\int_{x=0}^1 x^{n-2} dx = \left. \frac{1}{n-1}  x^{n-1} \right|_{x=0}^1 = \frac{1}{n-1}
+\eee
+
+and similarly,
+
+\bee
+\int_{x=0}^1 x^{n-1} dx = \left. \frac{1}{n-1} x^{n} \right|_{x=0}^1 = \frac{1}{n}
+\eee
+
+So instead of summing the easy expressions, we can sum the integrals instead.
+
+\bee
+S_1 = \sum_{n=2}^\infty \left( \int_{x=0}^1 x^{n-2} dx - \int_{x=0}^1 x^{n-1} dx \right)
+\eee
+
+This looks more difficult than before, however - when the sum converges - we are allowed to exchange sum with integral. Then we have
+
+\bee
+S_1 = \int_{x=0}^1 \left( \sum_{n=2}^\infty x^{n-2} \right) dx - \int_{x=0}^1 \left( \sum_{n=2}^\infty x^{n-1} \right) dx
+\eee
+
+Now we can solve the sums via the geometric series sum formula,
+
+\bee
+\sum_{n=2}^\infty x^{n-2} = x^0 + x + x^2 + \cdots = \frac{1}{1-x}, \quad \sum_{n=2}^\infty x^{n-1} = x + x^2 + \cdots = \frac{x}{1-x}
+\eee
+
+Inserting this back, we arrive at
+
+\bee
+S_1 = \int_{x=0}^1 \frac{1}{1-x} dx - \int_{x=0}^1 \frac{x}{1-x} dx
+\eee
+
+We can join the integrands, simplify them and finally get
+
+\bee
+S_1 = \int_{x=0}^1 \frac{1-x}{1-x}dx = 1
+\eee
+
+We can calculate the sum with Julia,
+
+\begin{verbatim}
+julia> n=2:10000; sum(1 ./ (n.-1) .- 1 ./ n)
+0.9998999999999999
+\end{verbatim}
+
+which is reasonable close. \qed
+
+It's so much fun, let's try another one,
+
+\bee
+S_2 = \sum_{n=1}^\infty \frac{1}{2n-1} - \frac{1}{2n}
+\eee
+
+We can rewrite the summands using integrals as follows,
+
+\bee
+\frac{1}{2n-1} = \int_{x=0}^1 x^{2n-2} dx , \quad \frac{1}{2n} = \int_{x=0}^1 x^{2n-1} dx
+\eee
+
+Inserting this into our sum epxressions, we obtain
+
+\bee
+S_2 = \sum_{n=1}^\infty \left( \int_{x=0}^1 x^{2n-2}dx - \int_{x=0}^1 x^{2n-1} dx \right) = \int_{x=0}^1 \left( \sum_{n=1}^\infty x^{2n-2} dx -  \sum_{n=1}^\infty x^{2n-1} \right) dx
+\eee
+
+Solving the sums (geometric series), we obtain
+
+\bee
+S_2 = \int_{x=0}^1 \frac{1}{1-x^2} - \frac{x}{1-x^2} dx = \int_{x=0}^1 \frac{1-x}{(1-x)(1+x)} dx = \int_{x=0}^1 \frac{1}{(1+x)} dx
+\eee
+
+This is a boring standard integral, we substitute $u = 1+x$ and arrive at
+
+\bee
+S_2 = \int \frac{1}{u} du = \ln u = \left. \ln(1+x) \right|_{x=0}^1 = \ln(2)
+\eee
+
+Comparing with Julia yields
+
+\begin{verbatim}
+julia> log(2)
+0.6931471805599453
+
+julia> n=1:100; sum(1 ./ (2*n.-1) .- 1 ./ (2*n))
+0.690653430481824
+
+julia> n=1:1000; sum(1 ./ (2*n.-1) .- 1 ./ (2*n))
+0.6928972430599374
+
+julia> n=1:10000; sum(1 ./ (2*n.-1) .- 1 ./ (2*n))
+0.6931221811849451
+\end{verbatim}
+
+It converges slowly, but converges to $\ln 2$. \qed
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
