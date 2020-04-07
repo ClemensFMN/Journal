@@ -54,6 +54,42 @@ In addition, the algorithm provides the distance between the source and each ver
   6 & 6
 \end{tabular}
 
+\paragraph{Negative Weights and Cycles.} Some algorithms allow for negative edge weights. A necessary condition for a soluton is, that there are no cycles with negative weights: If there would be, then no path can be shortest (minimum weight) as appending (another) cycle to a path would create a path with even lower weight. An example of this is shown in the following Figure: There is a cycle of negative weight $-3$ between vertices $2$ and $3$. Any path between vertices $1$ and $4$ can be made shorter by running around this cylce one more time.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_3.png}
+\end{figure}
+
+From a general perspective, shortest paths cannot contain cycles:
+
+\begin{itemize}
+\item Cycle with negative weight are not allowed as there no shortest paths (see above).
+\item Cycles with positive weight can be elimated and yield a shorter path.
+\item Cycles with zero weight, do not affect the path weight, but cano be removed without changing the weight of the shortest path.
+\end{itemize}
+
+
+\paragraph{Relaxation.} 
+
+For each vertex $v$ we maintain an attribute $v.d$ which is an upper bound of the weight of a shortest path from source $s$ to $v$. This attribute is called shortest-path estimate. In addition, for every vertex $v$ we have a predecessor $v.\pi$. The shortest path algorithms set this attribute according to the shortest path.
+
+These two attributes are initialzed as follows:
+
+\begin{verbatim}
+Iinit-Single-Source(G,s)
+   for each vertex v in G
+      v.d = INF
+      v.pi = NULL
+   s.d = 0
+\end{verbatim}
+
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_3.png}
+\end{figure}
 
 
 %%% Local Variables:
