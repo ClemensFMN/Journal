@@ -72,24 +72,57 @@ From a general perspective, shortest paths cannot contain cycles:
 
 \paragraph{Relaxation.} 
 
-For each vertex $v$ we maintain an attribute $v.d$ which is an upper bound of the weight of a shortest path from source $s$ to $v$. This attribute is called shortest-path estimate. In addition, for every vertex $v$ we have a predecessor $v.\pi$. The shortest path algorithms set this attribute according to the shortest path.
+For each vertex $v$ we maintain an attribute $v.d$ which is an upper bound of the weight of a shortest path from source $s$ to $v$. This attribute is called shortest-path estimate. In addition, for every vertex $v$ we have a predecessor $v.\pi$. The shortest path algorithms set this attribute accordingly; by starting at a vertex $v$ and ``tracing back'' to vertex $s$, we obtain the shortest path between $s$ and $v$.
 
 These two attributes are initialzed as follows:
 
 \begin{verbatim}
-Iinit-Single-Source(G,s)
+Init-Single-Source(G,s)
    for each vertex v in G
       v.d = INF
       v.pi = NULL
    s.d = 0
 \end{verbatim}
 
+Relaxing an edge $(u,v)$ means to test whether we can improve the shortest path to vertex $v$ found so far by going through vertex $u$. If this is the case, then we update $v.\pi$ and $v.d$.
+
+The relaxation algorithm looks as follows
+
+\begin{verbatim}
+Relax(u,v,w)
+   if v.d > u.d + w(u,v)
+      v.d = u.d + w(u,v)
+      v.pi = u 
+\end{verbatim}
+
+An example is shown in the following Figure. Left (a):  The upper bound is $v.d = 9$; if we choose going via vertex $u$ instead, we can tighten the bound to $v.d = u.d + w(u,v) = 5 + 2 = 7$. In the right Subfigure (b), this is not possible; going via vertex $u$ instead, would increase $v.d$ and therefore relaxation is not possible.   
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{images/sssp_3.png}
+\includegraphics[scale=0.65]{images/sssp_4.png}
 \end{figure}
+
+
+
+\subsection{Bellman-Ford Algorithm}
+
+The Bellman-Ford algorithm is
+
+\begin{verbatim}
+Bellman-Ford(G, w, s)
+   Init-Single-Source(G,s)
+   for i = 1 to |G.V|-1
+      for each edge (u,v) in G.E
+         Relax(u,v,w)
+   for each edge (u,v) in G.E
+      if v.d > u.d + w(u,v)
+         return false
+   return true
+\end{verbatim}
+
+
+
 
 
 %%% Local Variables:
