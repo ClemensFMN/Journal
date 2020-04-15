@@ -107,9 +107,10 @@ An example is shown in the following Figure. Left (a):  The upper bound is $v.d 
 
 \subsection{Bellman-Ford Algorithm}
 
-The Bellman-Ford algorithm is
+The Bellman-Ford algorithm looks as follows.
 
-\begin{verbatim}
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
 Bellman-Ford(G, w, s)
    Init-Single-Source(G,s)
    for i = 1 to |G.V|-1
@@ -119,9 +120,49 @@ Bellman-Ford(G, w, s)
       if v.d > u.d + w(u,v)
          return false
    return true
-\end{verbatim}
+\end{Verbatim}
+
+After initializing all vertices (line $2$), the algorithm runs $|G.V|-1$ times across all edges (lines $3$ and $4$). For each edge, it performs a relaxation (lines $5$). After that it is finished; it remains to chekc whether there are any negative cycles. This is achieved by checking the condition in line $7$ for all edges; if the condition holds for one edge, there is a cycle of negative weight and the algorithm terminates.
 
 
+\paragraph{Example.} We consider the following mini-example to illustrate how the algorithm works.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_5.png}
+\end{figure}
+
+For the illustration, we write inside the vertices the values of \verb d and \verb pi . We choose \verb s=A and after running \verb Init-Single-Source(G,s) , we have the following values.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_6.png}
+\end{figure}
+
+The algorithm will now run $|G.V|-1 = 2$ times over all edges and perform relaxation. The order in which the algorithm chooses the edges is arbitrary. Depending on the order, the algorithm may finish earlier; i.e. no updates occur in later iterations.
+
+We first start with the edge \verb A-B . Relaxation is possible; i.e. \verb B.d>A.d+w(A,B) . Therefore, we set \verb B.d=3  and \verb B.pi=A . This results in the following attributes of the graph.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_7.png}
+\end{figure}
+
+Next we choose the edge \verb A-C . Again, relaxation is possible and we set \verb C.d=1  and \verb C.pi=A . We get the following graph.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_8.png}
+\end{figure}
+
+There is the edge \verb B-C left. Again, we can relax and update \verb B.d=2  and \verb B.pi=C . We finally arrive at the graph as follows.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_9.png}
+\end{figure}
+
+We have chosen the edges in the ``right'' order and already obtained the final solution after the first iteration. We have one more iteration ``left''; however, this won't change anything.
 
 
 

@@ -1,0 +1,7 @@
+digraph BST {
+rankdir="LR";
+"A.d=0 \n A.pi=nil" -> "B.d=3 \n B.pi=A" [label="3"];
+"A.d=0 \n A.pi=nil" -> "C.d=1 \n C.pi=A"[label="1"];
+"C.d=1 \n C.pi=A" -> "B.d=3 \n B.pi=A"[label="1"];
+}
+
