@@ -165,6 +165,22 @@ There is the edge \verb B-C left. Again, we can relax and update \verb B.d=2  an
 We have chosen the edges in the ``right'' order and already obtained the final solution after the first iteration. We have one more iteration ``left''; however, this won't change anything.
 
 
+\subsection{Single-source Shortest Paths in DAGs}
+
+The example from the previous Section indicates that for some graphs the full number of iterations in the Bellman-Ford algorithm is needed. This is inparticular the case of graphs without cycles; i.e. directed acyclic graphs (DAGs). When they are traversed in the ``right order'', one iteration of relaxation is sufficient. The right order is given by a topological sort of the vertices. Taken together, the complete algorithm for the single-source shortest path algorithm for DAGs is given as follows.
+
+\begin{verbatim}
+DAG-Shortest-Paths(G, w, s)
+   topologically sort vertices G.V
+   Init-Single-Source(G,s)
+   for each vertex u taken in topological order
+      for each vertex v in G.Adj[v]
+         relax(u,v,w)
+\end{verbatim}
+
+The check for negative weight cycles can be omitted, as a DAG has no cycles.
+
+
 
 %%% Local Variables:
 %%% mode: latex
