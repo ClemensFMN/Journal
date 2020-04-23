@@ -1,0 +1,14 @@
+digraph BST {
+rankdir="LR";
+"1 \n 1.d=0 \n 1.pi=nil" -> "2 \n 2.d=inf \n 2.pi=nil"[label="1"];
+"1 \n 1.d=0 \n 1.pi=nil" -> "3 \n 3.d=inf \n 3.pi=nil"[label="3"];
+"1 \n 1.d=0 \n 1.pi=nil" -> "4 \n 4.d=inf \n 4.pi=nil"[label="2"];
+
+"2 \n 2.d=inf \n 2.pi=nil" -> "3 \n 3.d=inf \n 3.pi=nil"[label="1"];
+
+"3 \n 3.d=inf \n 3.pi=nil" -> "4 \n 4.d=inf \n 4.pi=nil"[label="2"];
+"3 \n 3.d=inf \n 3.pi=nil" -> "5 \n 5.d=inf \n 5.pi=nil"[label="3"];
+"3 \n 3.d=inf \n 3.pi=nil" -> "6 \n 6.d=inf \n 6.pi=nil"[label="5"];
+
+"5 \n 5.d=inf \n 5.pi=nil" -> "6 \n 6.d=inf \n 6.pi=nil"[label="1"];
+}
