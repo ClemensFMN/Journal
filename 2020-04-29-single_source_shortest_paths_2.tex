@@ -1,0 +1,102 @@
+\DiaryEntry{Single-Source Shortest Paths - Proofs}{2020-04-29}{Algorithms}
+
+This entry contains various proofs. As repetition, the expression $\delta(u,v)$ is the weight of the shortest-path weight from vertex $u$ to $v$; i.e.
+
+\bee
+\delta(u,v) = \begin{cases} \min_p w(p): u \rightarrow v \, & \text{if there is a path from u to v} \\ \infty \, & \text{otherwise} \end{cases}
+\eee
+
+In the following, we consider a graph $G=(V,E)$ with vertex set $V$ and edge set $E$. In addition, a weight function is defined according to $w: E \rightarrow \mR$.
+
+\begin{theorem}[Triangle Inequality] For all vertices $s,u,v$, the triangle inequality is given by
+
+\bee
+\delta(s, v) \leq \delta(s,u) + \delta(u,v)
+\eee
+
+\end{theorem}
+
+\begin{proof} Assume the path $p$ is the shortest path from vertex $s$ to vertex $v$. This implies that $p$ has no more weight than any other path from $s$ to $v$. If $p$ goes via vertex $u$, then the inequality becomes an equality; otherwise, the weight of $p$ increases, if we force the path to go through the vertex $u$.
+
+\end{proof}
+
+
+\subsection{Relaxation}
+
+
+\begin{theorem}[Upper-bound Property] In addition to above definitions, we now have a source vertex $s$ and initialize the graph with \verb initialize-single-source(G,s) , that is, $v.d=\infty$ for all vertices $v \neq s$ and $s.d = 0$. Then we have $v.d \geq \delta(s,v)$ for all $v \in V$ and this invariant is maintained over any sequence of relaxation steps on the edges of $G$. Once $v.d$ reaches its lower bound $\delta(s,v)$, it never changes.
+\end{theorem}
+
+\begin{proof}
+  The proof uses induction over the number of relaxation steps.
+
+  Initially, $v.d \geq \delta(s,v)$ is true for all vertices , since $v.d = \infty$ implies $v.d \geq \delta(s,v)$ for all $v \in V - \{s\}$ and since $s.d=0 \geq \delta(s,v)$.
+
+  For the induction, consider relaxation of the edge $(u,v)$. By the inductive hypothesis, $x.d \geq \delta(s,x)$ for  all $x \in V$ prior to the relaxation. The only value $d$ which may change is $v.d$ If it changes, we have
+
+  \bee
+    v.d = u.d + w(u,v) \geq \delta(s,u) + w(u,v) \geq \delta(s,v)
+  \eee
+
+  where the first inequality follows from the induction hypothesis and the second one follows from the triangle inequality. Therefore, the invariant is maintained. When the single-source shortest path algorithm (no matter which one) is finished, this bound becomes tight; i.e. $v.d$ attains its minimum $\delta(s,v)$.
+
+  To show that $v.d$ does not change after it has reached it optimal value, note that once $v.d$ has achieved its lower bound, $v.d$ cannot decrease as we just have shown that $v.d \geq \delta(s,v)$, and it cannot increase as relaxation steps do not increase $d$ values. 
+
+\end{proof}
+
+\begin{theorem}[No-path Property] Assume that we have a graph as before, but there is no path from vertex $s$ to vertex $v$. After \verb initialize-single-source(G,s) , we have $v.d = \delta(s,v) = \infty$ and this inequality is maintained as an invariant over any relaxation steps on the edges of $G$.
+\end{theorem}
+
+\begin{proof}
+By the upper-bound property, we have $\infty = \delta(s,v) \leq v.d$ and therefore $v.d = \infty$.
+\end{proof}
+
+
+\begin{theorem}
+  We consider an endge $(u,v) \in E$. Then, immediately after relaxing $(u,v)$ by executing \verb Relax(u,v,w) , we have $v.d  \leq u.d + w(u,v)$.
+\end{theorem}
+
+\begin{proof}
+  We distinguish two cases: If $v.d > u.d + w(u,v)$ prior relaxation, then $v.d = u.d + w(u,v)$; i.e. we performed relaxation. If $v.d \leq u.d + w(u,v)$ prior relaxation, then we do not relax the edge and nothing changes and we (continue) to have $v.d \leq u.d + w(u,v)$.
+\end{proof}
+
+\begin{theorem}[Convergence Property]
+  Let $s \sim u - v$ be a shortest path from vertex $s$ to vertex $v$. $s \sim u$ denotes a path containing possibly several vertices, $u-v$ denotes the edge $(u.v)$. We initialize the graph with \verb initialize-single-source(G,s) And execute a sequence of relaxation steps on the graph's edges, including a call to \verb Relax(u,v,w) . If $u.d = \delta(s,u)$ at any time prior to the relaxation call, then $v.d = \delta(s,v)$ at all times after the call.
+\end{theorem}
+
+\begin{proof}
+  By the upper-bound property, if $u.d = \delta(s,u)$ at some point prior to relaxing edge $(u,v)$, this equality holds thereafter. After relaxing edge $(u,v)$, we then have
+
+  \bee
+  v.d \leq u.d + w(u,v) = \delta(s,u) + w(u,v) = \delta(s,v)
+  \eee
+
+  The first inequality follows from the previous thereom, then we inserted $u.d = \delta(s,u)$, and we finally used the triangle inequality (which becomes an equality in case of shortest paths). The upper-bound property yields $v.d \geq \delta(s,v)$ and so we sandwiched $v.d$ as
+
+  \bee
+  \delta(s,v) \leq v.d \leq \delta(s,v) \rightarrow v.d = \delta(s,v)
+  \eee
+\end{proof}
+
+\begin{theorem}[Path-relaxation Property]
+Consider a shortest path $p = \langle v_0, v_1, \ldots, v_k \rangle$ from $s=v_0$ to $v_k$. Now assume that $G$ is intialized with \verb initialize-single-source(G,s) and then a sequence of relaxation steps occurs, which includes (in this order), relaxation of $(v_0, v_1, (v_1, v_2), \ldots, (v_{k-1},v_k)$. Then we have $v_k.d=\delta(s,v_k)$. after the relaxations and at all times afterwards. This property holds no matter which other relaxations occur; even if these other relaxations are intermixed with the edges of $p$.
+\end{theorem}
+
+\begin{proof}
+  We use induction and show that after the $i-$th relaxation, $v_i.d = \delta(s, v_i)$. For the base case $i=0$, and before any edges of of $p$ have been relaxed, we have $v_0.d=s.d=0=\delta(s,s)$. by the upper-bound property, $s.d$ does not change anymore.
+
+  For the induction step, we assume $v_{i-1}.d=\delta(s,v_{i-1})$ and relax edge $(v_{i-1},v_i)$. By the convergence property, we have $v_i.d=\delta(s,v_i)$ after relaxation, and this is maintained at all times afterwards.
+\end{proof}
+
+
+\subsection{Relaxation and Shortest-Paths Trees}
+
+TBD
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
