@@ -24,6 +24,21 @@ The followig theorem helps in  with finding shortest paths.
 Given a weighted graph $G=(V,E)$ with weight function $w: E \rightarrow \mR$, let $p=\langle v_0,v_,\cdots,v_n \rangle$; be a shortest path from vertex $v_0$ to vertex $v_n$, and, for any $i$ and $j$ such that $0 \leq i \leq j \leq n$, let $p_{ij} = \langle v_i,v_,\cdots,v_j \rangle$ be the subpath of $p$ from vertex $v_i$ to vertex $v_j$. Then, $p_{ij}$ is a shortest path from $i$ to $j$. 
 \end{theorem}
 
+\begin{proof}
+If we decompose the path $p$ into $v_0 \overset{p_{0i}}{\sim} v_i \overset{p_{ij}}{\sim} v_j \overset{p_{jk}}{\sim v_k}$, then we have $w(p) = w(p_{0i}) + w(p_{ij}) + w(p_{jk})$; i.e. the weights are additive. Now, assume that there is a path $p'_{ij}$ from $v_i$ to $v_j$ with weight $w(p'_{ij}) < w(p_{ij})$. Then, we can decompose $p$ also into $v_0 \overset{p_{0i}}{\sim} v_i \overset{p'_{ij}}{\sim} v_j \overset{p_{jk}}{\sim v_k}$ whose weight is $w(p_{0i}) + w(p'_{ij}) + w(p_{jk}) < w(p)$. However, this contradicts the assumption that $p$ is a shortest path from $v_0$ to $v_k$.
+\end{proof}
+
+While this theorem may seem trivial, it is imporant as it ensures that the single-source shortest path problems are unique. In particular, when $i=0$ and $0 \leq j \leq n$, we have subpaths of the form $p_{0j} = \langle v_0,v_,\cdots,v_j \rangle$ which are the shortest paths between $v_0$ and $v_j$. This implies that single-source shortest path algorithms return a tree. This tree can be described by each vertex having a predecessor attribute.   
+
+In the following example graph, assume that $\langle v_0, v_1, v_2, v_3 \rangle$ is a shortest path between $v_0$ and $v_3$ and  $\langle v_0, v_p, v_2, v_3 \rangle$ is \emph{not} a shortest path. Then the shortest path between $v_0$ and $v_2$ is the path $\langle v_0, v_1, v_2 \rangle$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_0.png}
+\end{figure}
+
+If the path $\langle v_0, v_p, v_2 \rangle$ would be the shortest between $v_0$ and $v_2$, single-source shortest path algorithms would not return a tree and the predecessor attribute would not be enough / path-dependent.
+
 
 \paragraph{Example.} We consider the following weighted graph as example.
 

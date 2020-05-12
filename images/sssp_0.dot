@@ -1,0 +1,9 @@
+digraph BST {
+rankdir="LR";
+v0 -> v1
+v1 -> v2
+v2 -> v3
+
+v0 -> vp
+vp -> v2
+}
