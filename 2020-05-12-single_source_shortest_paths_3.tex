@@ -1,0 +1,105 @@
+\DiaryEntry{Single-Source Shortest Paths - Proofs (2)}{2020-05-12}{Algorithms}
+
+\subsection{Proof of the Bellman-Ford Algorithm}
+
+As a reminder, the Bellman-Ford algorithm looks like the following.
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+Bellman-Ford(G, w, s)
+   Init-Single-Source(G,s)
+   for i = 1 to |G.V|-1
+      for each edge (u,v) in G.E
+         Relax(u,v,w)
+   for each edge (u,v) in G.E
+      if v.d > u.d + w(u,v)
+         return false
+   return true
+\end{Verbatim}
+
+
+\begin{theorem} Let $G = (V,E)$ be a weighted, directed graph with source $s$ and weight function $w: E \rightarrow \mR$, and assume that $G$ contains no neagtive-weight cycles reachable from $s$. Then after $|V|-1$ iterations of the for loop in line $3$ of \verb Bellman-Ford , we have $v.d = \delta(s,v)$ for all vertices $v$ that are reachable from $s$.
+\end{theorem}
+
+\begin{proof} We use the path-relaxation property: Consider a vertex $v$ reachable from $s$ and a shortest path (of length $k$) from $s$ to $v$: $p = \langle v_0 = s, v_1, \ldots, v_{k-1}, v_k = v \rangle$. Shortest paths are simple, therefore $p$ has at most $|V|-1$ edges and therefore $k \leq |V| -1$.  Each of the $|V|-1$ iterations of the for loop relaxes all $|E|$ edges. In the $i$-th iteration, the edge $(v_{i-1},v_i)$ is relaxed (among other edges). By the path relaxation property, we have $v.d = v_k.d = \delta(s, v_k) = \delta(s,v)$.
+\end{proof}
+
+
+\begin{theorem}[Correctness of Bellman-Ford Algorithm] We let the Bellman-Ford Algorithm run on a weighted, directed graph $G$. If $G$ contains no negative-weight cycles reachable from source vertex $s$, then the algorithm returns \verb true , we have $v.d = \delta(s, v)$ for all vertices $v \in V$, and the predecessor subgraph $G_\pi$ is a shortest-paths tree rooted at $s$. If $G$ contains negative-weight cyclesreachable from $s$, the algorithm returns \verb false .
+\end{theorem}
+
+\begin{proof}
+  Suppose the graph $G$ does not contain negative-weight cycles reachable from source vertex $s$. If $v$ is reachable from $s$, then at termination we have $v.d = \delta(s,v)$ from the previous theorem. If $v$ is not reachable from $s$, then by the No-Path Property, we have $v.d = \infty$. In both cases, the predecessor-subgraph property implies that $G-\pi$ is a shortest-path tree rooted at $s$.
+
+  Now we show that the algorithm returns \verb true : At termination, we have for all edges $(u,v) \in E$,
+
+  \bee
+  v.d = \delta(s,v) \leq \delta(s,u) + w(u,v) = u.d + w(u,v)
+  \eee
+
+  where the inequality follows from the triangle inequality. Therefore none of the tests in line $7$ returns \verb false .
+
+  Now we consider the case that the graph contains a negative-weight cycles reachable from source vertex $s$. Let this cycle denote $c = \langle v_0, v_1, \ldots, v_k \rangle$ with $v_0 = v_k$. The definition of a negative-weight cycle implies that
+
+  \begin{equation}\label{sssp3:eq-1}
+  \sum_{i=1}^k w(v_{i-1}, v_i) < 0
+  \end{equation}
+
+  We use proof by contradiction and assume that the algorithm returns \verb true . Thus, $v_i.d \leq v_{i-1}.d + w(v_{i-1}, v_i)$ for $i=1, 2, \cdots,k$. Summing the inequality around the circle $c$ yields
+
+  \begin{equation}\label{sssp3:eq-2}
+  \sum_{i=1}^k v_i.d \leq \sum_{i=1}^k \left( v_{i-1}.d + w(v_{i-1}, v_i) \right) = \sum_{i=1}^k v_{i-1}.d + \sum_{i=1}^k w(v_{i-1}, v_i)
+  \end{equation}
+
+  We take the sum along a cycle with $v_0 = v_k$ and therefore
+
+  \bee
+  \sum_{i=1}^k v_i.d = \sum_{i=1}^k v_{i-1}.d
+  \eee
+
+  $v_i.d$ is finite (given without proof) and therefore \eqref{sssp3:eq-2} becomes
+
+  \bee
+  0 \leq \sum_{i=1}^k w(v_{i-1}, v_i)
+  \eee
+
+  This contradicts our initial assumption \eqref{sssp3:eq-1}.
+
+  We therefore conclude that Bellman-Ford returns \verb false in case the graph has negative-weight cycles reachable from source vertex $s$.
+  
+\end{proof}
+
+
+\subsection{Proof of the Dijkstra Algorithm}
+
+As a reminder, Dijkstra's algorithm looks like the following.
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+Dijkstra(G, w, s)
+   Init-Single-Source(G,s)
+   S = 0
+   Q = G.V
+   while Q is not empty
+       u = Extract-min(Q)
+       S = S + u
+       for each vertex v adjacent to u
+          relax(u,v,w)
+\end{Verbatim}
+
+\begin{theorem}[Correctness of Dijkstra's Algorithm] Dijkstra's algorithm, run on a weighted, directed graph $G = (V,E)$ with non-negative weight function $w$ and source $s$, terminates with $u.d = \delta(s,u)$ for all vertices $u \in V$.
+\end{theorem}
+
+\begin{proof} We use the following loop invariant: At the start of each iteration of the while loop in line $5$, $v.d = \delta(s,v)$ for each vertex $v \in S$.
+
+  It is enough to prove that for each vertex $u \in V$, we have $u.d = \delta(s,u)$ \emph{at the time} when $u$ is added to the set $S$. Once we have showsn this, we rely on the upper-bound property to show that the equality holds at all times thereafter.
+
+  At \emph{initialization}, $S = \o$ and the invariant is trivially true.
+
+  To \emph{maintain} the property, we need to show that in each iteration, $u.d = \delta(s,u)$ for the vertex added to the set $S$.
+
+  
+\end{proof}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
