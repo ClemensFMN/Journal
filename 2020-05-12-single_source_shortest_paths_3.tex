@@ -96,7 +96,34 @@ Dijkstra(G, w, s)
 
   To \emph{maintain} the property, we need to show that in each iteration, $u.d = \delta(s,u)$ for the vertex added to the set $S$.
 
+  We use contradiction and assume that $u$ is the first vertex for which $u.d \neq \delta(s,u)$ when it is added to the set $S$. We concentrate on the beginning of the iteration of the while loop in which $u$ is added to $S$ and derive the contradiction $u.d = \delta(s,u)$ at that time by examining the shortest path from $s$ to $u$. We must have $u \neq s$ because $s$ is the first vertex added to $S$ and $s.d = \delta(s,s) = 0$. Because $u \neq s$, we also have $S \neq \o$ just before $u$ is added to $S$. There must be some path from $s$ to $u$, otherwise $u.d = \delta(s,u) = \infty$ by the no-path property and this would violate our assumption that $u.d \neq \delta(s,u)$.
+
+  Because there is at least one path, there is a shortest path $p$ from $s$ to $u$. Prior to adding $u$ to $S$, the path $p$ connects the vertex $s$ (which is in $S$) to the vertex $u$ (which is in $V-S$). Let us now consdier the first vertex $y$ along $p$ such that $y \in V-S$ and let $x \in S$ be the predecessor along $p$. Thus we can decompse the path $p$ into $s \sim x \rightarrow y \sim u$. This is illustrated in the following Figure.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/sssp_3_1.png}
+  \end{figure}
   
+  We now claim $y.d = \delta(s,y)$ when $u$ is added to $S$. First, observe that $x \in S$. Then, because we chose $u$ as first vertex for which $u.d \neq \delta(s,u)$ when it is added to $S$, we had $x.d = \delta(s,x)$ when $x$ was added to $S$. Edge $(x,y)$ was relaxed at that time, and the claim follows from the convergence property.
+
+  We can now obtain a contradiction to prove that $u.d = \delta(s,u)$. Because $y$ lies before $u$ on the shortest path from $s$ to $u$ and all edge weights are non-negative (notably those on path $p_2$), we have $\delta(s,y) \leq \delta(s,u)$, and thus
+
+  \bee
+  y.d = \delta(s,y) \leq \delta(s,u) \leq u.d
+  \eee
+
+  where the last inequality follows from the upper-bound property. But because both vertices $u$ and $y$ were in $V-S$ when $u$ was chosen in line $6$, we have $u.d \leq y.d$. Thus, the two inequalities are in fact equalities, giving $y.d = \delta(s,y) = \delta(s,u) = u.d$. Consequently, $u.d = \delta(s,u)$, which contradicts our choice of $u$. We conclude that $u.d = \delta(s,u)$ when $u$ is added to $S$, and that equality is maintained at all time thereafter.
+  
+  At \emph{termination}, $Q = \o$ wich implies $S = V$. Thus, $u.d = \delta(s,u)$ for all vertices $u \in V$.
+  
+\end{proof}
+
+\begin{theorem} If we run Dijkstra's algorithm on a weighted, directed graph $G$ with non-negative weight function $w$ and source $s$, then at termination, the predecessor subgraph $G_\pi$ is a shortest-paths tree rooted at $s$.
+\end{theorem}
+
+\begin{proof}
+  This follows from the previous theorem and the predecessor-subgraph property.
 \end{proof}
 
 %%% Local Variables:
