@@ -1,0 +1,6 @@
+digraph BST {
+rankdir="LR";
+A -> B[label="3"];
+B -> A[label="-5"];
+}
+

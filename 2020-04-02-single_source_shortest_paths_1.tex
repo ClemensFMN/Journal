@@ -32,7 +32,7 @@ While this theorem may seem trivial, it is imporant as it ensures that the singl
 
 In the following example graph, assume that $\langle v_0, v_1, v_2, v_3 \rangle$ is a shortest path between $v_0$ and $v_3$ and  $\langle v_0, v_p, v_2, v_3 \rangle$ is \emph{not} a shortest path. Then the shortest path between $v_0$ and $v_2$ is the path $\langle v_0, v_1, v_2 \rangle$.
 
-\begin{figure}[H]
+\begin{figure}[H]v
 \centering
 \includegraphics[scale=0.5]{images/sssp_0.png}
 \end{figure}
@@ -178,6 +178,38 @@ There is the edge \verb B-C left. Again, we can relax and update \verb B.d=2  an
 \end{figure}
 
 We have chosen the edges in the ``right'' order and already obtained the final solution after the first iteration. We have one more iteration ``left''; however, this won't change anything.
+
+\paragraph{Example - Negative-weight Cycle} Now let's consider a graph with a negative-weight cycle. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_15.png}
+\end{figure}
+
+After running \verb Init-Single-Source(G,s) , we have the following values.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_16.png}
+\end{figure}
+
+We start with the edge \verb A-B . We perform relaxation and arrive at
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_17.png}
+\end{figure}
+
+Next we consider the egde \verb B-A . Contrary to the previous example, we also perform relaxation and arrive at the following
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/sssp_18.png}
+\end{figure}
+
+Here the algorithm stops (we have $|G.V| -1 = 1$ iterations). However, if we would continue to run the algorithm, the values $A.d$ and $B.d$ do not stay constant but are getting less and less. This is the symptom of a negative-weight cycle.
+
+The Bellman Ford algorithm performs a check for such negative-weight cycles. Looking at edge \verb A-B , we need to check whether $B.d \geq A.d + w(A,B)$: We have $3 \geq -2 + 3 = 1$, the condition is true and we return \verb false  to indicate a negative-weight cycle.
 
 
 \subsection{Single-source Shortest Paths in DAGs}
