@@ -20,7 +20,7 @@ In this entry, we focus on \emph{single-source shortest paths problems}; i.e. we
 
 The followig theorem helps in  with finding shortest paths.
 
-\begin{theorem}
+\begin{theorem}\label{th:sssp_1}
 Given a weighted graph $G=(V,E)$ with weight function $w: E \rightarrow \mR$, let $p=\langle v_0,v_,\cdots,v_n \rangle$; be a shortest path from vertex $v_0$ to vertex $v_n$, and, for any $i$ and $j$ such that $0 \leq i \leq j \leq n$, let $p_{ij} = \langle v_i,v_,\cdots,v_j \rangle$ be the subpath of $p$ from vertex $v_i$ to vertex $v_j$. Then, $p_{ij}$ is a shortest path from $i$ to $j$. 
 \end{theorem}
 
