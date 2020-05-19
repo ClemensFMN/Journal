@@ -85,9 +85,16 @@ return L(n-1)
 \includegraphics[scale=0.5]{images/apsp_01.png}
 \end{figure}
 
-The corresponding weight matrix has the following structure
+The corresponding matrices $\Lbf$ and $\Wbf$ have the following structure
 
 \bee
+\Lbf^0 = \begin{pmatrix} 0 & \infty & \infty & \infty & \infty \\
+  \infty & 0 & \infty & \infty & \infty \\
+  \infty & \infty & 0 & \infty & \infty \\
+  \infty & \infty & \infty & 0 & \infty \\
+  \infty & \infty & \infty & \infty & 0
+\end{pmatrix}
+\quad
 \Wbf = \begin{pmatrix} 0 & 3 & 8 & \infty & -4 \\
   \infty & 0 & \infty & 1 & 7 \\
   \infty & 4 & 0 & \infty & \infty \\
@@ -96,32 +103,43 @@ The corresponding weight matrix has the following structure
 \end{pmatrix}
 \eee
 
-Let's start with $l^1_{1,4} = \min_k \left(l^0_{1,k} + w_{k,4} \right)$. For different values of $k$, we obtain the following values
+Let's start with calculating $l^1_{1,2} = \min_k \left(l^0_{1,k} + w_{k,2} \right)$. For different values of $k$, we obtain the following values
 
 \begin{tabular}{c|c}
-  k & $l^0_{1,k} + w_{k,4}$  \\ \hline
-  1 & $0 + \infty = \infty$ \\
-  2 & $3 + 1 = 4$ \\
-  3 & $8 + \infty = \infty$ \\
-  4 & $\infty + 0 = \infty$ \\
-  5 & $-4 + 6 = 2$
+  k & $l^0_{1,k} + w_{k,2}$  \\ \hline
+  1 & $0 + 3 = 3$ \\
+  2 & $\infty + 0 = \infty$ \\
+  3 & $\infty+4 = \infty$ \\
+  4 & $\infty + \infty = \infty$ \\
+  5 & $\infty + \infty = \infty$
 \end{tabular}
 
-The minimum, therefore, is $2$ and we have $l^1_{1,4} = 2$. Calculating the other matrix elements the same way (using \verb Extend-Shortest-Path(L,W) , yields the following for $\Lbf^2$:
+The minimum of these are obtained for $k=1$ with $l^0_{1,k} + w_{k,2} = 3$; therefore $l^1_{1,2} = 3$. Continuing in this spirit, we arrive at $\Lbf^1$ as follows
 
 \bee
-\Lbf^2 = \begin{pmatrix} 0 & 3  & 8 & \infty & -4 \\
- \infty &  0 &  \infty & 1 & 7 \\
- \infty &  4 & 0 & \infty & \infty \\
-    2  & \infty &  -5 & 0  & \infty \\
- \infty & \infty & \infty &  6 &  0  
+\Lbf^1 = \begin{pmatrix} 0 & 3 & 8 & \infty & -4 \\
+  \infty & 0 & \infty & 1 & 7 \\
+  \infty & 4 & 0 & \infty & \infty \\
+  2 & \infty & -5 & 0 & \infty \\
+  \infty & \infty & \infty 6 & 0
   \end{pmatrix}
 \eee
 
-Executing \verb Slow-All-Pairs-Shortest-Paths(W) we finally obtain the matrix with all shortest path weights as follows
+As stated before, we observe that $\Lbf^1 = \Wbf$. We next obtain $\Lbf^2$ as
 
 \bee
-\Lbf^4 = \begin{pmatrix} 0 & 1  & -38 & 2 & -4 \\
+\Lbf^2 = \begin{pmatrix} 0 & 3  & 8 & 2 & -4 \\
+ 3 &  0 &  -4 & 1 & 7 \\
+ \infty &  4 & 0 & 5 & 11 \\
+    2  &  -1 &  -5 & 0  & -2 \\
+ 8 & \infty & 1 &  6 &  0  
+  \end{pmatrix}
+\eee
+
+Executing \verb Slow-All-Pairs-Shortest-Paths(W) two more times, we arrive at the all pair shortest paths solution $\Lbf^4$
+
+\bee
+\Lbf^4 = \begin{pmatrix} 0 & 1  & -3 & 2 & -4 \\
  3 &  0 &  -4 & 1 & -1 \\
  7 &  4 & 0 & 5 & 3 \\
  2  & -1 & -5 & 0  & -2 \\
@@ -129,7 +147,6 @@ Executing \verb Slow-All-Pairs-Shortest-Paths(W) we finally obtain the matrix wi
   \end{pmatrix}
 \eee
 
-Repeated application of \verb Extend-Shortest-Path(L,W) yields fewer and fewer infinite values as the algorithm finds ways / paths to connect vertices with each other. This causes the infinite path weight values to vanish. 
 
 %%% Local Variables:
 %%% mode: latex
