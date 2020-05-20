@@ -74,7 +74,7 @@ Slow-All-Pairs-Shortest-Paths(W)
       L(1) = W
       for m = 2 to n-1
          L(m) = zero(n,n)
-         L(m)m = Extend-Shortest-Path(L(m-1), W)
+         L(m) = Extend-Shortest-Path(L(m-1), W)
 return L(n-1)
 \end{Verbatim}
 
@@ -103,7 +103,7 @@ The corresponding matrices $\Lbf$ and $\Wbf$ have the following structure
 \end{pmatrix}
 \eee
 
-Let's start with calculating $l^1_{1,2} = \min_k \left(l^0_{1,k} + w_{k,2} \right)$. For different values of $k$, we obtain the following values
+Let's start with calculating $l^1_{1,2} = \min_k \left(l^0_{1,k} + w_{k,2} \right)$; i.e. we go along the first row of $\Lbf$ and along the second column of $\Wbf$. For different values of $k$, we obtain the following values
 
 \begin{tabular}{c|c}
   k & $l^0_{1,k} + w_{k,2}$  \\ \hline
@@ -114,14 +114,14 @@ Let's start with calculating $l^1_{1,2} = \min_k \left(l^0_{1,k} + w_{k,2} \righ
   5 & $\infty + \infty = \infty$
 \end{tabular}
 
-The minimum of these are obtained for $k=1$ with $l^0_{1,k} + w_{k,2} = 3$; therefore $l^1_{1,2} = 3$. Continuing in this spirit, we arrive at $\Lbf^1$ as follows
+The minimum is obtained at $k=1$ and yields $l^0_{1,k} + w_{k,2} = 3$, therefore $l^1_{1,2} = 3$. Continuing in this spirit, we arrive at $\Lbf^1$ as follows
 
 \bee
 \Lbf^1 = \begin{pmatrix} 0 & 3 & 8 & \infty & -4 \\
   \infty & 0 & \infty & 1 & 7 \\
   \infty & 4 & 0 & \infty & \infty \\
   2 & \infty & -5 & 0 & \infty \\
-  \infty & \infty & \infty 6 & 0
+  \infty & \infty & \infty & 6 & 0
   \end{pmatrix}
 \eee
 
@@ -136,7 +136,7 @@ As stated before, we observe that $\Lbf^1 = \Wbf$. We next obtain $\Lbf^2$ as
   \end{pmatrix}
 \eee
 
-Executing \verb Slow-All-Pairs-Shortest-Paths(W) two more times, we arrive at the all pair shortest paths solution $\Lbf^4$
+Executing \verb Slow-All-Pairs-Shortest-Paths(W)  two more times, we arrive at the all pair shortest paths solution $\Lbf^4$
 
 \bee
 \Lbf^4 = \begin{pmatrix} 0 & 1  & -3 & 2 & -4 \\
@@ -146,6 +146,46 @@ Executing \verb Slow-All-Pairs-Shortest-Paths(W) two more times, we arrive at th
  8 & 5 & 1 &  6 &  0  
   \end{pmatrix}
 \eee
+
+From the example, we can observe two things
+
+\begin{itemize}
+
+\item Values of $\infty$ in $\Lbf^m$ disappear with further iterations as the algorithm considers longer paths in the graph and therefore unreacable vertices become reachable. For example, $\Lbf^1_{3,5} = \infty$; i.e. vertex $5$ is not reachable from vertex $3$ along a path of length $1$. If we consider paths with length $2$, however, there is a path along $3 - 2 - 5$, therefore $\Lbf^2_{3,5} = 11$.
+
+\item The weights of paths may decrease with further iterations; If we again consider $\Lbf^2_{3,5}$ with the associated path $3 - 2 - 5$, the algorithm finds a longer path $3 - 2 - 4 -1 -5$ with weight $\Lbf^4__{3,5} = 3$.
+ 
+\end{itemize}
+
+\subsection{Performance Improvements}
+
+The current implementation in \verb Slow-All-Pairs-Shortest-Paths(W)  increases the path length one by one: It repeatedly calls \verb Extend-Shortest-Path(L(m-1),W)  and thereby produces $\Lbf^1, \Lbf^2, \Lbf^3, \ldots$. We can also compute matrices $\Lbf$ for longer paths as follows
+
+\bee
+\Lbf^2 = \Wbf^2 = \Wbf \codt \Wbf, \quad \Lbf^4 = \Wbf^4 = \Wbf^2 \cdot \Wbf \, \ldots
+\eee
+
+This procedure is called repeated squaring.
+
+\subsection{Path Tracking}
+
+If we are not only interested in the path weights but also in the paths themsevles, we need to keep track of them in the procedure \verb Extend-Shortest-Path . As with previous algorithms, we use a predecessor graph; i.e. for every vertex we keep track of the pervious vertex of the path.
+
+This is done by updating the predecessor value in \verb Extend-Shortest-Path as follows
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+Extend-Shortest-Path(L, W)
+   L' = zero(n,n)
+   for i = 1 to n
+      for j = 1 to n
+         l'(i,j) = infinity
+            for k = 1 to n
+               l'(i,j) = min(l'(i,j), l(i,k) + w(k,j))
+            update predecessor graph
+   return L'
+\end{Verbatim}
+
+
 
 
 %%% Local Variables:
