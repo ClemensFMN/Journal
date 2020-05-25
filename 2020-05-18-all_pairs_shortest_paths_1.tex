@@ -1,4 +1,4 @@
-\DiaryEntry{All-Pairs Shortest Path Algoorithms}{2020-05-18}{Algorithm}
+\DiaryEntry{All-Pairs Shortest Path Algorithms, 1}{2020-05-18}{Algorithm}
 
 Contrary to the single-path shortest path problem discussed previously, we deal here with finding \emph{all} shortest paths between all pairs of vertices in a graph. Practical example is to obtain a table between all pairs of cities for a road atlas.
 
@@ -153,7 +153,7 @@ From the example, we can observe two things
 
 \item Values of $\infty$ in $\Lbf^m$ disappear with further iterations as the algorithm considers longer paths in the graph and therefore unreacable vertices become reachable. For example, $\Lbf^1_{3,5} = \infty$; i.e. vertex $5$ is not reachable from vertex $3$ along a path of length $1$. If we consider paths with length $2$, however, there is a path along $3 - 2 - 5$, therefore $\Lbf^2_{3,5} = 11$.
 
-\item The weights of paths may decrease with further iterations; If we again consider $\Lbf^2_{3,5}$ with the associated path $3 - 2 - 5$, the algorithm finds a longer path $3 - 2 - 4 -1 -5$ with weight $\Lbf^4__{3,5} = 3$.
+\item The weights of paths may decrease with further iterations; If we again consider $\Lbf^2_{3,5}$ with the associated path $3 - 2 - 5$, the algorithm finds a longer path $3 - 2 - 4 -1 -5$ with weight $\Lbf^4_{3,5} = 3$.
  
 \end{itemize}
 
@@ -162,7 +162,7 @@ From the example, we can observe two things
 The current implementation in \verb Slow-All-Pairs-Shortest-Paths(W)  increases the path length one by one: It repeatedly calls \verb Extend-Shortest-Path(L(m-1),W)  and thereby produces $\Lbf^1, \Lbf^2, \Lbf^3, \ldots$. We can also compute matrices $\Lbf$ for longer paths as follows
 
 \bee
-\Lbf^2 = \Wbf^2 = \Wbf \codt \Wbf, \quad \Lbf^4 = \Wbf^4 = \Wbf^2 \cdot \Wbf \, \ldots
+\Lbf^2 = \Wbf^2 = \Wbf \cdot \Wbf, \quad \Lbf^4 = \Wbf^4 = \Wbf^2 \cdot \Wbf \, \ldots
 \eee
 
 This procedure is called repeated squaring.
