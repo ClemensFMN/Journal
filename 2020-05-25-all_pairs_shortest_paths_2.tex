@@ -1,0 +1,49 @@
+\DiaryEntry{All-Pairs Shortest Path Algorithms - Floyd-Warshall Algorithm}{2020-05-25}{ALgorithm}
+
+In this entry we consider the Floyd-Warshal algorithm, which is another way to solve the all-pairs shortest path problem.
+
+We denote by $d_{i,j}^{(k)}$ the weight of the shortest path from vertex $i$ to $j$ for which all intermediate vertices are in the set $1,2,\ldots,k$. When $k=0$, the path from vertex $i$ to $j$ has no intermediate vertices at all; therefore the path has one edge and therefore $d_{i,j}^{(0)} = w_{i,j}$.  For longer paths we have the following recursion (proof omitted)
+
+\bee
+d_{i,j}^{(k)} = \begin{cases} w_{i,j} & \quad k=0 \\
+  \min \left( d^{(k-1)}_{i,j}, d^{(k-1)}_{i,k} + d^{(k-1)}_{k,j}  \right) & \quad k \geq 1
+  \end{cases}
+\eee
+
+For any path, all intermediate vertices are in the set $\{1,2,\ldots,n\}$; therefore the final result is $d^{(n)}_{i,j} = \delta(i,j)$. We can collect these values in a matrix $\Dbf^{(n)}$.
+
+
+\paragraph{Algorithm Definition.} The algorithm is contained in the following pseudo-code.
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+FLoyd-Warshal(W)
+   n = W.rows
+   D(0) = W
+   for k = 1 to n
+      D(k) = zero(n,n)
+      for i = 1 to n
+         for j = 1 to n
+            d(i,j,k) = min(d(i,j,k-1), d(i,k,k-1) + w(k,j,k-1))
+   return D(n)
+\end{Verbatim}
+
+
+\paragraph{Shortest Path Construction.} We consider calculating the predecessor matrix within the above algorithm. Specifically, we compute a sequence of predecesor matrices $\Pi^{(0)}, \Pi^{(1)}, \ldots, \Pi^{(n)}$ and define $\pi_{i,j}^{(k)}$ as predecessor of veretx $j$ on a shortest path from $i$ with all intermediate vertices in the set $\{1,2,\ldots,k\}$. We therefore have
+
+\bee
+\pi_{i,j}^{(k)} = \begin{cases} \text{NIL} & \text{if } i=j \text{ or } w_{i,j} = \infty \\
+  i & \text{if } i \neq j \text{ or } w_{i,j} < \infty \end{cases}
+\eee
+
+For recursion, we use
+
+\bee
+\pi_{i,j}^{(k)} = \begin{cases} \pi_{i,j}^{(k-1)} & \text{if } d^{(k-1)}_{i,j} \leq d^{(k-1)}_{i,k} + d^{(k-1)}_{k,j} \\
+  \pi_{k,j}^{(k-1)} & \text{if } d^{(k-1)}_{i,j} > d^{(k-1)}_{i,k} + d^{(k-1)}_{k,j}
+  \end{cases}
+\eee
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
