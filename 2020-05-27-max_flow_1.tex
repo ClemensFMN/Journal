@@ -51,7 +51,7 @@ The Ford-Fulkerson Method looks as follows
 \begin{Verbatim}[numbers=left, xleftmargin=5mm]
 Ford-Fulkerson(G,s,t)
    initialize flow f to 0
-   while there exists an augmenting path p in the residula network G_f
+   while there exists an augmenting path p in the residual network G_f
       augment flow f along p
    return f
 \end{Verbatim}
@@ -167,7 +167,7 @@ The capacity of the cut is
 c(S,T) = 13 + 12 = 25
 \eee
 
-This is actually the min-cut; no other cut in the flow network yields a lower capacity.
+TODO: Find min-cut (should be 12?)
 
 
 \begin{figure}[H] \centering
@@ -202,7 +202,23 @@ Intuitively, the theorem is clear: In a flow network, all vertices but $s$ and $
 
 \subsection{Basic Ford-Fulkerson Algorithm}
 
+We now extend the Ford-Fulkerson method to a more concrete algorithm. Every egdge tracks the flow via an attributes, $(u,v).f$ and the capacity of the edge, $c(u,v)$. The algorithm finds ``some suitable'' augemting path $p$ and use it to modify the flow $p$. As the previous discussions show, we replace $f$ by $uparrow f_p$ and obtain a new flow with value $|f| + |f_p|$.  
 
+The algorithm is as follow.
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+Ford-Fulkerson(G,s,t)
+   for each edge (u,v)
+      (u,v).f = 0
+   while there exists an augmenting path p in the residual network G_f
+      c_f(p) = min c_f(u,v) for (u,v) in p
+      for each edge (u,v) in p
+         if (u,v) in E
+            (u,v).f = (u,v).f  + c_f(p)
+         else
+            (u,v).f = (v,u).f - c_f(p)   
+   return f
+\end{Verbatim}
 
 
 %%% Local Variables:
