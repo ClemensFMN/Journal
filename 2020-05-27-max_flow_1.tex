@@ -32,12 +32,6 @@ In the maximum-flow probem, we are given a flow network with a source vertex $s$
 \end{figure}
 
 
-\subsection{TODO}
-
-Antiparallel edges
-
-multiple sources and sinks
-
 \subsection{Ford-Fulkerson Method}
 
 The Ford-Fulkerson Method solves the maxium-flow problem. It is a method and not an algoritmh, as it provides several implementation options. Ford-Fulkeron is based on three ideas: Residual networks, augmenting paths, and cuts.
@@ -133,6 +127,17 @@ We now have the following theorem.
 
 The last part is the most interesting one; it states that if we augment $f$ by $f_p$, we get a flow which is closer to the maximum flow.
 
+\paragraph{Example.} Let's choose an augmenting path in our residual network. We take a path along vertices $s - 2 - 3 - t$. The residual capacity of this path is $\min\{5, 4, 5\} = 4$, that is we can increase the capacity by $4$ units. 
+
+The Figure below shows the updated flow network. The flows along the vertices $s - 2 - 3 - t$ has been increased by the residual capacity of the augmenting path.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{images/max_flow_04.png}
+\end{figure}
+
+
+
 \subsubsection{Cuts of Flow Networks}
 
 The previous theorem shows that repeatedly augmenting path increases the flow. The question is when we have found an optimum; i.e. what is the maximum achievable flow? The max-flow min-cut theorem gives an answer to this question.
@@ -156,7 +161,7 @@ A minimum cut of a network is a cut whose capacity is minium over all cuts of th
 \paragraph{Example.} Continuing with our example, the following Figure shows a cut $S-T$ in red. Set $S$ contains vertices $s,1$, set $T$ contains vertices $2,3,4,t$. The net flow across the cut is
 
 \bee
-f(S,T) = 8 - 1 + 11 = 19 
+f(S,T) = 8 - 1 + 12 = 19 
 \eee
 
 Had we chosen the cut more to the left (shown in dotted red), we have the same net flow, $f(S,T) = 8 + 11 = 19$; in a similar spirit, for the cut on the right (shown in dotted green), the net flow is again $f(S,T) = 11 - 7 + 15 = 19$.
@@ -167,7 +172,7 @@ The capacity of the cut is
 c(S,T) = 13 + 12 = 25
 \eee
 
-TODO: Find min-cut (should be 12?)
+However, this is not the min-cut. The Figure shows the min-cut in blue. Its capacity is $12 + 9 + 4 = 25$.
 
 
 \begin{figure}[H] \centering
@@ -175,7 +180,7 @@ TODO: Find min-cut (should be 12?)
 \end{figure}
 
 
-The following theorem shows that the netflow associated with a cut is actually indepenedent 
+The following theorem shows that the netflow associated with a cut is actually indepenedent of where the cut is taken.
 
 \begin{theorem}
   Let $f$ be a flow in a flow network $G$ and let $(S,T)$ be any cut of $G$. Then the net flow across $(S,T)$ is $|f|$; in particular it is indepenent of the cut.
@@ -183,9 +188,6 @@ The following theorem shows that the netflow associated with a cut is actually i
 
 Intuitively, the theorem is clear: In a flow network, all vertices but $s$ and $t$ do not create/destroy flow. Therefore, if $s$ is one side of the cut and $t$ on the other, the flow does not depend on the actual postion of the cut. 
 
-\begin{proof}
-  TODO
-\end{proof}
 
 \begin{theorem}[Max-flow Min-cut Theorem]
   If $f$ is a flow in a flow network $G$ with source $s$ and sink $t$, the following conditions are equivalent
@@ -196,15 +198,11 @@ Intuitively, the theorem is clear: In a flow network, all vertices but $s$ and $
   \end{itemize}
 \end{theorem}
 
-\begin{proof}
-  TBD
-\end{proof}
-
 \subsection{Basic Ford-Fulkerson Algorithm}
 
-We now extend the Ford-Fulkerson method to a more concrete algorithm. Every egdge tracks the flow via an attributes, $(u,v).f$ and the capacity of the edge, $c(u,v)$. The algorithm finds ``some suitable'' augemting path $p$ and use it to modify the flow $p$. As the previous discussions show, we replace $f$ by $uparrow f_p$ and obtain a new flow with value $|f| + |f_p|$.  
+We now extend the Ford-Fulkerson method to a more concrete algorithm. Every egdge tracks the flow via an attribute , $(u,v).f$. The algorithm finds ``some suitable'' augemting path $p$ and use it to modify the flow $p$. As the previous discussions show, we replace $f$ by $uparrow f_p$ and obtain a new flow with value $|f| + |f_p|$.  
 
-The algorithm is as follow.
+The algorithm is as follows.
 
 \begin{Verbatim}[numbers=left, xleftmargin=5mm]
 Ford-Fulkerson(G,s,t)
@@ -219,6 +217,23 @@ Ford-Fulkerson(G,s,t)
             (u,v).f = (v,u).f - c_f(p)   
    return f
 \end{Verbatim}
+
+The tricky part is how to obtain / select augmenting paths. If the augmenting paths are chosen in the ``wrong'' order the algorithm may take longer to converge and / or not converge at all.
+
+In the following example, we show an order where the optimum is achieved.
+
+The left Figure in (a) shows the input graph (our running example, but witha different layout) and a shaded augemting path. The residual capacity of the path is $4$; the left Figure in (a) shows the resulting residual network: The flow along the augmenting path is $4$, all other flows are (still) zero. In (b) another augmenting path is chosen (left); the result is shown on the right.
+
+\begin{figure}[H] \centering
+\includegraphics[scale=0.5]{images/max_flow_ex_1.png}
+\end{figure}
+
+We contine with (d) and (e). Figure (f) shows a flow network with no further augmenting path. Therefore, the flow network in the right Figure of (e) shows the maximum flow which equals $23$. Since no further augmenting path exists, the algorithm stops here.
+
+\begin{figure}[H] \centering
+\includegraphics[scale=0.5]{images/max_flow_ex_2.png}
+\end{figure}
+
 
 
 %%% Local Variables:

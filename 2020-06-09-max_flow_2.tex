@@ -1,0 +1,46 @@
+\DiaryEntry{Maximum Flow, Proofs}{2020-06-09}{Algorithms}
+
+\begin{theorem}
+  Let $f$ be a flow on $G$, $G_f$ be a residual network of $G$ induced by $f$, and let $f'$ be a flow in $G_f$. Then the function $f \uparrow f'$ is a flow in $G$ with value $|f + f'| = |f| + |f'|.$
+\end{theorem}
+
+\begin{proof}
+  Not sure if we want to provde this...
+\end{proof}
+
+
+
+\begin{theorem}
+  Let $f$ be a flow in a flow network $G$ and let $(S,T)$ be any cut of $G$. Then the net flow across $(S,T)$ is $|f|$; in particular it is indepenent of the cut.
+\end{theorem}
+
+\begin{proof}
+  TBD
+\end{proof}
+
+
+\begin{theorem}[Max-flow Min-cut Theorem]
+  If $f$ is a flow in a flow network $G$ with source $s$ and sink $t$, the following conditions are equivalent
+  \begin{itemize}
+  \item $f$ is a maximum flow in $G$
+  \item The residual network $G_f$ contains no augmenting paths.
+  \item The flow $|f|$ equals the flow across a cut: $|f| = c(S,T)$ for any cut $(S,T)$ of $G$.
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  TBD
+\end{proof}
+
+
+\subsection{TODO}
+
+Antiparallel edges
+
+multiple sources and sinks
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:

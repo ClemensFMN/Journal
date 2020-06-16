@@ -1,0 +1,48 @@
+\DiaryEntry{Edmonds-Karp Algorithm}{2020-06-16}{Algorithms}
+
+The Edmonds-Karp algorithm is an implementation of the Ford-Fulkerson method which uses a breadth-first search (BFS) to chose augmenting paths.
+
+The algorithmlooks as follows
+
+\begin{Verbatim}[numbers=left, xleftmargin=5mm]
+Edmonds-Karp(G,s,t)
+   for each edge (u,v)
+      (u,v).f = 0
+
+   flow = 0
+   repeat   
+      q = queue()
+      q.push(s)
+      pred = []
+      while not empty(q)
+         cur = q.pull()
+         for edge e in graph[cur]
+            if pred[e.t] = null and e.t != s and e.cap > e.flow then
+               pred[e.t] = e
+               q.push(e.t)
+
+      if pred[t] != null
+         df = infinity
+         for(e = pred[t]; e != null; e = pred[e.s])
+            df = min(df, e.cap - e.flow)
+
+         for(e = pred[t]; e != null; e = pred[e.s])
+            e.flow = e.flow + df
+            e.rev.flow = e.rev.flow - df
+
+         flow = flow + df
+
+   until pred[t] = null
+   return flow   
+      
+\end{Verbatim}
+
+Lines $7 - 15$ implement a BFS which searches the path as long as the edge capacity is larger than the flow along an edge. This ensures that the BFS finds only augmenting paths. While searching, it builds up a predecessor graph in \verb pred  . In lines $17 - 26$ it operates on such an augmenitng path. It first determines the residual capacity (lines $19 - 20$) and then updates the flow and reverse flow along the path (lines $22 - 24$). It updates the flow by the resiudal capacity (line $26$).
+
+The algorithm stops when it runs out of augmenting paths (line $28$).
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:

@@ -7,16 +7,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:export-ydpi="300"
-   inkscape:export-xdpi="300"
-   inkscape:export-filename="/home/clnovak/src/latex/Journal/images/max_flow_03.png"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="max_flow_03.svg"
-   id="svg1937"
-   version="1.1"
-   viewBox="0.00 0.00 681.00 157.00"
+   width="681pt"
    height="157pt"
-   width="681pt">
+   viewBox="0.00 0.00 681.00 157.00"
+   version="1.1"
+   id="svg1937"
+   sodipodi:docname="max_flow_03.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   inkscape:export-filename="/home/clnovak/src/latex/Journal/images/max_flow_03.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
   <metadata
      id="metadata1943">
     <rdf:RDF>
@@ -31,395 +31,400 @@
   <defs
      id="defs1941" />
   <sodipodi:namedview
-     inkscape:current-layer="svg1937"
-     inkscape:window-maximized="1"
-     inkscape:window-y="0"
-     inkscape:window-x="0"
-     inkscape:cy="104.66667"
-     inkscape:cx="454"
-     inkscape:zoom="1.4218062"
-     showgrid="false"
-     id="namedview1939"
-     inkscape:window-height="932"
-     inkscape:window-width="1920"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0"
-     guidetolerance="10"
-     gridtolerance="10"
-     objecttolerance="10"
-     borderopacity="1"
+     inkscape:document-rotation="0"
+     pagecolor="#ffffff"
      bordercolor="#666666"
-     pagecolor="#ffffff" />
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="932"
+     id="namedview1939"
+     showgrid="false"
+     inkscape:zoom="1.4218062"
+     inkscape:cx="454"
+     inkscape:cy="104.66667"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1937" />
   <g
-     transform="scale(1 1) rotate(0) translate(4 153)"
+     id="graph0"
      class="graph"
-     id="graph0">
+     transform="scale(1 1) rotate(0) translate(4 153)">
     <title
        id="title1809">BST</title>
     <polygon
-       id="polygon1811"
-       points="-4,4 -4,-153 677,-153 677,4 -4,4"
+       fill="white"
        stroke="transparent"
-       fill="white" />
+       points="-4,4 -4,-153 677,-153 677,4 -4,4"
+       id="polygon1811" />
     <!-- s -->
     <g
-       class="node"
-       id="node1">
+       id="node1"
+       class="node">
       <title
          id="title1813">s</title>
       <ellipse
-         id="ellipse1815"
-         ry="18"
-         rx="27"
-         cy="-131"
-         cx="27"
+         fill="none"
          stroke="black"
-         fill="none" />
+         cx="27"
+         cy="-131"
+         rx="27"
+         ry="18"
+         id="ellipse1815" />
       <text
-         id="text1817"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-127.3"
+         text-anchor="middle"
          x="27"
-         text-anchor="middle">s</text>
+         y="-127.3"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1817">s</text>
     </g>
     <!-- 1 -->
     <g
-       class="node"
-       id="node2">
+       id="node2"
+       class="node">
       <title
          id="title1820">1</title>
       <ellipse
-         id="ellipse1822"
-         ry="18"
-         rx="27"
-         cy="-108"
-         cx="158"
+         fill="none"
          stroke="black"
-         fill="none" />
+         cx="158"
+         cy="-108"
+         rx="27"
+         ry="18"
+         id="ellipse1822" />
       <text
-         id="text1824"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-104.3"
+         text-anchor="middle"
          x="158"
-         text-anchor="middle">1</text>
+         y="-104.3"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1824">1</text>
     </g>
     <!-- s&#45;&gt;1 -->
     <g
-       class="edge"
-       id="edge1">
+       id="edge1"
+       class="edge">
       <title
          id="title1827">s-&gt;1</title>
       <path
-         id="path1829"
+         fill="none"
+         stroke="black"
          d="M53.18,-126.51C72.59,-123.05 99.67,-118.22 121.32,-114.36"
-         stroke="black"
-         fill="none" />
+         id="path1829" />
       <polygon
-         id="polygon1831"
-         points="122.21,-117.76 131.44,-112.56 120.98,-110.87 122.21,-117.76"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="122.21,-117.76 131.44,-112.56 120.98,-110.87 122.21,-117.76"
+         id="polygon1831" />
       <text
-         id="text1833"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-125.8"
+         text-anchor="middle"
          x="92.5"
-         text-anchor="middle">11/16</text>
+         y="-125.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1833">11/16</text>
     </g>
     <!-- 2 -->
     <g
-       class="node"
-       id="node3">
+       id="node3"
+       class="node">
       <title
          id="title1836">2</title>
       <ellipse
-         id="ellipse1838"
-         ry="18"
-         rx="27"
-         cy="-105"
-         cx="402"
+         fill="none"
          stroke="black"
-         fill="none" />
+         cx="402"
+         cy="-105"
+         rx="27"
+         ry="18"
+         id="ellipse1838" />
       <text
-         id="text1840"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-101.3"
+         text-anchor="middle"
          x="402"
-         text-anchor="middle">2</text>
+         y="-101.3"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1840">2</text>
     </g>
     <!-- s&#45;&gt;2 -->
     <g
-       class="edge"
-       id="edge2">
+       id="edge2"
+       class="edge">
       <title
          id="title1843">s-&gt;2</title>
       <path
-         id="path1845"
+         fill="none"
+         stroke="black"
          d="M52.53,-136.93C58.84,-138.2 65.64,-139.36 72,-140 90.13,-141.84 94.79,-140.63 113,-140 145.45,-138.87 300.93,-126.68 316,-125 334.3,-122.96 339.05,-123.14 357,-119 360.65,-118.16 364.44,-117.16 368.19,-116.08"
-         stroke="black"
-         fill="none" />
+         id="path1845" />
       <polygon
-         id="polygon1847"
-         points="369.36,-119.38 377.9,-113.13 367.32,-112.69 369.36,-119.38"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="369.36,-119.38 377.9,-113.13 367.32,-112.69 369.36,-119.38"
+         id="polygon1847" />
       <text
-         id="text1849"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-136.8"
+         text-anchor="middle"
          x="223.5"
-         text-anchor="middle">8/13</text>
+         y="-136.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1849">8/13</text>
     </g>
     <!-- 3 -->
     <g
-       class="node"
-       id="node4">
+       id="node4"
+       class="node">
       <title
          id="title1852">3</title>
       <ellipse
-         id="ellipse1854"
-         ry="18"
-         rx="27"
-         cy="-53"
-         cx="289"
+         fill="none"
          stroke="black"
-         fill="none" />
+         cx="289"
+         cy="-53"
+         rx="27"
+         ry="18"
+         id="ellipse1854" />
       <text
-         id="text1856"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-49.3"
+         text-anchor="middle"
          x="289"
-         text-anchor="middle">3</text>
+         y="-49.3"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1856">3</text>
     </g>
     <!-- 1&#45;&gt;3 -->
     <g
-       class="edge"
-       id="edge3">
+       id="edge3"
+       class="edge">
       <title
          id="title1859">1-&gt;3</title>
       <path
-         id="path1861"
+         fill="none"
+         stroke="black"
          d="M177.82,-95.73C185.44,-91.06 194.46,-85.93 203,-82 219.27,-74.51 238.05,-67.91 253.81,-62.9"
-         stroke="black"
-         fill="none" />
+         id="path1861" />
       <polygon
-         id="polygon1863"
-         points="255.16,-66.15 263.67,-59.85 253.09,-59.46 255.16,-66.15"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="255.16,-66.15 263.67,-59.85 253.09,-59.46 255.16,-66.15"
+         id="polygon1863" />
       <text
-         id="text1865"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-85.8"
+         text-anchor="middle"
          x="223.5"
-         text-anchor="middle">12/12</text>
+         y="-85.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1865">12/12</text>
     </g>
     <!-- 2&#45;&gt;1 -->
     <g
-       class="edge"
-       id="edge4">
+       id="edge4"
+       class="edge">
       <title
          id="title1868">2-&gt;1</title>
       <path
-         id="path1870"
+         fill="none"
+         stroke="black"
          d="M374.67,-105.33C331.33,-105.86 244.83,-106.94 195.57,-107.55"
-         stroke="black"
-         fill="none" />
+         id="path1870" />
       <polygon
-         id="polygon1872"
-         points="195.31,-104.05 185.36,-107.67 195.4,-111.05 195.31,-104.05"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="195.31,-104.05 185.36,-107.67 195.4,-111.05 195.31,-104.05"
+         id="polygon1872" />
       <text
-         id="text1874"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-109.8"
+         text-anchor="middle"
          x="289"
-         text-anchor="middle">1/4</text>
+         y="-109.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1874">1/4</text>
     </g>
     <!-- 4 -->
     <g
-       class="node"
-       id="node5">
+       id="node5"
+       class="node">
       <title
          id="title1877">4</title>
       <ellipse
-         id="ellipse1879"
-         ry="18"
-         rx="27"
-         cy="-48"
-         cx="533"
+         fill="none"
          stroke="black"
-         fill="none" />
+         cx="533"
+         cy="-48"
+         rx="27"
+         ry="18"
+         id="ellipse1879" />
       <text
-         id="text1881"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-44.3"
+         text-anchor="middle"
          x="533"
-         text-anchor="middle">4</text>
+         y="-44.3"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1881">4</text>
     </g>
     <!-- 2&#45;&gt;4 -->
     <g
-       class="edge"
-       id="edge5">
+       id="edge5"
+       class="edge">
       <title
          id="title1884">2-&gt;4</title>
       <path
-         id="path1886"
+         fill="none"
+         stroke="black"
          d="M424.88,-95.33C445.73,-86.12 477.33,-72.15 500.82,-61.78"
-         stroke="black"
-         fill="none" />
+         id="path1886" />
       <polygon
-         id="polygon1888"
-         points="502.28,-64.96 510.01,-57.72 499.45,-58.56 502.28,-64.96"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="502.28,-64.96 510.01,-57.72 499.45,-58.56 502.28,-64.96"
+         id="polygon1888" />
       <text
-         id="text1890"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-87.8"
+         text-anchor="middle"
          x="467.5"
-         text-anchor="middle">11/14</text>
+         y="-87.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1890">11/14</text>
     </g>
     <!-- 3&#45;&gt;2 -->
     <g
-       class="edge"
-       id="edge6">
+       id="edge6"
+       class="edge">
       <title
          id="title1893">3-&gt;2</title>
       <path
-         id="path1895"
+         fill="none"
+         stroke="black"
          d="M312.52,-62.26C325.61,-67.77 342.36,-75.02 357,-82 361.74,-84.26 366.72,-86.75 371.55,-89.23"
-         stroke="black"
-         fill="none" />
+         id="path1895" />
       <polygon
-         id="polygon1897"
-         points="370.08,-92.41 380.56,-93.92 373.31,-86.2 370.08,-92.41"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="370.08,-92.41 380.56,-93.92 373.31,-86.2 370.08,-92.41"
+         id="polygon1897" />
       <text
-         id="text1899"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-85.8"
+         text-anchor="middle"
          x="345.5"
-         text-anchor="middle">4/9</text>
+         y="-85.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1899">4/9</text>
     </g>
     <!-- t -->
     <g
-       class="node"
-       id="node6">
+       id="node6"
+       class="node">
       <title
          id="title1902">t</title>
       <ellipse
-         id="ellipse1904"
-         ry="18"
-         rx="27"
-         cy="-18"
-         cx="646"
+         fill="none"
          stroke="black"
-         fill="none" />
+         cx="646"
+         cy="-18"
+         rx="27"
+         ry="18"
+         id="ellipse1904" />
       <text
-         id="text1906"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-14.3"
+         text-anchor="middle"
          x="646"
-         text-anchor="middle">t</text>
+         y="-14.3"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1906">t</text>
     </g>
     <!-- 3&#45;&gt;t -->
     <g
-       class="edge"
-       id="edge7">
+       id="edge7"
+       class="edge">
       <title
          id="title1909">3-&gt;t</title>
       <path
-         id="path1911"
+         fill="none"
+         stroke="black"
          d="M315.15,-48.22C355.32,-40.84 436.49,-26.88 506,-21 540.76,-18.06 580.58,-17.48 608.66,-17.54"
-         stroke="black"
-         fill="none" />
+         id="path1911" />
       <polygon
-         id="polygon1913"
-         points="608.8,-21.04 618.82,-17.59 608.83,-14.04 608.8,-21.04"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="608.8,-21.04 618.82,-17.59 608.83,-14.04 608.8,-21.04"
+         id="polygon1913" />
       <text
-         id="text1915"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-31.8"
+         text-anchor="middle"
          x="467.5"
-         text-anchor="middle">15/20</text>
+         y="-31.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1915">15/20</text>
     </g>
     <!-- 4&#45;&gt;3 -->
     <g
-       class="edge"
-       id="edge8">
+       id="edge8"
+       class="edge">
       <title
          id="title1918">4-&gt;3</title>
       <path
-         id="path1920"
+         fill="none"
+         stroke="black"
          d="M505.67,-48.54C462.33,-49.44 375.83,-51.23 326.57,-52.24"
-         stroke="black"
-         fill="none" />
+         id="path1920" />
       <polygon
-         id="polygon1922"
-         points="326.28,-48.75 316.36,-52.46 326.43,-55.75 326.28,-48.75"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="326.28,-48.75 316.36,-52.46 326.43,-55.75 326.28,-48.75"
+         id="polygon1922" />
       <text
-         id="text1924"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-55.8"
+         text-anchor="middle"
          x="402"
-         text-anchor="middle">7/7</text>
+         y="-55.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1924">7/7</text>
     </g>
     <!-- 4&#45;&gt;t -->
     <g
-       class="edge"
-       id="edge9">
+       id="edge9"
+       class="edge">
       <title
          id="title1927">4-&gt;t</title>
       <path
-         id="path1929"
+         fill="none"
+         stroke="black"
          d="M558.36,-41.42C573.69,-37.27 593.7,-31.87 610.62,-27.29"
-         stroke="black"
-         fill="none" />
+         id="path1929" />
       <polygon
-         id="polygon1931"
-         points="611.96,-30.56 620.7,-24.57 610.13,-23.8 611.96,-30.56"
+         fill="black"
          stroke="black"
-         fill="black" />
+         points="611.96,-30.56 620.7,-24.57 610.13,-23.8 611.96,-30.56"
+         id="polygon1931" />
       <text
-         id="text1933"
-         font-size="14.00"
-         font-family="Times,serif"
-         y="-39.8"
+         text-anchor="middle"
          x="589.5"
-         text-anchor="middle">4/4</text>
+         y="-39.8"
+         font-family="Times,serif"
+         font-size="14.00"
+         id="text1933">4/4</text>
     </g>
   </g>
   <path
-     id="path1945"
+     style="fill:none;stroke:#ff0000;stroke-width:1.8850394;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
      d="M 279.15504,-12.011495 225.36035,135.15831"
-     style="fill:none;stroke:#ff0000;stroke-width:1.8850394;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
+     id="path1945" />
   <path
-     style="fill:none;stroke:#ff0000;stroke-width:1.88504007;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.88504007,3.77008013;stroke-opacity:1;stroke-dashoffset:0"
+     id="path1945-7"
      d="M 140.30466,-35.078894 86.509972,112.09091"
-     id="path1945-7" />
+     style="fill:none;stroke:#ff0000;stroke-width:1.88504007;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.88504007,3.77008013;stroke-opacity:1;stroke-dashoffset:0" />
   <path
-     id="path1945-7-5"
+     style="fill:#008000;stroke:#008000;stroke-width:1.88504;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.88504, 3.77008000000000010;stroke-dashoffset:0;stroke-opacity:1"
      d="M 458.54049,16.24727 404.7458,163.41707"
-     style="fill:#008000;stroke:#008000;stroke-width:1.88504;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.88504, 3.77008000000000010;stroke-dashoffset:0;stroke-opacity:1" />
+     id="path1945-7-5" />
+  <path
+     id="path1109"
+     d="m 198.9807,100.86916 128.17389,-40.615787 185.15208,63.298137 68.04313,6.85783 54.86102,-60.134824"
+     style="fill:none;stroke:#0000ff;stroke-width:2.26771657;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
 </svg>
