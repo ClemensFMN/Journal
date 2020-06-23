@@ -2,9 +2,9 @@
 
 \subsection{Definitions}
 
-A flow network $G = (V,E)$ is a directed graph in which each edge $(u,v) \in E$ has a non-negative capacity $c(u,v) \geq 0$ assigned to it. There is the restriction that if there is an edge $(u,v)$, there is no edge $(v,u)$ in the reverse direction. There are two special vertices in the graph; a source vertex $s$ and a sink vertex $t$.
+A flow network $G = (V,E)$ is a directed graph in which each edge $(u,v) \in E$ has a non-negative capacity $c(u,v) \geq 0$ assigned to it. To simplify expressions, we use the convention that if there is no edge between two vertices $u,v$ then the corresponding capacity is zero, $c(u,v) = $. There is the restriction that if there is an edge $(u,v)$, there is no edge $(v,u)$ in the reverse direction. There are two special vertices in the graph; a source vertex $s$ and a sink vertex $t$.
 
-With this in place, we can formally define flows more formally. A flow in $G$ is a real-valued function $V \times V \rightarrow \mR$ that satisfies the following two properties:
+With this in place, we can formally define flows. A flow in $G$ is a real-valued function $V \times V \rightarrow \mR$ that satisfies the following two properties:
 
 \begin{description}
 \item [Capacity Constraint:] The flow along each edge has to be lower than the edge capacity. That is, for all $u,v \in V$, we require $0 \leq f(u,v) \leq c(u,v)$.
@@ -21,6 +21,8 @@ We also define the value $|f|$ of a flow as
 \bee
 |f| = \sum_{v \in V} f(s,v) - \sum_{v \in V} f(v,s)
 \eee
+
+Note that normally, no flow is going \emph{towards} the source $s$; i.e. the second sum is zero.
 
 In the maximum-flow probem, we are given a flow network with a source vertex $s$ and sink $t$, and we want to find a flow of maximum value.
 
@@ -67,6 +69,8 @@ c_f(u,v) = \begin{cases} c(u,v) - f(u,v) & \text{if } (u,v) \in E \\
   0 & \text{otherwise}
 \end{cases}
 \eee
+
+Note that notation is a bit tricky here: If we have an edge from $u$ to $v$, the residual capacity \emph{from $u$ to $v$} is $c(u,v) - f(u,v)$, but there is also a residual capacity \emph{from $v$ to $u$} equal to $f(u,v)$. This residulal capacity allows to completely cancel the flow $u$ to $V$.
 
 The corresponding residual network of $G$ induced by flow $f$ is $G_f(V, E_f)$ where
 
@@ -188,15 +192,24 @@ The following theorem shows that the netflow associated with a cut is actually i
 
 Intuitively, the theorem is clear: In a flow network, all vertices but $s$ and $t$ do not create/destroy flow. Therefore, if $s$ is one side of the cut and $t$ on the other, the flow does not depend on the actual postion of the cut. 
 
+We can use cut capacities to bound the value of a flow using the following theorem.
+
+\begin{theorem}
+  The value of any flow $f$ in a flow network $G$ is bounded above by the capacity of any cut of $G$.
+\end{theorem}
+
+While the above theorem provides a bound, the following max-flow min-cut theorem actually states that the maximum flow in a network equals the capacity of a minimum cut of the network.
 
 \begin{theorem}[Max-flow Min-cut Theorem]
   If $f$ is a flow in a flow network $G$ with source $s$ and sink $t$, the following conditions are equivalent
-  \begin{itemize}
-  \item $f$ is a maximum flow in $G$
+  \begin{enumerate}
+  \item $f$ is a maximum flow in $G$.
   \item The residual network $G_f$ contains no augmenting paths.
   \item The flow $|f|$ equals the flow across a cut: $|f| = c(S,T)$ for any cut $(S,T)$ of $G$.
-  \end{itemize}
+  \end{enumerate}
 \end{theorem}
+
+We omit the proof for this theorem.
 
 \subsection{Basic Ford-Fulkerson Algorithm}
 
