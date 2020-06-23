@@ -1,35 +1,95 @@
 \DiaryEntry{Maximum Flow, Proofs}{2020-06-09}{Algorithms}
 
 \begin{theorem}
-  Let $f$ be a flow on $G$, $G_f$ be a residual network of $G$ induced by $f$, and let $f'$ be a flow in $G_f$. Then the function $f \uparrow f'$ is a flow in $G$ with value $|f + f'| = |f| + |f'|.$
+  Let $f$ be a flow on $G$, $G_f$ be a residual network of $G$ induced by $f$, and let $f'$ be a flow in $G_f$. Then the function $f \uparrow f'$ is a flow in $G$ with value $|f + f'| = |f| + |f'|$.
 \end{theorem}
 
 \begin{proof}
-  Not sure if we want to provde this...
+  We start with bounds for $(f \uparrow f')(u,v)$.
+
+  \begin{align*}
+    (f \uparrow f')(u,v) &= f(u,v) + f'(u,v) - f'(v,u) \\
+                         &\geq f(u,v) + f'(u,v) - f(u,v) \\
+                         &= f'(u,v) \\
+                         &\geq 0
+  \end{align*}
+
+  In the first line we used the definition of the augmented flow; in the second line the fact that $f'(v,u) \leq f(u,v)$; i.e. the ``reverse augmenting flow'' is smaller than the ``forwad flow''.
+  
+  In addition, we have
+
+  \begin{align*}
+    (f \uparrow f')(u,v) &= f(u,v) + f'(u,v) - f'(v,u) \\
+                         &\geq f(u,v) + f'(u,v) \\
+                         &\geq f(u,v) + c_f(u,v) \\
+                         &= f(u,v) + c(u,v) - f(u,v) \\
+                         &= c(u,v)    
+  \end{align*}
+
+  Here we used the capacity constraint in the third line and the definition of $c_f$ in the fourth line. Summarizing, we have
+
+  \bee
+  0 \geq (f \uparrow f')(u,v) \geq c(u,v)
+  \eee
+
+  We leave the proof of shwoing that $f \uparrow f'$ is a flow in $G$ with value $|f + f'| = |f| + |f'|$.
+  
 \end{proof}
 
 
 
 \begin{theorem}
-  Let $f$ be a flow in a flow network $G$ and let $(S,T)$ be any cut of $G$. Then the net flow across $(S,T)$ is $|f|$; in particular it is indepenent of the cut.
+  Let $f$ be a flow in a flow network $G$ and let $(S,T)$ be any cut of $G$. Then the net flow across $(S,T)$ is $|f|$; in particular it is independent of the cut.
 \end{theorem}
 
 \begin{proof}
-  TBD
+  The flow conservation condition for any node $u \in V - \{s,t\}$ is given by
+
+  \bee
+  \sum_{v \in V} f(u,v) - \sum_{v \in V} f(v,u) = 0
+  \eee
+
+  Since the LHS is zero, we can plug it into the definition of $|f|$ as follows
+
+  \bee
+  |f| = \sum_{v \in V} f(s,v) - \sum_{v \in V} f(v,s) + \sum_{u \in S - \{s\}} \left( \sum_{v \in V} f(u,v) - \sum_{v \in V} f(v,u) \right)
+  \eee
+
+  We next expand and regroup the RHS,
+
+  \begin{align*}
+  |f| &= \sum_{v \in V} f(s,v) - \sum_{v \in V} f(v,s) + \sum_{u \in S - \{s\}} \sum_{v \in V} f(u,v) - \sum_{u \in S - \{s\}} \sum_{v \in V} f(v,u) \\
+      &= \sum_{v \in V} \left( f(s,v) + \sum_{u \in S - \{s\}}f(u,v)  \right) - \sum_{v \in V} \left( f(v,s) + \sum_{u \in S - \{s\}} f(v,u)  \right) \\
+      &= \sum_{v \in V} \sum_{u \in S} f(u,v) - \sum_{v \in V} \sum_{u \in S} f(v,u)
+  \end{align*}
+
+  Next we use the facts that $V = S \cup T$ and $S \cap T = 0$ to split the summations. We have
+
+  \begin{align*}
+    |f| &= \sum_{v \in S} \sum_{u \in S} f(u,v)  + \sum_{v \in T} \sum_{u \in S} f(u,v) - \sum_{v \in S} \sum_{u \in S} f(v,u) - \sum_{v \in T} \sum_{u \in S} f(v,u) \\
+        &= \sum_{v \in T} \sum_{u \in S} f(u,v)  - \sum_{v \in T} \sum_{u \in S} f(v,u) + \left(\sum_{v \in S} \sum_{u \in S} f(u,v) - \sum_{v \in S} \sum_{u \in S} f(v,u) \right)\\
+        &= \sum_{v \in T} \sum_{u \in S} f(u,v)  - \sum_{v \in T} \sum_{u \in S} f(v,u) \\
+        &= f(S,T)
+  \end{align*}
+
+  In the third line we used the fact that the difference of the sums in brackets cancel.
 \end{proof}
 
 
-\begin{theorem}[Max-flow Min-cut Theorem]
-  If $f$ is a flow in a flow network $G$ with source $s$ and sink $t$, the following conditions are equivalent
-  \begin{itemize}
-  \item $f$ is a maximum flow in $G$
-  \item The residual network $G_f$ contains no augmenting paths.
-  \item The flow $|f|$ equals the flow across a cut: $|f| = c(S,T)$ for any cut $(S,T)$ of $G$.
-  \end{itemize}
+\begin{theorem}
+  The value of any flow $f$ in a flow network $G$ is bounded above by the capacity of any cut of $G$.
 \end{theorem}
 
 \begin{proof}
-  TBD
+  We have
+  \begin{align*}
+    |f| &= f(S,T) \\
+        &= \sum_{u \in S} \sum_{v \in T} f(u,v) - \sum_{u \in S} \sum_{v \in T} f(v,u) \\
+        &\geq \sum_{u \in S} \sum_{v \in T} f(u,v) \\
+        &\geq \sum_{u \in S} \sum_{v \in T} c(u,v) \\
+        &= c(S,T)
+  \end{align*}
+  
 \end{proof}
 
 
