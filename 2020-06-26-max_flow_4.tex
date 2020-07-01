@@ -1,4 +1,4 @@
-\DiaryEntry{Max-Flow Algorithms, Further Applications}{2020-06-26}{Algorithms}
+\DiaryEntry{Max-Flow Algorithms, Further Topics I}{2020-06-26}{Algorithms}
 
 \subsection{Other Flow Networks}
 
@@ -16,6 +16,59 @@ In case of anti-parallel edges, we can introduce an additional vertex which tran
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.65]{images/max_flow_04_02.png}
+\end{figure}
+
+
+\subsection{Random Graphs}
+
+We ask the question which flow can be transported across a random graph? We consider graphs created by the Erdős–Rényi $G(n,p$) model: The graph is constructed by connecting nodes randomly. Each edge is included in the graph with probability $p$ independent from every other edge.
+
+\paragraph{Fixed Capacity.} In a first step, we assign every edge a capacity of $1$.
+
+The following shows a plot whether a flow between two vertices (vertex $1$ and $100$) exists as a function of $p$. The graph has $100$ vertices and the Figure shows the result over $100$ such random graphs.
+
+It can be seen that for small values of $p$, no flow exists, and at $p \approx 0.02$, there is a threshold above which a flow exists.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{images/max_flow_04_03.png}
+\end{figure}
+
+The following Figure shows the mean flow if it exists for a random graph with $100$ vertices as function of $p$. The flow has been averaged over $50$ runs. For $p=1.0$, the graph is fully connected  (with probability $1$). There are $99$ independent paths between any 2 vertices, each of them carrying a flow of $1$, therefore the total flow is $99$. \todo{we need a proof for this}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{images/max_flow_04_04.png}
+\end{figure}
+
+We next show the flow distribution for $p=0.1$ and $p=0.5$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{images/max_flow_04_05.png}
+\end{figure}
+
+\paragraph{Random Capacity.} We next assign a random capacity to each edge; we chose a uniform distribution on the interval $[0,1]$. 
+
+The following shows a plot whether a flow between two vertices (vertex $1$ and $100$) exists as a function of $p$. It is very similar to the plot with constant capacities.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{images/max_flow_04_06.png}
+\end{figure}
+
+The following Figure shows the mean flow if it exists. Compared to the case with fixed capacities from before, the mean is approximately $50\%$ lower. Intuitively, this makes sense as the mean capacity of each edge is $0.5$; i.e. half the fixed capacity of $1$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{images/max_flow_04_07.png}
+\end{figure}
+
+Finally, we plot the flow distribution for $p=0.1$ and $p=0.5$. As seen in the previous plot, the mean is half compared to the case with fixed capacity to $1$. The distribution of the flow looks the same.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.55]{images/max_flow_04_08.png}
 \end{figure}
 
 
