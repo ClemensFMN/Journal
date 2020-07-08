@@ -72,6 +72,25 @@ Finally, we plot the flow distribution for $p=0.1$ and $p=0.5$. As seen in the p
 \end{figure}
 
 
+\subsection{Performance}
+
+I used two implementations: (i) the LightsGraphs and LightGraphsFLows packages for Julia and (ii) the NetworkX library for Python. We consider graphs created by an Erdős–Rényi $G(n,p$) model and measure the time to create the graph and run a max-flow algorithm. The following table summarizes the results for different values of $n, p$ of the Julia and Python implementation. The code for the two implementations is given \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/Graphs/rand_graph_perf.jl}{[here} and \href{https://github.com/ClemensFMN/PythonStuff/blob/master/graphs/max_flow_rand_graph.py}{here}.
+
+\vspace{2mm}
+
+\begin{tabular}{|c|c|c|} \hline
+  Parameters & Python & Julia \\ \hline
+  n = 100, p=0.1 & 25ms & 0.85ms \\
+  n = 100, p=0.5 & 115ms & 3.8ms \\
+  n = 100, p=0.9 & 184ms & 4.3ms \\
+  n = 500, p=0.1 & 633ms & 24ms \\
+  n = 500, p=0.5 & 2947ms &129 ms \\ \hline
+\end{tabular}
+
+\vspace{2mm}
+
+It can be seen that Julia is considerably faster (by more than one order of magnitude). As a general observation, the algorithms take longer with increasing number of vertices (that's clear) and also with increasing $p$. This is due to the fact that higher values of $p$ create graphs with more edges and the max-flow algorithm needs to consider more augmenting paths.
+
 
 %%% Local Variables:
 %%% mode: latex
