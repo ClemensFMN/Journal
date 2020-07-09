@@ -91,6 +91,21 @@ I used two implementations: (i) the LightsGraphs and LightGraphsFLows packages f
 
 It can be seen that Julia is considerably faster (by more than one order of magnitude). As a general observation, the algorithms take longer with increasing number of vertices (that's clear) and also with increasing $p$. This is due to the fact that higher values of $p$ create graphs with more edges and the max-flow algorithm needs to consider more augmenting paths.
 
+Above numbers were obtained inside a VM running Manjaro Linux. For fun, I tried it on an Aamzon EC2 \verb c5.2xlarge  instance (having $8$ vCPUs and $16$GB RAM) and obtained the following results.
+
+\vspace{2mm}
+
+\begin{tabular}{|c|c|} \hline
+  Parameters & Python \\ \hline
+  n = 500, p=0.1 & 285ms  \\
+  n = 500, p=0.5 & 1350ms \\ \hline
+\end{tabular}
+
+\vspace{2mm}
+
+It can be seen (using \verb htop ) that Python uses only one core and therefore the gains are moderate (the script would need to be changed to use the many vCPUs).
+
+
 
 %%% Local Variables:
 %%% mode: latex
