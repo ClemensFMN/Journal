@@ -1,0 +1,162 @@
+\DiaryEntry{Graph Theory - Fundamentals}{2020-07-13}{Graphs}
+
+A graph $G$ is an ordered pair of disjoint sets $(V,E)$, such that the edge set $E$ is a subset of $V^{(2)} = V \times V$, where $V$ denotes the set of vertices. An edge $\{x,y\}$ connects or joins two (end)vertices $x$ and $y$, which are also called adjacent or neighbouring vertices of $G$.
+
+We call $G' = (V', E')$ a \emph{subgraph} of a graph $G$ if $V' \subset V$ and $E' \subset E$. If the subgraph contains all egdes of $E$ that have endpoints in $V'$, then it is called a \emph{spanning subgraph}.
+
+The following Figure shows an example graph $G$ (left) along with the induced subgraph $G'$ (right) which was created by removing vertex $4$. Since $G'$ contains call edges from $G$ which have endpoints in $V'$, it is an induced subgraph.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/graphs_03_01.png}
+\end{figure}
+
+We can construct new graphs from old ones by deleting or adding edges / vertices. If $W \subset V(G)$, then $G - W$ is the subgraph of $G$ obtained by deleting all vertices of $W'$ and all edges incident with them. In a similar spirit, if $E' \subset E$, then $G - E'$ is the subgraph obtained by deleting all edges of $E'$ and all associated vertices.
+
+In the above example, $W = \{4\}$, therefore $V(G') = G - \{4\}$ and $E(G') = G - \{(2,4), (3,4)\}$.
+
+In a similar spirit we can define addition of edges / vertices to a graph.
+
+We finally define the \emph{complement} $\bar{G}$ of a graph $G = (V,E)$ as $\bar{G} = V, V \times V - E)$. Two vertices are adjacent in $\bar{G}$ if they are not adjacent in $G$.
+
+The \emph{order} $|G|$ of a graph $G$ is defined as the number of its vertices, i.e. $|G| = |V(G)|$. The \emph{size} $e(G)$ of a graph $G$ is defined as the number of edges $e(G) = |E(G)|$. We denote by $G(n,m)$ a graph of order $n$ and size $m$.
+
+The size of a graph $G$ with order $n$ is at least $0$ (the empty graph $E_n = \bar{K_n}$) and at most ${n} \choose {2} = \frac{n(n-1)}{2}$, which is the complete $n$-graph denoted by $K_n$. In this graph, every vertex is connected via an egde.
+
+The set of vertices adjacent to a vertex $x \in G$ is called the \emph{neighbourhood}, $\Gamma(x)$. $x \sim y$ means that vertex $x$ is adjacent to vertex $y$; therefore $y \in \Gamma(x), x \in \Gamma(y), x \sim y, y \sim x$ are all equivalent, each of them meaning that $xy$ is an edge. The \emph{degree} $d(x)$ of a vertex $x$ is $d(x) = |\Gamma(x))|$. The minimal degree of a graph $G$ is denoted as $\delta(G)$, the maximum degree is denoted as $\Delta(G)$.
+
+Since each edge has two endvertices, the sum of the degrees is twice the number of edges,
+
+\be\label{eq:graph_03:01}
+\sum_{i=1}^n d(x_i) = 2 e(G)
+\ee
+
+From this we conclude that the sum of degrees is even,
+
+\bee
+\sum_{i=1}^n d(x_i) \equiv 0 \mod 2
+\eee
+
+The sum of (two) even numbers is always even; however, only the sum of an even number of odd numbers is even (e.g. $1+3=4, 1+3+5+1 = 10$, but $1+3+1 = 5$). Therefore, the number of vertices with odd degree must be even. From the first sum we can obtain bounds for the minimum and maximum degree as follows,
+
+\bee
+\delta(G) \leq 2 e(G) / n, \quad \Delta (G) \geq 2e(G) / n
+\eee
+
+
+If we move along a graph, several new definitions are required.
+
+\begin{itemize}
+\item A \emph{walk} $W$ in a graph $G$ is an alternating sequence of vertices and edges; e.g. $x_0, e_1, x_1, e_2, \ldots x_l$, where the edge $e_i = x_{i-1}x_i$.
+\item A \emph{trail} is a walk if all edges are distinct.
+\item A \emph{path} is a trail in which all vertices (and therefore also all edges) are distinct.
+\item A \emph{circuit} is a non-empty trail in which the first and last vertices coincide.
+\item A \emph{cycle} is a circuit of length larger $2$ and all vertices but $x_0=x_l$ are distinct from each other. We denote cycles of length $l$ with $C_l$ and call them $l$-cycles; in particular, $C_3$ is a triangle, $C_4$ is a quadrilateral, and $C_5$ is a pentagon.
+\end{itemize}
+
+We can also see a path $P$ as a graph itself, having the form
+
+\bee
+V(P) = \{x_0, x_1,\ldots,x_l\}, \quad E(P) = \{x_0 x_1, x_1 x_2, \ldots,x_{l-1} x_l\}
+\eee
+
+with $x_i \neq x_j, \forall i \neq j$. The vertices $x_0, x_l$ are denoted endvertices of $P$, and $l=e(P)$ is the length of the path. We call $P$ also a path from $x_0$ to $x_l$ or a $x_0 - x_l$-path.
+
+The term \emph{independent} can be used with edges, vertices, and paths. A set of vertices is independent, if no two vertices are adjacent. Analogously, a set of edges is independent, when no two edges are adjacent; i.e. do not share a common vertex. In the example graph above, e.g. vertices $1$ and $4$ are independent; and edges $12$ and $34$ are independent. A set of paths is independent if for any two paths each vertex belonging to both paths is an endvertex to both. Thus, two paths $P_1$ and $P_2$ are independent $x-y$-paths, iff $V(P_1) \cap V(P_2) = \{x,y\}$; i.e. the two paths share only the startvertex and endvertex.
+
+The graph in the following Figure has two cycles: $1-2-3$ and $1-4-5$; note that $1-2-3-1-4-5$ is \emph{not} a cycle as not all vertices (but $x_0$) are distinct. It is, however, a circuit.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/graphs_03_02.png}
+\end{figure}
+
+We have Veblen's theorem regarding cycles.
+
+\begin{theorem}
+If a graph has even degree at each of its vertices, then it is possible to find a set of simple cycles that together cover each edge exactly once; i.e. the graph can be partitioned into a set of cycles. This holds true regarldess whether the graph is connected or not.
+\end{theorem}
+
+In the above Figure, the two cycles $1-2-3$ and $1-4-5$ cover each edge exactely once, showing the validity of Veblen's theorem. Had we another edge between vertices $3$ and $4$, we could not decompose the graph into edge disjoint cycles; however, in this case, vertices $3$ and $4$ would have odd degree.
+
+\begin{proof}
+  The graph is a union of edge disjoint cycles (and isolated vertices); each vertex is contained in $k$-cycles and therefore has degree $2k$ which is even.
+
+  Suppose that every vertex has even degree and $e(g) > 0$. We want to find a cycle in $G$: Let $x_0 x_1 \ldots x_l$ be a path of maximal length $l$ in $G$. Since $x_0 x_1 \in E(G)$, we have $d(x_0) \geq 2$. But then $x_0$ has another neighbour $y$ in addition to $x_1$; furthermore, we must have $y=x_i$ for some $i, 2 \geq i \geq l$, since otherwise $y x_0 x_1 \cdots x_l$ would be a path of length $l+1$. Therefore, we have found our cycle $C_1 = x_0 x_1 \cdots x_i$.
+
+  Now we can repeat the procedure over and over again. We set $G_1 = G$ and remove the cycle $C_1$ to obtain $G_2 = G_1 - E(C_1)$. Every vertex in $G_2$ has even degree (as we assumed that every vertex in $G_1$ and $C_1$ have even degree) so either $E(G_2)$ is empty or $G_2$ contains another cycle $C_2$. Continuing this way, we find vertex disjoint cycles $C_1, C_2, \ldots C_s$ such that $E(G) = \bigcup_{i=1}^s E(C_i)$.
+\end{proof}
+
+The following theorem from Mantel gives a condition for a graph to contain a triangle. The full graph has $\frac{n(n-1)}{2} \approx n^2 / 2$ edges; we must delete approximately half of its edges to obtain a graph without triangles. This shows that a graph must be ``quite sparse'' to be triangle-free.
+
+\begin{theorem}
+  Every graph of order $n$ and size greater than $\lfloor n^2/4 \rfloor$ contains a triangle.
+\end{theorem}
+
+\begin{proof}
+  Let $G$ be a triangle-free graph of order $n$. Then $\Gamma(x) \cap \Gamma(y) = 0$ for every edge $xy \in E(G)$. See the following Figure, where $\Gamma(x)$ is shown in green and $\Gamma(y)$ is shown in red. Clearly, we don't have triangles as long as long as the neighbourhoods are disjoint. If vertex $v$ were connected to $y$ as well, we would have a triangle.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/graphs_03_03.png}
+  \end{figure}
+  
+  We can alternatively state this condition as
+  
+  \bee
+  d(x) + d(y) \leq n
+  \eee
+
+  This ensures that vertex $v$ is connected to either $x$ or $y$ but not both. Summing above inequality over all \emph{edges}, we find that
+
+  \bee
+  \sum_{xy \in E(G)} d(x) + d(y) \leq ne(G)
+  \eee
+
+  Instead of summing over edges, we can sum over vertices. We do this slowly, as it took me ages to understand ;-) Let's split the sum first,
+  
+  \bee
+  \sum_{xy \in E(G)} d(x) + \sum_{xy \in E(G)} d(y) \leq ne(G)
+  \eee
+
+  Now fix $x$ and vary $y$; there are $d(x)$ terms and all of them are equal, each being $d(x)$. So the sum is $d(x)^2$. We can do the same for the second sum; all in all we arrive at
+
+  \be\label{eq:graph_03_02}
+  \sum_{xy \in E(G)} d(x) + \sum_{xy \in E(G)} d(y) = \sum_{x \in V(G)} d(x)^2 \leq ne(G)
+  \ee
+
+  We can bound the sum using Cauchy's inequality to obtain
+
+  \bee
+  \sum_{x \in G} d(x)^2 \geq \frac{1}{n} \left( \sum_{x \in G} d(x) \right)^2 = \frac{1}{n} (2e(G))^2
+  \eee
+
+  where we have used \eqref{eq:graph_03:01} in the last equality. Now we use \eqref{eq:graph_03_02} to bound the left sum
+
+  \bee
+  ne(G) \geq \frac{1}{n} (2e(G))^2
+  \eee
+
+  and we arrive at
+
+  \bee
+  e(g) \leq \frac{n^2}{4}
+  \eee
+
+\end{proof}
+
+Given two vertices $x$ and $y$, their \emph{distance} $d(x,y)$ is the minimal length of an $x-y$-path. If there is no path between $x$ and $y$, then we set $d(x,y) = \infty$.
+
+A graph is connected if for every distince vertex pair $x,y$, there is a path from $x$ to $y$. A maximal connected subgraph is a \emph{component} of the graph. A \emph{cutvertex} is a vertex whose deletion increases the number of components. Similarly, an edge is a \emph{bridge} if its deletion increases the number of components.
+
+A graph without cycles is a \emph{forest} and a \emph{tree} is a connected forest.
+
+A \emph{bipartite} graph is a graph with two disjoint vertex classes $V_1, V_2$ where every edges connectes a vertex from set $V_1$ with a vertex from $V_2$. Note that there are no edges between vertices in $V_1$ or $V_2$. We also say that $G$ has a bipartition $(V_1, V_2)$. We can extend the concept to $r$-partite graphs with $r$ disjoint vertex classes $V_1, \ldots V_r$ and no edge joining vertices from the same vertex class. A \emph{complete $r$-partite graph} has $n_i$ vertices in the $i$-th vertex class and contains all edges joining vertices in the distinct classes. We dnote it by $K(n_1, n_2, \cdots)$; a complete bipartite graph is denoted as $K_{m,n}$ with $|V_1|=m, |V_2|=n$.
+
+If the edges are \emph{ordered} pairs of vertices, we obtain a \emph{directed graph}. We then have directed edges $xy$ (directed from $x$ to $y$), directed paths, trails etc, and we distinguish between the \emph{outdegree} $d^+(x)$, the number of edges starting at $x$, and the \emph{indegree}, $d^-(x)$, the number of edges ending at $x$.
+
+  
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
