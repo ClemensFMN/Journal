@@ -87,14 +87,16 @@ In the above Figure, the two cycles $1-2-3$ and $1-4-5$ cover each edge exactely
   Now we can repeat the procedure over and over again. We set $G_1 = G$ and remove the cycle $C_1$ to obtain $G_2 = G_1 - E(C_1)$. Every vertex in $G_2$ has even degree (as we assumed that every vertex in $G_1$ and $C_1$ have even degree) so either $E(G_2)$ is empty or $G_2$ contains another cycle $C_2$. Continuing this way, we find vertex disjoint cycles $C_1, C_2, \ldots C_s$ such that $E(G) = \bigcup_{i=1}^s E(C_i)$.
 \end{proof}
 
-The following theorem from Mantel gives a condition for a graph to contain a triangle. The full graph has $\frac{n(n-1)}{2} \approx n^2 / 2$ edges; we must delete approximately half of its edges to obtain a graph without triangles. This shows that a graph must be ``quite sparse'' to be triangle-free.
+The following theorem from Mantel gives a condition for a graph to contain a triangle.
 
 \begin{theorem}
   Every graph of order $n$ and size greater than $\lfloor n^2/4 \rfloor$ contains a triangle.
 \end{theorem}
 
+The full graph has $\frac{n(n-1)}{2} \approx n^2 / 2$ edges; we must delete approximately half of its edges to obtain a graph without triangles. This shows that a graph must be ``quite sparse'' to be triangle-free.
+
 \begin{proof}
-  Let $G$ be a triangle-free graph of order $n$. Then $\Gamma(x) \cap \Gamma(y) = 0$ for every edge $xy \in E(G)$. See the following Figure, where $\Gamma(x)$ is shown in green and $\Gamma(y)$ is shown in red. Clearly, we don't have triangles as long as long as the neighbourhoods are disjoint. If vertex $v$ were connected to $y$ as well, we would have a triangle.
+  Let $G$ be a triangle-free graph of order $n$. Then $\Gamma(x) \cap \Gamma(y) = 0$ for every edge $xy \in E(G)$. See the following Figure, where $\Gamma(x)$ is shown in green and $\Gamma(y)$ is shown in red. Clearly, we don't have triangles as long as the neighbourhoods are disjoint. If vertex $v$ were connected to $y$ as well (dotted line), we would have a triangle.
 
   \begin{figure}[H]
     \centering
@@ -106,35 +108,44 @@ The following theorem from Mantel gives a condition for a graph to contain a tri
   \bee
   d(x) + d(y) \leq n
   \eee
-
-  This ensures that vertex $v$ is connected to either $x$ or $y$ but not both. Summing above inequality over all \emph{edges}, we find that
-
-  \bee
-  \sum_{xy \in E(G)} d(x) + d(y) \leq ne(G)
-  \eee
-
-  Instead of summing over edges, we can sum over vertices. We do this slowly, as it took me ages to understand ;-) Let's split the sum first,
   
+  This ensures that vertex $v$ is connected to either $x$ or $y$ but not both. Looking at the example above, we have $d(x) = 4$ and $d(y) = 3$ (not counting the dotted edge), $d(x) + d(y) \leq n = 7$, and therefore no triangle. If there were an edge $v-y$ (dotted line), we would have $d(x) = 4$ and $d(y) = 4$, $d(x) + d(y) = 8 \nleq n = 7$, and we have a triangle.
+
+  Summing above inequality over all \emph{edges}, we find that
+
   \bee
-  \sum_{xy \in E(G)} d(x) + \sum_{xy \in E(G)} d(y) \leq ne(G)
+  \sum_{xy \in E(G)} d(x) + d(y) \leq n e(G)
   \eee
 
-  Now fix $x$ and vary $y$; there are $d(x)$ terms and all of them are equal, each being $d(x)$. So the sum is $d(x)^2$. We can do the same for the second sum; all in all we arrive at
+  Instead of summing over edges, we can sum over \emph{vertices}. We do this slowly, as it took me ages to understand ;-) Let's consider a simple example first.
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/graphs_03_04.png}
+  \end{figure}
+  
+  We have
 
+  \begin{align*}
+  \sum_{xy \in E(G)} d(x) + d(y) & = (d(1)+ d(2)) + (d(1)+  d(3)) + (d(3) + d(4)) + (d(3) +d(5)) \\ &= 2 d(1) + d(2)+  3 d(3) + d(4) + d(5) = d^2(1) + d(2) + d^3(3) + d(4) + d(5)
+  \end{align*}
+
+  In the first equality, we have grouped the terms by edges ($1-2, 1-3, \ldots$). Generalizing, we obtain
+  
   \be\label{eq:graph_03_02}
-  \sum_{xy \in E(G)} d(x) + \sum_{xy \in E(G)} d(y) = \sum_{x \in V(G)} d(x)^2 \leq ne(G)
+  \sum_{xy \in E(G)} d(x) + d(y) = \sum_{x \in V(G)} d^2(x) \leq ne(G)
   \ee
 
   We can bound the sum using Cauchy's inequality to obtain
 
   \bee
-  \sum_{x \in G} d(x)^2 \geq \frac{1}{n} \left( \sum_{x \in G} d(x) \right)^2 = \frac{1}{n} (2e(G))^2
+  \sum_{x \in G} d^2(x) \geq \frac{1}{n} \left( \sum_{x \in G} d(x) \right)^2 = \frac{1}{n} (2e(G))^2
   \eee
 
   where we have used \eqref{eq:graph_03:01} in the last equality. Now we use \eqref{eq:graph_03_02} to bound the left sum
 
   \bee
-  ne(G) \geq \frac{1}{n} (2e(G))^2
+  ne(G) \geq \sum_{x \in G} d^2(x) \geq \frac{1}{n} (2e(G))^2 = \frac{4 e^2(G)}{n}
   \eee
 
   and we arrive at
