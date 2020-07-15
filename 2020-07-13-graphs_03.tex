@@ -1,5 +1,7 @@
 \DiaryEntry{Graph Theory - Fundamentals}{2020-07-13}{Graphs}
 
+\subsection{Basic Definitions}
+
 A graph $G$ is an ordered pair of disjoint sets $(V,E)$, such that the edge set $E$ is a subset of $V^{(2)} = V \times V$, where $V$ denotes the set of vertices. An edge $\{x,y\}$ connects or joins two (end)vertices $x$ and $y$, which are also called adjacent or neighbouring vertices of $G$.
 
 We call $G' = (V', E')$ a \emph{subgraph} of a graph $G$ if $V' \subset V$ and $E' \subset E$. If the subgraph contains all egdes of $E$ that have endpoints in $V'$, then it is called a \emph{spanning subgraph}.
@@ -43,6 +45,8 @@ The sum of (two) even numbers is always even; however, only the sum of an even n
 \delta(G) \leq 2 e(G) / n, \quad \Delta (G) \geq 2e(G) / n
 \eee
 
+
+\subsection{Walks, Paths, etc}
 
 If we move along a graph, several new definitions are required.
 
@@ -158,15 +162,53 @@ The full graph has $\frac{n(n-1)}{2} \approx n^2 / 2$ edges; we must delete appr
 
 Given two vertices $x$ and $y$, their \emph{distance} $d(x,y)$ is the minimal length of an $x-y$-path. If there is no path between $x$ and $y$, then we set $d(x,y) = \infty$.
 
-A graph is connected if for every distince vertex pair $x,y$, there is a path from $x$ to $y$. A maximal connected subgraph is a \emph{component} of the graph. A \emph{cutvertex} is a vertex whose deletion increases the number of components. Similarly, an edge is a \emph{bridge} if its deletion increases the number of components.
+A graph is connected if for every distince vertex pair $x,y$, there is a path from $x$ to $y$.
 
-A graph without cycles is a \emph{forest} and a \emph{tree} is a connected forest.
+A subgraph $G'$ of a graph $G$ in which any two vertices are connected to each other by paths, and which is connected to no additional vertices in the remainder of the graph $G - G'$ is a \emph{component} of the graph. A \emph{cutvertex} is a vertex whose deletion increases the number of components. Similarly, an edge is a \emph{bridge} if its deletion increases the number of components. Every vertex of a graph is contained in a unique components and an edge is a brdige if it is not contained in a cycle.
+
+A graph without cycles is a \emph{forest} and a \emph{tree} is a connected forest. Note that a forets consists of a disjoint union of trees (I think, they need not be connected).
 
 A \emph{bipartite} graph is a graph with two disjoint vertex classes $V_1, V_2$ where every edges connectes a vertex from set $V_1$ with a vertex from $V_2$. Note that there are no edges between vertices in $V_1$ or $V_2$. We also say that $G$ has a bipartition $(V_1, V_2)$. We can extend the concept to $r$-partite graphs with $r$ disjoint vertex classes $V_1, \ldots V_r$ and no edge joining vertices from the same vertex class. A \emph{complete $r$-partite graph} has $n_i$ vertices in the $i$-th vertex class and contains all edges joining vertices in the distinct classes. We dnote it by $K(n_1, n_2, \cdots)$; a complete bipartite graph is denoted as $K_{m,n}$ with $|V_1|=m, |V_2|=n$.
 
 If the edges are \emph{ordered} pairs of vertices, we obtain a \emph{directed graph}. We then have directed edges $xy$ (directed from $x$ to $y$), directed paths, trails etc, and we distinguish between the \emph{outdegree} $d^+(x)$, the number of edges starting at $x$, and the \emph{indegree}, $d^-(x)$, the number of edges ending at $x$.
 
+\subsection{Paths and Trees}
+
+\begin{theorem}
+  A graph is bipartite iff it does not contain an odd cycle.
+\end{theorem}
+
+\begin{proof}
+  First we show that a bipartite graph contains even cycles: The graph $G$ has two vertex classes, $V_1, V_2$, and let the vertex sequence $x_1-x_2-x_3- \cdots - x_l$ be a cycle in $G$ (there is an edge $x_l - x_1$). Assume that $x_1 \in V_1$. Then $x_2 \in V_2, x_3 \in V_3,\ldots$; i.e. $x_i \in V_1$ iff $i$ is odd. If we consider an even cyle, then $l$ is even and therefore $x_l \in V_2$.
+
+  Now we show that a graph without odd cycles is bipartite: Pick a vertex $x \in V(G)$ and define $V_1 = \{y: d(x,y) \text{is odd}\}$ and $V_2 = V - V_1$. There is no edge joining two vertices of the same class $V_i$, since otherwise $G$ would contain an odd cycle. Therefore $G$ is bipartite.
+\end{proof}
+
+We show the second part of the proof by means of an example graph. The left part shows the graph with vertices not separated into two sets.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/graphs_03_05.png}
+  \end{figure}
+
+Let's choose vertex $1$ as starting point. The set $V_1$ is defined as all vertices with odd distance from $1$; therefore $V_1 = \{1, 4, 5\}$ and $V_2 = V - V_1 = \{2, 3\}$. The right part of the Figure shows the vertices of set $V_1$ on the left, the vertices of set $V_2$ on the right.
+
+A bipartite graph has at most $|V_1| |V_2|$ edges. If we define $k = |V_1|$, the number of edges becomes $n(n-k)$. The maximum is attained in an equal distribution od vertices between the two sets; i.e. $k = n/2$ and therefore having $n(n-k) = n^2/4$ edges. This is the complete bipartite graph $K_{n/2, n/2}$.
   
+\begin{theorem}
+  A graph is a forest iff for every pair $\{x,y\}$ of distinct vertices it contains at most one $x-y$ path.
+\end{theorem}
+
+\begin{theorem}
+  The following assertions are equivalent for a Graph $G$.
+  \begin{itemize}
+  \item $G$ is a tree.
+  \item $G$ is a minimal connected graph: $G$ is connected, but becomes disconnected after removal of an edge $xy \in E(G)$ of $G$; i.e. $G - \{xy\}$ is disconnected. We can also say that $G$ is connected and every edge is a bridge.
+  \item $G$ is a maximal acyclical graph: $G$ is acyclic (does not contain a cycle); if vertices $x$ and $y$ are nonadjacent vertices of $G$, then $G + xy$ contains a cycle.
+  \end{itemize}
+\end{theorem}
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
