@@ -224,6 +224,22 @@ The first part can be shown via induction: As starting point, consider a ``tree'
 
 Finally we observe that a tree of order at least $2$ contains at least $2$ vertices of degree $1$. Again we use induction: Starting with a tree of order $2$, the $2$ vertices are connected via $1$ egde. Therefore, we have $2$ vertices each with degree $1$. Additional vertices will become leaves and therefore have degree $1$, thereby increasing the number of vertices with degree $1$. \qed
 
+\subsection{Diameter and Radius}
+
+The \emph{eccentricity} $e(v)$ of a graph vertex is the greatest distance between $v$ and any other vertex; i.e. $e(v) = \max_v d(v,u)$. It can be interpreted as how far a vertex is from the most distant vertex in the graph.
+
+The minimum (over all vertices) eccentricity is called the \emph{radius} $r$; it is formally defined as $r = \min_v \max_u d(v,u)$. 
+
+And finally, the \emph{diameter} is the maximum (over all vertices) eccentricity $d$, formally given by $d = \max_v \max_u d(v,u)$. The set of peripheral vertices $V_d(u)$ contains all vertices which have distance $d$ from a specific vertex $u$, $V_d(u) = \{v \in V(G) | d(u,v) = d\}$.
+
+The \emph{level structure} of a graph is a partitioning of the graph's vertices into subsets of the same distance from a specific vertex; $V_{d_i} = \{v \in V(G) | d(u,v) = d_i\}$.
+
+The following Figure shows an example graph. The radius of the graph is $2$, its diameter is $3$. Starting out at vertex $1$, the level structure is $V_1 = \{2,3\}, V_2 = \{4,5,7\}, V_3 = \{6\}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/graphs_03_06.png}
+\end{figure}
 
 
 
