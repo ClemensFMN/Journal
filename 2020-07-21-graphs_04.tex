@@ -15,8 +15,24 @@ An additional twist is the condition that the salesman must not take a road (edg
 
 \subsection{Euler Circuits}
 
-A graph is \emph{Eulerian} if there exists a circuit that visits every edge exactely once. Existence of an Euler circuit is defined 
+A graph is \emph{Eulerian} if there exists a circuit that visits every edge exactely once. Existence of an Euler circuit / trail is defined by a simple condition.
 
+\begin{theorem} A non-trivial connected graph has an Eulerian circuit iff each vertex has even degree. A connected graph has an Euler trail from vertex $u$ to vertex $v \neq u$ iff $u$ and $v$ are the only vertices of odd degree.
+\end{theorem}
+
+Note that in case of a circuit, the first and last vertex are the same, whereas in case of a trail, the first and last vertex need not be the same.
+
+The following Figure shows three example graphs. Starting with the graph on the left, we see that it has an Euler trail from vertex $1$ to vertex $4$ via $1-2-3-4-5-1-4$. All vertices on the path have even degree, only vertices $1$ and $4$ have odd degree. Therefore, no other Euler trail is possible. If we remove vertex $5$ (shown in the middle of the Figure), all vertices have even degree. This allows for an Eulerian circuit (and of course, Eulerian trails between all vertices are possible).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/graphs_04_10.png}
+\end{figure}
+
+
+\begin{proof}
+TBD
+\end{proof}
 
 
 %%% Local Variables:
