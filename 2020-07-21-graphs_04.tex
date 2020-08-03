@@ -1,0 +1,25 @@
+\DiaryEntry{Hamilton Cycles and Euler Circuits}{2020-07-21}{Graphs}
+
+\subsection{Hamilton Cycles}
+
+A cycle containing all vertices in a graph is a \emph{Hamilton cycle} of the graph; a graph which contains a Hamilton cyacle is said to be \emph{Hamiltonian}. A path containing all vertices in a graph is a \emph{Hamilton path}.
+
+The problem of finding a Hamilton cycle or path can be solved by an exhaustive search across all paths in the graph and there is no known algorithm which is fundamentally simpler; the problem is NP-hard.
+
+Hamilton cycles are related to the \emph{travelling salesman problem}: A salesman shall make a tour and visit $n$ cities, returning to the starting city at the end of the tour. The distances (and therefore travel costs) between the cities are known and the tour shall be the shortest one. This problem is also NP-hard.
+
+If the distances between all cities are the same, then the least expensive tour is any permutation of $n-1$ cities (the $n$-th city being the start / end point of the tour).
+
+An additional twist is the condition that the salesman must not take a road (edge) again while there are other untravelled roads (edges). In order to solve this, we have to decompose the complete graph $K_n$ into a union of some edge-disjoint Hamilton cycles. \todo{continue?}
+
+
+\subsection{Euler Circuits}
+
+A graph is \emph{Eulerian} if there exists a circuit that visits every edge exactely once. Existence of an Euler circuit is defined 
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
