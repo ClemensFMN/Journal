@@ -110,8 +110,137 @@ The GCD can take on values in the range of $1$ (if $a$ and $b$ are coprime) up t
 
 \subsection{The Diophantine Equation $ax + by = c$}
 
+The simplest Diophantine equation is the linear equation
+
+\bee
+ax + by = c
+\eee
+
+where $a, b, c$ are given integers (with $a, b \neq 0$) and we seek integer solutions for $x$ and $y$.
+
+A simple example is $3x + 6y = 18$ which has several integer solutions,
+
+\begin{align*}
+  &3 \cdot 4 + 6 \cdot 1 = 18 \\
+  & 3 \cdot (-6) + 6 \cdot 6 = 18 \\
+  & 3 \cdot 10 + 6 \cdot (-2) = 18
+\end{align*}
+
+On the other hand, the equation $2x + 10y = 17$ has no integer solution, as the LHS will always be even.
+
+These observations raise the question, under which conditions the Diophantine equation has a solution. This is answered in the following theorem.
+
+\begin{theorem}
+  The linear Diophantine equation $ax + by= c$ has a solution iff $d = \gcd(a,b) | c$. If $x_0, y_0$ is a particular solution of the equation, then all other solutions are given by
+
+  \bee
+  x = x_0 + \frac{b}{d}t, \quad y = y_0 - \frac{a}{d}t
+  \eee
+
+where $t$ is an arbitrary integer.  
+\end{theorem}
+
+\begin{proof}
+  Suppose a solution $x_0, y_0$ is known; i.e. $ax_0 + by_0 = c$. Suppose there is a second solution $x', y'$, we have
+
+  \bee
+  ax_0 + by_0 = c = ax' + by'
+  \eee
+
+  and from which we obtain
+
+  \bee
+  a(x' - x_0) = b(y_0 - y')
+  \eee
+
+  We know (see for a proof below) that there exist relatively prime integers $r$ and $s$ such that $a = dr, b = ds$. Substituting this into the last equation, we obtain
+
+  \bee
+  dr(x' - x_0) = ds(y_0 - y') \rightarrow r(x' - x_0) = s(y_0 - y')
+  \eee
+
+  where we have cancelled out the factor $d$ in the last step. From this we deduct $r | s(y_0 - y')$ and since $\gcd(r,s) = 1$, we have $r | (y_0 - y')$ or $rt = y_0 - y'$ for some integer $t$. Substituting, we obtain $x' - x_0 = st$ .
+
+  This yields the following relations
+
+  \begin{align*}
+    x' &= x_0 + st = x_0 + \frac{b}{d}t \\
+    y' &= y_0 - rt = y_0 - \frac{a}{d}t
+  \end{align*}
+
+  If we insert these solutions into the Diophantine equation, we can see that
+
+  \begin{align*}
+    ax' + by' &= a \left( x_0 + \frac{b}{d}t \right) + b \left(  y_0 - \frac{a}{d}t \right) \\
+              &= ax_0 + by_0 + a \frac{b}{d}t - b \frac{a}{d}t = ax_0 + by_0
+  \end{align*}
+\end{proof}
+
+\paragraph{Add-on.} If $\gcd(a,b) = d$, then $a/d$ and $b/d$ are coprime; i.e.$\gcd(a/d, b/d) = 1$. Proof: We know that there exist integers $x, y$ so that $ax + by = d$ and therefore $\frac{a}{d}x + \frac{b}{d}y = 1$. Since the $a, b$ are divisible by the gcd, the fractions $\frac{a}{d}$ and $\frac{b}{d}$ are integers and we therefore conclude that $\frac{a}{d}$ and $\frac{b}{d}$ are coprime.
+
+Intuitively, this makes sense as $d$ is the greatest ``something'' we can divide $a$ \emph{and} $b$ by; the remainder is then coprime. \qed
+
+Since we now know how to obtain all solutions once we know one, we need to find a way to find the one solution $x_0, y_0$. The \emph{extended Euclidean Algorithm} additionally provides the numbers $r, s$ for which
+
+\bee
+a r + b s = \gcd(a,b)
+\eee
+
+holds. The algorithm will be topic of another entry, but we will use it nevertheless. From the above theorem, we know that the linear Diophantine equation $ax + by = c$ has a solution only when $c$ is a multiple of $\gcd(a,b)$; i.e. $ax + by = t \gcd(a,b)$ for some integer $t$. We solve the problem as follows: We first use the extended Euclidean algorithm to obtain $r, s$ from
+
+\bee
+a r + b s = \gcd(a,b)
+\eee
+
+The we multiply both sides with $t$ and obtain
+
+\bee
+a (rt) + b (st) = t \gcd(a,b)
+\eee
+
+from which we deduce the solution
+
+\bee
+x_0 = rt, y_0 = st .
+\eee
+
+\paragraph{Example.} We consider the example from above, $3x + 6y = 18$. We have $\gcd(3,6) = 3$, and since $3 | 18$ the equation has inifitely many solutions. The extended Euclidean algorithm applied to
+
+\bee
+3 r + 6 s = 3
+\eee
+
+yields $r = 1, s = 0$; i.e. $3 \cdot 1 + 6 \cdot 0 = 3$. Multiplying both sides with $c / \gcd(a,b) = 18 / 3 = 6$ yields
+
+\bee
+3 \cdot 1 \cdot 6 + 6 \cdot 0 \cdot 6 = 18
+\eee
+
+from which we obtain our particular solution as $x_0 = 6, y_0 = 0$. The solutions are therefore
+
+\begin{align*}
+  x &= x_0 + \frac{6}{3}t = 6 + 2t \\
+  y &= y_0 - \frac{3}{3}t = -t
+\end{align*}
 
 
+As another example, we consider $8x + 34y = 16$. The gcd equals $\gcd(8, 34) = 2$ and $2 | 16$, so there exist solutions. Solving $8r + 34s = 2$ via the extended Euclidean algorithm yields $r = -4, s=1$, so we can write
+
+\bee
+8 \cdot (-4) + 34 \cdot 1 = 2
+\eee
+
+Multiplication of both sides by $8$ yields
+
+\bee
+8 \cdot(-32) + 34 \cdot 8 = 16
+\eee
+
+from which we obtain $x_0 = -32, y_0 = 8$. Our solutions therefore are
+\begin{align*}
+  x &= x_0 + \frac{34}{2}t = -32 + 17t \\
+  y &= y_0 - \frac{8}{2}t = 8 - 4t
+\end{align*}
 
 %%% Local Variables:
 %%% mode: latex

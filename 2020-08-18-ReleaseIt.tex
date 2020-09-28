@@ -1,0 +1,201 @@
+\DiaryEntry{Michael Nygard, Release It!}{2020-08-17}{General}
+
+Interesting read, some folklore stories but some very interesting things to consider and interesting SW tools mentioned.
+
+\subsection{Chapter 3 - Stabilize Your System}
+
+Enterprise software must be cynical. Cynical software expects bad things to happen and is never surprised when they do. Cynical software doesn’t even trust itself, so it puts up internal barriers to protect itself from failures. It refuses to get too intimate with other systems, because it could get hurt.
+
+A robust system keeps processing transactions, even when transient impulses, persistent stresses, or component failures disrupt normal processing. This is what most people mean by “stability.” It’s not just that your individual servers or applications stay up and running but rather that the user can still get work done.
+
+The terms impulse and stress come from mechanical engineering. An impulse is a rapid shock to the system. An impulse to the system is when something whacks it with a hammer. In contrast, stress to the system is a force applied to the system over an extended period.
+
+Sudden impulses and excessive strain can both trigger catastrophic failure. In either case, some component of the system will start to fail before everything else does.
+
+The original trigger and the way the crack spreads to the rest of the system, together with the result of the damage, are collectively called a failure mode.
+
+No matter what, your system will have a variety of failure modes. Denying the inevitability of failures robs you of your power to control and contain them. Once you accept that failures will happen, you have the ability to design your system’s reaction to specific failures. Just as auto engineers create crumple zones—areas designed to protect passengers by failing first—you can create safe failure modes that contain the damage and protect the rest of the system. This sort of self-protection determines the whole system’s resilience.
+
+\subsubsection{Chain of Failure}
+
+Underneath every system outage is a chain of events: One small issue leads to another, which leads to another. A failure in one point or layer actually increases the probability of other failures. If the database gets slow, then the application servers are more likely to run out of memory. Because the layers are coupled, the events are not independent.
+
+At each step in the chain of failure, the crack from a fault may accelerate, slow, or stop. A highly complex system with many degrees of coupling offers more pathways for cracks to propagate along, more opportunities for errors. Tight coupling accelerates cracks.
+
+
+One way to prepare for every possible failure is to look at every external call, every I/O, every use of resources, and every expected outcome and ask, “What are all the ways this can go wrong?” Think about the different types of impulse and stress that can be applied:
+
+\begin{itemize}
+\item What if it can’t make the initial connection?
+\item What if it takes ten minutes to make the connection?
+\item What if it can make the connection and then gets disconnected?
+\item What if it can make the connection but doesn’t get a response from the other end?
+\item What if it takes two minutes to respond to my query?
+\item What if 10,000 requests come in at the same time?
+\item What if the disk is full when the application tries to log the error message about the SQLException that happened because the network was bogged down with a worm?
+\end{itemize}
+
+\subsection{Chapter 4 - Stability Antipatterns}
+
+\paragraph{Integration Points.} Integration points are the number-one killer of systems. Every single one of those feeds presents a stability risk. Every socket, process, pipe, or remote procedure call can and will hang. Even database calls can hang, in ways obvious and subtle. Every feed into the system can hang it, crash it, or generate other impulses at the worst possible time.
+
+\paragraph{Chain Reactions.} The dominant architectural style today is the horizontally scaled farm of commodity hardware. Horizontal scaling means we add capacity by adding more servers. If your system scales horizontally, then you will have load-balanced farms or clusters where each server runs the same applications. The multiplicity of machines provides you with fault tolerance through redundancy. A single machine or process can completely bonk while the remainder continues serving transactions.
+
+Still, even though horizontal clusters are not susceptible to single points of failure, they can exhibit a load-related failure mode. For example, a concurrency bug that causes a race condition shows up more often under high load than low load. When one node in a load-balanced group fails, the other nodes must pick up the slack. This in turn makes the remaining nodes more exposed and they become more likely to fail.
+
+\paragraph{Cascading Failures.} System failures start with a crack. That crack comes from some fundamental problem. The crack can progress and even be amplified by some structural problems. A cascading failure occurs when a crack in one layer triggers a crack in a calling layer.
+
+An obvious example is a database failure. If an entire database cluster goes dark, then any application that calls the database is going to experience problems of some kind. What happens next depends on how the caller is written. If the caller handles it badly, then the caller will also start to fail, resulting in a cascading failure.
+
+Crucial services with a high fan-in — meaning ones with many callers — spread their problems widely, so they are worth extra scrutiny. Cascading failures require some mechanism to transmit the failure from one layer to another. The failure “jumps the gap” when bad behavior in the calling layer gets triggered by the failure condition in the provider. Cascading failures often result from resource pools that get drained because of a failure in a lower layer. Integration points without timeouts are a surefire way to create cascading failures.
+
+\paragraph{Blocked Threads.} Blocked threads can happen anytime you check resources out of a connection pool, deal with caches or object registries, or make calls to external systems. If the code is structured properly, a thread will occasionally block whenever two (or more) threads try to access the same critical section at the same time. This is normal. Assuming that the code was written by someone sufficiently skilled in multithreaded programming, then you can always guarantee that the threads will eventually unblock and continue.
+
+The problem has four parts:
+
+\begin{itemize}
+
+\item Error conditions and exceptions create too many permutations to test exhaustively.
+\item Unexpected interactions can introduce problems in previously safe code.
+\item Timing is crucial. The probability that the app will hang goes up with the number of concurrent requests.
+\item Developers never hit their application with 10,000 concurrent requests.
+
+\end{itemize}
+  
+Taken together, these conditions mean that it’s very, very hard to find hangs during development. You can’t rely on “testing them out of the system.” The best way to improve your chances is to carefully craft your code. Use a small set of primitives in known patterns. It’s best if you download a well-crafted, proven library.
+
+\paragraph{Unbalanced Capacities.} Whether your resources take months, weeks, or seconds to provision, you can end up with mismatched ratios between different layers. That makes it possible for one tier or service to flood another with requests beyond its capacity. This especially holds when you deal with calls to rate-limited or throttled APIs!
+
+\paragraph{Dogpile.} When a bunch of servers impose this transient load all at once, it’s called a dogpile.
+
+A dogpile can occur in several different situations:
+
+\begin{itemize}
+\item When booting up several servers, such as after a code upgrade and restart
+\item When a cron job triggers at midnight (or on the hour for any hour, really)
+\item When the configuration management system pushes out a change
+\end{itemize}
+
+Dogpiles can also occur when some external phenomenon causes a synchronized “pulse” of traffic. Candidates are places in the code where many threads can get blocked waiting for one thread to complete. When the logjam breaks, the newly freed threads will dogpile any other downstream system.
+
+\paragraph{Unbounded Result Sets.} Design with skepticism, and you will achieve resilience. Ask, “What can system X do to hurt me?” and then design a way to dodge whatever wrench your supposed ally throws. If your application is like most, it probably treats its database server with far too much trust. I’m going to try to convince you that a healthy dose of skepticism will help your application dodge a bullet or two. A common structure in the code goes like this: send a query to the database and then loop over the result set, processing each row. Often, processing a row means adding a new data object to a collection. What happens when the database suddenly returns five million rows instead of the usual hundred or so? Unless your application explicitly limits the number of results it’s willing to process, it can end up exhausting its memory or spinning in a while loop long after the user loses interest.
+
+\subsection{Chapter 5 - Stability Patterns}
+
+\paragraph{Timeouts.} The timeout is a simple mechanism allowing you to stop waiting for an answer once you think it won’t come. Well-placed timeouts provide fault isolation—a problem in some other service or device does not have to become your problem.
+
+Timeouts are often found in the company of retries. Under the philosophy of “best effort,” the software attempts to repeat an operation that timed out. Immediately retrying an operation after a failure has a number of consequences, but only some of them are beneficial. If the operation failed because of any significant problem, it’s likely to fail again if retried immediately. Some kinds of transient failures might be overcome with a retry (for example, dropped packets over a WAN). Within the walls of a data center, however, the failure is probably because of something wrong with the other end of a connection. My experience has been that problems on the network, or with other servers, tend to last for a while. Thus, fast retries are very likely to fail again.
+
+
+\paragraph{Circuit Breaker.} Software is stabilized by wrapping dangerous operations with a component that can circumvent calls when the system is not healthy. This differs from retries, in that circuit breakers exist to prevent operations rather than reexecute them. In the normal “closed” state, the circuit breaker executes operations as usual.
+These can be calls out to another system, or they can be internal operations that are subject to timeout or other execution failure. If the call succeeds, nothing extraordinary happens. If it fails, however, the circuit breaker makes a note of the failure. Once the number of failures (or the frequency of failures, in more sophisticated cases) exceeds a threshold, the circuit breaker trips and “opens” the circuit.
+
+When the circuit is “open,” calls to the circuit breaker fail immediately, without any attempt to execute the real operation. After a suitable amount of time, the circuit breaker decides that the operation has a chance of succeeding, so it goes into the “half-open” state. In this state, the next call to the circuit breaker is allowed to execute the dangerous operation. Should the call succeed, the circuit breaker resets and returns to the “closed” state, ready for more routine operation. If this trial call fails, however, the circuit breaker returns to the open state until another timeout elapses.
+
+When the circuit breaker is open, something has to be done with the calls that come in. The easiest answer would be for the calls to immediately fail, perhaps by throwing an exception (preferably a different exception than an ordinary timeout so that the caller can provide useful feedback). A circuit breaker may also have a “fallback” strategy. Perhaps it returns the last good response or a cached value. It may return a generic answer rather than a personalized one. Or it may even call a secondary service when the primary is not available.
+
+There are some interesting implementation details to consider. For one thing, what constitutes “too many failures”? A simple counter adding up all the faults probably isn’t that interesting. There’s a world of difference between observing five faults spread evenly over five hours versus five faults in the last thirty seconds. We’re usually more interested in the fault density than the total count.
+
+The state of the circuit breakers in a system is important to another set of stakeholders: operations. Changes in a circuit breaker’s state should always be logged, and the current state should be exposed for querying and monitoring. In fact, the frequency of state changes is a useful metric to chart over time; it is a leading indicator of problems elsewhere in the enterprise. Likewise, Operations needs some way to directly trip or reset the circuit breaker. The circuit breaker is also a convenient place to gather metrics about call volumes and response times. A circuit breaker should be built at the scope of a single process. That is, the same circuit breaker state affects every thread in a process but is not shared across multiple processes. That does mean some loss of efficiency when multiple instances of the caller each independently discover that the provider is down. However, sharing the circuit breaker state introduces another outof-process communication. That means the safety mechanism would introduce a new failure mode! Even when just shared within a process, circuit breakers are subject to the gallery of multithreaded programming terrors. Be sure to avoid accidentally single-threading all calls to a remote system! Open source circuit breaker libraries are available for every language and framework, so it’s probably better to start with one of those.
+
+\paragraph{Bulkheads.} By partitioning your systems, you can keep a failure in one part of the system from destroying everything. Physical redundancy is the most common form of bulkheads. If there are four independent servers, then a hardware failure in one can’t affect the others. Likewise, if there are two application instances running on a server and one crashes, the other will still be running (unless, of course, the first one crashed because of some external influence that would also affect the second). Redundant virtual machines are not quite as robust as redundant physical machines. Most VM provisioning tools do not allow you to enforce physical isolation, so more than one VM may end up running on the same physical box. At the largest scale, a mission-critical service might be implemented as several independent farms of servers, with certain farms reserved for use by critical applications and others available for noncritical uses.
+
+\paragraph{Fail Fast.} If slow responses are worse than no response, the worst must surely be a slow failure response.
+
+If the system can determine in advance that it will fail at an operation, it’s always better to fail fast. That way, the caller doesn’t have to tie up any of its capacity waiting and can get on with other work. How can the system tell whether it will fail?
+
+There’s a large class of “resource unavailable” failures. For example, when a load balancer gets a connection request but not one of the servers in its service pool is functioning, it should immediately refuse the connection. Some configurations have the load balancer queue the connection request for a while in the hopes that a server will become available in a short period of time. This violates the Fail Fast pattern. The application or service can tell from the incoming request or message roughly what database connections and external integration points will be needed. The service can quickly check out the connections it will need and verify the state of the circuit breakers around the integration points.
+
+\paragraph{Let It Crash.} Sometimes the best thing you can do to create system-level stability is to abandon component-level stability. In the Erlang world, this is called the “let it crash” philosophy.
+
+
+The key question is, “What do we do with the error?” Most of the time, we try to recover from it. That means getting the system back into a known good state using things like exception handlers to fix the execution stack and try-finally blocks or block-scoped resources to clean up memory leaks. Is that sufficient? The cleanest state your program can ever have is right after startup. The “let it crash” approach says that error recovery is difficult and unreliable, so our goal should be to get back to that clean startup as rapidly as possible.
+
+\begin{description}
+  \item [Limited Granularity] There must be a boundary for the crashiness. We want to crash a component in isolation. The rest of the system must protect itself from a cascading failure.
+
+  \item [Fast Replacement] We must be able to get back into that clean state and resume normal operation as quickly as possible. Otherwise, we’ll see performance degrade when too many of our instances are restarting at the same time. In the limit, we could have loss of service because all of our instances are busy restarting.
+
+  \item [Supervision] When we crash an actor or a process, how does a new one get started? You could write a bash script with a while() loop in it. But what happens when the problem persists across restarts? The script basically fork-bombs the server.
+
+Actor systems use a hierarchical tree of supervisors to manage the restarts. Whenever an actor terminates, the runtime notifies the supervisor. The supervisor can then decide to restart the child actor, restart all of its children, or crash itself. If the supervisor crashes, the runtime will terminate all its children and notify the supervisor’s supervisor. Ultimately you can get whole branches of the supervision tree to restart with a clean state. The design of the supervision tree is integral to the system design. 
+
+\item [Reintegration] The final element of a “let it crash” strategy is reintegration. After an actor or instance crashes and the supervisor restarts it, the system must resume calling the newly restored provider. If the instance was called directly, then callers should have circuit breakers to automatically reintegrate the instance. If the instance is part of a load-balanced pool, then the instance must be able to join the pool to accept work
+
+\end{description}
+
+\paragraph{Create Back Pressure.} Every performance problem starts with a queue backing up somewhere. Maybe it’s a socket’s listen queue. Maybe it’s the OS’s run queue or the databases I/O queue. If a queue is unbounded, it can consume all available memory. As the queue grows, the time it takes for a piece of work to get all the way through it grows too. (See Little’s law.3) So as a queue’s length reaches toward infinity, response time also heads toward infinity. We really don’t want unbounded queues in our systems. On the other hand, if the queue is bounded, we have to decide what to do when it’s full and a producer tries to stuff one more thing into it. Even if the object is wafer-thin, the queue has no space.
+
+We really have only a few options:
+\begin{itemize}
+
+\item Pretend to accept the new item but actually drop it on the floor.
+\item Actually accept the new item and drop something else from the queue on the floor.
+\item Refuse the item.
+\item Block the producer until there is room in the queue.
+
+\end{itemize}
+
+For some use cases, dropping the item may be the best option. For data whose value decreases rapidly with age, dropping the oldest item in the queue might be the best option. Blocking the producer is a kind of flow control. It allows the queue to apply “back pressure” upstream. Presumably that back pressure propagates all the way to the ultimate client, who will be throttled down in speed until the queue releases. TCP uses extra fields in each packet to create back pressure. Once the window is full, senders are not allowed to send anything until released. Back pressure from the TCP window can cause the sender to fill up its transmit buffers, in which case subsequent calls to write to the socket will block. The mechanisms change but the idea is still to slow the producer down until the consumer can catch up.
+
+
+\subsection{Chapter 8 - Processes on Machines}
+
+\paragraph{Immutable and Disposable Infrastructure.} Configuration management tools like Chef, Puppet, and Ansible are all about applying changes to running machines. They use scripts, playbooks, or recipes (each has their own jargon) to transition the machine from one state to a new state. After each set of changes, the machine should be fully described by the latest scripts
+
+The “layers of stucco” approach has two big challenges. First, it’s easy for side effects to creep in that are the result of, but not described by, the recipes. The second challenge comes from broken machines or scripts that only partially worked. These leave the machine in an undefined state. The configuration management tools put a lot of effort into converging unknown machine states into known machine states, but they aren’t always successful.
+
+The DevOps and cloud community say that it’s more reliable to always start from a known base image, apply a fixed set of changes, and then never attempt to patch or update that machine. Instead, when a change is needed, create a new image starting from the base again.
+
+This is often described as “immutable infrastructure.” Machines don’t change once they’ve been deployed. Take a container as an example. The container’s “file system” is a binary image from a repository. It holds the code that runs on the instance. When it’s time to deploy new code, we don’t patch up the container; we just build a new one instead. We launch it and throw away the old one.
+
+\paragraph{Configuration.} Every piece of production-class software has scads of configurable properties containing hostnames, port numbers, filesystem locations, ID numbers, magic keys, usernames, passwords, and lottery numbers.
+
+\begin{description}
+
+\item [Configuration Files] The configuration “starter kit” is a file or set of files the instance reads at startup.
+
+\item [Configuration with Disposable Infrastructure]  In image-based environments like EC2 or a container platform, configuration files can’t change per instance. Frankly, some of the instances will be there and gone so fast that it doesn’t make any sense to apply static configs. There we need to find another way to provide a new instance with details about its mission in life. The two approaches are to inject configuration at startup or use a configuration service. Injecting configuration works by providing environment variables or a text blob. For example, EC2 allows “user data” to be passed to a new virtual machine as a blob of text. To use the user data, some code in the image must already know how to read and parse it (for example, it might be in properties format, but it might be JSON or YAML, too). Heroku prefers environment variables. So the application code does need some awareness of its targeted deployment environment. The other way to get configuration into an image is via a configuration service. In this form, the instance code reaches out to a well-known location to ask for its configuration. ZooKeeper and etcd are both popular choices for a configuration service. Because this builds a hard dependency on the config service, any downtime is immediately a “Severity 1” problem. Instances cannot start up when the config service is not available, yet by definition we’re in an environment where instances start and stop frequently.
+
+\end{description}
+
+\paragraph{Transparency.} Transparency refers to the qualities that allow operators, developers, and business sponsors to gain understanding of the system’s historical trends, present conditions, instantaneous state, and future projections. Transparent systems communicate, and in communicating, they train their attendant humans.
+
+Debugging a transparent system is vastly easier, so transparent systems will mature faster than opaque ones. When making technical or architectural changes, you are totally dependent on data collected from the existing infrastructure. Good data enables good decision-making. In the absence of trusted data, decisions will be made for you based on somebody’s political clout, prejudices, or whoever has the best “executive style” hair.
+
+
+\paragraph{Logging.} Nothing new.
+
+\paragraph{Instance Metrics.} The instance itself won’t be able to tell much about overall system health, but it should emit metrics that can be collected, analyzed, and visualized centrally. This may be as simple as periodically spitting a line of stats into a log file. The stronger your log-scraping tools are, the more attractive this option will be. Within a large organization, this is probably the best choice.
+
+\paragraph{Health Checks.} Metrics can be hard to interpret. It takes some time to learn what “normal” looks like in the metrics. For quicker, easier summary information we can create a health check as part of the instance itself. A health check is just a page or API call that reveals the application’s internal view of its own health. It returns data for other systems to read (although that may just be nicely attributed HTML).
+
+Health checks should be more than just “yup, it’s running.” It should report at least the following:
+
+\begin{itemize}
+
+\item The host IP address or addresses
+\item The version number of the runtime or interpreter (Ruby, Python, JVM, .Net, Go, and so on)
+\item The application version or commit ID
+\item Whether the instance is accepting work
+\item The status of connection pools, caches, and circuit breakers
+
+\end{itemize}
+
+The health check is an important part of traffic management: Clients of the instance shouldn’t look at the health check directly; they should be using a load balancer to reach the service. The load balancer can use the health check to tell if a machine has crashed, but it can also use the health check for the “go live” transition, too. When the health check on a new instance goes from failing to passing, it means the app is done with its startup.
+
+
+\subsection{Chapter 9 - Interconnect}
+
+DNS in general, DNS for load balancing
+
+\paragraph{Discovering Services.} There are two cases where service discovery becomes important. First, your organization may have too many services for DNS management to be practical. Second, you may be in a highly dynamic environment. Container-based environments usually hit both of these criteria, but that’s not the only case. “Service discovery” really has two parts. First, it’s a way that instances of a service can announce themselves to begin receiving a load. This replaces statically configured load balancer pools with dynamic pools. Any kind of load balancer—whether done with hardware or software—can do this. It doesn’t require a special “cloud aware” load balancer. The second part is lookup. A caller needs to know at least one IP address to contact for a particular service. The lookup process can appear to be a simple DNS resolution for the caller, even if some super-dynamic service-aware server is supplying the DNS service.
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
