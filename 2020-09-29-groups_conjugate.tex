@@ -1,0 +1,44 @@
+\DiaryEntry{Conjugacy Classes}{2020-09-29}{Algebra}
+
+Conjugacy classes group "similar" group elements together. These elements share many properties and allow further insights into the structure of (non-Abelian) groups.
+
+\begin{definition}
+    Two elements $a$ and $b$ of a group $G$ are conjugate, if $b = g^{-1}ag$ for some $g \in G$. This is an equivalence relation and the equivalence classes are called conjugacy classes.    
+\end{definition}
+
+The formal definition of a conjugacy class is then as follows.
+
+\begin{definition}
+    The conjugacy class $Cl(a)$of $a$ is defined as $CL(a) = \{gag^{-1} | g \in G\}$. The class number of $G$ is the number of distinct conjugacy classes. All elements belonging to the same conjugacy class have the same order.
+\end{definition}
+
+If we have an Abelian group (i.e. $ab = ba$), every group element is conjugate to itself only, as $b = g^{-1}ag = g^{-1}ga = a$. Correspondingly, the conjugacy classes contain only one element; i.e. $Cl(a) = \{a\}$. Therefore, conjugacy classes are (mostly) interesting for non-Abelian groups only.
+
+\paragraph{Symmetric Group $S_3$.} As a first example, we calculate the conjugcy classes of $S_3$. We use a brute force approach by choosing a group element $a$ and iterate over all $g \in G$. The resulting elements of $gag^{-1}$ are collected in a set. The elements may be duplicated; however, they are removed when the result is stored in a set; see \href{file/gap_conjugcy_classes.gp}{this script}.
+
+For $a = e$, we obtain $CL(a) = \{\}$, for $a = (1,2)$ we obtain $Cl((1,2)) = \{(1,2), (2,3), (1,3)\}$ and finally for $a = (1,2,3)$ we obtain $Cl((1,2,3)) = \{(1,2,3), (1,3,2)\}$. From this we see that similar permutations (no change, exchange of two elements, exchange of three elements) fall into to the same conjugy class.
+
+We can also use GAP to obtain the conjugcy classes; this produces the following result.
+
+\begin{verbatim}
+    gap> c:=ConjugacyClasses(S3);
+    [ ()^G, (1,2)^G, (1,2,3)^G ]
+\end{verbatim}
+
+The notation may be a bit unusual, but matches the results calculated manually. Finally, we note that we can obtain the elements of a conjugacy class as well.
+
+\begin{verbatim}
+    gap> Elements(c[1]);
+    [ () ]
+    gap> Elements(c[2]);
+    [ (2,3), (1,2), (1,3) ]
+    gap> Elements(c[3]);
+    [ (1,2,3), (1,3,2) ]
+\end{verbatim}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
