@@ -1,14 +1,14 @@
-\DiaryEntry{Bayesian Parameter Estimation - Intuition}{2019-02-22}{Stochastic}
+\DiaryEntry{Bayesian Parameter Estimation - Disease Detection (2020-10-05)}{2019-02-22}{Stochastic}
 
 A funny example from the book "Statistical Rethinking" (info \href{https://xcelab.net/rm/statistical-rethinking/}{here}).
 
-Suppose we have a medical test which tests whether a person is ill or not. The test is positive when a person is ill with probability
+Suppose we have a medical test which tests whether a person is ill or not. The test is no perfect; it yields a positive result when the tested person is ill with probability
 
 \bee
-P(pos. test | ill) = 0.95
+P(pos. test | ill) = 0.9
 \eee
 
-and a "false alarm" probability
+and it returns a positive result when the person is healthy (a "false alarm") with probability
 
 \bee
 P(pos. test | healthy) = 0.1
@@ -16,28 +16,75 @@ P(pos. test | healthy) = 0.1
 
 Note that these two probabilities need not sum to one; however, $P(neg. test | ill) + P(pos. test | ill) = 1$.
 
-In addition, we know that illness is very rare; the prior information
+In addition, we know that illness is very rare; this is modelled as
 
 \bee
 P(ill) = 0.001
 \eee
 
-We want to know the posterior probability that a person is ill when she has a positive test result,
+We want to know the probability that a person is ill after she has received a positive test. This posterior probability is calculated using Bayes theorem as,
 
 \begin{align*}
-P(ill|pos. test) &= \frac{P(pos. test | ill)P(ill)}{P(pos. test)} \\ &= \frac{P(pos. test | ill)P(ill)}{P(pos. test|illP(ill) + P(pos. test | healthy)P(healthy))} \\ &= \frac{0.95 \cdot 0.001}{0.95 \cdot 0.001 + 0.01 \cdot 0.999} \approx 0.086
+P(ill|pos. test) &= \frac{P(pos. test | ill) P(ill)}{P(pos. test)} \\ &= \frac{P(pos. test | ill) P(ill)}{P(pos. test|ill) P(ill) + P(pos. test | healthy) P(healthy)} \\ &= \frac{0.9 \cdot 0.001}{0.9 \cdot 0.001 + 0.1 \cdot 0.999} \approx 0.00893
 \end{align*}
 
 This is a pretty bad result - although the test is positive, it is highly unlikely that the person is ill! In this case, the extremely low probability for illness is "shifting" the posterior probability to lower values.
 
-This can be seen when the prior probability is increased to $P(ill) = 0.1$, the posterior probability becomes
+It seems we need to improve the test; the question is whether it is sufficient to improve $P(pos. test | ill)$ \emph{or} $P(pos. test | healthy)$ or whether we need to improve \emph{both} values.
+
+Let's improve $P(pos. test | ill)$ first with $P(pos. test | ill) = 0.999$ and we obtain
 
 \bee
-P(ill|pos.test) = 0.91
+P(ill|pos. test) = \frac{0.999 \cdot 0.001}{0.999 \cdot 0.001 + 0.1 \cdot 0.999} \approx 0.0099
 \eee
 
-In this case, the power of our test is still high; i.e. a person with a positive test is ill with high probability.
+Not really an improvement. Let's try improving $P(pos. test | healthy)$ instead and set $P(pos. test | healthy)=0.001$ and we obtain
 
+\bee
+P(ill|pos. test) = \frac{0.9 \cdot 0.001}{0.9 \cdot 0.001 + 0.001 \cdot 0.999} \approx 0.474
+\eee
+
+Although the posterior probability increased, it is still a bad result; the result says if your test is positive, there is still only a 50-50 chance that your are ill. It seems we need a better test with both $P(pos. test | ill)$ \emph{and} $P(pos. test | healthy)$ better. Let's combine the two previous values; i.e. $P(pos. test | ill) = 0.999$ and $P(pos. test | healthy)=0.001$ yields
+
+\bee
+P(ill|pos. test) = \frac{0.999 \cdot 0.001}{0.999 \cdot 0.001 + 0.001 \cdot 0.999} = 0.5
+\eee
+
+Still no improvement. It seems that $P(pos. test | healthy)$ must be below $P(ill)$ for the tests to be meaningful; let's go for $P(pos. test | healthy) = 0.001$ and we obtain
+
+\bee
+P(ill|pos. test) = \frac{0.999 \cdot 0.001}{0.999 \cdot 0.001 + 0.0001 \cdot 0.999} = 0.909
+\eee
+
+which is a real improvement.
+
+Let's analyse this in a bit more detail. If $P(pos. test | healthy) \rightarrow 0$, then $P(ill|pos. test) \rightarrow 1$. Interestingly, if $P(pos. test | ill) \rightarrow 1$, then
+
+\bee
+P(ill|pos. test) = \frac{P(ill)}{P(ill) + P(pos.test|healthy)P(healthy)}
+\eee
+
+and this does not necessarily approach $1$ (at least not until $P(pos.test|healthy) \rightarrow 0$). So, there is some fundamental asymmetry here. Assume that $P(ill) \ll 1$, we have $P(healthy) \approx 1$ and we get the following approximation,
+
+\bee
+P(ill|pos. test) \approx \frac{P(ill)}{P(ill) + P(pos.test|healthy)}
+\eee
+
+From this we see that for $P(ill|pos. test)$ to become large, $P(pos.test|healthy)$ must be (much) smaller than $P(ill)$.
+
+The following Figure shows a plot of $P(ill|pos. test)$ vs $P(pos.test|healthy)$ for different values of $P(pos.test|ill)$. It can be seen that $P(pos.test|healthy)$ must be smaller than $10^{-4} \approx P(ill)$ for $P(ill|pos. test)$ to reach $1$. In addition, the plot shows the small dependency of $P(ill|pos. test)$ on $P(pos.test|ill)$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{images/bayes_illness_1.png}
+\end{figure}
+
+Things are much nicer if $P(ill)$ is larger; the following Figure shows similar plots as above for $P8ill)=0.1$. Notice the different parameter ranges and values!
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{images/bayes_illness_2.png}
+\end{figure}
 
 
 
