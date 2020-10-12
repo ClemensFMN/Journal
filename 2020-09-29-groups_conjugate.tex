@@ -14,7 +14,7 @@ The formal definition of a conjugacy class is then as follows.
 
 If we have an Abelian group (i.e. $ab = ba$), every group element is conjugate to itself only, as $b = g^{-1}ag = g^{-1}ga = a$. Correspondingly, the conjugacy classes contain only one element; i.e. $Cl(a) = \{a\}$. Therefore, conjugacy classes are (mostly) interesting for non-Abelian groups only.
 
-\paragraph{Symmetric Group $S_3$.} As a first example, we calculate the conjugcy classes of $S_3$. We use a brute force approach by choosing a group element $a$ and iterate over all $g \in G$. The resulting elements of $gag^{-1}$ are collected in a set. The elements may be duplicated; however, they are removed when the result is stored in a set; see \href{file/gap_conjugcy_classes.gp}{this script}.
+\paragraph{Symmetric Group $S_3$.} As a first example, we calculate the conjugacy classes of $S_3$. We use a brute force approach by choosing a group element $a$ and iterate over all $g \in G$. The resulting elements of $gag^{-1}$ are collected in a set. The elements may be duplicated; however, they are removed when the result is stored in a set; see \href{file/gap_conjugcy_classes.gp}{this script}.
 
 For $a = e$, we obtain $CL(a) = \{\}$, for $a = (1,2)$ we obtain $Cl((1,2)) = \{(1,2), (2,3), (1,3)\}$ and finally for $a = (1,2,3)$ we obtain $Cl((1,2,3)) = \{(1,2,3), (1,3,2)\}$. From this we see that similar permutations (no change, exchange of two elements, exchange of three elements) fall into to the same conjugy class.
 
@@ -36,7 +36,55 @@ The notation may be a bit unusual, but matches the results calculated manually. 
     [ (1,2,3), (1,3,2) ]
 \end{verbatim}
 
+We can describe this in the \emph{class equation}; it describes the partitioning of the group by its conjugacy classes: the sum of of the size of the conjugacy classes equals the order of the group. The class equation is therefore $1 + 3 + 2 = 6$ which equals the order $6$ of $S_3$.
 
+\paragraph{Symmetric Group $S_4$.} Things get a bit more interesting with the conjugacy classes of $S_4$. Using GAP we obtain the following classes
+
+\begin{verbatim}
+    gap> S4:=SymmetricGroup(4);
+    Sym( [ 1 .. 4 ] )
+    gap> c:=ConjugacyClasses(S4);
+    [ ()^G, (1,2)^G, (1,2)(3,4)^G, (1,2,3)^G, (1,2,3,4)^G ]
+\end{verbatim}
+
+We can interpret this as follows:
+
+\begin{itemize}
+    \item There is one conjugacy class containing the identity element $()$ which only contains the identity element.
+
+    \item There is a class $(1,2)^G$ containing permutations between two items. It has the following ${4 \choose 2} = 6$ elements
+
+    \begin{verbatim}
+        gap> Elements(c[2]);
+        [ (3,4), (2,3), (2,4), (1,2), (1,3), (1,4) ]
+    \end{verbatim}
+
+    \item There is a class $(1,2)(3,4)^G$ containing two permutations of two elements each; its elements are
+    
+    \begin{verbatim}
+        gap> Elements(c[3]);
+        [ (1,2)(3,4), (1,3)(2,4), (1,4)(2,3) ]
+    \end{verbatim}
+
+    \item There is class $(1,2,3)^G$ containing permutations of three items; it has elements
+    
+    \begin{verbatim}
+        gap> Elements(c[4]);
+        [ (2,3,4), (2,4,3), (1,2,3), (1,2,4), 
+          (1,3,2), (1,3,4), (1,4,2), (1,4,3) ]
+    \end{verbatim}
+
+    \item And finally we have the conjugacy class $(1,2,3,4)^G$ of 4-item permutations with elements
+    
+    \begin{verbatim}
+        gap> Elements(c[5]);
+        [ (1,2,3,4), (1,2,4,3), (1,3,4,2), 
+          (1,3,2,4), (1,4,3,2), (1,4,2,3) ]
+    \end{verbatim}
+
+\end{itemize}
+
+The corresponding class equation is $1 + 6 + 3 + 8 + 6 = 24$.
 
 %%% Local Variables:
 %%% mode: latex
