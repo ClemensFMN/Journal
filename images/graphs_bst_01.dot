@@ -1,0 +1,12 @@
+graph BST {
+v--r;
+w--s;
+w--x;
+w--t;
+t--x;
+t--u;
+x--u;
+x--y;
+u--y;
+s--r;
+}
