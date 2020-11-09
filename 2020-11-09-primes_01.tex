@@ -1,0 +1,114 @@
+\DiaryEntry{Prime Numbers, 1}{2020-11-09}{Number Theory}
+
+\begin{definition}
+    A integer $p>1$ is called prime, if its only positive divisors are $1$ and $p$. An integer greater than $1$ that is not prime is called a composite.
+\end{definition}
+
+Among the numbers below $10$, the primes are $2, 3, 5, 7$. The main interest in primes is that every composite number can be uniquely factored into primes.  For this result to prove, we need Euclid's Lemma.
+
+\begin{theorem}
+    If $p$ is a prime and $p \mid ab$, then $p \mid a$ or $p \mid b$.
+\end{theorem}
+
+We will use Bezout's identity which states that for integers $a, b$ with $\gcd(a,b) = d$, there exist integers $r,s$ such that
+
+\bee
+ar + bs = d \qed
+\eee
+
+If $p \mid a$, then we are done. So assume that $p \nmid a$. Since the only divisors of $p$ are $1$ and $p$, we have $\gcd(p,a) = 1$. Bezout's identity yields
+
+\bee
+p r + a s = 1 \rightarrow prb + sab = b
+\eee
+
+where we have multiplied both sides with $b$. Since $p \mid p$ and $p \mid ab$, $p$ divides the LHS and therefore also $p \mid b$. \qed
+
+This can be extended to more than two factors; i.e. if
+
+\bee
+p \mid a_1 a_2 \cdots a_n
+\eee
+
+then
+
+\bee
+p \mid a_k, \text{ for some } 1 \leq k \leq n
+\eee
+
+We also have the following theorem.
+
+\begin{theorem}\label{th:primes_01_01}
+    If $p, q_1, q_2, \cdots q_k$ are all primes and $p | q_1 q_2 \cdots q_k$, then $p = q_k$ for some $k$, with $1 \leq k \leq n$.
+\end{theorem}
+
+From the previous theorem, we know that $p | q_k$ for some $k$ with $1 \leq k \leq n$. Being a prime, $q_k$ is not divisible by any positive integer other than $1$ or $q_k$ itself. Since $p>1$ (a prime has to be larger than $1$), we have to conclude $p = q_k$. \qed
+
+With all this in place, we can state the Fundamental Theorem of Arithmetic.
+
+\begin{theorem}
+    Every positive integer $n > 1$ is either a prime or a product of primes. This representation is unique, apart from the order in which the factors occur.
+\end{theorem}
+
+Proof: Either $n$ is prime (then we are done) or composite. In the latter case, there exists an integer $d$ satisfying $d \mid n$ and $1 < d < n$. Among all those integers, choose $p_1$ to be the smallest. THen $p_1$ must be a prime number; otherwise it too would have a divisor $q$ with $1 < q < p_1$: but then $q \mid p_1$ and $p_1 \mid n$ imply that $q \mid n$ and this contradicts the assumption that $p_1$ is the \emph{smallest} divisor of $n$.
+
+We therefore can write $n = p_1 n_1$; $p_1$ is prime and $1 < n_1 < n$. Now we can continue the procedure from above: If $n_1$ is prime, we have found the required presentation $n = p_1 n_1$; otherwise we continue by factoring $n_1$. This proces has to come to an end (namely the $n_k$ are getting smaller and smaller) and we eventually arrive at the factorization
+
+\bee
+n = p_1 p_2 \cdots p_k
+\eee
+
+The uniqueness part of the theorem can be shown by contradiction: Assume
+
+\bee
+n = p_1 p_2 \cdots p_r = q_1 q_2 \cdots q_s, \quad r \leq s
+\eee
+
+where the $p_i$ and $q_i$ are all primes written in increasing order ($p_1 \leq p_2 \leq p_3 \cdots \leq p_r$ and analoguous for the $q_k$). This means we both allow for different factors and also a different number of the different factors.
+
+Theorem \ref{th:primes_01_01} tells us that $p_1 = q_k$ for some $k$ and therefore $p_1 \geq q_1$. Similar reasoning gives $q_1 \geq p_1$ and therefore $p_1 = q_1$. We may cancel this common factor in above expression and arrive at
+
+\bee
+n = p_2 \cdots p_r = q_2 \cdots q_s
+\eee
+
+We could continue in this fashion and by the inequality $r \leq s$ we would then have
+
+\bee
+1 = q_{r+1}q_{r+2} \cdots q_s
+\eee
+
+which cannot be true because the $q_i$ are integers and must be larger than $1$. Therefore $r = s$ and we conclude that $p_k = q_k$ for all $k$. \qed
+
+As a corollary we observe that this provides a canonical representation of a positive integer $n$,
+
+\bee
+n = p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}
+\eee
+
+where the $k_i$ are positive integers and the $p_i$ are primes with $p_1 < p_2 < \cdots < p_r$.
+
+As an example, we have
+
+\bee
+804 = 2^2 \cdot 3 \cdot 67, \text{ and } \quad 5360 = 2^4 \cdot 5 \cdot 67
+\eee
+
+We can use this representation to calculate the gcd as follows. If
+
+\bee
+a = p_1^{k_1} p_2^{k_2} \cdots p_n^{k_n} , \text{ and } b = p_1^{j_1} p_2^{j_2} \cdots p_n^{j_n}
+\eee
+
+then
+
+\bee
+\gcd(a,b) = p_1^{\min(k_1, j_1)} p_2^{\min(k_2, j_2)} \cdots p_n^{\min(k_n, j_n)}
+\eee
+
+In our numeric example, we therefore have $\gcd(804, 5360) = 2^2 \cdot 67 = 268$.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
