@@ -1,0 +1,51 @@
+\DiaryEntry{Congruences}{2020-11-17}{Number Theory}
+
+\begin{definition}
+    Let $n$ be a fixed integer. Two integers $a, b$ are said to be \emph{congruent modulo-$n$}, $a \equiv b \mod n$ if $n$ divides the difference $a - b$; in other words, $a - b = kn$ for some integer $k$.
+\end{definition}
+
+For an example, fix $n = 7$. Now $3 \equiv 24 \mod 7$ as $(24-3) / 7 = 3$.
+
+We can also reformulate this as in the following theorem.
+
+\begin{theorem}
+    For arbitrary integers $a, b$, we have $a \equiv b \mod n$ iff $a$ and $b$ leave the same non-negative remainder when divided by $n$.
+\end{theorem}
+
+From $a \equiv b \mod n$ we have $a = b + kn$ for some integer $k$. Dividing $b$ by $n$ leaves a remainder $r$; we have $b = qn + r$ (for some integer $q$) and $0 \leq r < n$. Inserting this, we have
+
+\bee
+a = b + kn = qn + r + kn = (q+k)n + r
+\eee
+
+which shows that $a, b$ have the same remainder. On the other hand, assume $a = q_1 n + r, b = q_2 n + r$ with $0 \leq r < n$. Then we have
+
+\bee
+a - b = (q_1 - q_2)n
+\eee
+
+and therefore $n \mid (a-b)$. We can rewrite this as congruence $a \equiv b \mod n$. \qed
+
+Continuing with our example $n = 7$, we have $15 \equiv 8 \equiv 1 \mod 7$ as all have the same remainder when divided by $7$.
+
+Congurences are some kind of generalized equality; many properties from equalities carry over as shown in the following theorem.
+
+\begin{theorem}
+    Let $n > 1$ and $a, b, c, d$ be arbitrary integers. The we have the following properties.
+
+    \begin{itemize}
+        \item $a \equiv a \mod n$.
+        \item If $a \equiv b \mod n$ then $b \equiv a \mod n$.
+        \item If $a \equiv b \mod n$ and $b \equiv c \mod n$, then $a \equiv c \mod n$.
+        \item If $a \equiv b \mod n$ and $c \equiv d \mod n$, then $a+c \equiv b+d \mod n$ and $ac \equiv bd \mod n$.
+        \item If $a \equiv b \mod n$, then $a+c \equiv b+c \mod n$ and $ac \equiv bc \mod n$.
+        \item If $a \equiv b \mod n$, then $a^k \equiv b^k \mod n$ for any positive integer $k$.
+    \end{itemize}
+
+\end{theorem}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
