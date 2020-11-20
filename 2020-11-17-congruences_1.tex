@@ -33,16 +33,82 @@ Congurences are some kind of generalized equality; many properties from equaliti
 \begin{theorem}
     Let $n > 1$ and $a, b, c, d$ be arbitrary integers. The we have the following properties.
 
-    \begin{itemize}
+    \begin{enumerate}
         \item $a \equiv a \mod n$.
         \item If $a \equiv b \mod n$ then $b \equiv a \mod n$.
         \item If $a \equiv b \mod n$ and $b \equiv c \mod n$, then $a \equiv c \mod n$.
         \item If $a \equiv b \mod n$ and $c \equiv d \mod n$, then $a+c \equiv b+d \mod n$ and $ac \equiv bd \mod n$.
         \item If $a \equiv b \mod n$, then $a+c \equiv b+c \mod n$ and $ac \equiv bc \mod n$.
         \item If $a \equiv b \mod n$, then $a^k \equiv b^k \mod n$ for any positive integer $k$.
-    \end{itemize}
+    \end{enumerate}
 
 \end{theorem}
+
+For 1) we have $a - a = 0 \cdot n$ and therefore $a \equiv a \mod n$. For 2), we have $a - b = kn$ which we can rewrite as $b - a = -kn = (-k)n$ and therefore $b \equiv a \mod n$. For 3), we observe 
+
+\begin{align}
+    a - b &= k_1 n \\
+    b - c &= k_2 n
+\end{align}
+
+Adding the two equations yields $a - b + (b - c) = k_1 n - k_2 n \rightarrow a - c = (k_1-k_2)n$ which is equivalent to $a \equiv c \mod n$. For 4), we have
+
+\begin{align}
+    a - b &= k_1 n \\
+    c - d &= k_2 n
+\end{align}
+
+Adding both equations yields $a + c - b - d = k_1 n + k_2 n = (k_1 + k_2)n$ which is equivalent to $a+c \equiv b+c \mod n$. We can rewrite the two euqations as
+
+\begin{align}
+    a &= b + k_1 n \\
+    c &= d + k_2 n
+\end{align}
+
+and if we multiply both, we obtain $ac = (b + k_1 n)(d + k_2 n) =bd  + (k_1 + k_2)n + k_1 k_2 n \cdot n = bd + K n$ where $K$ is "some integer". This is equivalent to $ac \equiv bd \mod n$.
+
+For 5), we use property 4) with property 1) $c \equiv c \mod n$ to obtain $a + c \equiv b + c \mod n$ and $ac \equiv bc \mod n$.
+
+Finally, property 6) can be shown via induction. For $k = 1$, we have $a^1 \equiv b^1 \mod n$ we have the initial condition. Assuming that the properpy holds for $k$, we want to extend it to $k+1$. We have $a^{k+1} \equiv b^{k+1} \mod n$ which can be rewritten as $a \cdot a^k \equiv b \cdot b^k \mod n$. We kow that $a \equiv b \mod n$ from the initial condition and we know that $a^k \equiv b^k \mod$ from the induction hypothesis; we cna combine the two via property 4) and have shown that $a^{k+1} \equiv b^{k+1} \mod n$. \qed
+
+
+We can use above properties to simplfiy calculations. As an example, we want to show $41 | 2^{20} - 1$. We start by $2^5 \equiv -9 \mod 41$ from which we obtain $(2^5)^4 = (-9)^4 \mod 41$ which equals $2^{20} \equiv 81^2 \mod 41$. The right-hand side can be further simplified by using $81 \equiv -1 \mod 41$ and therefore $81^2 \equiv (-1)^2 \mod 41$. We can finally put everything together and obtain
+
+\bee
+2^{20} - 1 \equiv 81 \cdot 81 -1 \equiv 1 - 1 \equiv 0 \mod 41 \qed
+\eee
+
+Under certain conditions, we can cancel terms in a congruence relation based on the following theorem.
+
+\begin{theorem}
+    If $ca \equiv cb \mod n$, then $a \equiv b \mod n/d$ where $d = \gcd(c, n)$.
+\end{theorem}
+
+To prove this, we start by writing
+
+\bee
+c(a-b) = ca - cb = kn
+\eee
+
+Using $\gcd(c,n) = d$, we can write $c = rd, n = sd$ with $r, s$ being relatively prime. Inserting this into above euqation, we obtain
+
+\bee
+rd(a - b) = ksd \rightarrow r(a-b) = ks
+\eee
+
+We deduce $s \mid r(a-b)$ and from above we have $\gcd(r,s) = 1$. Therefore, we have $s \mid a-b$ which is equivalent to $a \equiv b \mod s$ or (using $s = n/d$), $a \equiv b \mod (n/d)$. \qed
+
+In the special case of $c, n$ being relatively prime, i.e. $\gcd(c, n) = 1$, $c$ can be cancelled without a change in modulus; i.e.
+
+\bee
+c a \equiv cb \mod n \rightarrow a \equiv b \mod n, \quad \text{if } \gcd(c, n) =1
+\eee
+
+The gcd condition becomes a bit easier in case of $n$ being prime; if $n \nmid c$ then we (also) have $c a \equiv cb \mod n \rightarrow a \equiv b \mod n$.
+
+As an example, consider the congruence relation $33 \equiv 15 \mod 9$ which can also be rewritten as $3 \cdot 11 \equiv 3 \cdot 3 \mod 9$. We have $\gcd(3, 9) = 3$ and therefore we can cancel $3$ from the relation to obtain $11 \equiv 3 \mod (9/3) \rightarrow 11 \equiv 3 \mod 3$.
+
+If $n$ is prime; e.g. $n = 17$, we have $175 \equiv 260 \mod 17$ which can be rewritten as $5 \cdot 35 \equiv 5 \cdot 52 \mod 17$. With $\gcd(5, 17) = 1$, we can cancel $5$ from the relation while \emph{keeping the modulo}; i.e. $35 \equiv 52 \mod 17$. However, keep in mind that the remainder \emph{will} change: $175 = 10 \cdot 17 + 5, 260 = 15 \cdot 17 + 5$; i.e. the remainder is $5$ while $35 = 2 \cdot 17 + 1, 52 = 3 \cdot 17 + 1$; i.e. the remainder is $1$.
 
 
 %%% Local Variables:
