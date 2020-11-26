@@ -1,0 +1,45 @@
+\DiaryEntry{Linear Congruences and the Chinese Remainder Theorem }{2020-11-25}{Number Theory}
+
+We consider the \emph{linear congruence},
+
+\bee
+ax \equiv b \mod n
+\eee
+
+and seek solution(s) $x_0$ so that $ax_0 \equiv b \mod n$. 
+
+A simple example is given by
+
+\bee
+4x \equiv 8 \mod 6
+\eee
+
+By trying out values (I also used \href{https://www.a-calculator.com/congruence/}{this}), we obtain two solutions $x_0 = 2$ and $x_0 = 5$. Note, however, that there are infinitely many solutions given by
+
+\bee
+x = 2 + 3k, \quad k \in \Zc_0
+\eee
+
+The solutions $2$ and $5$ are called \emph{mutually incongruent} because they yield a different remainder when divided by $n = 3$. Adding $n$ to these two solutions yields the series $2, 8, 14, \ldots$ and $5, 11, 17, \ldots$; elements of each series all yield the same remainder and are "equal".
+
+\begin{theorem}
+    The linear congruence $ax \equiv b \mod n$ has a solution iff $d = \gcd(a, n) \mid b$. If $d \mid b$, then it has $d$ mutually incongruent solutions module $n$. If $x_0$ is such a solution, then the $d$ incongruent solutions are given by
+
+    \bee
+        x_0, x_0 + \frac{n}{d}, x_0 + 2\frac{n}{d}, \ldots, x_0 + (d-1)\frac{n}{d}
+    \eee
+\end{theorem}
+
+We do not give the proof here, but note that the linear congruence is equivalent to the linear Diophantine equation $ax - ny = b$: The congruence $ax \equiv b \mod n$ is equivalent to $n \mid (ax_0 - b)$ which we can also write as $a x_0 - b = n y_0$ for some integer $y_0$. Thus solving a linear congruence is the same as solving the linear Diophantine equation $a x - b = n y$. We have treated the linear Diophantine equation in \ref{2020-08-11:entry}.
+
+Checking our example, we have $d = \gcd(4, 6) = 2$ and therefore $2$ solutions. If we know that one of them is $x_0 = 2$, we obtain the two incongruent solutions as $2, 2 + \frac{6}{2} = 2 + 3 = 5$. \qed
+
+
+\begin{theorem}
+    As a corollary, if $\gcd(a,n) = 1$, then $a x \equiv b \mod n$ has a unique solution modulo $n$. In particular, $a x \equiv 1 \mod n$ has a unique solution called the \emph{(multiplicative) inverse} of $a$ modulo $n$.
+\end{theorem}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
