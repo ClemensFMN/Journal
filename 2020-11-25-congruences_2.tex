@@ -70,9 +70,70 @@ We can calculate the multiplicative inverse module $n$ via a slight variation of
 
 As an example, consider $4x \equiv 1 \mod 17$. Calling above function yields $x = 13$ and indeed we have $4 \cdot 13 \equiv 1 \mod 17$.
 
+\subsection{Chinese Remainder Theorem}
 
+We extend the linear congruences to a system of linear congruences. Existence of a solution is given by the Chinese remainder theorem.
 
+\begin{theorem}
+    Let $n_1, n_2, \ldots, n_r$ be positive integers such that $\gcd(n_i, n_j) = 1$ for all $i \neq j$. Then the system of linear congruence
 
+    \begin{align*}
+        x &\equiv a_1 \mod n_1 \\
+        x &\equiv a_2 \mod n_2 \\
+        & \cdots \\
+        x &\equiv a_r \mod n_r
+    \end{align*}
+
+    has a solution, which is unique modulo $n_1 n_2 \cdots n_r$.
+\end{theorem}
+
+For a proof, we consider $n = n_1 n_2 \cdots n_r$. For each $k=1, 2, \ldots r$, let $N_k = \frac{n}{n_k} = n_1 \cdots n_{k-1} n_{k+1} \cdots n_r$. The $n_i$ are all relatively prime in pairs, therefore $\gcd(N_k, n_k) = 1$. Therefore (by the theorem for linear congruences), there is a solution to $N_k x \equiv 1 \mod n_k$ which we denote by $x_k$. We want to show that
+
+\bee
+\bar{x} = a_1 N_1 x_1 + a_2 N_2 x_2 + \cdots + a_r N_r x_r
+\eee
+
+is a solution to the system of linear congruences. We first observe that $N_i \equiv 0 \mod n_k$ for $i \neq k$, because $n_k \mid N_i$ in this case. From this follows
+
+\bee
+\bar{x} = a_1 N_1 x_1 + a_2 N_2 x_2 + \cdots + a_r N_r x_r \equiv a_k N_k x_k \mod n_k
+\eee
+
+But $x_k$ was chosen to satisfy $N_k x \equiv 1 \mod n_k$ and therefore the RHS becomes
+
+\bee
+\bar{x} \equiv a_k \cdot 1 \equiv a_k \mod n_k
+\eee
+
+This shows that $\bar{x}$ is a solution to the system of linear congruences. To show that this is a unique solution, suppose that $x'$ is another solution. Then
+
+\bee
+\bar{x} \equiv a_k \equiv x' \mod n_k
+\eee
+
+for all $k = 1, 2, \ldots r$ and so $n_k \mid (\bar{x} - x')$ for each value of $k$. Because $\gcd(n_i, n_j) = 1$, it follows that $n_1 n_2 \cdots n_r \mid (\bar{x} - x')$ and therefore $\bar{x} \equiv x' \mod n$. \qed
+
+\paragraph{Example.} Consider the following system of linear congruences.
+
+\begin{align*}
+    x \equiv 2 \mod 3 \\
+    x \equiv 3 \mod 5 \\
+    x \equiv 2 \mod 7
+\end{align*}
+
+We have $n = 3 \cdot 5 \cdot 7 = 105$ and $N_1 = \frac{105}{3} = 35, N_2 = 21, N_3 = 15$. We therefore need to solve the linear congruences
+
+\bee
+35x \equiv 1 \mod 3, \quad 21x \equiv 1 \mod 5, \quad 15x \equiv 1 \mod 7
+\eee
+
+Using the modified extended Euclidean algorithm, we obtain the three solutions $x_1 = 2, x_2 = x_3 = 1$. The general solution is therefore given by 
+
+\bee
+\bar{x} = 2 \cdot 35 \cdot 2 + 3 \cdot 21 \cdot 1 + 2 \cdot 15 \cdot 1 = 233
+\eee
+
+We can reduce this by taking it modulo-$n$ and obtain $x = 233 \equiv 23 \mod 105$.
 
 %%% Local Variables:
 %%% mode: latex
