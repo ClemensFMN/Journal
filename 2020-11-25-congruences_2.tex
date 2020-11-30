@@ -1,5 +1,7 @@
 \DiaryEntry{Linear Congruences and the Chinese Remainder Theorem }{2020-11-25}{Number Theory}
 
+\subsection{Linear Congruences}
+
 We consider the \emph{linear congruence},
 
 \bee
@@ -34,10 +36,43 @@ We do not give the proof here, but note that the linear congruence is equivalent
 
 Checking our example, we have $d = \gcd(4, 6) = 2$ and therefore $2$ solutions. If we know that one of them is $x_0 = 2$, we obtain the two incongruent solutions as $2, 2 + \frac{6}{2} = 2 + 3 = 5$. \qed
 
+\paragraph{Multiplicative Inverse module $n$.} As a corollary, we have.
 
 \begin{theorem}
-    As a corollary, if $\gcd(a,n) = 1$, then $a x \equiv b \mod n$ has a unique solution modulo $n$. In particular, $a x \equiv 1 \mod n$ has a unique solution called the \emph{(multiplicative) inverse} of $a$ modulo $n$.
+    If $\gcd(a,n) = 1$, then $a x \equiv b \mod n$ has a unique solution modulo $n$. In particular, $a x \equiv 1 \mod n$ has a unique solution called the \emph{(multiplicative) inverse} of $a$ modulo $n$. Note that the condition $\gcd(a,n) = 1$ is trivially fulfilled when $n$ is prime.
 \end{theorem}
+
+We can calculate the multiplicative inverse module $n$ via a slight variation of the extended Euclidean algorithm. From above we know that $ax \equiv 1 \mod n$ is equivalent to the linear Diophantine equation $ax - ny = 1$. The extended Euclidean algorithm (entries \ref{2020-08-11:entry} and \ref{2020-08-20:entry}) solves $ar + bs = \gcd(a,b)$. Choosing $a = a, b = -n$, $\gcd(a,b) = \gcd(a, n) = 1$ is fulfilled and the algorithm yields a solution for $r,s$. We are only interested in $r$ and there is a slightly more efficient algorithm available (more efficient as it only calculates $r$) shown \href{https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm}{here}. In Julia, the implementation looks as follows (note the close resemblence to the Julia code in entry \ref{2020-08-20:entry})
+
+\begin{verbatim}
+    function inverse_mod(a, n)
+        t = 0
+        newt = 1
+        r = n
+        newr = a
+
+        while(newr != 0)
+            quotient = div(r, newr)
+            (t, newt) = (newt, t - quotient * newt) 
+            (r, newr) = (newr, r - quotient * newr)
+        end
+
+        if(r > 1)
+            error("a is not invertible")
+        end
+
+        if(t < 0)
+            t = t + n
+            return t
+        end
+    end
+\end{verbatim}
+
+As an example, consider $4x \equiv 1 \mod 17$. Calling above function yields $x = 13$ and indeed we have $4 \cdot 13 \equiv 1 \mod 17$.
+
+
+
+
 
 %%% Local Variables:
 %%% mode: latex

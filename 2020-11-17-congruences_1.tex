@@ -28,10 +28,20 @@ and therefore $n \mid (a-b)$. We can rewrite this as congruence $a \equiv b \mod
 
 Continuing with our example $n = 7$, we have $15 \equiv 8 \equiv 1 \mod 7$ as all have the same remainder when divided by $7$.
 
+From the expressions above, we can also deduce that when $a \equiv b \mod n$, we also have 
+
+\bee
+a \equiv b + j n \mod n
+\eee
+
+for some integer $j$. We need to show that $a - b - jn$ divides $n$; since $a - b = kn$ (as $a \equiv b \mod n$), we have $a - b - jn = kn \rightarrow a - b = k'n$. \qed 
+
+Looking at our example, we have $15 \equiv 8 \equiv 1 \mod 7$ as $15$, $8$, and $1$ differ by $n = 7$. In general, $1 + 7 k \equiv 1 \mod 7$.
+
 Congurences are some kind of generalized equality; many properties from equalities carry over as shown in the following theorem.
 
 \begin{theorem}
-    Let $n > 1$ and $a, b, c, d$ be arbitrary integers. The we have the following properties.
+    Let $n > 1$ and $a, b, c, d$ be arbitrary integers. Then we have the following properties.
 
     \begin{enumerate}
         \item $a \equiv a \mod n$.
