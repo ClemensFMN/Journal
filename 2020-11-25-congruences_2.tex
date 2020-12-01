@@ -16,13 +16,19 @@ A simple example is given by
 4x \equiv 8 \mod 6
 \eee
 
-By trying out values (I also used \href{https://www.a-calculator.com/congruence/}{this}), we obtain two solutions $x_0 = 2$ and $x_0 = 5$. Note, however, that there are infinitely many solutions given by
+By trying out values (I also used \href{https://www.a-calculator.com/congruence/}{this}), we obtain two solutions $x_0 = 2$ and $x_0 = 5$. Since congruences do not change when we add $n$ to one side, we can obtain infinitely many solutions from these two by
+
+\bee
+    x_0 = 2 + 6k, x_0 = 5 + 6k, \quad k \in \Zc_0
+\eee
+
+which we can combine into the following
 
 \bee
 x = 2 + 3k, \quad k \in \Zc_0
 \eee
 
-The solutions $2$ and $5$ are called \emph{mutually incongruent} because they yield a different remainder when divided by $n = 3$. Adding $n$ to these two solutions yields the series $2, 8, 14, \ldots$ and $5, 11, 17, \ldots$; elements of each series all yield the same remainder and are "equal".
+The solutions $2$ and $5$ are called \emph{mutually incongruent} because they yield a different remainder when divided by $n = 3$.
 
 \begin{theorem}
     The linear congruence $ax \equiv b \mod n$ has a solution iff $d = \gcd(a, n) \mid b$. If $d \mid b$, then it has $d$ mutually incongruent solutions module $n$. If $x_0$ is such a solution, then the $d$ incongruent solutions are given by
@@ -34,7 +40,36 @@ The solutions $2$ and $5$ are called \emph{mutually incongruent} because they yi
 
 We do not give the proof here, but note that the linear congruence is equivalent to the linear Diophantine equation $ax - ny = b$: The congruence $ax \equiv b \mod n$ is equivalent to $n \mid (ax_0 - b)$ which we can also write as $a x_0 - b = n y_0$ for some integer $y_0$. Thus solving a linear congruence is the same as solving the linear Diophantine equation $a x - b = n y$. We have treated the linear Diophantine equation in \ref{2020-08-11:entry}.
 
-Checking our example, we have $d = \gcd(4, 6) = 2$ and therefore $2$ solutions. If we know that one of them is $x_0 = 2$, we obtain the two incongruent solutions as $2, 2 + \frac{6}{2} = 2 + 3 = 5$. \qed
+
+\paragraph{Example.} Let's continue with our running example of 
+
+\bee
+4x \equiv 8 \mod 6
+\eee
+
+This is equivalent to the Diophantine equation
+
+\bee
+4x - 8 = 6y \rightarrow 4x - 6y = 8
+\eee
+
+Using the extend Euclidean algorithm we obtain
+
+\bee
+gcd(4,6) = 2 = (-1) \cdot 4 + 1 \cdot 6
+\eee
+
+We can use this in $8 = 4x - 6y$ by writing
+
+\bee
+4 \cdot \gcd(4,6) = 4 \cdot 2 = 4 \cdot (-1) \cdot 4 + 4 \cdot 1 \cdot 6 = (-4) \cdot 4 + 4 \cdot 6
+\eee
+
+from which we read off $x_0 = -4$. Therefore, the set of solutions given by
+
+\bee
+x = x_0 + k \frac{6}{2} = -4 + 3k = -1, 2, 5, 8, \ldots
+\eee
 
 \paragraph{Multiplicative Inverse module $n$.} As a corollary, we have.
 
@@ -69,6 +104,19 @@ We can calculate the multiplicative inverse module $n$ via a slight variation of
 \end{verbatim}
 
 As an example, consider $4x \equiv 1 \mod 17$. Calling above function yields $x = 13$ and indeed we have $4 \cdot 13 \equiv 1 \mod 17$.
+
+We can use the multiplicative inverse to solve (some) linear congruences. As example, consider
+
+\bee
+4x \equiv 2 \mod 7
+\eee
+
+The inverse of $7$ module-$7$ is $2$ and we multiply both sides by it and obtain
+
+\bee
+2 \cdot 4x \equiv 2 \cdot 2 \mod 7 \rightarrow x \equiv 4 \mod 7
+\eee
+
 
 \subsection{Chinese Remainder Theorem}
 
