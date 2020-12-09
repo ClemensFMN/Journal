@@ -1,0 +1,145 @@
+\DiaryEntry{Congruences, Misc. Stuff}{2020-12-09}{Number Theory}
+
+This entry collects miscellaenous stuff related with congruences.
+
+\paragraph{Any prime of the form $3n+1$ is also of the form $6m+1$.} We first note that $3n+1$ is even (and therefore for sure not prime) for $n$ being odd. We therefore can restrict ourselves to even $n$. We next write down the first values of $3n+1$ for some $n$ and the corresponding value of $m$ for which $3n+1 = 6m+1$.
+
+\vspace{3mm}
+
+\begin{tabular}{ccc}
+    n & 3n+1 & m \\ \hline
+    1 & 4    & 1/2 \\
+    2 & 7    & 1    \\
+    3 & 10   & 9/6 = 3/2 \\
+    4 & 13   & 2 \\
+    5 & 16   & 15/6 = 5/2 \\
+    6 & 19   & 3 \\
+    7 & 22   & 21/6 = 7/2 \\
+    8 & 25   & 4
+\end{tabular}
+
+\vspace{3mm}
+
+We see that the sequence $3n+1$ produces odd numbers for even $n$; the first three odd values are even primes. We also observe that the corresponding $m$ is an integer only for odd values of $3n+1$. Since only these can be prime, all primes can also be expressed via $6m+1$. \qed
+
+\paragraph{If $a$ is odd, then $n^2 \equiv 1 \mod 8$.} We can express $a$ being odd by writing $a = 2k+1$ for some integer $k$. Inserting, we get $n^2 = (2k+1)^2 = 4k^2 + 4k + 1 \equiv 1 \mod 8 \rightarrow 4k^2 + 4k \equiv 0 \mod 8 \rightarrow 4k(k+1) \equiv 0 \mod 8$. We first consider $k$ even, $k = 2m$. Then we have $4(2m)(2m+1) = 8m(2m+1) \equiv 0 \mod 8$ which is true as the LHS is divisible by $8$. Now let's consider $k$ odd, $k = 2m+1$. Then we have $4(2m+1)(2m+2) = 8(2m+1)(m+1) \equiv 0 \mod 8$ which is also true. We therefore conclude that $n^2 \equiv 1 \mod 8$ when $a$ is odd. \qed
+
+\paragraph{Remainder 1.} When we know that a number is equivalent $1$ modulo-$n$, we can use it to create other relations from it. As example, consider 
+
+\bee
+8 \equiv 1 \mod 7
+\eee
+
+We then have 
+
+\bee
+8^k \equiv 1^k = 1 \mod 7
+\eee
+
+i.e. every number of the form $8^k$ yields a remainder $1$ when divided by $7$. As a consequence, numbers of the form $8^k - 1$ are divisible by $7$.
+
+
+\paragraph{Divisibility Rules.} Most divisibility rules are based on rules for the digits of the number to test. Thereby the following theorem is helpful.
+
+\begin{theorem}
+    Let $P(x) = \sum_{k=0}^m c_k x^k$ be a polynomial function of $x$ with integer coefficients $c_k$. If $a \equiv b \mod n$, then $P(a) \equiv P(b) \mod n$.
+\end{theorem}
+
+From $a \equiv b \mod n$ follows $a^k \equiv b^k \mod n$ for integers $k$. Therefore $c_k a^k \equiv c_k b^k \mod n$ and adding everything up, we have
+
+\bee
+\sum_{k=0}^m c_k a^k \equiv \sum_{k=0}^m c_k b^k \mod n \rightarrow P(a) \equiv P(b) \mod n \qed
+\eee
+
+Of particular interest for divisibility checks is the fact if $a$ is a solution of $P(x) \equiv 0 \mod n$, then $b$ is also a solution.
+
+\paragraph{Divisibility by $9$.} Let $N = a_m 10^m + a_{m-1} 10^{m-1} + \cdots a_1 10 + a_0$ with $0 \leq a_i < 10$; i.e. the $a_i$ are the decimal digits of $N$.
+
+Because $10 \equiv 1 \mod 9$, we have $P(10) \equiv P(1) \mod 9$. However, $P(10) = N$ and $P(1) = \sum_k c_k 1^k = \sum c_k$. Therefore, a number is divisible by $9$ if the sum of its digits is divisible by $9$. \qed
+
+\paragraph{Divisibility by $3$.} In a similar spirit, we have $10 \equiv 1 \mod 3$ and therefore $P(10) \equiv P(1) \mod 3$. Therefore, a number is divisible by $3$ if the sum of its digits is divisible by $9$. \qed
+
+
+\paragraph{Divisibility by $2$.} We have 
+
+\bee
+\sum_{k \geq 1} a_k 10^k \equiv 0 \mod 2
+\eee
+
+as $10 \equiv 100 \cdots \equiv 0 \mod 2$. Therefore,
+
+\bee
+\sum_{k=0}^m a_k 10^k = \sum_{k \geq 1} a_k 10^k + a_0 \equiv a_0 \equiv 0 \mod 2
+\eee
+
+; i.e. a number is divisible by $2$ iff the units digit is even. \qed
+
+\paragraph{Divisibility by $4$.} Similarly, we have 
+
+\bee
+\sum_{k \geq 2} a_k 10^k \equiv 0 \mod 4
+\eee
+
+From this we deduce that 
+
+\bee
+\sum_{k=0}^m a_k 10^k = \sum_{k \geq 2} a_k 10^k + 10 a_1 + a_0 \equiv 10 a_1 + a_0 \equiv 0 \mod 4
+\eee
+
+A number is divisible by $4$ if the number formed by the tens and units digits is divisible by $4$. \qed
+
+\paragraph{Unit Digit of $N^2$.} We express $N$ in terms of its digits $a_i$ as 
+
+\bee
+N = \sum_{k=0}^m a_k 10^k = \left( \sum_{k=1}^m a_k 10^k \right) + a_0 = 10 \left( \sum_{k=0}^m a_{k+1} 10^k \right) + a_0 = 10 A + a_o
+\eee
+
+where we have split off the unit digit. Note that the term in brackets is a "normal" integer which we denote by $A$. Squaring this expression yields
+
+\bee
+N^2 = \left( 10 A + a_0 \right)^2 = 100A^2 + 2 \cdot 10 A a_0 + a_0^2
+\eee
+
+From this, we see that only $a_0$ affects the unit digit of $N^2$, both $100A$ and $2 \cdot 10 A a_0$ have unit digit zero; i.e.
+
+\bee
+100A^2 + 2 \cdot 10 A a_0 + a_0^2 \equiv a_0^2 \mod 10
+\eee
+
+We therefore can try out all values for $a_0$ and see which values $a_0^2$ takes: $1^2  = 1, 2^2 = 4, 3^2 = 9, 4^2 = 16, 5^2 = 25, 6^2 = 36, 7^2 = 49, 8^2 = 64, 9^2 = 81$. Looking at the unit digits, we see that they can only take values from the set $1, 4, 5, 6, 9$.
+
+\paragraph{Unit Digit of $N^2-N+7$.} Using the same mechanism, we can express $N$ as $N = 10A+  a_0$ and obtain
+
+\bee
+N^2 - N + 7 = (10A + a_0)^2 - (10A + a_0) + 7 = 100A^2 + 20 A a_0 + a_0^2 - 10A - a_0 + 7
+\eee
+
+Taking modulo-$10$, we obtain
+
+\bee
+N^2 - N + 7 \equiv a_0^2 - a_0 + 7 \mod
+\eee
+
+from which we see that only the unit digit of $N$ affects the complete expression. Again inserting values $1 \ldots 9$ into $a_0$, we observe the values $3, 7, 9$ for the unit digit of $N^2-N+7$. \qed
+
+For the fun of it, we can check this in Julia as follows
+
+\begin{verbatim}
+    julia> k=1:10
+    1:10
+
+    julia> f(x)=x^2-x+7
+    f (generic function with 1 method)
+
+    julia> Set(mod.(f.(k), 10))
+    Set{Int64} with 3 elements:
+      7
+      9
+      3
+\end{verbatim}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
