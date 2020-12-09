@@ -1,0 +1,56 @@
+\DiaryEntry{Fermat's Theorem}{2020-12-09}{Number Theory}
+
+\begin{theorem}
+    let $p$ be a prime and suppose $p \nmid a$. Then
+
+    \bee
+        a^{p-1} \equiv 1 \mod p
+    \eee
+\end{theorem}
+
+The proof starts by considering the first $p-1$ positive multiples of $a$,
+
+\bee
+a, 2a, 3a, \ldots, (p-1)a
+\eee
+
+None of these numbers is congruent modulo-$p$ to any other, nor is any congruent to zero. If it were, we would have
+
+\bee
+ra \equiv sa \mod p, \quad r \neq s
+\eee
+
+but then we could cancel $a$ from both sides and this wold contradict the assumption $r \neq s$. Therefore, the integer sequence must be congruent modulo-$p$ to $1, 2, \ldots p-1$, taken in some order. When we multiply the integers together, we obtain
+
+\bee
+a \cdot 2a \cdot 3a \cdots (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdots (p-1) \mod p
+\eee
+
+which can be rewritten as
+
+\bee
+a^{p-1} (p-1)! \equiv (p-1)! \mod p
+\eee
+
+Since $p \nmid (p-1)!$, we are allowed to cancel $(p-1)!$ from both sides and arrive at
+
+\bee
+a^{p-1} \equiv 1 \mod p \qed
+\eee
+
+The result can be slightly extended; we have the following theorem.
+
+\begin{theorem}
+    If $p$ is prime, then 
+    \bee
+    a^p \equiv a \mod p
+    \eee
+    for any integer $a$.
+\end{theorem}
+
+When $p \mid a$, then we have $a^p \equiv 0 \equiv a \mod p$. When $p \nmid a$, then Fermat's theorem states that $a^{p-1} \equiv 1 \mod p$. Multiplying both sides with $a$ yields $a^p \equiv a \mod p$. \qed
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
