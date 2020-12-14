@@ -1,5 +1,7 @@
 \DiaryEntry{Fermat's Theorem}{2020-12-09}{Number Theory}
 
+\subsection{Fermat's Theorem}
+
 \begin{theorem}
     let $p$ be a prime and suppose $p \nmid a$. Then
 
@@ -20,7 +22,7 @@ None of these numbers is congruent modulo-$p$ to any other, nor is any congruent
 ra \equiv sa \mod p, \quad r \neq s
 \eee
 
-but then we could cancel $a$ from both sides and this wold contradict the assumption $r \neq s$. Therefore, the integer sequence must be congruent modulo-$p$ to $1, 2, \ldots p-1$, taken in some order. When we multiply the integers together, we obtain
+but then we could cancel $a$ from both sides and this would contradict the assumption $r \neq s$. Therefore, the integer sequence must be congruent modulo-$p$ to $1, 2, \ldots p-1$, taken in some order. When we multiply the integers together, we obtain
 
 \bee
 a \cdot 2a \cdot 3a \cdots (p-1)a \equiv 1 \cdot 2 \cdot 3 \cdots (p-1) \mod p
@@ -38,6 +40,22 @@ Since $p \nmid (p-1)!$, we are allowed to cancel $(p-1)!$ from both sides and ar
 a^{p-1} \equiv 1 \mod p \qed
 \eee
 
+Let's run through above proof with some concrete numbers. We choose $a = 4, p = 5$ and in the table below, we have written down the first multiples and their remainder when divided by $p = 5$.
+
+\vspace{3mm}
+
+\begin{tabular}{|cccc|c|} \hline
+    a & 2a & 3a & 4a & 5a \\ \hline
+    4 & 8 & 12 & 16 & 20 \\
+    $\mod(4, 5)$ & $\mod(8, 5)$ & $\mod(12, 5)$ & $\mod(16, 5)$ & $\mod(20, 5)$ \\ \hline
+    4 & 3 & 2 & 1 & 4 \\ \hline
+\end{tabular}
+
+\vspace{3mm}
+
+It can be seen that the first $p-1$ terms all have a different remainders and no remainder is equal to zero.
+
+
 The result can be slightly extended; we have the following theorem.
 
 \begin{theorem}
@@ -49,6 +67,62 @@ The result can be slightly extended; we have the following theorem.
 \end{theorem}
 
 When $p \mid a$, then we have $a^p \equiv 0 \equiv a \mod p$. When $p \nmid a$, then Fermat's theorem states that $a^{p-1} \equiv 1 \mod p$. Multiplying both sides with $a$ yields $a^p \equiv a \mod p$. \qed
+
+\subsection{Usage}
+
+We can use Fermat's theorem to simplify certain calculations; e.g. calculate the remainder of $5^{38}$ when divided by $11$. We can expand this as $5^{38} = (5^{10})^3 (5^2)^4$ and observe $5^{10} \equiv 1 \mod 11$. Since $3$ is prime we can apply Ferma's theorem to
+
+\bee
+(5^{10})^3 \equiv 5^{10} \equiv 1 \mod 11
+\eee
+
+We cannot use Fermat's theorem for the $(5^2)^4$ as $4$ is not a prime; we need to manually calculate things,
+
+\bee
+(5^2)^4 \equiv 25^4 \equiv 3^4 \equiv 81 \equiv 4 \mod 11
+\eee
+
+So we finally get
+
+\bee
+5^{38} \equiv 1 \cdot 4 \equiv 4 \mod 11 \qed
+\eee
+
+A second usage of Fermat's theorem is as a primality test for an integer $n$. If
+
+\bee
+a^n \equiv a \mod n
+\eee
+
+fails to hold for some $a$, then $n$ is necessarily composite. As an example consider $n = 177$. We chose $a = 2$ (note that $2 \nmid 177$)  and have
+
+\bee
+2^{117} = 2^{7 \cdot 16 + 5}
+\eee
+
+With $2^7 \equiv 11 \mod 117$ we further obtain
+
+\bee
+2^{117} \equiv 11^{16} \cdot 2^5 \equiv 121^8 \cdot 2^5 \equiv 4^8 \cdot 2^5 \equiv 2^{16} 2^5 \equiv 2^{21} \mod 117
+\eee
+
+We can rewrite $2^{21} = (2^7)^3$ which leads to
+
+\bee
+2^{21]} \equiv 11^3 \equiv  121 \cdot 11 \equiv 4 \cdot 11 \equiv 44 \mod 117
+\eee
+
+and we finally obtain
+
+\bee
+2^{117} \equiv 44 \neq 2 \mod 117 
+\eee
+
+which shows that $117$ is not a prime. Indeed, we have $117 = 3 \cdot 3 \cdot 13$.
+
+Please note that the inverse is not necessarily true; i.e. if $a^{n} \equiv a \mod n$ holds for some $a$, then $n$ need not necessarily be a prime. As an example, consider $n = 341$ which is not a prime ($341 = 11 \cdot 31$). Nevertheless, we have $2^{341} \equiv 2 \mod 341$; however, $3^{341} \equiv 168 \neq 3 \mod 341$ and this shows that $341$ is not a prime (note that we have $2 \nmid 341$ and $3 \nmid 341$).
+
+We call composite numbers $n$ which yield $a^{n-1} \equiv 1 \mod n$ \emph{pseudoprimes in base $a$}. $341$ is the smallest pseudoprime base $2$. 
 
 %%% Local Variables:
 %%% mode: latex
