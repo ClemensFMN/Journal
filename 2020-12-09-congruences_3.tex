@@ -106,7 +106,7 @@ From this, we see that only $a_0$ affects the unit digit of $N^2$, both $100A$ a
 100A^2 + 2 \cdot 10 A a_0 + a_0^2 \equiv a_0^2 \mod 10
 \eee
 
-We therefore can try out all values for $a_0$ and see which values $a_0^2$ takes: $1^2  = 1, 2^2 = 4, 3^2 = 9, 4^2 = 16, 5^2 = 25, 6^2 = 36, 7^2 = 49, 8^2 = 64, 9^2 = 81$. Looking at the unit digits, we see that they can only take values from the set $1, 4, 5, 6, 9$.
+We therefore can try out all values for $a_0$ and see which values $a_0^2$ takes: $0^2 = 0, 1^2  = 1, 2^2 = 4, 3^2 = 9, 4^2 = 16, 5^2 = 25, 6^2 = 36, 7^2 = 49, 8^2 = 64, 9^2 = 81$. Looking at the unit digits, we see that they can only take values from the set $0, 1, 4, 5, 6, 9$.
 
 \paragraph{Unit Digit of $N^2-N+7$.} Using the same mechanism, we can express $N$ as $N = 10A+  a_0$ and obtain
 
@@ -120,7 +120,7 @@ Taking modulo-$10$, we obtain
 N^2 - N + 7 \equiv a_0^2 - a_0 + 7 \mod
 \eee
 
-from which we see that only the unit digit of $N$ affects the complete expression. Again inserting values $1 \ldots 9$ into $a_0$, we observe the values $3, 7, 9$ for the unit digit of $N^2-N+7$. \qed
+from which we see that only the unit digit of $N$ affects the complete expression. Again inserting values $0 \ldots 9$ into $a_0$, we observe the values $3, 7, 9$ for the unit digit of $N^2-N+7$. \qed
 
 For the fun of it, we can check this in Julia as follows
 
