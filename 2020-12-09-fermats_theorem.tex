@@ -68,6 +68,23 @@ The result can be slightly extended; we have the following theorem.
 
 When $p \mid a$, then we have $a^p \equiv 0 \equiv a \mod p$. When $p \nmid a$, then Fermat's theorem states that $a^{p-1} \equiv 1 \mod p$. Multiplying both sides with $a$ yields $a^p \equiv a \mod p$. \qed
 
+As an example, consider $p = 5$ and we have
+
+\vspace{3mm}
+
+\begin{tabular}{|ccc|} \hline
+    $a$ & $a^5$ & $a^m \rem 5$ \\ \hline
+    1 & 1 & 1     \\
+    2 & 32 & 2    \\
+    3 & 243 & 3    \\
+    4 & 1024 & 4  \\
+    5 & 3125 & 0  \\ \hline
+\end{tabular}
+
+\vspace{3mm}
+
+Please note that in the last line, the RHS of Fermat's theorem yields $5 \equiv 0 \mod 5$ (and this corresponds to the third column in the last row).
+
 \subsection{Usage}
 
 We can use Fermat's theorem to simplify certain calculations; e.g. calculate the remainder of $5^{38}$ when divided by $11$. We can expand this as $5^{38} = (5^{10})^3 (5^2)^4$ and observe $5^{10} \equiv 1 \mod 11$. Since $3$ is prime we can apply Ferma's theorem to
@@ -122,7 +139,63 @@ which shows that $117$ is not a prime. Indeed, we have $117 = 3 \cdot 3 \cdot 13
 
 Please note that the inverse is not necessarily true; i.e. if $a^{n} \equiv a \mod n$ holds for some $a$, then $n$ need not necessarily be a prime. As an example, consider $n = 341$ which is not a prime ($341 = 11 \cdot 31$). Nevertheless, we have $2^{341} \equiv 2 \mod 341$; however, $3^{341} \equiv 168 \neq 3 \mod 341$ and this shows that $341$ is not a prime (note that we have $2 \nmid 341$ and $3 \nmid 341$).
 
-We call composite numbers $n$ which yield $a^{n-1} \equiv 1 \mod n$ \emph{pseudoprimes in base $a$}. $341$ is the smallest pseudoprime base $2$. 
+We call composite numbers $n$ which yield
+
+\bee
+a^{n-1} \equiv 1 \mod n
+\eee
+
+\emph{pseudoprimes in base $a$}. Equivalent conditions for pseudoprimes in base $a$ are also
+
+\bee
+a^n \equiv a \mod n \leftrightarrow n \mid 2^n - 2
+\eee
+
+For every base number $a$, there is a smallest pseudprime $n$; e.g. for base $2$ the smallest pseudprime is $341$. The OEIS wiki has a \href{https://oeis.org/wiki/Table_of_Fermat_pseudoprimes}{table} listing the pseudoprimes for various bases. A small excerpt is as follows,
+
+\vspace{3mm}
+
+\begin{tabular}{|c|c|} \hline
+  a & n  \\ \hline
+  2 & 341 \\
+  3 & 91 \\
+  4 & 15 \\ \hline
+\end{tabular}
+
+\vspace{3mm}
+
+For example, we have
+
+\bee
+3^{91} \equiv 1 \mod 91
+\eee
+
+although $91 = 7 \cdot 13$ is not a prime.
+
+The so called \emph{Carmichael numbers} are numbers $n$ which are pseudoprime to \emph{every} base $a$; i.e.
+
+\bee
+a^{n-1} \equiv 1 \mod n, \forall a \,\, \text{with} \,\, \gcd(a,n) = 1
+\eee
+
+The smallest Carmichael number is $561$. We can use the following GAP function to test whether a number is a Carmichael one or not
+
+\begin{verbatim}
+TestCarmichael := function(N)
+   local coprimes, tst, a;
+   coprimes:=PrimeResidues(N);
+
+   for a in coprimes do
+       tst:=a^N mod N;
+          if(tst <> a) then
+             Print("FAILURE with base a = ", a, "\n");
+          fi;
+   od;
+   Print("SUCCESS");
+end;
+\end{verbatim}
+
+
 
 %%% Local Variables:
 %%% mode: latex
