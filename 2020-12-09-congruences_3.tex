@@ -2,6 +2,77 @@
 
 This entry collects miscellaenous stuff related with congruences.
 
+\paragraph{Remainder Calculations.} We denote by $\rem$ the remainder operation; i.e. for integers $a, b$ and $a \rem b = r$, then $a = kb + r$ for some integer $k$.
+
+Remainder calculation can be simplified with the following rules,
+
+\begin{align*}
+    &a \cdot b \equiv (a \rem n) \cdot (b \rem n) \mod n \\
+    &a + b \equiv (a \rem n) + (b \rem n) \mod n \\
+    &a^n \equiv (a \rem n)^n
+\end{align*}
+
+To prove this, we express $a, b$ as $a = k_1 n + r_1, b = k_2 n + r_2$. With that we have
+
+\bee
+a \cdot b = (k_1 n + r_1)(k_2 n + r_2) = k_1 k_2 n^2 + (r_1 k_1 + r_2 k_2)n + r_1 r_2
+\eee
+
+Clearly, the first two terms are divisible by $n$; and we have
+
+\bee
+a \cdot b \equiv r_1 r_2 \mod n
+\eee
+
+In a simiarl spirit, the sum $a + b$ becomes
+
+\bee
+a + b = (k_1 n + r_1) + (k_2 n + r_2) = (k_1 + k_2)n + r_1 + r_2
+\eee
+
+With the first term being divisible by $n$, we obtain
+
+\bee
+a + b \equiv r_1 + r_2 \mod n
+\eee
+
+Finally, we have
+
+\bee
+a^m = (k_1 n + r_1)^m = \sum_{n=0}^m {m \choose n} (k_1n)^n r_1^{m-n} = r_1^m + m k_1 n r_1^{m-2} + \cdots
+\eee
+
+All terms but the first one are divisible by $n$; we conclude
+
+\bee
+a^m \equiv r_1^m \mod n
+\eee
+
+We can apply these rules in the following examples; we have
+
+\bee
+6 + 9 \mod 4 \equiv 2 + 1 \mod 4 \equiv 3 \mod 4
+\eee
+
+Direct calculation yields the same result
+
+\bee
+6 + 9 \mod 4 \equiv 15 \mod 4 \equiv 3 \mod 4 \qed
+\eee
+
+We also have
+
+\bee
+273 \mod 13 \equiv 21 \cdot 13 \mod 13 \equiv 0 \mod 13
+\eee
+
+which shows the power of this rule. Also interesting is the following,
+
+\bee
+3072 = 3 \cdot 2^{10} \mod 8 \equiv 3 \cdot 2^3 2^7 \mod 8 \equiv 3 \cdot 0 2^7 \mod 8 \equiv 0 \mod 8
+\eee
+
+
 \paragraph{Any prime of the form $3n+1$ is also of the form $6m+1$.} We first note that $3n+1$ is even (and therefore for sure not prime) for $n$ being odd. We therefore can restrict ourselves to even $n$. We next write down the first values of $3n+1$ for some $n$ and the corresponding value of $m$ for which $3n+1 = 6m+1$.
 
 \vspace{3mm}
