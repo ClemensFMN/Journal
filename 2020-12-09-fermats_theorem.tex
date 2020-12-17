@@ -151,7 +151,7 @@ a^{n-1} \equiv 1 \mod n
 a^n \equiv a \mod n \leftrightarrow n \mid 2^n - 2
 \eee
 
-For every base number $a$, there is a smallest pseudprime $n$; e.g. for base $2$ the smallest pseudprime is $341$. The OEIS wiki has a \href{https://oeis.org/wiki/Table_of_Fermat_pseudoprimes}{table} listing the pseudoprimes for various bases. A small excerpt is as follows,
+For every base number $a$, there is a smallest pseudprime $n$; e.g. for base $2$ the smallest pseudprime is $341$. The OEIS wiki has a \href{https://oeis.org/wiki/Table_of_Fermat_pseudoprimes}{table} listing the pseudoprimes for various bases. There is also OEIS sequence \href{https://oeis.org/A007535}{A007535} which lists the smallest pseudoprime for every base. A small excerpt is as follows,
 
 \vspace{3mm}
 
@@ -178,7 +178,7 @@ The so called \emph{Carmichael numbers} are numbers $n$ which are pseudoprime to
 a^{n-1} \equiv 1 \mod n, \forall a \,\, \text{with} \,\, \gcd(a,n) = 1
 \eee
 
-The smallest Carmichael number is $561$. We can use the following GAP function to test whether a number is a Carmichael one or not
+The smallest Carmichael number is $561$. We can use the following GAP function to test whether a number is a Carmichael one or not.
 
 \begin{verbatim}
 TestCarmichael := function(N)
@@ -195,7 +195,7 @@ TestCarmichael := function(N)
 end;
 \end{verbatim}
 
-
+OEIS sequence \href{https://oeis.org/A002997}{A002997} lists the Carmichael numbers.
 
 %%% Local Variables:
 %%% mode: latex
