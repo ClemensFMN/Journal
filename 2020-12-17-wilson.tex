@@ -1,0 +1,62 @@
+\DiaryEntry{Wilson's Theorem}{Number Theory}{2020-12-17}
+
+\begin{theorem}
+    If $p$ is prime, then
+    \bee
+    (p-1)! \equiv -1 \mod p \equiv p-1 \mod p
+    \eee
+\end{theorem}
+
+As an example, consider $p = 7$. We then have
+
+\bee
+(p-1)! = 6! = 720 \equiv 6 = p-1 \mod p
+\eee
+
+The cases $p =2, 3$ can be evaluated directly; let's concentrate on $p > 3$. Suppose that $a$ is one of the $p-1$ integers $1,2,3,\ldots, p-1$ and consider the linear congruence $ax \equiv 1 \mod p$. Since $p$ is prime, $\gcd(a,p) = 1$ and therefore the linear congruence has a unique solution (modulo-$p$) which we denote $a'$. We therefore have $a a' \equiv 1 \mod p$ with $1 \leq a' \leq p-1$.
+
+We next show that $a = a'$ iff $a = 1$ or $a = p-1$ because $p$ is prime. The congruence relation $a^2 \equiv 1 \mod p$ is equivalent to $(a-1)(a+1) \equiv 0 \mod p$. The LHS becomes zero when either $a = 1$ or when $a = -1 \equiv p-1 \mod p$.
+
+If we omit the values $2, p-1$ from the list of values for $a$, we can group the remaining integers ($3,4, p-2$) into pairs $a, a'$ with $a \neq a'$ and $a a' \equiv 1 \mod p$. We have $p-3$ numbers in the list and therefore $(p-3)/2$ pairs. We can therefore multiply all pair expressions together and obtain
+
+\bee
+2 \cdot 3 \cdots p-3 \equiv 1 \mod p
+\eee
+
+which is equivalent together
+
+\bee
+(p-2)! \equiv 1 \mod p
+\eee
+
+If we multiply both sides with $p-1$ we obtain
+
+\bee
+(p-1)! \equiv p-1 \equiv -1 \mod p \qed
+\eee
+
+Let's illustrate the reasoning with the example from above, $p=7$. The list of integers is $2,3,4,5 = p-2$ and we have the following two groups
+
+\bee
+2 \cdot 4 = 8 \equiv 1 \mod 7, \quad 3 \cdot 5 = 15 \equiv 1 \mod 7
+\eee
+
+We can multiply the two expressions together and obtain
+
+\bee
+2 \cdot 3 \cdot 4 \cdot 5 = 5! \equiv 1 \mod 7
+\eee
+
+and by multiplying both sides with $p-1=6$ we finally obtain
+
+\bee
+6! \equiv 1 \mod 7 \qed
+\eee
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
