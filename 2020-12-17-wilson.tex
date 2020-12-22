@@ -53,7 +53,96 @@ and by multiplying both sides with $p-1=6$ we finally obtain
 6! \equiv 1 \mod 7 \qed
 \eee
 
+Unlike with Fermat's theorem, Wilson's theorem holds also in the reverse direction; i.e. If $(n-1)! \equiv -1 \mod n$, then $n$ must be prime.
 
+We can use Wilson's theorem to solve certain \emph{quadratic congruences} via the following theorem.
+
+\begin{theorem}
+    The quadratic congruence $x^2+1 \equiv 0 \mod p$, where $p$ is an odd prime, has a solution iff $p \equiv 1 \mod 4$.
+\end{theorem}
+
+Proof: TBD
+
+\subsection{The Fermat-Kraitchik Factorization Method}
+
+The search for factors of an odd integer $n$ is equivalent to obtaining integral solutions $x$ yand $y$ of the equation
+
+\bee
+n = x^2 - y^2
+\eee
+
+If $n$ is the difference of two squares, then we can factor $n$ according together
+
+\bee
+n = x^2 - y^2 = (x-y)(x+y)
+\eee
+
+If $n$ can be factored as $n = ab$ with $a \geq b \geq 1$, then we may write
+
+\bee
+n = \left( \frac{a+b}{2})^2 - \frac{a-b}{2})^2 \right)^2
+\eee
+
+As $n$ is assumed to be odd, so are $a$ and $b$, and $(a+b)/2$ and $(a-b)/2$ will be nonnegative integers. The factorization method works as follows: We search for $x, y$ satisfying the equation $n = x^2 - y^2$, or
+
+\bee
+x^2 - n = y^2
+\eee
+
+by first finding the smallest integer $k$ for which $k^2 \geq n$. Now we consider successively the numbers
+
+\bee
+k^2 - n, (k+1)^2 - n, (k+2)^2 - n, \ldots
+\eee
+
+until a value $m \geq \sqrt{n}$ is found which makes $m^2 - n$ a square. This process cannot go on forever; eventually we reach $m = (n+1)/2$ with
+
+\bee
+\left( \frac{n+1}{2} \right)^2 - n = \left( \frac{n-1}{2} \right)^2
+\eee
+
+which represents the trivial factorization $n = n \cdot 1$. If this number is reached without a square difference discovered before, then $n$ has no factors other than $n$ and $1$ and is therefore prime.
+
+
+\paragraph{Example.} We consider the number $n = 119143$. The next biggest square number is $\lfloor \sqrt{119143} \rfloor = 346$. We consider now the sequence of integers described above; i.e. $346 \leq m \leq (119143+1)/2 = 59572$ as follows
+
+\begin{align*}
+    &346^2 - 119143 = 573 \\
+    &347^2 - 119143 = 1266 \\
+    & \cdots \\
+    &352^2 - 119413 = 4761 = 69^2
+\end{align*}
+
+In the last line $m^2 - n$ is a sqaure and we stop. We deduce $119431 = 352^2 - 69^2 = (352+69)(352-69) = 421 \cdot 283$ which shows that $119431$ is \emph{not} prime.
+
+As another example, consider $n= 5783$. We consider the sequence $\lfloor \sqrt{5783} \rfloor = 77 leq m \leq (5783+1)/2 = 2892$ as follows
+
+\begin{align*}
+    &77^2 - 5783 = 146 \\
+    &78^2 - 5783 = 301 \\
+    &79^2 - 5783 = 458 \\
+    & \cdots
+    & 2892^2 - 5783 = 8357881 = 2891^2
+\end{align*}
+
+The last line is the first square; however $5783 = 2892^2 - 2891^2 = 5783 \cdot 1$ which shows that $5783$ \emph{is prime}.
+
+In Julia, we can express the algorithm as
+
+\begin{verbatim}
+    function fermat_kraitchik(n)
+        rn = ceil(sqrt(n)) : (n+1)/2 - 1
+        for vl in rn
+            b = sqrt(vl^2 - n)
+            if(isinteger(b))
+                print("is composite")
+                return((vl+b), (vl-b))
+            end
+        end
+        print("prime")
+        return((n, 1))
+    end
+\end{verbatim}
 
 
 %%% Local Variables:
