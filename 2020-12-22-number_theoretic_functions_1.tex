@@ -1,0 +1,39 @@
+\DiaryEntry{Number-theoretic Functions}{2020-12-22}{Number Theory}
+
+For a positive integer $n$, we define $\tau(n)$ to be the number of positive divisors of $n$ and $\sigma(n)$ to be the sum of these divisors.
+
+As an example, consider $n = 15$. Its divisors are $1, 3, 5, 15$, and so we have $\tau(15) = 4$ and $\sigma(15) = 1 + 3 + 5 + 15 = 24$.
+
+In case of $n$ being prime, $\tau(p) = 2$ and $\sigma(p) = 1+p$ as a prime has only two divisors ($1$ and itself).
+
+We also define some notation: The sum
+
+\bee
+\sum_{d \mid n} f(n)
+\eee
+
+denotes the sum of all values $f(d)$ for all $d$ which are divisors of $n$. With this definition, we can write our two functions as follows,
+
+\bee
+\tau(n) = \sum_{d \mid n} 1, \qquad \sigma(n) = \sum_{d \mid n} d
+\eee
+
+If we know the prime factorization of a number $n$ as
+
+\bee
+n = p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}
+\eee
+
+then the positive divisors of $n$ are those integers $d$ of the form
+
+\bee
+d = p_1^{a_1} p_2^{a_2} \cdots p_r^{a_r}, \quad 0 \leq a_i \leq k_i, \quad i = 1, 2, \ldots r
+\eee
+
+The proof is omitted (not sure what needs to be proven here anyway).
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
