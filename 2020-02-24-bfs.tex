@@ -74,49 +74,49 @@ We finally note that Julia provides the LightGraph package which has an BFS impl
    \includegraphics[scale=0.5]{images/graphs_bst_01.png}
 \end{figure}
 
-In the following, we execute the BFS algorithm and output the queue \verb Q  before the dequeuing in line $11$ and the element \verb u which is dequeued in line $11$. We start the algorithm with vertex \verb s , so 
+In the following, we execute the BFS algorithm and output the queue \verb|Q| before the dequeuing in line $11$ and the element \verb|u| which is dequeued in line $11$. We start the algorithm with vertex \verb|s|, so 
 
 \begin{verbatim}
    Q =[s]
    u = s
 \end{verbatim}
 
-The algorithm enqueues the two neighbours of \verb s  which are \verb r  and \verb w . It continues by taking vertex \verb r  from the queue. 
+The algorithm enqueues the two neighbours of \verb|s|  which are \verb|r| and \verb|w|. It continues by taking vertex \verb|r| from the queue. 
 
 \begin{verbatim}
    Q =[r, w]
    u = r
 \end{verbatim}
 
-Having visited vertex \verb r  , it pushes the neighbouring vertex \verb v  to the queue and continues with vertex \verb w .
+Having visited vertex \verb|r|, it pushes the neighbouring vertex \verb|v| to the queue and continues with vertex \verb|w|.
 
 \begin{verbatim}
    Q =[w, v]
    u = w
 \end{verbatim}
 
-The unvisited neighbours of \verb w  are vertices \verb x  and \verb t  which are added to the queue. The algorithm takes vertex \verb v  from the queue.
+The unvisited neighbours of \verb|w| are vertices \verb|x| and \verb|t| which are added to the queue. The algorithm takes vertex \verb|v| from the queue.
 
 \begin{verbatim}
    Q =[v, x, t]
    u = v
 \end{verbatim}
 
-Since vertex \verb v  has no unvisited neighbours, no new vertices are added and the algorithm continues with vertex \verb v  (although nothing happens).
+Since vertex \verb|v| has no unvisited neighbours, no new vertices are added and the algorithm continues with vertex \verb|v| (although nothing happens).
 
 \begin{verbatim}
    Q =[x, t]
    u = x
 \end{verbatim}
 
-Now the algorithm continues with vertex \verb x  : Unvisited neighbours \verb u  and \verb y  are added to the qeue.
+Now the algorithm continues with vertex \verb|x|: Unvisited neighbours \verb|u| and \verb|y| are added to the qeue.
 
 \begin{verbatim}
    Q =[t, u, y]
    u = t
 \end{verbatim}
 
-Vertex \verb t  has no unvisited neighbours, so nothing is added to the queue and we continue with vertex \verb t .
+Vertex \verb|t| has no unvisited neighbours, so nothing is added to the queue and we continue with vertex \verb|t|.
 
 \begin{verbatim}
    Q =[u, y]
