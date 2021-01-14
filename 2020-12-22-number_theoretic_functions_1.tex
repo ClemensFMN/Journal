@@ -149,6 +149,35 @@ d = p_1^{a_1} \cdots p_r^{a_r} q_1^{b_1} \cdots q_s^{b_s}, \quad 0 \leq a_i \leq
 
 We can split the product into two factors $d_1 d_2 = d$, where $d_1 = p_1^{a_1} \cdots p_r^{a_r}$ divides $m$ and $d_2 = q_1^{b_1} \cdots q_s^{b_s}$ divides $n$. All primes $p_i$ and $q_j$ are different, therefore $\gcd(d_1, d_2) = 1$. \qed
 
+\paragraph{Example.} As an example, consider $m = 10, n = 21$. Their gcd is $1$ and their divisors are obtained via GAP as follows.
+
+\begin{verbatim}
+gap> GcdInt(10,21);
+1gap> d1:=DivisorsInt(10);
+[ 1, 2, 5, 10 ]
+gap> d2:=DivisorsInt(21);
+[ 1, 3, 7, 21 ]
+\end{verbatim}
+
+According to the theorem, the divisors of $mn = 210$ are therefore the products $d_1 d_2$ and are given as follows.
+
+\begin{verbatim}
+gap> DivisorsInt(210);
+[ 1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210 ]
+gap> c:=Cartesian(d1, d2);
+[ [ 1, 1 ], [ 1, 3 ], [ 1, 7 ], [ 1, 21 ], [ 2, 1 ], [ 2, 3 ], 
+[ 2, 7 ], [ 2, 21 ], [ 5, 1 ], [ 5, 3 ], [ 5, 7 ], [ 5, 21 ], 
+[ 10, 1 ], [ 10, 3 ], [ 10, 7 ], [ 10, 21 ] ]
+gap> Apply(c, i -> i[1]*i[2]);
+gap> c
+> ;
+[ 1, 3, 7, 21, 2, 6, 14, 42, 5, 15, 35, 105, 10, 30, 70, 210 ]
+gap> Sort(c);
+gap> c;
+[ 1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210 ]
+\end{verbatim}
+
+We see that the divisors of $210$ equal the products of $d_1 d_2$ whcih was stated in the theorem. Note the difference between a \emph{factor} and a \emph{divisor}; factors (usually) denote only prime factors whereas divisors $d$ are all numbers 
 
 
 %%% Local Variables:
