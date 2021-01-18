@@ -169,15 +169,50 @@ gap> c:=Cartesian(d1, d2);
 [ 2, 7 ], [ 2, 21 ], [ 5, 1 ], [ 5, 3 ], [ 5, 7 ], [ 5, 21 ], 
 [ 10, 1 ], [ 10, 3 ], [ 10, 7 ], [ 10, 21 ] ]
 gap> Apply(c, i -> i[1]*i[2]);
-gap> c
-> ;
+gap> c;
 [ 1, 3, 7, 21, 2, 6, 14, 42, 5, 15, 35, 105, 10, 30, 70, 210 ]
 gap> Sort(c);
 gap> c;
 [ 1, 2, 3, 5, 6, 7, 10, 14, 15, 21, 30, 35, 42, 70, 105, 210 ]
 \end{verbatim}
 
-We see that the divisors of $210$ equal the products of $d_1 d_2$ whcih was stated in the theorem. Note the difference between a \emph{factor} and a \emph{divisor}; factors (usually) denote only prime factors whereas divisors $d$ are all numbers 
+We see that the divisors of $210$ equal the products of $d_1 d_2$ which was stated in the theorem. Note the difference between a \emph{factor} and a \emph{divisor}; factors (usually) denote only prime factors whereas divisors $d$ are all numbers 
+
+With this in place, we can state the following theorem.
+
+\begin{theorem}
+    If $f$ is a multiplicative function and $F$ is defined by
+
+    \bee
+    F(n) = \sum_{d | n} f(d)
+    \eee
+
+    then $F$ is also multiplicative.
+\end{theorem}
+
+Let $m$ and $n$ be relatively prime positive integers. Then we have
+
+\bee
+F(mn) = \sum_{d | mn} f(d) = \sum_{d_1 | m, d_2 | m} f(d_1 d_2)
+\eee
+
+because every divisor $d$ of $mn$ can be written uniquely as product of a divisor $d_1$ of $m$ and a divisor $d_2$ or $n$ where $\gcd(d_1, d_2) = 1$. Since $f$ is a multiplicative function, we have $f(d_1 d_2) = f(d_1) f(d_2)$ and therefore
+
+\begin{align*}
+    F(mn) &= \sum_{d_1 | m, d_2 | m} f(d_1 d_2) \\
+          &= \left( \sum_{d_1 | m} f(d_1) \right) \left( \sum_{d_2 | n} f(d_2) \right) \\
+          &= F(m) F(n) \qed
+\end{align*}
+
+This theorem allows a simple proof that $\tau$ and $\sigma$ are multiplicative functions. We first start observing that the constant function $f(n) = 1$ is a multiplicative function, and the identity function $f(n) = n$ is also multiplicative (because $f(mn) = mn = f(m) f(n)$). The functions
+
+\bee
+\tau(n) = \sum_{d | n} 1, \qquad \sigma(n) = \sum_{d | n} d
+\eee
+
+have the form $\sum_{d|n} f(n)$ where $f(n)$ is multiplicative and therefore - by above theorem - $\tau$ and $\sigma$ are multiplicative functions. \qed
+
+
 
 
 %%% Local Variables:
