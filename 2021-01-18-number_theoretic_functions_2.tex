@@ -1,0 +1,159 @@
+\DiaryEntry{Möbius Inversion Formula}{2021-01-18}{Number Theory}
+
+We next define the Möbius function as
+
+\bee
+\mu(n) = \begin{cases}
+    1 & \text{if} n = 1 \\
+    0 & \text{if} p^2 | n \text{ for some prime} p \\
+    (-1)^r & \text{if } n = p_1 p_2 \cdots p_r \text{ where } p_i \text{ are distinct primes}
+\end{cases}
+\eee
+
+So, $\mu(n) = 0$ if $n$ is not a square-free number, whereas $\mu(n) = (-1)^r$ if $n$ is square-free with $r$ prime factors. For example, $30 = 2 \cdot 3 \cdot 5$ has $3$ distinct prime factors and therefore $\mu(30) = (-1)^3 = -1$. For $\mu(49)$ we have $\mu(49) = \mu(7 \cdot 7) = 0$.
+
+The sequence is contained in OEIS as \href{https://oeis.org/A008683}{A008683}. The first few values are
+
+\bee
+\mu(1) = 1, \mu(2) = -1, \mu(3) = -1, \mu(4) = 0, \mu(5) = -1, \mu(6) = \mu(2 \cdot 3) = (-1)^2 = 1, \cdots
+\eee
+
+The Möbius function is a multiplicative function as shown in the next theorem.
+
+\begin{theorem}
+    The Möbius function $\mu$ is a multiplicative function.
+\end{theorem}
+
+We want to show that $\mu(mn) = \mu(m) \mu(n)$ when $m,n$ are relatively prime. If $p^2 | m$ or $p^2 | n$ ($p$ being a prime), $\mu(m) = 0$ or $\mu(n) = 0$ (according to the definition of $\mu$). We have $p^2 | mn$ and therefore $\mu(mn) = 0 = \mu(m) \mu(n)$ and we have shown part of the theorem.
+
+Next assume that $m$ and $n$ are square-free integers, $m = p_1 p_2 \cdots p_r$ and $n = q_1 q_2 \cdots q_s$ with all primes $p_i$ and $q_j$ being distinct. Then
+
+\bee
+\mu(mn) = \mu(p_1 p_2 \cdots p_r q_1 q_2 \cdots q_s) = (-1)^{r+s} = (-1)^r (-1)^s = \mu(m) \mu(n) \qed
+\eee
+
+Summing over the Möbius function yields the following theorem.
+
+\begin{theorem}\label{2021-01-18:th1}
+    For each positive integer $n \geq 1$, we have
+
+    \bee
+        F(n) = \sum_{d | n} \mu(d) = \begin{cases}
+            1 & n=1 \\
+            0 & n>1
+        \end{cases}
+    \eee
+
+    where $d$ runs over all positive divisors of $n$.
+
+\end{theorem}
+
+Consider $n > 0$ to be the power of a prime $p$: $n = p^k$. The positive divisors of $p^k$ are the numbers $1, p, p^2,\ldots, p^k$, so that
+
+\bee
+F(p^k) = \sum_{d | p^k} \mu(d) = \mu(1) + \mu(p) + \mu(p^2) + \cdots + \mu(p^k) = \mu(1) + \mu(p) = 1 + (-1) = 0.
+\eee
+
+Since $\mu(d)$ is a multiplicative function, so is $F(d)$. Using the factorization $n = p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}$, we get for $F(n)$
+
+\bee
+F(n) = F(p_1^{k_1}) F(p_2^{k_2}) \cdots F(p_r^{k_r}) = 0 \qed
+\eee
+
+In the previous entry we showed that if $f(n)$ is multiplicative, so is $F(n) = \sum_{d | n} f(d)$. The Möbius inversion formula allows to calculate $f(n)$ from $F(n)$.
+
+\begin{theorem}
+    If $F(n) = \sum_{d | n} f(d)$, then
+
+    \bee
+        f(n) = \sum_{d | n} \mu(d) F\left( \frac{n}{d}\right) = \sum_{d | n} \mu \left( \frac{n}{d}\right) F(d)
+    \eee
+\end{theorem}
+
+The two sums are seen to be equal by changing the summation index $d$ by $d' = n/d$; as $d$ ranges over all positive divisors of $n$, so does $d'$.
+
+We next expand the expressions.
+
+\bee
+\sum_{d | n} \mu(d) F\left( \frac{n}{d}\right) = \sum_{d | n} \left( \mu(d) \sum_{c | (n/d)} f(c) \right) = \sum_{d | n} \left( \sum_{c | (n/d)} \mu(d) f(c) \right)
+\eee
+
+We can change the summation indices from $d | n$ and $c | (n/d)$ to $c|n$ and $d|(n/c)$ and therefore obtain
+
+\bee
+\sum_{d | n} \left( \sum_{c | n/d} \mu(d) f(c) \right) = \sum_{c | n} \left( \sum_{d | (n/c)} \mu(d) f(c) \right) = \sum_{c | n} f(c) \left( \sum_{d | (n/c)} \mu(d) \right)
+\eee
+
+Looking back to theorem \ref{2021-01-18:th1}, we see that the inner sum vanishes except when $n/c = 1$; i.e. when $n = c$ and this case it equals one. The RHS of the last equation therefore simplifies to
+
+\bee
+\sum_{c | n} f(c) \left( \sum_{d | (n/c)} \mu(d) \right) = \sum_{c = n} f(c) = f(n) \qed
+\eee
+
+\paragraph{Example.} Consider $n = 10$ and work through the epxression. The divisors of $10$ are $1, 2, 5, 10$ and we have
+
+\begin{align*}
+    \sum_{d | 10} \mu(d) \left( \sum_{c | 10/d} f(c) \right) &= \mu(1) [f(1) + f(2) + f(5) + f(10)] \\
+    &+ \mu(2)[f(1) + f(5)] \\
+    &+ \mu(5)[f(1) + f(2)] \\
+    &+\mu(10) f(1) \\
+    &= f(1) [\mu(1) + \mu(2) + \mu(5) + \mu(10)] \\
+    &+ f(2) [\mu(1) + \mu(5)] \\
+    &+ f(5) [\mu(1) + \mu(2)] \\
+    &+ f(10) \mu(1) \\
+    &= \sum_{c | 10} f(c) \left( \sum_{d | 10/c} \mu(d) \right)
+\end{align*}
+
+Before we saw that $\tau$ and $\sigma$ can be written as sums,
+
+\bee
+\tau(n) = \sum_{d | n} 1, \qquad \sigma(n) = \sum_{d | n} d
+\eee
+
+We therefore can use the Möbius inversion formula to "turm them around" and obtain
+
+\bee
+1 = \sum_{d|n} \mu\left(\frac{n}{d}\right) \tau(d), \qquad n = \sum_{d|n} \mu\left(\frac{n}{d} \right) \sigma(d)
+\eee
+
+\paragraph{Example.} As an example, consider $n = 10$. We have
+
+\begin{align*}
+    1 &= \sum_{d|10} \mu\left(\frac{10}{d}\right) \tau(d) \\
+    &= \mu(10) \tau(1) + \mu(5) \tau(2) + \mu(2) \tau(5) + \mu(1) \tau(10) \\
+    &= 1 \cdot 1 + (-1) \cdot 2 + (-1) \cdot 2 + 1 \cdot 4 = 1 \qed
+\end{align*}
+
+and also
+
+\begin{align*}
+    10 &= \sum_{d|10} \mu\left(\frac{10}{d} \right) \sigma(d) \\
+    &= \mu(10) \sigma(1) + \mu(5) \sigma(2) + \mu(2) \sigma(5) + \mu(1) \sigma(10) \\
+    &= 1 \cdot 1 + (-1) \cdot 3 + (-1) \cdot 6 + 1 \cdot 18 = 10 \qed
+\end{align*}
+
+Previously, we had the fact that if $f(n)$ as multiplicative, so was $F(n) = \sum_{d|n} f(d)$. Interestingly, the reverse is also true as in the following theorem.
+
+\begin{theorem}
+    If $F$ is a multiplicative function and 
+    \bee
+    F(n) = \sum_{d|n} f(d)
+    \eee
+    then $f(n)$ is also multiplicative.
+\end{theorem}
+
+Let's start (again) with two relatively prime integers $m$ and $n$. From above, we know that a divisor $d$ of $mn$ can be uniquely written as $d = d_1 d_2$ with $d_1 | m$, $d_2 | n$, and $\gcd(d_1, d_2) = 1$. We use the inversion formula as follows
+
+\begin{align*}
+    f(mn) &= \sum_{d|mn} \mu(d) F\left(\frac{mn}{d}\right) \\
+    &= \sum_{d_1|m, d_2|n} \mu(d_1 d_2) F\left(\frac{mn}{d_1 d_2}\right) \\
+    &= \sum_{d_1|m, d_2|n} \mu(d_1) \mu(d_2) F\left(\frac{m}{d_1}\right) F\left(\frac{n}{d_2}\right) \\
+    &= \sum_{d_1|m} \mu(d_1) F\left(\frac{m}{d_1}\right) \sum_{d_2|n} \mu(d_2)  F\left(\frac{n}{d_2} \right) \\
+    &= f(m) f(n) \qed
+\end{align*}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
