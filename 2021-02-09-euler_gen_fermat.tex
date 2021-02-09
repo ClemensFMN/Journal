@@ -1,0 +1,81 @@
+\DiaryEntry{Euler's Generalization of Fermat's Theorem}{2021-02-09}{Number Theory}
+
+We start with Euler's ophi function.
+
+\begin{definition}[Euler Phi Function]
+For $n \geq 1$, let $\phi(n)$ denote the number of positive integers below $n$ that are relatively prime to $n$.
+\end{definition}
+
+As an example, we have $\phi(30) = 8$ as the following $8$ numbers $1, 7, 11, 13, 17, 19, 23, 29$ are coprime with $30$. We can obtain this with Gap as follows
+
+\begin{verbatim}
+gap> Phi(30);
+8
+gap> PrimeResidues(30);
+[ 1, 7, 11, 13, 17, 19, 23, 29 ]
+\end{verbatim}
+
+If $n$ is prime, then every number below $n$ is coprime with it and we therefore have $\phi(n) = n-1$. If $n$ is composite, then $\phi(n) \leq n-2$.
+
+We seek a formula to calculate $\phi(n)$ for any integer $n$ from the prime factorization of $n$. A first step in this direction is the following theorem.
+
+\begin{theorem}
+  If $p$ is prime and $k > 0$, then
+
+  \bee
+  \phi(p^k) = p^k - p^{k-1} = p^k \left( 1 - \frac{1}{p} \right)
+  \eee
+
+\end{theorem}
+
+Let's write down the integers divisible by $p$. Since $p$ is prime, these are
+
+\bee
+p, 2p, 3p, \ldots, p^{k-1} p
+\eee
+
+and these are $p^{k-1}$ numbers. From $1$ to $p^k$ we have $p^k$ numbers and therefore $p^k - p^{k-1}$ numbers are relatively prime to $p^k$, which yields $\phi(p^k) = p^k - p^{k-1}$. \qed
+
+As a simple example consider $\phi(5^2) = 20$ (obtained via GAP) and $\phi(5^2) = 5^2 - 5 = 20$ (using the above theorem).
+
+In order to be able to calculate $\phi(n)$ for \emph{any} number from its prime factorization, we need to show that $\phi(n)$ is a multiplicative function. We omit the proof (for now) and directly state the following theorem.
+
+\begin{theorem}
+  If the integer $n$ has the prime factorization $n = p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}$, then
+
+  \bee
+  \phi(n) = n \left( 1 - \frac{1}{p_1}\right) \left( 1 - \frac{1}{p_2}\right) \cdots \left( 1 - \frac{1}{p_r}\right)
+  \eee
+  
+\end{theorem}
+
+Since we know that $\phi(n)$ is a multiplicative function, the proof is simple: We have
+
+\bee
+\phi \left( p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r} \right) = \phi \left( p_1^{k_1} \right) \phi \left( p_2^{k_2} \cdots p_r^{k_r} \right) = p_1^{k_1} \left( 1 - \frac{1}{p_1}\right) \phi \left( p_2^{k_2} \cdots p_r^{k_r} \right)
+\eee
+
+Repeating this procedure, we eventually arrive at
+
+\begin{align*}
+\phi \left( p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r} \right) &= p_1^{k_1} \left( 1 - \frac{1}{p_1}\right) p_2^{k_2} \left( 1 - \frac{1}{p_2}\right) \cdots p_r^{r} \left( 1 - \frac{1}{p_r}\right) \\ &= n \left( 1 - \frac{1}{p_1}\right) \left( 1 - \frac{1}{p_2}\right) \cdots \left( 1 - \frac{1}{p_r}\right) \\ &= \left( p_1^{k_1} - p_1^{k_1 - 1} \right)\left( p_2^{k_2} - p_2^{k_2 - 1} \right) \cdots \left( p_r^{k_r} - p_r^{k_r - 1} \right) \qed
+\end{align*}
+
+Here the last line shows that the exponents $k_i$ do enter the expression for $\phi(n)$.
+
+For example, we have
+
+\begin{verbatim}
+gap> PrintFactorsInt(100);
+2^2*5^2
+gap> 100*(1-1/2)*(1-1/5);
+40
+gap> Phi(100);
+40
+\end{verbatim}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
