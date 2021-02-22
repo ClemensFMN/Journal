@@ -1,6 +1,8 @@
 \DiaryEntry{Euler's Generalization of Fermat's Theorem}{2021-02-09}{Number Theory}
 
-We start with Euler's ophi function.
+\subsection{Euler's Phi Function}
+
+See also \ref{2017-04-26:entry}.
 
 \begin{definition}[Euler Phi Function]
 For $n \geq 1$, let $\phi(n)$ denote the number of positive integers below $n$ that are relatively prime to $n$.
@@ -49,7 +51,7 @@ In order to be able to calculate $\phi(n)$ for \emph{any} number from its prime 
   
 \end{theorem}
 
-Since we know that $\phi(n)$ is a multiplicative function, the proof is simple: We have
+Since we know that $\phi(n)$ is a multiplicative function, the proof is simple: The integers $p_i^{k_i}$ are all relatively prime and therefore we have
 
 \bee
 \phi \left( p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r} \right) = \phi \left( p_1^{k_1} \right) \phi \left( p_2^{k_2} \cdots p_r^{k_r} \right) = p_1^{k_1} \left( 1 - \frac{1}{p_1}\right) \phi \left( p_2^{k_2} \cdots p_r^{k_r} \right)
@@ -73,6 +75,230 @@ gap> 100*(1-1/2)*(1-1/5);
 gap> Phi(100);
 40
 \end{verbatim}
+
+We have the fact that $\phi(n)$ is an even integer for $n > 2$: We first assume that $n$ is a power of two; $n = 2^k$. By the previous theorem, we have
+
+\bee
+\phi(2^k) = 2^k \left(1 - \frac{1}{2}\right)
+\eee
+
+which is even. If $n$ is not a power of $2$, then it is divisible by an odd prime $p$ and we can write $n = m p^k$ with $k \geq 1$ and $\gcd(p^k, m) = 1$. We can therefore write
+
+\bee
+\phi(n) = \phi(m p^k) = \phi(m) \phi(p^k) = \phi(m) p^k \left(1 - \frac{1}{p} \right) = \phi(m) p^{k-1} (p-1)
+\eee
+
+Since $p$ is odd, $p-1$ is even and therefore $\phi(n)$ is also even. \qed
+
+What is also interesting is the fact that, for $n$ odd, $\phi(n) = \phi(2n)$. We can see this as follows: We have
+
+\bee
+n = p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}
+\eee
+
+and since $n$ is odd, none of the primes $p_1, \ldots, p_r$ can be equal to $2$. Therefore, $2n$ has the factorization
+
+\bee
+2n = 2 p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}
+\eee
+
+and therefore
+
+\bee
+\phi(2n) = 2 n \left( 1 - \frac{1}{2}\right) \left( 1 - \frac{1}{p_1}\right)  \cdots \left( 1 - \frac{1}{p_r}\right) = n \left( 1 - \frac{1}{p_1}\right)  \cdots \left( 1 - \frac{1}{p_r}\right) = \phi(n) \qed
+\eee
+
+If $n$ is even, $2$ must be contained in the factorization of $n$,
+
+\bee
+n = 2^{k_1} p_2^{k_2} \cdots p_r^{k_r}
+\eee
+
+and therefore
+
+\bee
+2n = 2^{k_1+1} p_2^{k_2} \cdots p_r^{k_r}
+\eee
+
+
+Using this, we can calculate $\phi(2n)$ as
+
+\bee
+\phi(2n) = \left( 2^{k_1+1} - p_1^{k_1 } \right) \cdots \left( p_r^{k_r} - p_r^{k_r - 1} \right) = 2 \left( 2^{k_1} - p_1^{k_1-1} \right) \cdots \left( p_r^{k_r} - p_r^{k_r - 1} \right) = 2 \phi(n) \qed
+\eee
+
+As an example, consider $\phi(9) = 6 = \phi(19)$ and $\phi(8) = 4, \phi(16) = 8$.
+
+\subsection{Euler's Theorem}
+
+\begin{theorem}
+  If $n>1$ and $\gcd(a, n) = 1$, then
+
+  \bee
+  a^{\phi(n)} \equiv 1 \mod n
+  \eee
+\end{theorem}
+
+As an example, consider $n=16, a=3$: We have $3^\phi(16) = 3^8 = 6561 \equiv 1 \mod$. The striking part of the theorem is the fact that the modulo-equivalence does not dpeend on $a$ (as long as $\gcd(a,n)=1$), so we also have $5^\phi(16) \equiv 7^\phi(16) \equiv 9^\phi(16) \equiv 1 \mod 16$.
+
+Before we can prove the theorem, we need the following lemma.
+
+\begin{theorem}
+  Let $n > 1$ and $\gcd(a,n) = 1$. If $a_1, a_2, \ldots, a_{\phi(n)}$ are the positive integers less than $n$ which are relatively prime to $n$, then
+
+  \bee
+  a a_1, a a_2, \ldots a a_{\phi(n)}
+  \eee
+
+  are congruent modulo-$n$ to $a_1, a_2, \ldots, a_{\phi(n)}$ in some order.
+\end{theorem}
+
+We first observe that no two integers $a a_i, a a_j$ with $i \neq j \leq \phi(n)$ are congruent modulo-$n$. If we had $a a_i \equiv a a_j \mod a$, then we could cancel $a$ (as $\gcd(a.n)=1$) and we would have the contradiction $a_i = a_j$. In addition, because $\gcd(a_i,n) = 1$ and $\gcd(a,n) = 1$, the $a a_i$ are relatively prime to $n$ (no proof given).
+
+For a particular $a a _i$, there exists a unique integer $0 \leq b < n$ for which $a a _i \equiv b \mod n$. Because $\gcd(b,n) = \gcd(a a_i, n) = 1$, $b$ must be one of the integers $a_1, a_2, \ldots, a_{\phi(n)}$. All together, this proves that the numbers $a a_1, a a_2, \ldots, a a_{\phi(n)}$ and $a_1, a_2, \ldots, a_{\phi(n)}$ are equivalent modulo-$n$ in a certain order. \qed
+
+With that in place, we can prove Euler's theorem. We assume $n > 1$ and let $a_1, a_2, \ldots, a_{\phi(n)}$ denote positive integers less than $n$ which are also relatively prime to $n$. Because $\gcd(a,b) = 1$, the integers $a a_1, a a_2, \ldots, a a_{\phi(n)}$ are congruent to $a_1, a_2, \ldots, a_{\phi(n)}$ in some order. Then we have
+
+\begin{align*}
+  a a_1 & \equiv a_1' \mod n \\
+  \cdots & \cdots \\
+  a a_{\phi(n)} & \equiv a_{\phi(n)}' \mod n \\
+\end{align*}
+
+where the $a_1', \ldots, a_{\phi(n)}'$ are the integers $a_1, a_2, \ldots, a_{\phi(n)}$ in some order. Multiplying all $\phi(n)$ congruences together, we obtain
+
+\bee
+(a a_1) (a_2) \cdots (a a_{\phi(n)}) \equiv a_1' a_2' \cdots a_{\phi(n)}' \mod n \equiv a_1 a_2 \cdots a_{\phi(n)} \mod n
+\eee
+
+where we have used the fact that a product does not depend on the order of its factors and therefore $a_1' a_2' \cdots a_{\phi(n)}' = a_1 a_2 \cdots a_{\phi(n)}$. On the left, we have $\phi(n)$-times $a$, and therefore
+
+\bee
+a^{\phi(n)} (a_1 a_2 \cdots a_{\phi(n)}) \equiv a_1 a_2 \cdots a_{\phi(n)} \mod n
+\eee
+
+Since for each $a_i$ we have $\gcd(a_i,n) = 1$, we can cancel the term and we arrive at
+
+\bee
+a^{\phi(n)} \equiv 1 \mod n \qed
+\eee
+
+\paragraph{Example.} We can use Euler's theorem to reduce large powers modulo $n$. Let us find the last two digits of $3^{256}$; i.e. $3^{256} \mod 100$. We have $\gcd(3,100) = 1$ and $\phi(100) = \phi(2^2 5^2) = 100 \left(1 - \frac{1}{2})\right) \left(1 - \frac{1}{5})\right) = 40$, therefore
+
+\bee
+3^{40} \equiv 1 \mod 100
+\eee
+
+We can write $256 = 6 \cdot 40 + 16$ and So
+
+\bee
+3^{256} \equiv 3^{6 \cdot 40 + 16} \equiv (3^{40})^6 3^{16} \equiv 3^{16} \mod 100
+\eee
+
+We can solve the last one either directly $3^{16} = 43046721$ or via repeated squaring;
+
+\bee
+3^2 \equiv 9 \mod 100 \rightarrow 3^4 \equiv 81 \mod 100 \rightarrow 3^8 \equiv 61 \mod 100 \rightarrow 3^{16} \equiv 21 \mod 100
+\eee
+
+\subsection{Some (more) properties of Euler's Phi Function}
+
+\begin{theorem}
+  For $n \geq 1$, we have
+
+  \bee
+    \sum_{d | n} \phi(d) = n
+  \eee
+
+\end{theorem}
+
+We can prove this by putting the integers $1, 2, \ldots n$ into equivalence classes which depend on their gcd value with $n$,
+
+\bee
+S_d = \{ m | \gcd(m,n) = d, 1 \leq m \leq n \}
+\eee
+
+For example, with $n=10$, we have $S_1 = \{1, 3, 7, 9\}$; i.e. all elements $m$ in $S_1$ have $\gcd(m,10)=1$. Continuing, we have $S_2 = \{2,4,6,8\}, S_5=\{5\}$ and $S_{10} = \{10\}$.
+
+Now $\gcd(m,n) = d$ iff $\gcd(m/d, n/d) = 1$. Therefore, the number of integers in a class $S_d$ equals the integers not exceeding $n/d$ which are relatively prime to $n/d$; i.e. equal $\phi(n/d)$. In our running example, we have $|S_1| = \phi(10/1) = \phi(10) = 4$.
+
+We have partitioned the integers into equivalence classes, meaning that each integer is contained in only one class. We therefore obtain
+
+\bee
+\sum_{d | n} \phi \left( \frac{n}{d} \right) = n
+\eee
+
+But as $d$ runs through all divisors of $n$, so does $n/d$ and we can substitute
+
+\bee
+\sum_{d | n} \phi \left( \frac{n}{d} \right) = \sum_{d | n} \phi(d)) = n \qed
+\eee
+
+In our runnig example, we therefore have $|S_1| + |S_2| + |S_5| + |S_{10}| = 4 + 4 + 1 + 1 = 10$.
+
+Another proof uses the multiplicity of $\phi(n)$. Define
+
+\bee
+F(n) = \sum_{d | n} \phi(d)
+\eee
+
+which is also a multiplicative function. If $n = p_1^{k_1} \cdots p_r^{k_r}$, then
+
+\bee
+F(n) = F(p_1^{k_1}) \cdots F(p_r^{k_r})
+\eee
+
+For each factor we have
+
+\begin{align*}
+  F(p_i^{k_i}) &= \sum_{d | p_i^{k_i} } \phi(d) \\
+  &= \phi(1) + \phi(p_i) + \phi(p_i^2) + \cdots + \phi(p_i^{k_i}) \\
+  &= 1 + (p_1 - 1)+  (p_1^2 - p_1) + \cdots + (p_i^{k_i} - p_i^{k_i-1}) \\
+  &= p_i^{k_i}
+\end{align*}
+
+Inserting this into $F(n) = F(p_1^{k_1}) \cdots F(p_r^{k_r})$, we obtain
+
+\bee
+F(n) = p_1^{k_1} \cdots p_r^{k_r} = n
+\eee
+
+and therefore $F(n) = \sum_{d | n} \phi(d) = n$. \qed
+
+
+\begin{theorem}
+  For $n<1$, the sum of all positive integers less than $n$ and relatively prime to $n$ is $\frac{1}{2}n\phi(n)$.
+\end{theorem}
+
+For $n = 10$, we have $\frac{1}{2}10 \phi(10) = 5 \phi(10) = 20$ which equals $1 + 3 + 7 + 9 = 20$.
+
+Proof: Let $a_1, a_{\phi(n)}$ the integers smaller than $n$ and relatively prime to $n$. Becuase $\gcd(a,n) = 1$ iff $\gcd(n-a,a) = 1$, the numbers $n - a_1, n - a_{\phi(n)}$ are equal in some order to the $a_1, a_{\phi(n)}$. Thus we have
+
+\bee
+a_1 + a_2 + \cdots + a_{\phi(n)} = (n-a_1) + (n-a_2) + \cdots + (n-a_{\phi(n)}) = \phi(n) - (a_1 + a_2 + \cdots + a_{\phi(n)})
+\eee
+
+and therefore
+
+\bee
+2(a_1 + a_2 + \cdots + a_{\phi(n)}) = \phi(n) n \qed
+\eee
+
+\begin{theorem}
+  For any positive integer $n$,
+
+  \bee
+    n \sum_{d | n} \frac{\mu(d)}{d} = \phi(n)
+  \eee
+
+\end{theorem}
+
+As above, define $F(n) = n = \sum_{d | n} \phi(d)$. If we apply the Möbius inversion formula, we obtain
+
+\bee
+\phi(n) = \sum_{d | n} \mu(d) F\left( \frac{n}{d} \right) = \sum_{d | n} \mu(d) \frac{n}{d} \qed
+\eee
+
 
 
 %%% Local Variables:
