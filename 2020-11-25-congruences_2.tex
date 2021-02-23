@@ -71,11 +71,44 @@ from which we read off $x_0 = -4$. Therefore, the set of solutions given by
 x = x_0 + k \frac{6}{2} = -4 + 3k = -1, 2, 5, 8, \ldots
 \eee
 
-\paragraph{Multiplicative Inverse module $n$.} As a corollary, we have.
+\paragraph{Multiplicative Inverse module $n$.} As a corollary, we have the following.
 
 \begin{theorem}
     If $\gcd(a,n) = 1$, then $a x \equiv b \mod n$ has a unique solution modulo $n$. In particular, $a x \equiv 1 \mod n$ has a unique solution called the \emph{(multiplicative) inverse} of $a$ modulo $n$. Note that the condition $\gcd(a,n) = 1$ is trivially fulfilled when $n$ is prime.
 \end{theorem}
+
+We can gain some intuition as follows: Every integer is congruent (mod $m$) to exactely one of the numbers $0,1,\ldots, m-1$. However, there are other set of numbers which have the same property.; e.g. any integer is congruent mod-$5$ to one of the numbers $0,-1,1,-2,2$. Any such set of numbers constitutes a \emph{complete set of residues} to the modulus $m$.
+
+If we consider our linear congruence, $ax \equiv b \mod n$, and if $x$ runs through the numbers of a complete set of residues, then the $ax$ also constitute a complete set of residues, \emph{iff} $\gcd(a,n) = 1$. There are $m$ of these numbers, and no two of them are congruent, since $a x_1 \equiv a x_2 \mod n$ would cause $x_1 \equiv x_2 \mod n$ by cancellation of $a$ (which we are allowed to do because $\gcd(a,n) = 1$). Since the numbers $ax$ form a complete set of residues, there will be exactely one of them congruent to the given number $b$.
+
+As example, consider $4x \equiv 1 \mod 17$. If $x$ runs from $0$ to $16$, $4x$ will cover $0, 4, 8,\ldots, 64$. Since $\gcd(4, 17)=1$, they also form a complete set of residues, namely
+
+\vspace*{3mm}
+
+\begin{tabular}{c|ccccccccccccccccc}
+ $x$ & 0 & 1& 2& 3& 4& 5& 6& 7& 8& 9& 10& 11& 12& 13& 14& 15& 16 \\
+ $4x$ & 0& 4& 8& 12& 16& 20& 24& 28& 32& 36& 40& 44& 48& 52& 56& 60& 64 \\
+ $4x \mod 17$ & 0& 4& 8& 12& 16& 3& 7& 11& 15& 2& 6& 10& 14& 1& 5& 9& 13 \\
+\end{tabular}
+
+\vspace*{3mm}
+
+We can see that $4x \mod 17$ runs through all integers in the interval $[0, 16]$. A value $x = 13$ causes $4x \equiv 1 \mod 17$ and therefore $x = 13$ is the solution to our problem.
+
+Let's see what happens when the gcd does not equal $1$; we consider $4x \equiv 1 \mod 16$ instead.
+
+\vspace*{3mm}
+
+\begin{tabular}{c|cccccccccccccccc}
+ $x$ & 0& 1& 2& 3& 4& 5& 6& 7& 8& 9& 10& 11& 12& 13& 14& 15 \\
+ $4x$ & 0& 4& 8& 12& 16& 20& 24& 28& 32& 36& 40& 44& 48& 52& 56& 60 \\
+ $4x \mod 16$ & 0& 4& 8& 12& 0& 4& 8& 12& 0& 4& 8& 12& 0& 4& 8& 12 \\
+\end{tabular}
+
+\vspace*{3mm}
+
+Not $4x \mod 16$ does \emph{not} run through all integers in the interval $[0, 15]$ and does never yield the value $1$. Therefore, the equation does not have a solution.
+
 
 We can calculate the multiplicative inverse module $n$ via a slight variation of the extended Euclidean algorithm. From above we know that $ax \equiv 1 \mod n$ is equivalent to the linear Diophantine equation $ax - ny = 1$. The extended Euclidean algorithm (entries \ref{2020-08-11:entry} and \ref{2020-08-20:entry}) solves $ar + bs = \gcd(a,b)$. Choosing $a = a, b = -n$, $\gcd(a,b) = \gcd(a, n) = 1$ is fulfilled and the algorithm yields a solution for $r,s$. We are only interested in $r$ and there is a slightly more efficient algorithm available (more efficient as it only calculates $r$) shown \href{https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm}{here}. In Julia, the implementation looks as follows (note the close resemblence to the Julia code in entry \ref{2020-08-20:entry})
 
