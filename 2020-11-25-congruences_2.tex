@@ -109,7 +109,6 @@ Let's see what happens when the gcd does not equal $1$; we consider $4x \equiv 1
 
 Not $4x \mod 16$ does \emph{not} run through all integers in the interval $[0, 15]$ and does never yield the value $1$. Therefore, the equation does not have a solution.
 
-
 We can calculate the multiplicative inverse module $n$ via a slight variation of the extended Euclidean algorithm. From above we know that $ax \equiv 1 \mod n$ is equivalent to the linear Diophantine equation $ax - ny = 1$. The extended Euclidean algorithm (entries \ref{2020-08-11:entry} and \ref{2020-08-20:entry}) solves $ar + bs = \gcd(a,b)$. Choosing $a = a, b = -n$, $\gcd(a,b) = \gcd(a, n) = 1$ is fulfilled and the algorithm yields a solution for $r,s$. We are only interested in $r$ and there is a slightly more efficient algorithm available (more efficient as it only calculates $r$) shown \href{https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm}{here}. In Julia, the implementation looks as follows (note the close resemblence to the Julia code in entry \ref{2020-08-20:entry})
 
 \begin{verbatim}
@@ -149,6 +148,22 @@ The inverse of $7$ module-$7$ is $2$ and we multiply both sides by it and obtain
 \bee
 2 \cdot 4x \equiv 2 \cdot 2 \mod 7 \rightarrow x \equiv 4 \mod 7
 \eee
+
+We can do the same in GAP: We first define the identity element in the ``modulo-space''; then we can perform calculations with it. In the example below, we first calculate the inverse of $4$ modulo-$17$ and then solve $4x \equiv 2 \mod 7$.
+
+\begin{verbatim}
+gap> im:=Integers mod 17;
+GF(17)
+gap> Int((4*One(im))^(-1));
+13
+
+
+gap> im:=Integers mod 7;
+GF(7)
+gap> Int((2*One(im))*(4*One(im))^(-1));
+4
+\end{verbatim}
+
 
 
 \subsection{Chinese Remainder Theorem}
