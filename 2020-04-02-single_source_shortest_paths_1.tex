@@ -147,7 +147,7 @@ After initializing all vertices (line $2$), the algorithm runs $|G.V|-1$ times a
 \includegraphics[scale=0.5]{images/sssp_5.png}
 \end{figure}
 
-For the illustration, we write inside the vertices the values of \verb d and \verb pi . We choose \verb s=A and after running \verb Init-Single-Source(G,s) , we have the following values.
+For the illustration, we write inside the vertices the values of \verb|d| and \verb| pi| . We choose \verb|s=A| and after running \verb|Init-Single-Source(G,s)| , we have the following values.
 
 \begin{figure}[H]
 \centering
@@ -156,21 +156,21 @@ For the illustration, we write inside the vertices the values of \verb d and \ve
 
 The algorithm will now run $|G.V|-1 = 2$ times over all edges and perform relaxation. The order in which the algorithm chooses the edges is arbitrary. Depending on the order, the algorithm may finish earlier; i.e. no updates occur in later iterations.
 
-We first start with the edge \verb A-B . Relaxation is possible; i.e. \verb B.d>A.d+w(A,B) . Therefore, we set \verb B.d=3  and \verb B.pi=A . This results in the following attributes of the graph.
+We first start with the edge \verb|A-B|. Relaxation is possible; i.e. \verb|B.d>A.d+w(A,B)|. Therefore, we set \verb|B.d=3< and \verb|B.pi=A|. This results in the following attributes of the graph.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{images/sssp_7.png}
 \end{figure}
 
-Next we choose the edge \verb A-C . Again, relaxation is possible and we set \verb C.d=1  and \verb C.pi=A . We get the following graph.
+Next we choose the edge \verb|A-C| . Again, relaxation is possible and we set \verb|C.d=1| and \verb|C.pi=A| . We get the following graph.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{images/sssp_8.png}
 \end{figure}
 
-There is the edge \verb B-C left. Again, we can relax and update \verb B.d=2  and \verb B.pi=C . We finally arrive at the graph as follows.
+There is the edge \verb|B-C| left. Again, we can relax and update \verb|B.d=2| and \verb|B.pi=C|. We finally arrive at the graph as follows.
 
 \begin{figure}[H]
 \centering
@@ -186,21 +186,21 @@ We have chosen the edges in the ``right'' order and already obtained the final s
 \includegraphics[scale=0.5]{images/sssp_15.png}
 \end{figure}
 
-After running \verb Init-Single-Source(G,s) , we have the following values.
+After running \verb|Init-Single-Source(G,s)|, we have the following values.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{images/sssp_16.png}
 \end{figure}
 
-We start with the edge \verb A-B . We perform relaxation and arrive at
+We start with the edge \verb|A-B|. We perform relaxation and arrive at
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{images/sssp_17.png}
 \end{figure}
 
-Next we consider the egde \verb B-A . Contrary to the previous example, we also perform relaxation and arrive at the following
+Next we consider the egde \verb|B-A|. Contrary to the previous example, we also perform relaxation and arrive at the following
 
 \begin{figure}[H]
 \centering
@@ -209,7 +209,7 @@ Next we consider the egde \verb B-A . Contrary to the previous example, we also 
 
 Here the algorithm stops (we have $|G.V| -1 = 1$ iterations). However, if we would continue to run the algorithm, the values $A.d$ and $B.d$ do not stay constant but are getting less and less. This is the symptom of a negative-weight cycle.
 
-The Bellman Ford algorithm performs a check for such negative-weight cycles. Looking at edge \verb A-B , we need to check whether $B.d \geq A.d + w(A,B)$: We have $3 \geq -2 + 3 = 1$, the condition is true and we return \verb false  to indicate a negative-weight cycle.
+The Bellman Ford algorithm performs a check for such negative-weight cycles. Looking at edge \verb|A-B| , we need to check whether $B.d \geq A.d + w(A,B)$: We have $3 \geq -2 + 3 = 1$, the condition is true and we return \verb|false|  to indicate a negative-weight cycle.
 
 
 \subsection{Single-source Shortest Paths in DAGs}
