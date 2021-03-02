@@ -10,7 +10,7 @@ As an example, consider $a = 2, n = 7$ and write down successive powers of $2$ m
 
 From this we can see that the order of $2$ modulo-$7$ is $k=3$.
 
-The smallest order of an integer is $1$, the largest is $\phi(n)$.
+We can bound the order $k$ from above by using Euclid's theorem $a^{\phi(n)} \equiv 1 \mod n$ as $k \leq \phi(n)$. The order can be smaller than $\phi(n)$ but this need not be the case.
 
 If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
 
@@ -44,7 +44,7 @@ gap> OrderMod(2, 7);
 \end{verbatim}
 
 
-\begin{theorem}
+\begin{theorem}\label{2021-03-02-th1}
   If the integer $a$ has order $k$ modulo-$n$, then $a^i \equiv a^j \mod n$ iff $i \equiv j \mod n$.
 \end{theorem}
 
@@ -103,15 +103,52 @@ In other words, $n$ has $a$ as primitive root if $a^{\phi(n)} \equiv 1 \mod n$ b
 Continue with $n=13$, we have $\phi(13) = 12$ and the primitive roots are $2, 6, 7, 11$ because they have order $12$. We can do this in Gap via the \verb+PrimitiveRootMod+ function (which takes an optional parameter from which value to start searching for the next primitive root) as follows:
 
 \begin{verbatim}
+gap> Phi(13);
+12
 gap> PrimitiveRootMod(13);
 2
+gap> OrderMod(2,13);
+12
 gap> PrimitiveRootMod(13,2);
 6
+gap> OrderMod(6,13);
+12
 gap> PrimitiveRootMod(13,6);
 7
+gap> OrderMod(7,13);
+12
 gap> PrimitiveRootMod(13,7);
 11
+gap> OrderMod(11,13);
+12
 \end{verbatim}
+
+The whole topic is closely related to Group theory; see e.g. \ref{2017-05-05:entry}.
+
+We have some more theorems.
+
+\begin{theorem}
+  Let $\gcd(a,n)=1$ and let $a_1, a_2, \ldots, a_{\phi(n)}$ be the positive integers less than $n$ and relatively prime to $n$. If $a$ is a primitive root of $n$, then
+
+  \bee
+  a, a^2, \ldots, a^{\phi(n)}
+  \eee
+
+  are congruent modulo $n$ to $a_1, a_2, \ldots, a_{\phi(n)}$.
+\end{theorem}
+
+Because $a$ is relatively prime to $n$, the same holds for all the powers of $a$. Therefore, each $a^k$ is congruent modulo $n$ to one of the $a_i$. The $\phi(n)$ numbers in the set $a, a^2, \ldots, a^{\phi(n)}$ are incongruent by theorem \ref{2021-03-02-th1} and thus, these powers must represent (in different order) the integers $a_1, a_2, \ldots, a_{\phi(n)}$. \qed
+
+If a primitive root exists, we can state how many there are using the following theorem.
+
+\begin{theorem}
+  If $n$ has a primitive root , then it has $\phi(\phi(n))$ of them.
+\end{theorem}
+
+In our running example of $n=13$, we have $\phi(\phi(13)) = 4$ primitive roots.
+
+If $a$ is a primitive root of $n$, then any other primitive root of $n$ is found among the members of the set $a, a^2, a^{\phi(n)}$. But the number of powers $a^k, 1 \leq k \leq \phi(n)$, that have order $\phi(n)$ is equal to the number of integers $k$ for which $\gcd(k, \phi(n)) = 1$; there are $\phi(\phi(n))$ such integers and $\phi(\phi(n))$ primitive roots of $n$. \qed
+
 
 
 
