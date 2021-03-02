@@ -1,0 +1,121 @@
+\DiaryEntry{Primitive Roots and Indices}{2021-03-02}{Number Theory}
+
+The order of an integer $a$ modulo-$n$ (with $n>1$ and $\gcd(a,n)=1$) is the smallest positive integer $k$ such that $a^k \equiv 1 \mod n$.
+
+As an example, consider $a = 2, n = 7$ and write down successive powers of $2$ modulo-$7$. We have
+
+\bee
+2^1 \equiv 1 \mod 7, 2^2 \equiv 4 \mod 7, 2^3 \equiv 1 \mod 7, 2^4 \equiv 2 \mod 7, \ldots
+\eee
+
+From this we can see that the order of $2$ modulo-$7$ is $k=3$.
+
+The smallest order of an integer is $1$, the largest is $\phi(n)$.
+
+If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
+
+Note that the condition $\gcd(a,n)=1$ is a crucial one; if this condition is violated, then $a^k \equiv 1 \mod n$ would have no solution and the order is not defined. Therefore, we assume $\gcd(a,n)=1$ in the following.
+
+In the previous example, we had $2^k \equiv 1 \mod 7$ whenever $k$ was a multiple of $3$, the order of $2$ modulo-$7$. This is no coincidence, as the following theorem shows.
+
+\begin{theorem}
+  Let the integer $a$ have order $k$ modulo-$n$. Then $a^h \equiv 1 \mod n$ iff $k | h$; in particular, $k | \phi(n)$.
+\end{theorem}
+
+To prove, we start with $h | k$ which implies $h = jk$ for some integer $j$. Because $a^k \equiv 1 \mod n$, we have
+
+\bee
+a^h \equiv a^{jk} \equiv \left( a^j \right)^k \equiv 1^k \equiv 1 \mod n
+\eee
+
+The other way round starts with an integer $h$ satisfying $a^h \equiv 1 \mod n$. By the division algorithm, there exist integers $q$ and $r$ such that $h = qk+r$ where $0 \leq r < k$. Therefore, we have
+
+\bee
+a^h \equiv a^{qk+r} \equiv \left(a^k\right)^q a^r \mod n
+\eee
+
+Our hypothesis states that $a^h \equiv a^k \equiv 1 \mod n$ and therefore $a^r \equiv 1 \mod n$. Because $0 \leq r < k$, we arrive at $r=0$. Therefore, $h = qk$ and $k | h$. \qed
+
+With Gap, we can calculate the order as follows.
+
+\begin{verbatim}
+gap> OrderMod(2, 7);
+3
+\end{verbatim}
+
+
+\begin{theorem}
+  If the integer $a$ has order $k$ modulo-$n$, then $a^i \equiv a^j \mod n$ iff $i \equiv j \mod n$.
+\end{theorem}
+
+First, suppose $a^i \equiv a^j \mod n$ with $i \geq j$. Because $a$ is relatively prime to $n$, we may cancel a power of $a$ and obtain $a^{i-j} \equiv 1 \mod n$. According to the previous theorem, this holds iff $k | i-j$ which is equivalent to $i \equiv j \mod k$ (definition of congruence). 
+
+Conversely, let $i \equiv j \mod k$. Tnen we have $i = j+  qk$ for some integer $q$. By the definition of $k$, we have $a^k \equiv 1 \mod n$ so that
+
+\bee
+a^i \equiv a^{j+qk} \equiv a^j \left( a^k \right)^q \equiv a^j \mod n \qed
+\eee
+
+As a corollary, if $a$ has order $k$ modulo-$n$, then the integers $a, a^2, \ldots, a^k$ are incongruent modulo-$n$.
+
+If $a^i \equiv a^j \mod n$, for $1 \leq i \leq j \leq k$, then the previous theorem ensures that $i \equiv j \mod n$. But this is impossible unless $i=j$. \qed
+
+In our running example with $a=2, n=7$, $2$ has order $3$. Therefore, $2, 2^2, 2^3$ are incongruent modulo-$7$.
+
+We next tackle the question whether we can express the order of any integral power of $a$ in terms of the order of $a$? This is answered in the following theorem.
+
+\begin{theorem}
+  If the integer $a$ has order $k$ modulo-$n$ and $h > 0$, then $a^h$ has order $k | \gcd(h,k)$ modulo-$n$.
+\end{theorem}
+
+Proof is omitted.
+
+As a corollary, we note that if $a$ has order $k$ modulo-$n$, then $a^h$ has also order $k$ iff $\gcd(h,k)=1$.
+
+As an example, consider $n=13$ and obtain the orders of several numbers in a Gap session.
+
+\begin{verbatim}
+gap> OrderMod(2, 13);
+12
+gap> OrderMod(2^2, 13);
+6
+gap> OrderMod(2^3, 13);
+4
+\end{verbatim}
+
+We have
+
+\bee
+\frac{12}{\gcd(2,12)} = 6, \quad \frac{12}{\gcd(3, 12)} = 4
+\eee
+
+which matches the result of the theorem. The order of $2$ equals $12$ modulo-$13$; since $\gcd(5, 12) = 1$, the order of $2^5 \equiv 6$ is also equal to $12$ which Gap shows to be correct
+
+\begin{verbatim}
+gap> OrderMod(6, 13);
+12
+\end{verbatim}
+
+If an integer $a$ has the largest order possible, then we call it a primitive root of $n$. More exactely, if $\gcd(a,n)=1$ and $a$ is of order $\phi(n)$ modulo-$n$, then a is a \emph{primitive root} of the integer $n$.
+
+In other words, $n$ has $a$ as primitive root if $a^{\phi(n)} \equiv 1 \mod n$ but $a^k \not \equiv 1 \mod n$ for all integers $k < \phi(n)$.
+
+Continue with $n=13$, we have $\phi(13) = 12$ and the primitive roots are $2, 6, 7, 11$ because they have order $12$. We can do this in Gap via the \verb+PrimitiveRootMod+ function (which takes an optional parameter from which value to start searching for the next primitive root) as follows:
+
+\begin{verbatim}
+gap> PrimitiveRootMod(13);
+2
+gap> PrimitiveRootMod(13,2);
+6
+gap> PrimitiveRootMod(13,6);
+7
+gap> PrimitiveRootMod(13,7);
+11
+\end{verbatim}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
