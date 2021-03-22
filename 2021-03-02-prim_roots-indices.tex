@@ -96,6 +96,8 @@ gap> OrderMod(6, 13);
 12
 \end{verbatim}
 
+\subsection{Primitive Root}
+
 If an integer $a$ has the largest order possible, then we call it a primitive root of $n$. More exactely, if $\gcd(a,n)=1$ and $a$ is of order $\phi(n)$ modulo-$n$, then a is a \emph{primitive root} of the integer $n$.
 
 In other words, $n$ has $a$ as primitive root if $a^{\phi(n)} \equiv 1 \mod n$ but $a^k \not \equiv 1 \mod n$ for all integers $k < \phi(n)$.
@@ -139,6 +141,8 @@ We have some more theorems.
 
 Because $a$ is relatively prime to $n$, the same holds for all the powers of $a$. Therefore, each $a^k$ is congruent modulo $n$ to one of the $a_i$. The $\phi(n)$ numbers in the set $a, a^2, \ldots, a^{\phi(n)}$ are incongruent by theorem \ref{2021-03-02-th1} and thus, these powers must represent (in different order) the integers $a_1, a_2, \ldots, a_{\phi(n)}$. \qed
 
+As a corollary, we have the following: If $a$ has order $k$ modulo-$n$, then $a^h$ has also order $k$ (modulo-$n$) iff $\gcd(h,k) = 1$.
+
 If a primitive root exists, we can state how many there are using the following theorem.
 
 \begin{theorem}
@@ -149,8 +153,144 @@ In our running example of $n=13$, we have $\phi(\phi(13)) = 4$ primitive roots.
 
 If $a$ is a primitive root of $n$, then any other primitive root of $n$ is found among the members of the set $a, a^2, a^{\phi(n)}$. But the number of powers $a^k, 1 \leq k \leq \phi(n)$, that have order $\phi(n)$ is equal to the number of integers $k$ for which $\gcd(k, \phi(n)) = 1$; there are $\phi(\phi(n))$ such integers and $\phi(\phi(n))$ primitive roots of $n$. \qed
 
+WHat remains open is the question whether a number has a primitive root and how it can be obtained. What we observe is that non-primes can have primitive roots (e.g. $9$ has a primitive root of $2$); however, the existence of primitive roots is more of an exception than the rule.
+
+In case of $n$ being (an odd) prime, the following theorem shows when primitive roots exist.
+
+\begin{theorem}
+  There are primitive roots modulo-$n$ iff $n=1,2,4, p^k, 2p^k$ with integer $k$ and $p$ an odd prime.
+\end{theorem}
+
+Proof is omitted \todo{Prove}
+
+Apart from this, there are tables listing whether and which primitive roots exist. For example, see \href{http://oeis.org/A046147}{OEIS sequence A046147}, which lists the primitive roots for every integer (if it / they exist). For example, the page yields two primitive roots $2$ and $3$ for $n=5$ and two primitive roots $2$ and $5$ for $n=9$. Just be careful, in the case of $n$ not prime, only the numbers relatively prime to $n$ are relevant.
+
+Looking at such tabels, we see that the smallest primitive root, denoted as $\chi(n)$, is less or equal to $19$ for all integers up to $200$. The value $\chi(n)$ becomes arbitrarily large as $n$ increases without bound. However, in most cases $\chi(n)$ is quite small: Among the $78498$ odd primes up to $10^6$, $\chi(n) \leq 6$ holds for about $80\%$ of all primes, $\chi(n) = 2$ holds for about $37\%$ of all primes and $\chi(n) = 3$ for about $22\%$ of all primes.
 
 
+\subsection{Indices}
+
+Let $n$ be an integer with a primitive root $r$. The first $\phi(n)$ powers of $r$,
+
+\bee
+r, r^2, \ldots, r^{\phi(n)}
+\eee
+
+are congruent modulo-$n$, in some order, to those integers less than $n$ and relatively prime to it. Therefore, an arbitrary integer $a$ can be expressed as
+
+\bee
+a \equiv r^k \mod n
+\eee
+
+for a suitable $k$ with $1 \leq k \leq \phi(k)$. This number $k$ is then called the \emph{index of $a$ relative to $r$} and denoted as $\ind_r a$. We have $1 \leq \ind_r a \leq \phi(n)$ and
+
+\bee
+r^{\ind_r a} \equiv a \mod n
+\eee
+
+Another name for the index is \emph{discrete logarithm}.
+
+Let's calculate a discrete logarithm $\ind_5 2$ with $n=7$; i.e. we seek $k$ so that $5^k \equiv 2 \mod 7$. In Gap, we can calculate it as follows:
+
+\begin{verbatim}
+gap> LogMod( 2, 5, 7 );
+4
+gap> 5^4 mod 7;
+2
+\end{verbatim}
+
+The discrete logarithm is a "one-way" function in that it is expensive to compute; the inverse (modular exponentation) is a (comparably) cheap operation.
+
+For other values of the discrete logarithm we obtain
+
+\begin{verbatim}
+gap> LogMod( 1, 5, 7 );
+0
+gap> LogMod( 2, 5, 7 );
+4
+gap> LogMod( 3, 5, 7 );
+5
+gap> LogMod( 4, 5, 7 );
+2
+gap> LogMod( 5, 5, 7 );
+1
+gap> LogMod( 6, 5, 7 );
+3
+\end{verbatim}
+
+If $r$ is clear from the context, we can leave it away; i.e. we then have
+
+\bee
+r^{\ind a} \equiv a \mod n
+\eee
+
+The discrete logarithm fulfills some properties which are related to those of "normal" logarthms.
+
+\begin{theorem}
+  If $n$ has a primitive root $r$ and $\ind a $ denotes the index of $a$ relative to $r$, then the following properties hold.
+
+  \begin{enumerate}
+    \item $\ind ab \equiv \ind a + \ind b \mod \phi(n)$
+    \item $\ind a^k \equiv k \ind a \mod \phi(n)$
+    \item $\ind 1 \equiv 0 \mod \phi(n)$, $\ind r \equiv 1 \mod \phi(n)$
+  \end{enumerate}
+
+\end{theorem}
+
+Let's check this in Gap. For part $1$ we have
+
+\begin{verbatim}
+gap> a:=LogMod( 2, 5, 7 );
+4
+gap> b:=LogMod( 3, 5, 7 );
+5
+gap> LogMod(6, 5, 7);
+3
+gap> (4+5) mod(Phi(7));
+3
+\end{verbatim}
+
+For part $2$ we have
+
+\begin{verbatim}
+gap> LogMod(2^4, 5, 7 );
+4
+gap> 4*LogMod(2, 5, 7 );
+16
+gap> 16 mod(Phi(7));
+4
+\end{verbatim}
+
+Let's prove the statements: We have $r^{\ind a} \equiv a \mod n$ and $r^{\ind b} \equiv b \mod n$ by the index definition. If we multiply things together, we obtain
+
+\bee
+r^{\ind a + \ind b} \equiv ab \mod n
+\eee
+
+We also have $r^{\ind ab} \equiv ab \mod n$ and if we insert this into the RHS, we obtain
+
+\bee
+r^{\ind a + \ind b} \equiv r^{\ind ab} \mod n
+\eee
+
+
+Theorem \ref{2021-03-02-th1} states the following: If $a$ has order $k \mod n$, then $a^i \equiv a^j \mod n$ ifff $i \equiv j \mod k$. In our case, the order of $r \mod n$ is $\phi(n)$ - that's the definition of a primitive root $r$. Therefore, we know that the last equation holds iff the exponents are congruent modulo-$\phi(n)$; i.e.
+
+\bee
+\ind a + \ind b \equiv \ind ab \mod(\phi(n))
+\eee
+
+In a similar spirit, we have $r^{\ind a^k} \equiv a^k \mod n$ and $r^{k \ind a} = (r^{\ind a})^k \equiv a^k \mod n$. Combining this, we obtain
+
+\bee
+r^{\ind a^k} \equiv r^{k \ind a}
+\eee
+
+As above, using theorem \ref{2021-03-02-th1} yields
+
+\bee
+\ind a^k \equiv k \ind a \mod(phi(n)) \qed
+\eee
 
 %%% Local Variables:
 %%% mode: latex
