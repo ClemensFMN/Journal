@@ -38,9 +38,12 @@ We next count the number of pseudoprimes a given number has. This is done in the
 \end{figure}
 
 
-Wee see that the number of pseudoprimes is mostly well below $50$; however, there are certain outliers which have more pseudoprimes. The most striking one is at $n=561$ which is actually the smallest Carmichael number, but there are others as well; e.g. $n = 703$ has about $400$ pseudoprimes. If we would use a small $k$ in above primality test algorithm, there wold be a large chance that we chose only pseudoprimes as basis and concluded that $703$ would be prime.
+Wee see that the number of pseudoprimes is mostly well below $50$; however, there are certain outliers which have more pseudoprimes. The most striking one is at $n=561$ which is actually the smallest Carmichael number, but there are others as well; e.g. $n = 703$ has $360$ pseudoprimes. If we would use a small $k$ in above primality test algorithm, there wold be a large chance that we chose only pseudoprimes as basis and concluded that $703$ would be prime.
 
-There is also a slightly plot with a larger range from $1001$ to $5001$ wich shows a similar behaviour.
+Let's check this in more detail and perform a Fermat primality test on $n = 703$ with $k$ trials. The probability of choosing a pseudoprime is $360/703$, therefore the probability of choosing $k$ pseudoprimes equals $(360/703)^k$. We run the Fermat primality test for different values of $k$ a large number of times (\href{https://github.com/ClemensFMN/JuliaStuff/blob/master/NumberTheory/pseudo_primes_fermat.jl}{using this script}) and count how often the test reports that $703$ is a prime. This empirical probability matches $(360/703)^k$ very closely. As an example, for $k=2$, the Fermat prime test reports with probability $\approx 0.26$ that $703$ is a prime!
+
+
+There is also a slightly plot of the number of pseudoprimes with a larger range from $1001$ to $5001$ wich shows a similar behaviour.
 
 \begin{figure}[H]
     \centering
