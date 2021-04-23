@@ -133,6 +133,47 @@ The Huffman procedure is based on two observations regarding optimum prefix code
 
  The Huffman procedure adds a simple requirement to these two observations. This requirement is that the codewords corresponding to the two lowest probability symbols differ only in the last bit. Assume that $a$ and $b$ are the two least probable symbols in an alphabet. If the codeword for $b$ is $m+0$, the codeword for $b$ would be $m + 1$. Here, $m$ is a string of $1$s and $0$s; and $+$ denotes concatenation. This requirement does not violate our two observations and leads to a very simple encoding procedure.
 
+\paragraph{Code Construction.} The following Figure shows the Huffman code construction with an example. We have $N = 5$ symbols; the symbols and their probabilities are shown on the left with red background. The algorithm starts by combining the two symbols with the lowest probability, that is symbol $1$ and symbol $2$. Their combined probability is $0.08 + 0.1 = 0.18$ which is combined with symbol $3$. We arrive at a probability of $0.12 + 0.18 = 0.3$, combine with symbol $4$, get a probability of $0.3 + 0.25 = 0.55$, and finally combine with symbol $5$ (having probability $1.0$ as we have combined all symbols together).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2021-04-14-code_1.png}
+\end{figure}
+
+To get to the binary labels of the symbols, we walk our way backwards in the tree; the symbol with the higher probability gets a $0$, the other a $1$. They are shown with green background in the Figure. We read off the binary label from right to left. In this case, we arrive at the following labels.
+
+\vspace{3mm}
+
+\begin{tabular}{cc|c}
+    Symbol & Probability & Codeword \\ \hline
+    $1$ & $0.08$ & $0001$ \\
+    $2$ & $0.1$ & $0000$ \\
+    $3$ & $0.12$ & $001$ \\
+    $4$ & $0.25$ & $01$ \\
+    $5$ & $0.45$ & $1$
+\end{tabular}
+
+\vspace{3mm}
+
+The average code length is given according to
+
+\bee
+l = 0.08 \cdot 4 + 0.1 \cdot 4 + 0.12 \cdot 3 + 0.25 \cdot 2 + 0.45 \cdot 1 = 2.03 \text{bits/Symbol}
+\eee
+
+The source entropy is approximately, $2.01$ bits / symbol, so the Huffman code comes quite close.
+
+Actually, the example is slightly biased as representing $5$ symbols with a fixed-length code requires $3$ bits and therefore $2^3 - 5 = 3$ symbols is wasted. The fixed length code has (by definition) an average code length of $3$, so by using a Huffman code we save almost $1$ bit!
+
+As another example, consider the following Huffman code construction with $N = 8$. Note that always the two symbols with the lowest probability are combined; after we have combined symbol $4$, the two smallest symbols are symbol $5$ and $6$ which are therefore combined next. In addition, there is some ambiguity when assigning bits to the tree; e.g. when deciding at the beginning of the tree there are two sybols with probability $0.5$ each. In a similar spirit, there is an ambiguity between symbols $5$ and $6$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2021-04-14-code_2.png}
+\end{figure}
+
+I have written a Julia file which creates a Huffmann code given symbols with probabilities. This one producesa Huffmann code slightly different than the construction above; however, the assigned code word lengths are the same. This yields an average code length of $l = 2.24$ bits / Symbol. Comparing to the fixed-length code which requires $\log_2 8 = 3$ bits / Symbol, we still have significant savings. Compared with the source entropy of $2.21$ bits / Symbol, the Huffman code achieves good performance.
+
 
 
 %%% Local Variables:
