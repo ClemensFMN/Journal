@@ -1,0 +1,41 @@
+\DiaryEntry{Huffman Codes, cont'd}{2021-05-03}{Coding}
+
+\subsection{Code Performance}
+
+To demonstrate the performance of Huffman codes, I created a script which creates an alphabet with given size and random symbol probabilities. \todo{add ref}
+
+For $N = 8$ symbols and $10.000$ runs, the mean source entropy is $H \approx 2.736$ bits and the average code word length $l \approx 2.789$. The average difference between code word length and source entropy divided by the source entropy equals $\approx 0.01965$; i.e. we are $2\%$ away from the optimum. The minimum code word length is $1$ bit and maximum code word length is $7$ bits.
+
+The picture is similar for $N = 32$ symbols: Mean source entropy is $H \approx 4.724$ bits and the average code word length $l \approx 4.757$. The average difference between code word length and source entropy divided by the source entropy equals $\approx 0.006845$; i.e. we are $0.6\%$ away from the optimum. The minimum code word length is $3$ bit and maximum code word length is $12$ bits.
+
+The Huffman code procedure assigns short code words (e.g. $1$ bit) only when the symbol probability is very high. It seems that this happens very seldom in the simulation; If we manually tilt the symbol probability of the first symbol to higher values, then we get a minimum code word length of $1$.
+
+As a fun fact, we also note that if we run the Huffman coding procedure with $N = 2^l$ symbols ($l$ being an arbitrary integer) and equal probabilities $1/N$, it produces a "normal" binary code with all symbols having $l$ bits.
+
+\subsection{Canonical Huffman Codes}
+
+It is useful to develop Huffman codes which can be stored in an efficient manner. One way to do this is to write the code in lexicographic order of the symbols. Thus, we first write the code for $a_1$ , then the code for $a_2$, and so on. Each codeword could be represented by the length of the codeword followed by the codeword. 
+
+For the code in Table \ref{2021-04-14_tab1}, we therefore would have $1, 4, 0001, 2, 4, 0000, 3, 3, 001, 4, 2, 01, 5, 1, 1$.
+
+This is certainly manageable for the Huffman code of a small al- phabet, but it is clearly going to have an impact on compression performance when we have Huffman codes for large alphabets.
+
+
+We can substantially reduce the storage requirement for the code by using a version of the Huffman code known as the \emph{canonical Huffman code}. Before we describe how to construct a canonical Huffman code, we examine a property of Huffman trees: A Huffman tree is a fully populated tree. That is, there is a codeword assigned to each leaf of the tree. What we will show is that if we are only given the lengths of the codewords moving from left to right on the tree we can reconstruct the code.
+
+In our running example, the HUffman code has codeword lengths $[4, 4, 3, 2, 1]$. In order to regenerate the code from the lengths, we begin with a tree of depth four (the length of the longest codeword), as shown in the following Figure.
+
+The first codewords have length $4$ so the first two codewords go all the way down in the tree. The next codeword has length $3$, so we choose the next "free" node in the tree with length $3$. A Huffman code is a prefix code, we therefore have to prune all nodes below codeword $3$. For the codeword of length $2$ we again choose the next "free" node of length $2$ and prune everything below. FInally, we do the same for the last codeword with length $1$. The resulting tree looks as follows.
+
+
+
+
+
+
+\subsection{Length-limited Huffman Codes}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
