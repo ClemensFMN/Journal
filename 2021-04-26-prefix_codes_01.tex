@@ -69,8 +69,7 @@ Inserting this into the epxression for $K(\Cc)^n$, we obtain
 K(\Cc)^n = \sum_{k=n}^{nl} A_k 2^{-k} \leq \sum_{k=n}^{nl} 2^k 2^{-k} = nl - n +1
 \eee
 
-But if $K(\Cc)$ is greater than one, it will grow exponentially with $n$, while $n(l − 1) + 1$ can only grow linearly. So if $K(\Cc)$ is greater than one, we can always find an $n$ large enough so that above inequality is violated. Therefore, for a uniquely decodable code $\Cc$, $K(\Cc)$ is less than or equal to one. \qed
-
+But if $K(\Cc)$ is greater than one, it will grow exponentially with $n$, while $n(l - 1) + 1$ can only grow linearly. So if $K(\Cc)$ is greater than one, we can always find an $n$ large enough so that above inequality is violated. Therefore, for a uniquely decodable code $\Cc$, $K(\Cc)$ is less than or equal to one. \qed
 
 The second part of the inequality is that if we have a set of codeword lengths that satisfy the inequality, we can always find a prefix code with those codeword lengths.
 
@@ -90,15 +89,15 @@ The following Figure shows a binary tree of depth $4$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.4]{images/2021-04-26-tree.png}
+    \includegraphics[scale=0.7]{images/2021-04-26-tree.png}
 \end{figure}
 
-The number of leaf nodes on this tree is $2^4 = 8$. In fact the number of leaf nodes in a full binary tree of depth $m$ is $2^m$ . We will construct our code by assigning vertices at depth $l_i$ as codewords. In order for this code to be a prefix code when we assign a code to a vertex within the tree we cannot assign a codeword to any leaves belonging to the sub-tree rooted at that node. In effect, we have to prune the subtree rooted at that vertex. For example if we assign a codeword to the vertex $v$ indicated in the figure we have to remove the subtree shown in the dashed circle. In the figure the vertex $v$ is at depth two. The removal of the corresponding subtree results in the removal of four leaf nodes. In general we can see that in a full binary tree of depth $m$, a vertex at depth $k$ is the root of a subtree with $2^{m−k}$ leaves.
+The number of leaf nodes on this tree is $2^4 = 8$. In fact the number of leaf nodes in a full binary tree of depth $m$ is $2^m$ . We will construct our code by assigning vertices at depth $l_i$ as codewords. In order for this code to be a prefix code when we assign a code to a vertex within the tree we cannot assign a codeword to any leaves belonging to the sub-tree rooted at that node. In effect, we have to prune the subtree rooted at that vertex. For example if we assign a codeword to the vertex $v$ indicated in the figure we have to remove the subtree shown in the dashed circle. In the figure the vertex $v$ is at depth two. The removal of the corresponding subtree results in the removal of four leaf nodes. In general we can see that in a full binary tree of depth $m$, a vertex at depth $k$ is the root of a subtree with $2^{m-k}$ leaves.
 
-Given the set of lengths $l_1, l_2, \ldots, l_N$, we define $l = \max\{ l_1, l_2, \ldots ,l_N \}$ and construct a binary tree of depth $l$. This tree has $2^l$ leaves, and hence the possibility of having $2^l$ codewords of length $l$. Let’s assign a codeword to a vertex $v_1$ at depth $l_1$. The path from the root node of the tree to this vertex will be a binary code of length $l_1$. As we mentioned earlier in order for this codeword to be part of a prefix code we need to prune the subtree rooted at node $v_1$. This will result in a loss of $2^{l−l_1}$ leaf nodes from the full binary tree of depth $l$. Assign the next codeword to a vertex $v_2$ at a depth of $l_2$ and prune the subtree rooted at $v_2$. Continuing in this fashion we will obtain a prefix code with lengths $l_1, l_2, \ldots, l_N$ as long as we don’t use up more than $2^l$ leaf nodes. As a codeword of length $l_i$ results in the loss of $2^{l−l_i}$ leaf nodes from the full tree, the number of leaf nodes needed to build a code with codeword lengths $l_11, l_2, \ldots, l_N$ is given by $\sum_i 2^{l−l_i}$, but
+Given the set of lengths $l_1, l_2, \ldots, l_N$, we define $l = \max\{ l_1, l_2, \ldots ,l_N \}$ and construct a binary tree of depth $l$. This tree has $2^l$ leaves, and hence the possibility of having $2^l$ codewords of length $l$. Let’s assign a codeword to a vertex $v_1$ at depth $l_1$. The path from the root node of the tree to this vertex will be a binary code of length $l_1$. As we mentioned earlier in order for this codeword to be part of a prefix code we need to prune the subtree rooted at node $v_1$. This will result in a loss of $2^{l - l_1}$ leaf nodes from the full binary tree of depth $l$. Assign the next codeword to a vertex $v_2$ at a depth of $l_2$ and prune the subtree rooted at $v_2$. Continuing in this fashion we will obtain a prefix code with lengths $l_1, l_2, \ldots, l_N$ as long as we don’t use up more than $2^l$ leaf nodes. As a codeword of length $l_i$ results in the loss of $2^{l - l_i}$ leaf nodes from the full tree, the number of leaf nodes needed to build a code with codeword lengths $l_1, l_2, \ldots, l_N$ is given by $\sum_i 2^{l - l_i}$, but
 
 \bee
-\sum_i 2^{l−l_i} = 2^l \sum_i 2^{−l_i} \leq 2^l
+\sum_i 2^{l - l_i} = 2^l \sum_i 2^{- l_i} \leq 2^l
 \eee
 
 where the last inequality is because of our assumption that the lengths satisfy the Kraft–McMillan inequality. Thus, given a set of codeword lengths satisfying the Kraft–McMillan inequality we can always construct a prefix code with codewords having those lengths. \qed
