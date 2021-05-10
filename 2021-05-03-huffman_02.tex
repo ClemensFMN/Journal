@@ -60,7 +60,99 @@ This code can now be encoded by just sending the symbols and their codeword leng
 
 \subsection{Length-limited Huffman Codes}
 
+The Huffman coding algorithm tries to minimize the average length of codewords. However, there are no limits on the maximum length of an individual codeword. This is not necessarily a problem when dealing with limited alphabet sizes. However, if the alphabet size is relatively large there is a possibility of getting very long Huffman codes. This can be avoided by adding an additional constraint to the variable length code design problem: a requirement that all codewords be less than or equal to some maximum codeword length $l_{max}$. If $m$ is the size of the source alphabet, then clearly $l_{max}$ has to be greater than or equal to $\lceil \log_2 m \rceil$ for the code to be a valid code.
 
+The most widely used algorithm for constructing length-limited Huffman codes is the package-merge algorithm due to Larmore and Hirschberg. We will use a couple of facts from our prior discussions to design length limited Huffman codes. First, all we need to obtain a Huffman code is the length of the codewords. Second, for an alphabet of size $m$, the lengths of the codewords $l_1 , l_2, \ldots, l_m$ in any variable length code have to satisfy the Kraft–McMillan inequality 
+
+\bee
+\sum_i 2^{-l_i} \leq 1
+\eee
+
+and, given a set of $l_i$ which satisfy the Kraft–McMillan inequality, we can always find a uniquely decodable code with codewords of length $l_i$.
+
+For the following, we assume our alphabet consists of the letters $a_1, a_2, \ldots , a_m$ with probabilities $p_1, p_2, \ldots, p_m$. We will assume that the letters have been sorted based on their probabilities $p_i$; i.e. $p_i$ is the smallest probability and $p_m$ the largest.
+
+The design process will involve incrementing the lengths $l_i$ until the Kraft–McMillan inequality is satisfied while at the same time keeping the average length $\bar{l}$ as small as we can. We start with assigning zero bits for all lengths. Clearly, this will result in the lowest possible length of zero. However, it certainly does not give us a uniquely decodable code; for fun, we can check with the Kraft–McMillan inequality as
+
+\bee
+\sum_i 2^{-l_i} = \sum_i 2^{0} = m \nleq 1
+\eee
+
+We can decrement this sum by $0.5$ by incrementing the codeword for one of the letters to one. We want to pick the codeword which will have the minimal impact on the average codeword length. As the letters are sorted in nondecreasing probability order and the average codeword length is given by $\sum_i l_i p_i$, we will increase $l_1$ by one. This will give us an average codeword length of $p_1$ ($1 \times p_1 + 0 \times p_2 + \cdots = p_1$) and a Kraft–McMillan sum of $m - 0.5$. Actually, we could have picked any of the letters as we will need to increment each length to at least one if we are to have any hope of reducing the Kraft–McMillan sum to one. However, once we have incremented each codeword length to one how do we decide which codeword lengths to increment further? The package merge algorithm is an iterative algorithm which solves this problem by generating a list of choices which can be sorted in order of increasing cost.
+
+Each iteration consists of two steps operating on the list, a packaging step and a merge step. In the packaging step the list from the previous step is partitioned, or packaged, into groups of two neighboring items. The cost of a package is the sum of the costs of the items in the package where the cost of a letter is the probability of that letter. If the number of items is odd the item with the highest cost is discarded. In the merge step the packages from the previous step are merged with the list of items that consists of the individual letters. This list is then sorted in order of increasing cost. After $l_{max} - 1$ iterations the lowest cost $2m - 2$ items are selected. Each time an item contains a letter results in the incrementing of the codeword for that letter by one. As there are $2m-2$ items each of which decrements the Kraft–McMillan sum by $0.5$ we end up with a set of lengths $l_i$ such that
+
+\bee
+\sum_i 2^{- l_i} = 1 \qed
+\eee
+
+\paragraph{Example.} Let us design a length-limited Huffman code for a source with five sybmols. Symbol probabilities are as follows: $P(a_1) = 0.05, P(a2) = 0.1, P(a3) = 0.15, P(a4) = P(a5) = 0.2, P(a6) = 0.3$. The entropy for this source is $2.409$ bits/symbol. Using the standard Huffman procedure we can generate a code 
+as follows (taken from the book, own implementation yields different bits but the same average length):
+
+\vspace{3mm}
+
+\begin{tabular}{cc|c}
+    Symbol & Probability & Codeword \\ \hline
+    $1$ & $0.05$ & $0100$ \\
+    $2$ & $0.1$ & $0101$ \\
+    $3$ & $0.15$ & $011$ \\
+    $4$ & $0.2$ & $10$ \\
+    $5$ & $0.2$ & $11$ \\
+    $6$ & $0.3$ & $00$
+\end{tabular}
+
+\vspace{3mm}
+
+with an average length $\bar{l} = 2.45$. The longest codewords are four bits long. Let us design a code with the added constraint that $l_{max} = 3$.
+
+We begin with the list of letters. The costs are listed next to the letters,
+
+\bee
+[a_1(0.05), a2(0.1), a3(0.15), a4(0.2), a5(0.2), a6(0.3)]
+\eee
+
+We then proceed with the first packaging step. The packages are denoted by $a_{jk}(p)$ where the subscripts indicate the letters in the package and the quantity $p$ in the argument is the total cost of the item. In the first packaging step we form packages by grouping the letters two-by-two to form Package 1:
+
+\bee
+[a_{12}(0.15), a_{34}(0.35), a_{56}(0.5)]
+\eee
+
+We then merge these packages with our original list to get the merged list (ordered by cost; i.e. probability)
+
+\bee
+[a_1(0.05), a2(0.1), a3(0.15), a_{12}(0.15), a4(0.2), a5(0.2), a_6(0.3), a_{34}(0.35), a_{56}(0.5)]
+\eee
+
+To get a code limited to three bits we need to go through one more iteration. In the next packaging step we take the items in the previous merged list and group them two-by-two to yield Package 2,
+
+\bee
+[a_{12}(0.15), a_{312}(0.3), a_{45}(0.4), a_{634}(0.65)]
+\eee
+
+Finally, we go through one more merge operation in which we merge the packages with the original list of letters to obtain Merge 2,
+
+\begin{align*}
+    [& a_1(0.05), a2(0.1), a3(0.15), a_{12}(0.15), a4(0.2), a5(0.2), a6(0.3), \\ & a_{312}(0.3), a_{34}(0.35), a_{45}(0.4), a_{56}(0.5), a_{634}(0.65)]    
+\end{align*}
+
+
+We now pick the ten items ($2m-2 = 2 \cdot 6 - 2 = 10$) with the lowest cost and count the number of times each letter appears in the ten items. The letter $a_1$ appears in $a_1$ , $a_{12}$ , and $a_{312}$. Therefore, the number of bits in the codeword for $a_1$ is three. Continuing in this fashion we obtain the lengths of the codewords as $\{3, 3, 3, 3, 2, 2\}$. A code with these lengths is as follows,
+
+\vspace{3mm}
+
+\begin{tabular}{cc|c}
+    Symbol & Probability & Codeword \\ \hline
+    $1$ & $0.05$ & $100$ \\
+    $2$ & $0.1$ & $101$ \\
+    $3$ & $0.15$ & $110$ \\
+    $4$ & $0.2$ & $111$ \\
+    $5$ & $0.2$ & $00$ \\
+    $6$ & $0.3$ & $01$
+\end{tabular}
+
+\vspace{3mm}
+
+The average codeword length is $2.5$ bits; that's $0.05$ bits worse than the Huffman code obtained previously. \qed
 
 %%% Local Variables:
 %%% mode: latex
