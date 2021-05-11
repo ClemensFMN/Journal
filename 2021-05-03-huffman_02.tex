@@ -12,6 +12,9 @@ The Huffman code procedure assigns short code words (e.g. $1$ bit) only when the
 
 As a fun fact, we also note that if we run the Huffman coding procedure with $N = 2^l$ symbols ($l$ being an arbitrary integer) and equal probabilities $1/N$, it produces a "normal" binary code with all symbols having $l$ bits.
 
+\todo{Also interesting would be to simulate a source with the symbol probs the Huffman code was designed for - what would happen if the source had different symbol probs?}
+
+
 \subsection{Canonical Huffman Codes}
 
 It is useful to develop Huffman codes which can be stored in an efficient manner. One way to do this is to write the code in lexicographic order of the symbols. Thus, we first write the code for $a_1$ , then the code for $a_2$, and so on. Each codeword could be represented by the length of the codeword followed by the codeword. 
@@ -153,6 +156,8 @@ We now pick the ten items ($2m-2 = 2 \cdot 6 - 2 = 10$) with the lowest cost and
 \vspace{3mm}
 
 The average codeword length is $2.5$ bits; that's $0.05$ bits worse than the Huffman code obtained previously. \qed
+
+\todo{Add another example?}
 
 %%% Local Variables:
 %%% mode: latex
