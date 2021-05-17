@@ -1,0 +1,125 @@
+\DiaryEntry{Bounds for Huffman Codes and extended Huffman Codes}{2021-05-11}{Coding}
+
+\subsection{Bounds for Huffman Codes}
+
+We will show that the optimal code for a source $\Sc$ has an average code length $\bar{l}$ bounded as follows,
+
+\bee
+H(\Sc) \leq \bar{l} < H(\Sc) + 1
+\eee
+
+Since Huffman codes are optimal, the same result holds for Huffman codes as well.
+
+For the lower bound, we consider the difference between entropy and average code length,
+
+\begin{align*}
+    H(\Sc) - \bar(l) &= - \sum_i \left( P(a_i) \log_2 P(a_i) \right) - \left( \sum_i P(a_i) l_i \right) \\
+    &= \sum_i P(a_i) \left( \log_2 \frac{1}{P(a_i)} - l_i \right) \\
+    &= \sum_i P(a_i) \left( \log_2 \frac{1}{P(a_i)} - \log_2 2^{l_i} \right) \\
+    &= \sum_i P(a_i) \left( \log_2 \frac{2^{-l_i}}{P(a_i)} \right)
+\end{align*}
+
+Nothing spectacular; now we use Jensen's inequality which states that for $f(x)$ being concave $\cap)$, we have $E(f(X)) \leq f(E(X))$. Since we multiply "something" times a probability and sum over all terms, we are actually taking an expectation; $\log2$ is concave and therefore we have the following bound,
+
+\bee
+H(\Sc) - \bar(l) = \sum_i P(a_i) \left( \log_2 \frac{2^{-l_i}}{P(a_i)} \right) \leq \log_2 \left( \sum_i 2^{-l_i} \right)
+\eee
+
+We have an optimal code, therefore the Kraft–McMillan inequality holds and we have
+
+\bee
+H(\Sc) - \bar(l) \leq \log_2 \left( \sum_i 2^{-l_i} \right) \leq \log_2 1 = 0 \rightarrow H(\Sc) \leq \bar(l) \qed
+\eee
+
+For the upper bound, we that there exists a uniquely decodable code with average codeword length less than $H(\Sc) + 1$. Therefore, if we have an optimal code, this code must have an average length that is less than $H(\Sc) + 1$. With a slight abuse of notation, we define
+
+\bee
+l_i = \lceil \log_2 \frac{1}{P(a_i)} \rceil
+\eee
+
+and therefore
+
+\be\label{2021-05-11:eq1}
+\log_2 \frac{1}{P(a_i)} \leq l_i < \log_2 \frac{1}{P(a_i)} + 1
+\ee
+
+From the lower bound we see that
+
+\bee
+2^{- l_i} \leq P(a_i)
+\eee
+
+and therefore
+
+\bee
+\sum_i 2^{- l_i} \leq \sum_i P(a_i) = 1
+\eee
+
+and by the Kraft–McMillan inequality there exists a a uniquely decodable code with codeword lengths $l_i$. The average length of this code can be upper-bounded by using the right inequality \eqref{2021-05-11:eq1} as
+
+\begin{align*}
+    \bar{l} &= \sum_i P(a_i) l_i < \sum_i P(a_i) \left( \log_2 \frac{1}{P(a_i)} + 1 \right) \\
+    &< H(\Sc) + 1 \qed
+\end{align*}
+
+
+\subsection{Extended Huffman Codes}
+
+Consider a source $\Sc$ that emits a sequence of letters from an alphabet $\{a_1, a_2, \ldots a_m \}$. 
+
+Each element of the sequence is generated independently of the other elements in the sequence. The entropy for this source is given by $H(\Sc) = - \sum_i P(a_i) \log_2 (P(a_i))$.
+
+Suppose we now encode the sequence by generating one codeword for every $n$ symbols. As there are $mn$ combinations of $n$ symbols, we will need $mn$ codewords in our Huffman code. We could generate this code by viewing the $mn$ symbols as letters of an extended alphabet $\{a_1 a_1 \ldots a_1 , a_1 a_1 \ldots a_2 , \ldots , a_1 a_1 \ldots a_m , a_1 a_1 \ldots a_2 a_1 , \ldots , a_m a_m \ldots a_m \}$.
+
+The corresponding entropy $H^\star(\Sc)$ of a fictitious source emitting symbols from this extended alphabet can be calculated as follows,
+
+\begin{align*}
+    H^\star(\Sc) &= - \sum_{i_1}^m \cdots \sum_{i_n}^m P(a_{i_1}, \ldots, a_{i_n}) \log_2 P(a_{i_1}, \ldots, a_{i_n}) \\
+    &= - \sum_{i_1}^m \cdots \sum_{i_n}^m P(a_{i_1})  \cdots P(a_{i_n}) \log_2 P(a_{i_1}) \cdots P(a_{i_n}) \\
+    &= - \sum_{i_1}^m \cdots \sum_{i_n}^m P(a_{i_1})  \cdots P(a_{i_n}) \sum_j \log_2 P(a_{i_j})
+\end{align*}
+
+where we have used statistical independence in the first step and expanded the log of a product into a sum of logs in the second step.
+
+Next we pull out one summand after the other of the last sum and obtain
+
+\begin{align*}
+    H^\star(\Sc) &= - \sum_{i_1}^m \cdots \sum_{i_n}^m P(a_{i_1})  \cdots P(a_{i_n}) \sum_j \log_2 P(a_{i_j}) \\
+    &= - \sum_{i_1}^m P(a_{i_1}) \log_2 P(a_{i_1}) \left( \sum_{i_2}^m \cdots \sum_{i_n}^m P(a_{i_2})  \cdots P(a_{i_n}) \right) \\ 
+    &- \cdots \\
+    &- \sum_{i_n}^m P(a_{i_n}) \log_2 P(a_{i_n}) \left( \sum_{i_1}^m \cdots \sum_{i_{n-1}}^m P(a_{i_1})  \cdots P(a_{i_{n-1}}) \right)
+\end{align*}
+
+The summations in brackets all yield one; so we can simplify this to the following expression,
+
+\begin{align*}
+    H^\star(\Sc) &= - \sum_{i_1}^m P(a_{i_1}) \log_2 P(a_{i_1}) - \cdots - \sum_{i_n}^m P(a_{i1n}) \log_2 P(a_{i_1}) \\
+    &= n H(\Sc)
+\end{align*}
+
+This is rather intuitive, as the source emits the symbols statistically independent and therefore the entropy increases with the size of the extended alphabet.
+
+When we use a Huffman code for the extended alphabet, then our bound yields
+
+\bee
+H^\star(\Sc) \leq R^{(n)} < H^\star(\Sc) + 1
+\eee
+
+where $R^{(n)}$ is the average codeword length to encode $n$ symbols from the extended alphabet and it is related to the average codeword length to encode a symbol of the original alphabet, $\bar{l}$ by
+
+\bee
+\bar{l} = \frac{R^{(n)}}{n}
+\eee
+
+Inserting this into our bound for the extended alphabet, we therefore obtain
+
+\bee
+H(\Sc) \leq \bar{l} < H(\Sc) + \frac{1}{n}
+\eee
+
+By extending the alphabet, we can make the bound arbitrarly close. This is particularly useful when the symbol probabilities are highly skewed as then a Huffman code may yield bad performance.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
