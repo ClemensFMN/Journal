@@ -1,0 +1,72 @@
+\DiaryEntry{Golomb Codes}{2021-05-18}{Coding}
+
+The Golomb–Rice codes belong to a family of codes designed to encode integers with the assumption that the larger an integer, the lower its probability of occurrence. The simplest code for this situation is the unary code. Golum codes then extend / use unary codes.
+
+\subsection{Unary Code}
+
+The unary code for a positive integer $n$ is simply $n$ ones followed by a zero. Thus, the code for $4$ is $11110$, and the code for $7$ is $11111110$. The unary code is the same as the Huffman code for the semi-infinite alphabet $\{1, 2, 3, \ldots \}$ with probability model $P(k) = \frac{1}{2^k}$. Because the Huffman code is optimal, the unary code is also optimal for this probability model.
+
+\subsection{Golomb Code}
+
+Although the unary code is optimal in very restricted conditions, we can see that it is certainly very simple to implement. One step higher in complexity are a number of coding schemes that split the integer into two parts, representing one part with a unary code and the other part with a different code. An example of such a code is the Golomb code.
+
+The Golomb code is actually a family of codes parameterized by an integer $m > 0$. In the Golomb code with parameter $m$, we represent an integer $n > 0$ using two numbers $q$ and $r$ as
+
+\bee
+n = qm + r
+\eee
+
+with
+
+\bee
+q = \left\lfloor \frac{n}{m} \right\rfloor, \qquad r = n - qm
+\eee
+
+
+In other words, $q$ is the quotient (and can take on values $0, 1, 2, \ldots$) and $r$ is the remainder (which can take on values $0, 1, \ldots, m-1$) when $n$ is divided by $m$. The Golomb code works as follows: The quotient $q$ is represented by the unary code of $q$. Representing $m$ is slightly more tricky: If $m$ is a power of two, we use the $\log_2 m$-bit binary representation of $r$. If $m$ is not a power of two, we could use $\lceil \log_2 m \rceil$; however, we can reduce the number of bits required by using the $\lfloor \log_2 m \rfloor$-bit binary representation of $r$ for the first $2^{\lceil \log_2 m \rceil} - m$ values and the $\lceil \log_2 m \rceil$-bit binary representation of $r + 2^{\lceil \log_2 m \rceil} - m$ for the rest of the values.
+
+An example will mkae the encoding process clearer.
+
+\paragraph{Example for $m=4$.} The following table shows the various values of the Golomb code for different values of $n$.
+
+\vspace*{3mm}
+
+\begin{tabular}{c|cc|cc|c}
+  $n$ & $q$ & $r$ & $q$ unary & $r$ representation & codeword \\ \hline
+  0 & 0 & 0 & 0 & 00 & 000 \\
+  1 & 0 & 1 & 0 & 01 & 001 \\
+  2 & 0 & 2 & 0 & 10 & 010 \\
+  3 & 0 & 3 & 0 & 11 & 011 \\
+  4 & 1 & 0 & 10 & 00 & 1000 \\
+  5 & 1 & 1 & 10 & 01 & 1001 \\
+      & & & $\cdots$ & & \\
+  8 & 2 & 0 & 110 & 00 & 11000
+\end {tabular}
+  
+\vspace*{3mm}
+
+\paragraph{Example for $m=5$.} Here we have $\lfloor \log_2 5 \rfloor = 2$ and $2^{\lceil \log_2 5 \rceil}  - 5 = 3$; i.e. the first three values are encoded with two bits. From $\lceil \log_2 5 \rceil = 3$ and $r + 2^{\lceil \log_2 5 \rceil} - 5 = r+3$ we follow that we represent the remaining values of $r$ with three bits as $r+3$. The following table shows the various values of the Golomb code for different values of $n$.
+
+\vspace*{3mm}
+
+\begin{tabular}{c|cc|cc|c}
+  $n$ & $q$ & $r$ & $q$ unary & $r$ representation & codeword \\ \hline
+  0 & 0 & 0 & 0 & 00 & 000 \\
+  1 & 0 & 1 & 0 & 01 & 001 \\
+  2 & 0 & 2 & 0 & 10 & 010 \\
+  3 & 0 & 3 & 0 & 110 & 0110 \\
+  4 & 0 & 4 & 0 & 111 & 0111 \\
+  5 & 1 & 0 & 10 & 00 & 1000 \\
+        & & & $\cdots$ & & \\
+  9 & 1 & 4 & 10 & 111 & 10111 \\
+  10 & 2 & 0 & 110 & 00 & 11000
+\end {tabular}
+  
+\vspace*{3mm}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
