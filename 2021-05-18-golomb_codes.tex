@@ -64,6 +64,16 @@ An example will mkae the encoding process clearer.
   
 \vspace*{3mm}
 
+The following Figure shows the code tree for this code.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.4]{images/2021-05-18-golomb_1.png}
+\end{figure}
+
+It can be seen that this is a prefix code as only the leaves correspond to codewords. The big orange block on the left corresponds to the encoding of $r$ ($2$ or $3$ bits) and the code continues to the right with more and more ones corresponding to the unary representation of $q$. The big orange block is replicated in the smaller orange ones.
+
+Decoding the code is simple: If the codeword starts with a $0$ then discard it. Otherwise, count the number of ones followed by a zero which provides the unary representation of $q$ (the number of ones corresponds to $q$). The next $2$ or $3$ bits correspond to the $r$-value (as shown in the orange box). Allowed values for $r$ are $00, 01, 10, 110$, and $111$. 
 
 
 %%% Local Variables:
