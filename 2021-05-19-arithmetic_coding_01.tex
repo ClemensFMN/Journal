@@ -1,6 +1,14 @@
 \DiaryEntry{Arithmetic Coding}{2021-05-19}{Coding}
 
-Some text to start
+In entry \ref{2021-05-11:entry} we have shown that collecting several symbols into one "super symbol" yields more efficient codes as we come close to the Shannon bound. 
+
+This becomes impractical when we try to obtain Huffman codes for long sequences of symbols. In order to find the Huffman codeword for a particular sequence of length $m$, we need codewords for \emph{all} possible sequences of length $m$. This fact causes an exponential growth in the size of the codebook and makes HUffman coding impractical.
+
+Instead, we need a way of assigning codewords to particular sequences without having to generate codes for all sequences of that length. The arithmetic coding technique fulfills this requirement. Here, a unique identifier or tag is generated for the sequence to be encoded. This tag corresponds to a binary fraction, which becomes the binary code for the sequence.
+
+In practice, the generation of the tag and the binary code are the same process. However, the arithmetic coding approach is easier to understand if we conceptually divide the approach into two phases. In the first phase, a unique identifier or tag is generated for a given sequence of symbols. This tag is then given a unique binary code. A unique arithmetic code can be generated for a sequence of length $m$ without the need for generating codewords for all sequences of length $m$.
+
+
 
 %%% Local Variables:
 %%% mode: latex
