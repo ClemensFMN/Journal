@@ -23,9 +23,9 @@ q = \left\lfloor \frac{n}{m} \right\rfloor, \qquad r = n - qm
 \eee
 
 
-In other words, $q$ is the quotient (and can take on values $0, 1, 2, \ldots$) and $r$ is the remainder (which can take on values $0, 1, \ldots, m-1$) when $n$ is divided by $m$. The Golomb code works as follows: The quotient $q$ is represented by the unary code of $q$. Representing $m$ is slightly more tricky: If $m$ is a power of two, we use the $\log_2 m$-bit binary representation of $r$. If $m$ is not a power of two, we could use $\lceil \log_2 m \rceil$; however, we can reduce the number of bits required by using the $\lfloor \log_2 m \rfloor$-bit binary representation of $r$ for the first $2^{\lceil \log_2 m \rceil} - m$ values and the $\lceil \log_2 m \rceil$-bit binary representation of $r + 2^{\lceil \log_2 m \rceil} - m$ for the rest of the values.
+In other words, $q$ is the quotient (and can take on values $0, 1, 2, \ldots$) and $r$ is the remainder (which can take on values $0, 1, \ldots, m-1$) when $n$ is divided by $m$. The Golomb code works as follows: The quotient $q$ is represented by the unary code of $q$. Representing $m$ is slightly more tricky: If $m$ is a power of two, we use the $\log_2 m$-bit binary representation of $r$. If $m$ is not a power of two, we could use $\lceil \log_2 m \rceil$; however, we can reduce the number of bits required by using the $\lfloor \log_2 m \rfloor$-bit binary representation of $r$ for the first $2^{\lceil \log_2 m \rceil} - m$ values and the $\lceil \log_2 m \rceil$-bit binary representation of $r + 2^{\lceil \log_2 m \rceil} - m$ for the rest of the values. This way the average number of bits required is less than if we had used a fixed-length code with $\lceil \log_2 m \rceil$ bits. This code is also called a \emph{truncated binary encoding} (see also \href{https://en.wikipedia.org/wiki/Truncated_binary_encoding}{Wikipedia}).
 
-An example will mkae the encoding process clearer.
+An example will make the encoding process clearer.
 
 \paragraph{Example for $m=4$.} The following table shows the various values of the Golomb code for different values of $n$.
 
@@ -73,8 +73,11 @@ The following Figure shows the code tree for this code.
 
 It can be seen that this is a prefix code as only the leaves correspond to codewords. The big orange block on the left corresponds to the encoding of $r$ ($2$ or $3$ bits) and the code continues to the right with more and more ones corresponding to the unary representation of $q$. The big orange block is replicated in the smaller orange ones.
 
-Decoding the code is simple: If the codeword starts with a $0$ then discard it. Otherwise, count the number of ones followed by a zero which provides the unary representation of $q$ (the number of ones corresponds to $q$). The next $2$ or $3$ bits correspond to the $r$-value (as shown in the orange box). Allowed values for $r$ are $00, 01, 10, 110$, and $111$. 
+\paragraph{Decoding.} We first decode $q$. If the codeword starts with a $0$ then discard the zero and contine with decoding $r$. Otherwise, count the number of ones followed by a zero which provides the unary representation of $q$ (the number of ones corresponds to $q$).
 
+The next $2$ or $3$ bits correspond to the $r$-value (as shown in the orange box). From the table above it can be seen that the codes for $q$ with $3$ bits consist of an unassigned codeword of length $2$ (namely $11$) followed by a $0$ or $1$. From this follows the decoding rule: First read $2$ bits; if they encode a value less than $\lceil \log_2 5 \rceil = 3$, decoding is complete. Otherwise, read an additional bit and subtract $3$ from the result.
+
+The decoding rule extends to other values of $m$.
 
 %%% Local Variables:
 %%% mode: latex
