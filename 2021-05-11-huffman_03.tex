@@ -39,7 +39,8 @@ l_i = \lceil \log_2 \frac{1}{P(a_i)} \rceil
 
 and therefore
 
-\be\label{2021-05-11:eq1}
+\be
+\label{2021-05-11:eq1}
 \log_2 \frac{1}{P(a_i)} \leq l_i < \log_2 \frac{1}{P(a_i)} + 1
 \ee
 
@@ -55,7 +56,7 @@ and therefore
 \sum_i 2^{- l_i} \leq \sum_i P(a_i) = 1
 \eee
 
-and by the Kraft–McMillan inequality there exists a a uniquely decodable code with codeword lengths $l_i$. The average length of this code can be upper-bounded by using the right inequality \eqref{2021-05-11:eq1} as
+and by the Kraft–McMillan inequality there exists a uniquely decodable code with codeword lengths $l_i$. The average length of this code can be upper-bounded by using the right inequality \ref{2021-05-11:eq1} as
 
 \begin{align*}
     \bar{l} &= \sum_i P(a_i) l_i < \sum_i P(a_i) \left( \log_2 \frac{1}{P(a_i)} + 1 \right) \\
