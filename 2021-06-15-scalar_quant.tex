@@ -1,4 +1,4 @@
-\DiaryEntry{Scalar Quantization}{2021-06-15}{Coding}
+\DiaryEntry{Scalar Quantization, 1}{2021-06-15}{Coding}
 
 Quantization can be seen as lossy compression method as a large (potentially infinite) number of values is represented by (much) fewer values. If the values we are looking at are scalars, the process is called scalar quantization and that's what we are looking at here.
 
@@ -125,11 +125,42 @@ For example, we designed a quantizer for a uniform source with $X_{max} = 1$. If
 
 If $X_{max} = 0.8$, then the observed SNR becomes $15$dB, in case of $X_{max} = 0.5$, the observed SNR drops to  $12$dB.
 
-If we use a normal distribution $\Nc(0,1)$ instead of the $[-1, 1]$ uniform one, then the SNR drops to $4.5$dB! The tails of the normal distribution cause a lot of under- and overflows, leading to this bad result. Only if we decrease the variance and work with a $\Nc(0, 0.1)$ distrubtion, we get an SNR of about $17.9$dB again.
+We next used an input signal with normal distribution $(\Nc(0, \sigma_s^2)$ and designed the quantizer with $X_{max} = 1$. The following Figure shows the achieved SNR for over $\sigma_s^2$. The maximum SNR of about $19$dB is reached for $\sigma_s^2 \approx 0.5$ for lower and higher signal energies it falls off (rather rapidly). In case of low $\sigma_s^2$, the outer quantizer intervals are not used often enough and thereby leading a low SNR, in case of high $\sigma_s^2$, the innter quantizer intervals ar enot used often enough and the signal experiences clipping (also leading to a low SNR).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2021-06-15-scalar_quant_03.png}
+\end{figure}
+
+
+
+If the input signal has a normal distribution $\Nc(0,1)$ instead of the $[-1, 1]$ uniform one the quantizer was designed for, then the SNR drops to $4.5$dB! The tails of the normal distribution cause a lot of clipping, leading to this bad result. Only if we decrease the variance and work with a $\Nc(0, 0.1)$ distrubtion, we get an SNR of about $17.9$dB again.
 
 \subsection{Adaptive Quantization}
 
-\subsection{Non-uniform Quantization}
+One way to deal with the mismatch problem is to adapt the quantizer to the statistics of the input.
+
+There are two main approaches to adapting the quantizer parameters: an off-line or forward adaptive approach, and an on-line or backward adaptive approach. 
+
+\paragraph{Forward Adaptive Quantization.} In forward adaptive quantization, the source output is divided into blocks of data. Each block is analyzed before quantization, and the quantizer parameters are set accordingly. The settings of the quantizer are then transmitted to the receiver as side information. In backward adaptive quantization, the adaptation is performed based on the quantizer output. As this is available to both transmitter and receiver, there is no need for side information.
+
+This approach causes a delay of at least the amount of time required to process a block of data. The insertion of side information in the transmitted data stream may also require the resolution of some synchronization problems. The size of the block of data processed also affects a number of other things. If the size of the block is too large, then the adaptation process may not capture the changes taking place in the input statistics. Furthermore, large block sizes mean more delay, which may not be tolerable in certain applications. On the other hand, small block sizes mean that the side information has to be transmitted more often, which in turn means the amount of overhead per sample increases. The selection of the block size is a trade-off between the increase in side information necessitated by small block sizes and the loss of fidelity due to large block sizes . The variance estimation procedure is rather simple. At time $n$ we use a block of $N$ future samples to compute an estimate of the variance
+
+\bee
+\sigma_s^2 = \frac{1}{N} \sum_{i=0}^{N-1} x_{n+1}^2
+\eee
+
+Using this estimate, the quantizer is designed. The quatizer design parameters need also to be transmitted to the receiver.
+
+\paragraph{Backward Adaptive Quantization.} In backward adaptive quantization, only the past quantized samples are available for use in adapting the quantizer. The values of the input are only known to the encoder; therefore, this information cannot be used to adapt the quantizer. How can we get information about mismatch simply by examining the output of the quantizer without knowing what the input was? If we studied the output of the quantizer for a long period of time, we could get some idea about mismatch from the distribution of output
+values. If the quantizer step size $\Delta$ is well matched to the input, the probability that an input to the quantizer would land in a particular interval would be consistent with the pdf assumed for the input. However, if the actual pdf differs from the assumed pdf, the number of times the input falls in the different quantization intervals will be inconsistent with the assumed pdf. If $\Delta$ is smaller than what it should be, the input will fall in the outer levels of the quantizer an excessive number of times. On the other hand, if $\Delta$ is larger than it should be for a particular source, the input will fall in the inner levels an excessive number of times. 
+
+This approach is used in \emph{Jayant quantizer}: If the input falls in the outer levels, the step size needs to be expanded; and if the input falls in the inner quantizer levels, the step size needs to be reduced. The expansions and contractions should be done in such a way that once the quantizer is matched to the input, the product of the expansions and contractions is unity. The 
+
+The expansion and contraction of the step size is accomplished in the Jayant quantizer by assigning a multiplier $M_k$ to each interval. If the $n-1$th input falls in the $k$th interval, the step size to be used for the $n$th input is obtained by multiplying the step size used for the $n-1$th input with $M_k$. The multiplier values for the inner levels in the quantizer are less than one, and the multiplier values for the outer levels of the quantizer are greater than one. Therefore, if an input falls into the inner levels, the quantizer used to quantize the next input will have a smaller step size. Similarly, if an input falls into the outer levels, the step size will be multiplied with a value greater than one, and the next input will be quantized using a larger step size. Notice that the step size for the current input is modified based on the previous quantizer output. The previous quantizer output is available to both the transmitter and receiver, so there is no need to send any additional information to inform the receiver about the adaptation. 
+
+Critical to the good performance of the Jayant quantizer is the choice of the multipliers (not covered here).
+
 
 %%% Local Variables:
 %%% mode: latex
