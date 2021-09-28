@@ -101,10 +101,10 @@ A block diagram of the encoder / decoder structure is shown in the following Fig
     \includegraphics[scale=0.7]{images/2021-08-11-diff_enc_01.png}
 \end{figure}
 
-We would like our difference value to be as small as possible. For this to happen, given the system we have described to this point, $\hat x_n$ should be as close to $x_n$ as possible. However, $\hat x_-n$ is the reconstructed value of $x_n$; therefore, we would like $\hat x_n$ to be close to $x_n$. Unless $x_{n-1}$ is always very close to $x_n$ , some function of past values of the reconstructed sequence can often provide a better prediction of $x_n$. We therefore define a generic predictor function which provides a prediction for $x_n$ based on the past observed values,
+We would like our difference value to be as small as possible. For this to happen, given the system we have described to this point, $\hat x_{n-1}$ should be as close to $x_n$ as possible. However, $\hat x_{n-1}$ is the reconstructed value of $x_{n-1}$; therefore, we would like $\hat x_{n-1}$ to be close to $x_{n-1}$. Unless $x_{n-1}$ is always very close to $x_n$ , some function of past values of the reconstructed sequence can often provide a better prediction of $x_n$. We therefore define a generic predictor function which provides a prediction for $x_n$ based on the past observed values,
 
 \bee
-p_n = f(\hat x_{n-1}, \hat x_{n-2}, \ldots)
+p_n = f(\hat x_{n-1}, \hat x_{n-2}, \ldots, x_p)
 \eee
 
 For computational purposes, the predictor function can only take a finite number of past inputs. A corresponding block diagram of this more general structure is shown in the following Figure.
@@ -116,6 +116,21 @@ For computational purposes, the predictor function can only take a finite number
 
 This basic differential encoding system is known as the differential pulse code modulation (DPCM) system.
 
+\subsection{Prediction}
+
+The (MMSE) optimum predictor for $x_n$ is the conditional expectation,
+
+\bee
+E \left[ x_n | x_{n-1},\ldots,x_p \right]
+\eee
+
+which is - in many cases - difficult to calculate. We therefore restrict ourselves to linear predictors
+
+\bee
+p_n = \sum_{i_1}^p a_i \hat x_{n-i}
+\eee
+
+Knowing the autocorrelation of the sequence $x_n$, we can calculate the opimal predictor (not done here).
 
 
 
