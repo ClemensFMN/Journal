@@ -1,0 +1,23 @@
+\DiaryEntry{ARMA Models, 1}{2021-09-28}{Coding}
+
+ARMA stands for \emph{autoregressive moving average} and describes a class of random processes. An LTI system with $p$ poles and $q$ zeros is excited by a random time-discrete signal $u_n$ and outputs a time-discrete signal $s_n$ according to
+
+\bee
+s_n = \sum_{k=1}^p a_k s_{n-k} + \sum_{k=0}^q b_k u_{n-k}
+\eee
+
+The corresponding transmission function is given by
+
+\bee
+H(z) = \frac{B(z)}{A(z)} = \frac{ \sum_{k=0}^q b_k z^{-k} }{ 1 + \sum_{k=1}^p a_k z^{-1} }
+\eee
+
+If the input signal is white noise with variance $\sigma_u^2$, the output power spectrum is given by
+
+\bee
+P(e^{j \omega}) = \sigma_u^2 \frac{|B(e^{j \omega})|^2}{|A(e^{j \omega})|^2}
+\eee
+
+The process is known as ARMA process of order $(p,q)$.
+
+
