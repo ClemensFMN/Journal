@@ -1,0 +1,138 @@
+\DiaryEntry{Transform Coding / JPEG Compression}{2021-10-13}{Coding}
+
+There are many ways of representing a signal each bringing to the fore different aspects of the signal. Here we look at transform coding which uses transforms to obtain representations of the signal that aid compression. We will show that transforms allow us to find representations of signals with correlation structures which compact most of the signal energy into a few components. This then allows us to not expend resources on the components with little signal energy — thus obtaining compression.
+
+
+\subsection{Definition}
+
+We consider only linear transforms, having a sequence $\{x_n\}$, we obtain its transformation $\{ \theta_n \}$ as
+
+\bee
+\theta_n = \sum_k a_{n,k} x_k
+\eee
+
+
+The coefficients $a_{n,k}$ are defined by the transform used. We can write this in matrix-vector notation as
+
+\bee
+\theta = \Abf \xbf
+\eee
+
+The inverse transform is then given by
+
+\bee
+x_n = \sum_k b_{n,k} \theta_k
+\eee
+
+with the coefficients $b_{n,k}$ again defined by the used transform. We can also write this in matrix-vector notation as
+
+\bee
+\xbf = \Bbf \theta
+\eee
+
+and the two transform matrices are connected via
+
+\bee
+\Abf \Bbf = \Bbf \Abf = \Ibf
+\eee
+
+\paragraph{Two-dimensional Transforms.} For image compression, we have two-dimensional signals and therefore need to perform a two-dimensional transform on them. Let $X_{i,j}$ be the pixel at position $(i,j)$, then a two-dimensional transform for a block of size $N \times N$ is given by
+
+\bee
+\theta_{k,l} = \sum_i \sum_j X_{i,j} a_{i,j,k,l}
+\eee
+
+We will consider \emph{separable} transforms only; that is, we can transform a two-dimensional block by first taking the transform along one dimension, then repeating the operation along the other direction. In terms of matrices, this involves first taking the (one-dimensional) transform of the rows and then taking the column-by-column transform of the resulting matrix. We can also reverse the order of the operations, first taking the transform of the columns, and then taking the row-by-row transform of the resulting matrix. The transform operation can be represented as
+
+\bee
+\theta_{k,l} = \sum_i \sum_j a_{k,i} X_{i,j} a_{j,l}
+\eee
+
+In matrix-vector notation we can write this as
+
+\bee
+\theta = \Abf \Xbf \Abf^T, \qquad \Xbf = \Bbf \theta \Bbf^T
+\eee
+
+
+
+\paragraph{Orthonormal Transforms.} We will deal with orthonormal transforms which are defined as
+
+\bee
+\Bbf = \Abf^{-1} = \Abf^T
+\eee
+
+and they are energy preserving: The energy in the transform coefficients equals the signal energy,
+
+\bee
+\theta^t \theta = (\Abf \xbf)^T (\Abf \xbf) = \xbf^T \Abf^T \Abf \xbf = \xbf^T \xbf
+\eee
+
+
+From the matrix-vector representation it becomes visible, that we project the signal vector $\xbf$ into the (sub)space spanned by the row vectors of $\Abf$; i.e. the $k$-element of the vector $\theta$ is the inner product of the $k$-th row of $\Abf$ and $\xbf$. The inverse transform is then a linear combination of the columns of $\Bbf$ with the coefficients $\theta$.
+
+
+
+\subsection{Transforms of Interest}
+
+Transforms can be separated into transforms which depend on the data and transforms which do not depend on the data. The first class has the advantage that it may perform better (as the transform matches the data better) but the "transform definition" has to be stored / transmitted as well which requires additional storage / bandwith. The data-independent transform may perform worse but no additional storage / transmission of "transform definition" is required.
+
+
+The efficiancy of a transform is given by how good the energy compaction is. One way of measuring the amount of energy compaction afforded by a particular orthonormal transform is to take a ratio of the arithmetic mean of the variances of the transform coefficient to their geometric means. This ratio is also referred to as the transform coding gain 
+
+\bee
+G_{TC} = \frac{ \frac{1}{N} \sum_i \sigma_i^2}{\left( \prod_i \sigma_i^2 \right)^{1/N}}
+\eee
+
+where $\sigma_i^2$ denotes the variance of the $i$-th transform coefficient $\theta_i$.
+
+
+
+\paragraph{Karhunen-Loeve Transform.} The rows of the transform matrix are the eigenvalues of the signal autocorrelation matrix; i.e. the transform is a projection into the eigenspace of the autocorrelation matrix. This matrix is defined as
+
+\bee
+[ \Rbf ]_{i,j} = E \{ X_n X_{n+i-j} \}
+\eee
+
+where we take the expectation over $n$. It can be shown that a transform constructed in this manner will minimize the geometric mean of the variance of the transform coefficients. Hence, the Karhunen–Loéve transform provides the largest transform coding gain of any transform coding method.
+
+If the source output being compressed is nonstationary, the autocorrelation function will change with time. Thus, the autocorrelation matrix will change with time, and the KLT will have to be recomputed. For a transform of any reasonable size, this is a significant amount of computation. Furthermore, as the autocorrelation is computed based on the source output, it is not available to the receiver. Therefore, either the autocorrelation or the transform itself has to be sent to the receiver. The overhead can be significant and remove any advantages to using the optimum transform.
+
+
+\paragraph{Discrete Cosine Transform (DCT).}
+
+The coefficients of the transform matrix are obtained as function of cosines. There are a lot of different definitions, in the example below we use the numpy / scipy one. The DCT is mainly used for image compression; most notably in the JPEG standard.
+
+As we perform a two-dimensional transformation, we look at transformation matrices, indexed by the pair $(i,j)$. Element $(0,0)$ is a constant (the ``DC'' part of the image), $(N,0)$ has maximum variaton in the $x$-direction, $(0,N)$ has maximum variaton in the $y$-direction, and $(N,N)$ has maximum variation in both direction.
+
+It turns out that for most images, the main energy is contained in the lower coefficients and there is little energy in the higher ones. This is called energy compaction and makes the DCT suitable for image compression: Coefficients with more energy are quantized finer, whereas coefficients with low energy are quantized more coarsely or even zeo to zero (via some threshold). This is (more or less) the idea behind JPEG image compression.
+
+
+\paragraph{Examples.} I have made several Python Jupyter Notebooks; they are located at \\ \verb+ ~/src/python/Notebooks/TransformCoding +. 
+
+\subsection{JPEG Compression}
+
+JPEG compression is centered around a DCT performed on $8 \times 8$ pixel blocks. The DCT coefficients are quantized and then finally encoded using some lossless coding scheme (a variant of Huffman coding is used). 
+
+The DCT is (often) applied to a \verb+ YCbCr + representation of the image.
+
+\paragraph{DCT.} A type-II DCT is used. First the pixel values (having $8$ Bits) is shifted to ``the middle'' by subtracting $127$ from each value. Then an $8 \times 8$ DCT is performed on the pixel blocks (if the image size is not a multiple of $8$, some padding has to be done).
+
+
+\paragraph{Quantization.} Each transfomred value is divided by a value taken from the \emph{quantization matrix} and then rounded to the nearest integer as follows
+
+\bee
+B_{j,k} = \lfloor \frac{1}{2} + \frac{\theta_{j,k}}{Q_{j,k}} \rfloor
+\eee
+
+The quantization matrix values are chosen in a way that the values in the upper left of the $8 \times 8$ block are smaller, and increase towards the lower right end of the matris. As a consequence, the upper left values are quantized finer, whereas the lower right values are quantized coarser; usually these small values are small enough that they are quantized to zero.
+
+
+\paragraph{Entropy Coding.} Finally, some form of entropy coding is applied to the quantized coefficients in order to further compress them.
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
