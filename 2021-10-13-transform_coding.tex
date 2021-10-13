@@ -96,7 +96,7 @@ where $\sigma_i^2$ denotes the variance of the $i$-th transform coefficient $\th
 
 where we take the expectation over $n$. It can be shown that a transform constructed in this manner will minimize the geometric mean of the variance of the transform coefficients. Hence, the Karhunen–Loéve transform provides the largest transform coding gain of any transform coding method.
 
-If the source output being compressed is nonstationary, the autocorrelation function will change with time. Thus, the autocorrelation matrix will change with time, and the KLT will have to be recomputed. For a transform of any reasonable size, this is a significant amount of computation. Furthermore, as the autocorrelation is computed based on the source output, it is not available to the receiver. Therefore, either the autocorrelation or the transform itself has to be sent to the receiver. The overhead can be significant and remove any advantages to using the optimum transform.
+If the source output being compressed is nonstationary, the autocorrelation function and the correlation matrix will change with time. Therefore, the KLT will have to be recomputed. For a transform of any reasonable size, this is a significant amount of computation. Furthermore, as the autocorrelation is computed based on the source output, it is not available to the receiver. Therefore, either the autocorrelation or the transform itself has to be sent to the receiver. The overhead can be significant and remove any advantages to using the optimum transform.
 
 
 \paragraph{Discrete Cosine Transform (DCT).}
@@ -114,7 +114,7 @@ It turns out that for most images, the main energy is contained in the lower coe
 
 JPEG compression is centered around a DCT performed on $8 \times 8$ pixel blocks. The DCT coefficients are quantized and then finally encoded using some lossless coding scheme (a variant of Huffman coding is used). 
 
-The DCT is (often) applied to a \verb+ YCbCr + representation of the image.
+The DCT is (often) applied to a "YCbCr" representation of the image.
 
 \paragraph{DCT.} A type-II DCT is used. First the pixel values (having $8$ Bits) is shifted to ``the middle'' by subtracting $127$ from each value. Then an $8 \times 8$ DCT is performed on the pixel blocks (if the image size is not a multiple of $8$, some padding has to be done).
 
@@ -122,14 +122,16 @@ The DCT is (often) applied to a \verb+ YCbCr + representation of the image.
 \paragraph{Quantization.} Each transfomred value is divided by a value taken from the \emph{quantization matrix} and then rounded to the nearest integer as follows
 
 \bee
-B_{j,k} = \lfloor \frac{1}{2} + \frac{\theta_{j,k}}{Q_{j,k}} \rfloor
+B_{j,k} = \left\lfloor \frac{1}{2} + \frac{\theta_{j,k}}{Q_{j,k}} \right\rfloor
 \eee
 
-The quantization matrix values are chosen in a way that the values in the upper left of the $8 \times 8$ block are smaller, and increase towards the lower right end of the matris. As a consequence, the upper left values are quantized finer, whereas the lower right values are quantized coarser; usually these small values are small enough that they are quantized to zero.
+The quantization matrix values are chosen in a way that the values in the upper left of the $8 \times 8$ block are smaller, and increase towards the lower right end of the matris. As a consequence, the upper left values are quantized finer, whereas the lower right values are quantized coarser. The quantization rule above is a midtread quantization scheme; coefficients with an absolute value below $Q_{j,k}$ are quantized to zero and this is typically the case for many coefficients in the lower right part.
 
 
 \paragraph{Entropy Coding.} Finally, some form of entropy coding is applied to the quantized coefficients in order to further compress them.
 
+
+\paragraph{Storage.} All the information obtained above has to be stored somehow; most often the \emph{JFIF}, JPEG File Interchange Format is used. The file contains a header holding image metadata, the compressed, quantized bitstream, and variousencoding information.
 
 
 %%% Local Variables:
