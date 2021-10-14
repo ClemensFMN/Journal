@@ -3,13 +3,13 @@
 ARMA stands for \emph{autoregressive moving average} and describes a class of random processes. An LTI system with $p$ poles and $q$ zeros is excited by a random time-discrete signal $u_n$ and outputs a time-discrete signal $s_n$ according to
 
 \bee
-s_n = \sum_{k=1}^p a_k s_{n-k} + \sum_{k=0}^q b_k u_{n-k}
+s[n] = \sum_{k=1}^p a[k] s[n-k] + \sum_{k=0}^q b[k] u[n-k]
 \eee
 
 The corresponding transmission function is given by
 
 \bee
-H(z) = \frac{B(z)}{A(z)} = \frac{ \sum_{k=0}^q b_k z^{-k} }{ 1 + \sum_{k=1}^p a_k z^{-1} }
+H(z) = \frac{B(z)}{A(z)} = \frac{ \sum_{k=0}^q b[k] z^{-k} }{ 1 + \sum_{k=1}^p a[k] z^{-1} }
 \eee
 
 If the input signal is white noise with variance $\sigma_u^2$, the output power spectrum is given by
@@ -23,4 +23,84 @@ The process is known as ARMA process of order $(p,q)$.
 
 Interesting question(s) are how to obtain the autocorrelation function of the output signal $s_n$.
 
+
+\subsection{Moving Average Process}
+
+We first consider the moving average process. It is given by the following relation,
+
+\bee
+s[n] = \sum_{k=0}^q b[k] u[n-k]
+\eee
+
+
+which is a weighted average of white noise. The autocorrelation function $r[k]$ is defined as 
+
+\bee
+r[k] = E\left\{ s[n] s[n+k] \right\}
+\eee
+
+where the expectation is taken over $n$. For the MA model, the expression inside the expectation is calculated as follows
+
+\begin{align*}
+&\left(\sum_{i=0}^q b[i] u[n-i] \right) \left( \sum_{j=0}^q b[j] u[n+k-j] \right) \\
+= &\left( b[0] u[n] + b[1] u[n-1] + \cdots + b[q] u[n-q] \right) \\
+  &\left( b[0] u[n+k] + b[1] u[n+k-1] + \cdots + b[q] u[n+k-q] \right)
+\end{align*}
+
+The noise is white; i.e. $E(u[n] u[n-k]) = \delta[n-k]$ and therefore we have
+
+\bee
+r[k] = \sigma_u^2 \sum_i b[i] b[i+k] = (b[k] \star b[-k])[n]
+\eee
+
+which is the convolution of $b[n]$ with a time reflected $b[n]$ and we use $\star$ to denote convolution. From the expression we observe that the autocorrelation becomes zero at lags outside $[-q, q]$.
+
+
+\subsection{Autoregressive Process}
+
+This process is defined as
+
+
+\begin{equation}\label{2021-09-29:eq1}
+s[n] = \sum_{k=1}^p a[k] s[n-k] + u[n]
+\end{equation}
+
+It is a weighted sum of $p$ past signals $s[n-k]$ and an additive noise term. Calculating the autocorrelation function is not as easy as before, we will obtain the Yule-Walker equations from which we can obtain the autocorelation function.
+
+We first note the relation
+
+\begin{align*}
+E\{ u[n] s[n] \} &= E\left\{ u[n] \left( a[1] s[n-1] + a[2] s[n-2] + \cdots + a[p] s[n-p] + u[n] \right) \right\} \\
+&= E\left\{ u[n] u[n] \right\} = \sigma_u^2
+\end{align*}
+
+as all previous signals $s[n-k], k>0$ are independent from the noise at time $n$. We therefore have
+
+\bee
+E\{ u[n] s[n-k] \} = 0, \qquad k > 0
+\eee
+
+Let's multiply \eqref{2021-09-29:eq1} with $s[n-k], k=0,1, \ldots$ and take expectations. For $k=0$ we get
+
+\begin{align*}
+r[0] = E\left\{ s[n] s[n] \right\} &= E\left\{ s[n] \left( \sum_{k=1}^p a[k] s[n-k] + u[n] \right) \right\} \\
+&= E\left\{ s[n] \left( a[1] s[n-1]) + a[2] s[n-2] + \cdots + a[p] s[n-p] + u[n]) \right) \right\} \\
+&= a[1] r[1] + a[2] r[2] + \cdots a[p] r[p] + \sigma_u^2
+\end{align*}
+
+
+For $k = 1$ we get
+
+\begin{align*}
+r[1] = E\left\{ s[n] s[n+1] \right\} &= E\left\{ s[n] \left( \sum_{k=1}^p a[k] s[n+1-k] + u[n+1] \right) \right\} \\
+&= E\left\{ s[n] \left( a[1] s[n]) + a[2] s[n-1] + \cdots + a[p] s[n+1-p] + u[n+1]) \right) \right\} \\
+&= a[1] r[0] + a[2] r[1] + \cdots a[p] r[p-1]
+\end{align*}
+
+
+
+
+
+%E\left( s[n] \sum_{k=1}^p a[k] s[n-1-k] + u[n] \right) & = a[1] E(s[n] s[n-2]) + a[2] E(s[n] s[n-2]) + \cdots + a_p E(s[n] s[n-p]) + E(s[n] u[n])
+%\end{align*}
 
