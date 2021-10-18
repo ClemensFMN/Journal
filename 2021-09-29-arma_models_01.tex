@@ -1,15 +1,15 @@
 \DiaryEntry{ARMA Models, 1}{2021-09-28}{Coding}
 
-ARMA stands for \emph{autoregressive moving average} and describes a class of random processes. An LTI system with $p$ poles and $q$ zeros is excited by a random time-discrete signal $u_n$ and outputs a time-discrete signal $s_n$ according to
+ARMA stands for \emph{autoregressive moving average} and describes a class of random processes. An LTI system with $p$ poles and $q$ zeros is excited by a random time-discrete signal $u[n]$ and outputs a time-discrete signal $s[n]$ according to
 
 \bee
-s[n] = \sum_{k=1}^p a[k] s[n-k] + \sum_{k=0}^q b[k] u[n-k]
+s[n] = \sum_{k=1}^p a_k s[n-k] + \sum_{k=0}^q b_k u[n-k]
 \eee
 
 The corresponding transmission function is given by
 
 \bee
-H(z) = \frac{B(z)}{A(z)} = \frac{ \sum_{k=0}^q b[k] z^{-k} }{ 1 + \sum_{k=1}^p a[k] z^{-1} }
+H(z) = \frac{B(z)}{A(z)} = \frac{ \sum_{k=0}^q b_k z^{-k} }{ 1 + \sum_{k=1}^p a_k z^{-1} }
 \eee
 
 If the input signal is white noise with variance $\sigma_u^2$, the output power spectrum is given by
@@ -29,7 +29,7 @@ Interesting question(s) are how to obtain the autocorrelation function of the ou
 We first consider the moving average process. It is given by the following relation,
 
 \bee
-s[n] = \sum_{k=0}^q b[k] u[n-k]
+s[n] = \sum_{k=0}^q b_k u[n-k]
 \eee
 
 
@@ -42,18 +42,24 @@ r[k] = E\left\{ s[n] s[n+k] \right\}
 where the expectation is taken over $n$. For the MA model, the expression inside the expectation is calculated as follows
 
 \begin{align*}
-&\left(\sum_{i=0}^q b[i] u[n-i] \right) \left( \sum_{j=0}^q b[j] u[n+k-j] \right) \\
-= &\left( b[0] u[n] + b[1] u[n-1] + \cdots + b[q] u[n-q] \right) \\
-  &\left( b[0] u[n+k] + b[1] u[n+k-1] + \cdots + b[q] u[n+k-q] \right)
+&\left(\sum_{i=0}^q b_i u[n-i] \right) \left( \sum_{j=0}^q b_j u[n+k-j] \right) \\
+= &\left( b_0 u[n] + b_1 u[n-1] + \cdots + b_q u[n-q] \right) \\
+  &\left( b_0 u[n+k] + b_1 u[n+k-1] + \cdots + b_q u[n+k-q] \right)
 \end{align*}
 
-The noise is white; i.e. $E(u[n] u[n-k]) = \delta[n-k]$ and therefore we have
+The noise is white; i.e. $E(u[n] u[n-k]) = \sigma_u^2 \delta[n-k]$. This allows us to simplify above double sum, as $E(u[n-i]u[n+k-j])$ will only yield a non-zero value for $n-i = n+k-j$. Simplifying this yields $j = k+i$ and the double sum collapses into a single sum as
 
 \bee
-r[k] = \sigma_u^2 \sum_i b[i] b[i+k] = (b[k] \star b[-k])[n]
+r[k] = \sigma_u^2 \sum_i b_i b_{k+i}
 \eee
 
-which is the convolution of $b[n]$ with a time reflected $b[n]$ and we use $\star$ to denote convolution. From the expression we observe that the autocorrelation becomes zero at lags outside $[-q, q]$.
+The signal is multiplied with a shifted version of itself and then summed over. It is symmetric (that's what we expect from an autocorrelation function anyway) and zero outside $[-q;q]$. We can also express $r[k]$ as convolution of $b[n]$ with a time-reversed version of itself,
+
+\bee
+r[k] = \sigma_u^2 b_n \star b_{-n}
+\eee
+
+where we use $\star$ to denote convolution.
 
 
 \subsection{Autoregressive Process}
@@ -62,15 +68,15 @@ This process is defined as
 
 
 \begin{equation}\label{2021-09-29:eq1}
-s[n] = \sum_{k=1}^p a[k] s[n-k] + u[n]
+s[n] = \sum_{k=1}^p a_k s[n-k] + u[n]
 \end{equation}
 
-It is a weighted sum of $p$ past signals $s[n-k]$ and an additive noise term. Calculating the autocorrelation function is not as easy as before, we will obtain the Yule-Walker equations from which we can obtain the autocorelation function.
+It is a weighted sum of $p$ past signals $s[n-k]$ and an additive noise term. Calculating the autocorrelation function is not as easy as before, we will obtain the \emph{Yule-Walker equations} from which we can obtain the autocorelation function.
 
 We first note the relation
 
 \begin{align*}
-E\{ u[n] s[n] \} &= E\left\{ u[n] \left( a[1] s[n-1] + a[2] s[n-2] + \cdots + a[p] s[n-p] + u[n] \right) \right\} \\
+E\{ u[n] s[n] \} &= E\left\{ u[n] \left( a_1 s[n-1] + a_2 s[n-2] + \cdots + a_p s[n-p] + u[n] \right) \right\} \\
 &= E\left\{ u[n] u[n] \right\} = \sigma_u^2
 \end{align*}
 
@@ -80,27 +86,118 @@ as all previous signals $s[n-k], k>0$ are independent from the noise at time $n$
 E\{ u[n] s[n-k] \} = 0, \qquad k > 0
 \eee
 
-Let's multiply \eqref{2021-09-29:eq1} with $s[n-k], k=0,1, \ldots$ and take expectations. For $k=0$ we get
+Let's multiply \eqref{2021-09-29:eq1} with $s[n-k]$ for different values of $k=0,1, \ldots$ and take expectations. For $k=0$ we obtain
 
 \begin{align*}
-r[0] = E\left\{ s[n] s[n] \right\} &= E\left\{ s[n] \left( \sum_{k=1}^p a[k] s[n-k] + u[n] \right) \right\} \\
-&= E\left\{ s[n] \left( a[1] s[n-1]) + a[2] s[n-2] + \cdots + a[p] s[n-p] + u[n]) \right) \right\} \\
-&= a[1] r[1] + a[2] r[2] + \cdots a[p] r[p] + \sigma_u^2
+r[0] = E\left\{ s[n] s[n] \right\} &= E\left\{ s[n] \left( \sum_{k=1}^p a_k s[n-k] + u[n] \right) \right\} \\
+&= E\left\{ s[n] \left( a_1 s[n-1]) + a_2 s[n-2] + \cdots + a_p s[n-p] + u[n] \right) \right\} \\
+&= a_1 r[1] + a_2 r[2] + \cdots a_p r[p] + \sigma_u^2
 \end{align*}
 
-
-For $k = 1$ we get
+where we have used the fact that the autocorrelation is symmetric; i.e. $r[k] = r[-k]$. For $k = 1$ we obtain
 
 \begin{align*}
-r[1] = E\left\{ s[n] s[n+1] \right\} &= E\left\{ s[n] \left( \sum_{k=1}^p a[k] s[n+1-k] + u[n+1] \right) \right\} \\
-&= E\left\{ s[n] \left( a[1] s[n]) + a[2] s[n-1] + \cdots + a[p] s[n+1-p] + u[n+1]) \right) \right\} \\
-&= a[1] r[0] + a[2] r[1] + \cdots a[p] r[p-1]
+r[1] = E\left\{ s[n] s[n+1] \right\} &= E\left\{ s[n] \left( \sum_{k=1}^p a_k s[n+1-k] + u[n+1] \right) \right\} \\
+&= E\left\{ s[n] \left( a_1 s[n]) + a_2 s[n-1] + \cdots + a_p s[n+1-p] + u[n+1]) \right) \right\} \\
+&= a_1 r[0] + a_2 r[1] + \cdots a_p r[p-1]
 \end{align*}
 
+There is a pattern and we can write the equations together,
+
+\begin{align*}
+r[0] &= a_1 r[1] + a_2 r[2] + \cdots a_p r[p] + \sigma_u^2 \\
+r[1] &= a_1 r[0] + a_2 r[1] + \cdots a_p r[p-1] \\
+r[2] &= a_1 r[-1] + a_2 r[0] + \cdots a_p r[p-2] \\
+\cdots & \cdots
+\end{align*}
+
+These are the Yule-Walker equations and they can be used to calculate the autocorrelation function.
+
+\paragraph{Order-1 AR Model.} In this case we have
+
+\bee
+s[n] = a_1 s[n-1] + u[n]
+\eee
+
+and the Yule-Walker equations become
+
+\begin{align*}
+r[0] &= a_1 r[1] + \sigma_u^2 \\
+r[1] &= a_1 r[0] \\
+r[2] &= a_1 r[-1] \\
+\cdots & \cdots
+\end{align*}
+
+Using symmetry of the autocorrelation, we obtain
+
+\begin{align*}
+r[0] &= a_1 r[1] + \sigma_u^2 \\
+r[1] &= a_1 r[0] \\
+r[2] &= a_1 r[1] \\
+\cdots & \cdots
+\end{align*}
+
+The value of $r[0]$, which is also the energy of the signal, can be calculated as follows
+
+\bee
+r[0] = E(y^2[n]) = a^2_1 E(y^2[n-1]) + \sigma_u^2
+\eee
+
+and since the process is stationary, the energy stays constant. We therefore have
+
+\bee
+r[0] = a^2_1 r[0] + \sigma_u^2 \rightarrow r[0] = \frac{\sigma_u^2}{1 - a^2_1}
+\eee
+
+From this, we can use the Yule-Walker equations to calculate the autocorrelation function and obtain
+
+\bee
+r[k] = \frac{a^k_1 \sigma_u^2}{1 - a^2_1}, \qquad k \geq 0
+\eee
+
+
+\paragraph{Order-2 AR Model.} In this case we have
+
+\bee
+s[n] = a_1 s[n-1] + a_2 s[n-2] + u[n]
+\eee
+
+
+and the Yule-Walker equations become
+
+\begin{align*}
+r[0] &= a_1 r[1] + a_2 r[2] + \sigma_u^2 \\
+r[1] &= a_1 r[0] + a_2 r[1] \\
+r[2] &= a_1 r[-1] + a_2 r[0] \\
+\cdots & \cdots
+\end{align*}
+
+Using symmetry, we arrive at the following three equations
+
+\begin{align*}
+r[0] &= a_1 r[1] + a_2 r[2] + \sigma_u^2 \\
+r[1] &= a_1 r[0] + a_2 r[1] \\
+r[2] &= a_1 r[1] + a_2 r[0]
+\end{align*}
+
+Let's rewrite the system in terms of the unknown $r[n]$ values,
+
+\begin{align*}
+r[0] - a_1 r[1] - a_2 r[2] &= \sigma_u^2 \\
+-a_1 r[0] + r[1] (1- a_2) &= 0 \\
+- a_2 r[0] - a_1 r[1] + r[2] &= 0
+\end{align*}
+
+We can solve this system and obtain values for $r[0], r[1], r[2]$. To calculate the autocorrelation function for higher lags, we use the relation $r[2] = a_1 r[-1] + a_2 r[0] = r[2] = a_1 r[1] + a_2 r[0]$ and deduce the following relation from it
+
+\bee
+r[n] = a_1 r[n-1] + a_2 r[n-2], \qquad n > 1
+\eee
+
+\qed
+
+Two things are interesting to note: First, the autocorrelation function of AR models does not become zero as it does outside the filter length for MA models. Second, the AR filter coefficients control the autocorrelation - but this works in the other direction as well: The $p$ filter coefficients control the first $p$ values of the autocorrelation function; afterwards, the autocorrelation function is determined by the expression $r[n] = a_1 r[n-1] + \cdots + a_p r[n-p], n>p$. If we want to have a signal with a defined autocorrelation (at least $p$ values), we can use the Yule-Walker equations to determine the filter coefficients.
 
 
 
-
-%E\left( s[n] \sum_{k=1}^p a[k] s[n-1-k] + u[n] \right) & = a[1] E(s[n] s[n-2]) + a[2] E(s[n] s[n-2]) + \cdots + a_p E(s[n] s[n-p]) + E(s[n] u[n])
-%\end{align*}
 
