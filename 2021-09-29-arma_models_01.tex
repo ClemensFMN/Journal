@@ -199,5 +199,27 @@ r[n] = a_1 r[n-1] + a_2 r[n-2], \qquad n > 1
 Two things are interesting to note: First, the autocorrelation function of AR models does not become zero as it does outside the filter length for MA models. Second, the AR filter coefficients control the autocorrelation - but this works in the other direction as well: The $p$ filter coefficients control the first $p$ values of the autocorrelation function; afterwards, the autocorrelation function is determined by the expression $r[n] = a_1 r[n-1] + \cdots + a_p r[n-p], n>p$. If we want to have a signal with a defined autocorrelation (at least $p$ values), we can use the Yule-Walker equations to determine the filter coefficients.
 
 
+\subsection{ARMA Process}
 
+If we combine autoregressive and moving average, we obtain an ARMA model as stated at the beginning,
+
+\be\label{2021-09-29:eq2}
+s[n] = \sum_{k=1}^p a_k s[n-k] + \sum_{k=0}^q b_k u[n-k]
+\ee
+
+Calculating the autocorrelation follows the same principle as with the AR model; we multiply \eqref{2021-09-29:eq2} with $y[n-k]$ for various values of $k$ and take the expectation.
+
+\paragraph{ARMA(2,2) Model.} We have $s[n] = a_1 s[n-1] + b_0 u[n] + b_1 u[n-1]$ and start by multiplying with $s[n]$to obtain
+
+\bee
+r[0] = a_1 E(s[n-1] s[n]) + b_0 E(u[n] s[n]) + b_1 E(u[n-1] s[n]) = a_1 r[1] + (b_0 + a_1 b_1 + b_1) b_1 \sigma_u^2
+\eee
+
+where we have used $E(u[n-1] s[n]) = (a_1 +1) b_1 \sigma_u^2$. In a similar spirit, we obtain
+
+\bee
+r[1] = a_1 r[0] + b_1^2 \sigma_u^2 \qed
+\eee
+
+We can use the first $p+q+1$ equations to obtain $r[0],\ldots,r[p+q]$. The next equation defines $r[p+q+2]$ in terms of autocorrelations with smaller lag and we can extend this equation to calculate the "remaining" functional values.
 
