@@ -58,6 +58,7 @@ The original sequence can be recovered from the two downsampled sequences by ins
 
 A generalized filterbank system is shown in the following Figure: The source sequence $x[n]$ is fed into two \emph{analysis} filters $H_1(z)$ and $H_2(z)$ (input to the second filter is delayed by one), resulting into the signals $y_1[n]$ and $y_2[n]$. The signals are downsampled resulting in signals $v_1[n], v_2[n]$. Then the signals are encoding / decoded and upsampled, resulting in $u_1[n], u_2[n]$. After filtering with \emph{synthesis} $F_1(z), F_2(z)$, the first signal is delayed by one and then the signals are added.
 
+\todo{rename y[n] at the output!}
 
 \begin{figure}[H]
     \centering
@@ -96,7 +97,13 @@ For the DFT, we obtain $Y(e^{j \omega}) = X(e^{j 2 \omega})$, which corresponds 
 y[n] = x[2n]
 \eee
 
-Every second signal point is removed, therefore information is lost. The spectrum of the output signal can be shown to equal (proof omitted)
+Every second signal point is removed, therefore information is lost. The z-transform of the output signal can be shown to equal (proof omitted)
+
+\bee
+Y(z) = \frac{1}{2} X(z^{1/2}) + \frac{1}{2} X(-z^{1/2})
+\eee
+
+and the spectrum is
 
 \bee
 Y(e^{j \omega}) = \frac{1}{2} \left( X(e^{j \omega/2}) + X(e^{j(\omega - 2\pi)/2} \right)
@@ -119,7 +126,7 @@ Now consider a combined downsampling / upsampling system as shown below.
 \end{figure}
 
 
-Assume a low-pass signal $x[n]$. The first filter $H_1(z)$ must restrict the bandwidth of the input signal to $\pm \pi/2$. Then the downsampling will not remove information. After upsampling, the filter $F_1(z)$ will remove the ``repeated'' spectrum between $\pm \pi/2$ $\pm \pi$. However, this is not the only possible; we could also have a high-pass signal, restrict its bandwith using $H_1(z)$, down- and upsample it, and finally remove unwanted spectrum repetitions via the filter $F_1(z)$.
+Assume a low-pass signal $x[n]$. The first filter $H_1(z)$ must restrict the bandwidth of the input signal to $\pm \pi/2$. Then the downsampling will not remove information. After upsampling, the filter $F_1(z)$ will remove the ``repeated'' spectrum between $\pm \pi/2$ $\pm \pi$. However, this is not the only possible setup; we could also have a high-pass signal, restrict its bandwith using $H_1(z)$, down- and upsample it, and finally remove unwanted spectrum repetitions via the filter $F_1(z)$.
 
 \qed
 
@@ -128,6 +135,58 @@ Coming back to our filter bank, we see that we have two upsampling / downsamplin
 
 
 \subsection*{Perfect Reconstruction Filterbanks}
+
+We will derive the relation between the input $X(z)$ and the output $Y(z)$ in terms of the 4 filters $H_1, H_2, F_1, F_2$. We have
+
+\bee
+Y(Z) = U_1(z) F_1(Z) + U_2(z) F_2(z)
+\eee
+
+The signal $U_i(z)$ are obtained by upsampling $V_i(z)$, therefore $U_i(z) = V_i(z^2)$ and we have
+
+\bee
+Y(Z) = V_1(z^2) F_1(Z) + V_2(z^2) F_2(z)
+\eee
+
+The signals $V_i(z)$ are obtained from downsampling $Y_i(z)$ and we have the following relation
+
+\bee
+V_i(z) = \frac{1}{2} Y_i(z^{1/2}) + \frac{1}{2} Y_i(-z^{1/2})
+\eee
+
+and $Y_i(z) = X(z) H_i(z)$.
+
+Let's consider the effect of down- and upsampling,
+
+\bee
+U_i(z) = V_i(z^2) = \frac{1}{2} Y_i(z) + \frac{1}{2} Y_i(-z) = \frac{1}{2} X(z) H_i(z) + \frac{1}{2} X(-z) H_i(-z)
+\eee
+
+and we finally arrive at
+
+\begin{align*}
+Y(z) &= \frac{1}{2} \left[  X(z) H_1(z) + X(-z) H_1(-z) \right]  F_1(Z) + \frac{1}{2} \left[ X(z) H_2(z) +  X(-z) H_2(-z) \right] F_2(z) \\
+= &\frac{1}{2} \left[ H_1(z) F_1(z) + H_2(z) F_2(z) \right] X(z) + \\
+&+ \frac{1}{2} \left[ H_1(-z) F_1(z) + H_2(-z) F_2(z) \right] X(z)
+\end{align*}
+
+We have separated the terms into one for $X(z)$ and one "aliasing" term for $X(-z)$. For perfect reconstruction, we want to have
+
+\bee
+Y(z) = c X(z) z^{-n_0}
+\eee
+
+i.e. we want a delayed and scaled version of the input at the output. This can be achieved by the following two conditions
+
+\begin{align*}
+H_1(z) F_1(z) + H_2(z) F_2(z) &= c z^{-n_0} \\
+H_1(-z) F_1(z) + H_2(-z) F_2(z) &= 0
+\end{align*}
+
+
+\paragraph{Quadrature Mirror Filter Banks.}
+
+
 
 
 %%% Local Variables:
