@@ -43,7 +43,7 @@ Suppose we have a sequence $x_0, x_1, x_2 , \ldots$. We can divide this sequence
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{images/2021-11-09-subband_02.png}
+    \includegraphics[scale=0.6]{images/2021-11-09-subband_02.png}
 \end{figure}
 
 
@@ -52,13 +52,11 @@ The original sequence can be recovered from the two downsampled sequences by ins
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{images/2021-11-09-subband_03.png}
+    \includegraphics[scale=0.6]{images/2021-11-09-subband_03.png}
 \end{figure}
 
 
-A generalized filterbank system is shown in the following Figure: The source sequence $x[n]$ is fed into two \emph{analysis} filters $H_1(z)$ and $H_2(z)$ (input to the second filter is delayed by one), resulting into the signals $y_1[n]$ and $y_2[n]$. The signals are downsampled resulting in signals $v_1[n], v_2[n]$. Then the signals are encoding / decoded and upsampled, resulting in $u_1[n], u_2[n]$. After filtering with \emph{synthesis} $F_1(z), F_2(z)$, the first signal is delayed by one and then the signals are added.
-
-\todo{rename y[n] at the output!}
+A generalized filterbank system is shown in the following Figure: The source sequence $x[n]$ is fed into two \emph{analysis} filters $H_1(z)$ and $H_2(z)$, resulting into the signals $y_1[n]$ and $y_2[n]$. The signals are downsampled resulting in signals $v_1[n], v_2[n]$. Then the signals are encoding / decoded and upsampled, resulting in $u_1[n], u_2[n]$. After filtering with \emph{synthesis} $F_1(z), F_2(z)$, the signals are added, yielding the filterbank output signal $y[n]$.
 
 \begin{figure}[H]
     \centering
@@ -69,20 +67,25 @@ A generalized filterbank system is shown in the following Figure: The source seq
 We next investigate how up/down-sampling operates in the frequency domain.
 
 
-\paragraph{Upsampling.} A signal $x[n]$ is upsampled, creating an output sequence $y[n]$ according to
+\paragraph{Upsampling.} A signal $x[n]$ is upsampled by a factor $2$, yielding an output sequence $y[n]$ according to
 
 \bee
-y[n] = \begin{cases} x[n/2] & \text{ for $n$ even} \\ 0 & \text{otherwise} \end{cases}.
+y[n] = \begin{cases} x[n/2] & \text{ for $n$ even} \\ 0 & \text{otherwise} \end{cases}
 \eee
 
-
-Between every signal point a zero is inserted and no information is lost. The z-transform of the output is given by
+Between every signal point a zero is inserted and therefore no information is lost. The z-transform of the output is given by
 
 \bee
 Y(z) = \sum_n y[n] z^{-n} = \sum_{n \text{even}} y[n] z^{-n} = \sum_{k} y[2k] z^{-2k} = \sum_{k} x[k] z^{-2k} = X(z^2)
 \eee
 
-For the DFT, we obtain $Y(e^{j \omega}) = X(e^{j 2 \omega})$, which corresponds to a compression of the spectrum. This is shown in the following Figure ($x[n]$ is black, $y[n]$ is red).
+For the DFT, we obtain
+
+\bee
+Y(e^{j \omega}) = X(e^{j 2 \omega})
+\eee
+
+which corresponds to a compression of the spectrum. This is shown in the following Figure.
 
 \begin{figure}[H]
     \centering
@@ -90,8 +93,7 @@ For the DFT, we obtain $Y(e^{j \omega}) = X(e^{j 2 \omega})$, which corresponds 
 \end{figure}
 
 
-
-\paragraph{Downsampling.} A signal $x[n]$ is downsampled, yielding a signal $y[n]$ given by
+\paragraph{Downsampling.} A signal $x[n]$ is downsampled by a factor of $2$, yielding a signal $y[n]$ given by
 
 \bee
 y[n] = x[2n]
@@ -109,7 +111,9 @@ and the spectrum is
 Y(e^{j \omega}) = \frac{1}{2} \left( X(e^{j \omega/2}) + X(e^{j(\omega - 2\pi)/2} \right)
 \eee
 
-This is shown in the following Figure ($x[n]$ is black, $y[n]$ is red). Note that when the bandwidth of the signal to be downsampled is larger than $\pi/2$, then aliasing is introduced and information is lost. This fact is shown in the lower part of the Figure.
+This is shown in the following Figure (the factor two is omitted). In the upper part of the Figure the bandwidth of the signal to be downsampled is $\pi/2$, therefore the spectrum of the downsampled signal reaches up to $\pi$ and no information is lost.
+
+In the lower part, the bandwith of $x[n]$ is larger than $\pi/2$ and the downsampling introduces aliasing; i.e. information is lost.
 
 \begin{figure}[H]
     \centering
@@ -117,24 +121,44 @@ This is shown in the following Figure ($x[n]$ is black, $y[n]$ is red). Note tha
 \end{figure}
 
 
-Now consider a combined downsampling / upsampling system as shown below.
-
+Now consider a combined downsampling / upsampling system as shown below. This corresponds to one part of the filter bank described previously.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.5]{images/2021-11-09-subband_07.png}
 \end{figure}
 
+Downsampling $y_1[n]$ throw away information; in order to avoid this, the signal bandwith must be less than $\pi/2$. One choice is that  $y_1[n]$ is a low-pass signal with bandwidth less than $\pi/2$. Either the input signal $x[n]$ is already such a low-pass signal (in this case, we can omit the filter $H_1(z)$) or we filter $x[n]$ with $H_1(z)$ to obtain a suitable low-pass signal. Downsampling spreads the spectrum by a factor of two, upsampling compresses the spectrum and introduces spectrum components above $\pi/2$. The output filter $F_1(z)$ can remove these unwanted frequency components, yielding $w[n]$.
 
-Assume a low-pass signal $x[n]$. The first filter $H_1(z)$ must restrict the bandwidth of the input signal to $\pm \pi/2$. Then the downsampling will not remove information. After upsampling, the filter $F_1(z)$ will remove the ``repeated'' spectrum between $\pm \pi/2$ $\pm \pi$. However, this is not the only possible setup; we could also have a high-pass signal, restrict its bandwith using $H_1(z)$, down- and upsample it, and finally remove unwanted spectrum repetitions via the filter $F_1(z)$.
+The spectra of the various signals are shown in the following Figure. The spectrum $X(e^{j\omega})$ (shown in red) has bandwidth larger $\pi/2$. It is filtered by an ideal lowpass $H_1(z)$; i.e. everything is cut above $\pi/2$. Downsampling yields $V_1$ which has a bandwidth of $\pi$. Upsampling compresses the spectrum, yielding $U_1$. The filter $F_1$ removes frequency components above $\pi/2$ and we have reconstructed the signal $y_1[n]$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2021-11-09-subband_08.png}
+\end{figure}
+
+However, this is not the only possible setup; we could also filter the input signal with a highpass filter $H_1$, downsample and upsample. The signal $w_1[n]$ will now be spread acorss the whole spectrum and have alias components at frequencies below $\pi/2$. The filter $F_1$ can remove these alias components ($F_1$ should be a highpass filter to this end).
+
+In the next Section, we will derive the input-output relation for the filterbank; sneaking forward a bit, we have the following input-output relation for the system under consideration
+
+\bee
+Y(z) &= \frac{1}{2} H_1(z) F_1(z) X(z) + \frac{1}{2} H_1(-z) F_1(z) X(-z)
+\eee
+
+We see that there is contribution from $X(z)$ and one from $X(-z)$; the second part represents the aliasing introduced by the upsampling. Note that $H(-z) = H(-e^{j \omega}) = H(e^{j \pi} e^{j \omega}) = H(e^{j(\omega + \pi)})$; this corresponds to a spectrum centered at $\pi$ and is therefore the aliasing term.
+
+If we choose $H_1$ and $F_1$ as perfect lowpass filters with bandwith $\pi/2$, then $H_1(-z)$ becomes a highpass with bandwidth $\pi/2$ and multiplying with the ideal lowpass $F_1$ yields $0$ for all frequencies. We therefore have
+
+\bee
+Y(e^{j \omega}) = \begin{cases} \frac{1}{2} H_1(e^{j \omega}) F_1(e^{j \omega})=1 & \omega < \pi/2 \\ 0 & \omega > \pi/2 \end{cases}
 
 \qed
 
 
-Coming back to our filter bank, we see that we have two upsampling / downsampling paths. In order to get perfect reconstruction, we have 4 filters (the 2 analysis filters $H_1(z), H_2(z)$ and the 2 synthesis filters $F_1(z), F_2(z)$) as ``design space'' so that $y[n] = x[n]$.
+Coming back to our filter bank, we see that we have two upsampling / downsampling paths. In order to get perfect reconstruction, we have 4 filters (the two analysis filters $H_1(z), H_2(z)$ and the two synthesis filters $F_1(z), F_2(z)$) as ``design space'' so that $y[n] = x[n]$.
 
 
-\subsection*{Perfect Reconstruction Filterbanks}
+\subsection*{Filterbank Input-Output Relation}
 
 We will derive the relation between the input $X(z)$ and the output $Y(z)$ in terms of the 4 filters $H_1, H_2, F_1, F_2$. We have
 
@@ -167,7 +191,7 @@ and we finally arrive at
 \begin{align*}
 Y(z) &= \frac{1}{2} \left[  X(z) H_1(z) + X(-z) H_1(-z) \right]  F_1(Z) + \frac{1}{2} \left[ X(z) H_2(z) +  X(-z) H_2(-z) \right] F_2(z) \\
 = &\frac{1}{2} \left[ H_1(z) F_1(z) + H_2(z) F_2(z) \right] X(z) + \\
-&+ \frac{1}{2} \left[ H_1(-z) F_1(z) + H_2(-z) F_2(z) \right] X(z)
+&+ \frac{1}{2} \left[ H_1(-z) F_1(z) + H_2(-z) F_2(z) \right] X(-z)
 \end{align*}
 
 We have separated the terms into one for $X(z)$ and one "aliasing" term for $X(-z)$. For perfect reconstruction, we want to have
@@ -184,7 +208,7 @@ H_1(-z) F_1(z) + H_2(-z) F_2(z) &= 0
 \end{align*}
 
 
-\paragraph{Quadrature Mirror Filter Banks.}
+\subsection*{Quadrature Mirror Filter Banks}
 
 
 
