@@ -121,7 +121,23 @@ In the lower part, the bandwith of $x[n]$ is larger than $\pi/2$ and the downsam
 \end{figure}
 
 
+
+\paragraph{Combination of Filter and Up-/Downsampler.} Next we consider a filter combined with an up- or downsampler as shown in the following Figure. If a signal is downsampled by a factor $M$ and filtered afterwards by a filter $F(z)$, we can replace it with a structure of a filter $F(z^m)$ followed by the downsampler of factor $M$.
+
+A similar correspondence is also available for a filter follwed by an upsampler (by a factor of $L$): The equivaent structure is the upsampler (factor $L$) follwed by the filter $F(z^L)$. 
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.45]{images/2021-11-09-subband_06a.png}
+\end{figure}
+
+These identities can be used to obtain the input-output relation from a system consisting of filters, up-, and downsamplers in various combinations.
+
+\qed
+
 Now consider a combined downsampling / upsampling system as shown below. This corresponds to one part of the filter bank described previously.
+
 
 \begin{figure}[H]
     \centering
