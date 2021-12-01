@@ -158,7 +158,7 @@ However, this is not the only possible setup; we could also filter the input sig
 In the next Section, we will derive the input-output relation for the filterbank; sneaking forward a bit, we have the following input-output relation for the system under consideration
 
 \bee
-Y(z) &= \frac{1}{2} H_1(z) F_1(z) X(z) + \frac{1}{2} H_1(-z) F_1(z) X(-z)
+Y(z) = \frac{1}{2} H_1(z) F_1(z) X(z) + \frac{1}{2} H_1(-z) F_1(z) X(-z)
 \eee
 
 We see that there is contribution from $X(z)$ and one from $X(-z)$; the second part represents the aliasing introduced by the upsampling. Note that $H(-z) = H(-e^{j \omega}) = H(e^{j \pi} e^{j \omega}) = H(e^{j(\omega + \pi)})$; this corresponds to a spectrum centered at $\pi$ and is therefore the aliasing term.
@@ -167,7 +167,7 @@ If we choose $H_1$ and $F_1$ as perfect lowpass filters with bandwith $\pi/2$, t
 
 \bee
 Y(e^{j \omega}) = \begin{cases} \frac{1}{2} H_1(e^{j \omega}) F_1(e^{j \omega})=1 & \omega < \pi/2 \\ 0 & \omega > \pi/2 \end{cases}
-
+\eee
 \qed
 
 
@@ -269,7 +269,7 @@ T(z) = H_1(z) F_1(z) + H_2(z) F_2(z) = H_1(z) H_2(-z) - H_1(-z) H_2(-z)
 If we chose $H_1(z)$ and $H_2(z)$ to be linear phase FIR filters, $T(z)$ will also be a linear phase FIR filter. In the QMF approach, we first select the low-pass filter $H_1(z)$, then define the high-pass filter $H_2(z)$ to be a mirror image of the low-pass filter
 
 \bee
-H_2(z) = H_1(−z)
+H_2(z) = H_1(-z)
 \eee
 
 This is referred to as a mirror condition and is the original reason for the name of the QMF filters. We can see that this condition will force both filters to have equal bandwidth. However, filters designed according to these conditions, have poor cut-off characteristics. There are various approaches in appromxiating these conditions (e.g. optimizing $H_1$ so that the phase distortion is eliminted while $|T(e^{j \omega}|$ is minimized or minimizing the stopband energy of $H_1$ and making $|T(e^{j \omega}|$ as close to a constant as possible).
