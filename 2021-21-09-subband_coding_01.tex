@@ -262,9 +262,9 @@ The condition $T(z) = c z^{-n_0}$ implies the following in the frequency domain,
 
 The first requirement (constant absolute value of $T$) removes amplitude distorition, the second one (linear phase of $T$) elimates phase distortion. Inserting the conditions from \eqref{2021-21-09:eq1} into the definition of $T(z)$, we obtain
 
-\bee
+\be\label{2021-21-09:eq2}
 T(z) = H_1(z) F_1(z) + H_2(z) F_2(z) = H_1(z) H_2(-z) - H_1(-z) H_2(-z)
-\eee
+\ee
 
 If we chose $H_1(z)$ and $H_2(z)$ to be linear phase FIR filters, $T(z)$ will also be a linear phase FIR filter. In the QMF approach, we first select the low-pass filter $H_1(z)$, then define the high-pass filter $H_2(z)$ to be a mirror image of the low-pass filter
 
@@ -272,10 +272,132 @@ If we chose $H_1(z)$ and $H_2(z)$ to be linear phase FIR filters, $T(z)$ will al
 H_2(z) = H_1(-z)
 \eee
 
-This is referred to as a mirror condition and is the original reason for the name of the QMF filters. We can see that this condition will force both filters to have equal bandwidth. However, filters designed according to these conditions, have poor cut-off characteristics. There are various approaches in appromxiating these conditions (e.g. optimizing $H_1$ so that the phase distortion is eliminted while $|T(e^{j \omega}|$ is minimized or minimizing the stopband energy of $H_1$ and making $|T(e^{j \omega}|$ as close to a constant as possible).
+This is referred to as a mirror condition and is the original reason for the name of the QMF filters. We can see that this condition will force both filters to have equal bandwidth. However, filters designed according to these conditions, have poor cut-off characteristics (see the end of the article for the allowed form of the filters).
+
+There are various approaches in appromxiating these conditions (e.g. optimizing $H_1$ so that the phase distortion is eliminted while $|T(e^{j \omega}|$ is minimized or minimizing the stopband energy of $H_1$ and making $|T(e^{j \omega}|$ as close to a constant as possible).
 
 There is a paper by J.D. Johnston, ``A filter family designed for use in quadrature mirror filter banks'' which performs such optimizations and provides FIR filter coefficients for various filter lengths.
 
+Another approach is to use \emph{power-symmetric FIR filters} which allow to completely avoid aliasing, amplitude distortion, and phase distortion.
+
+\subsection{Polyphase Decomposition}
+
+Deal with the time-varying nature of up- and downsamplers.
+
+Suppose the analysis filter $H_1(z)$ is gvien by
+
+\bee
+H_1(z) = h_0 + h_1 z^{-1} + h_2 z^{-2} + h_3 z^{-3} + \cdots
+\eee
+
+We can group even and odd terms together
+
+\bee
+H_1(z) = (h_0 + h_2 z^{-2} + \cdots) + (h_1 z^{-1} + h_3 z^{-3} + \cdots)
+\eee
+
+and define
+
+\begin{align}
+  H_{10}(z) &= h_0 + h_2 z^{-1} + h_4 z^{-2} + \cdots \\
+  H_{11](z) &= h_1 + h_3 z^{-1} + h_5 z^{-2} + \cdots
+\end{align}
+
+Then $H_1(z) = H_{10}(z^2} + z^{-1} H_{11}(z^2}$. We can also decompose the second analysis filter into $H_{20}(z), H_{21}(z)$ in a similar manner. These filter components are called \emph{polyphase components}. Applying the inverse $z$-transform to the polyphase components of $H_1(z)$, we obtain
+
+\bee
+h_{10}[n] = h_{2n}, h_{11}[n] = h_{2n+1}, \quad \forall n
+\eee
+
+Thus, these are simply the impulse response $h_n$ downsampled by two. Consider the output of the downsampler for a given input $X(z)$. The input to the downsampler is $X(z)H_11(z)$; thus, the output is
+
+\bee
+V_i(z) = \frac{1}{2} Y_i(z^{1/2}) + \frac{1}{2} Y_i(-z^{1/2}) = \frac{1}{2} \left( X(z^{1/2}) H_1(z^{1/2}) + X(-z^{1/2}) H_1(-z^{1/2}) \right)
+\eee
+
+Using the polyphase decomposition of $H(z)$ we obtain
+
+\begin{align*}
+  V_1(z) &= \frac{1}{2} H(z^{1/2}) \left[ H_{10}(z) + z^{-1/2} H_{11}(z) \right] + \frac{1}{2} H(-z^{1/2}) \left[ H_{10}(z) + z^{-1/2} H_{11}(z) \right] \\
+  &= H_{10}(z) \frac{1}{2} \left[ X(z^{1/2}) + X(-z^{1/2}) \right] + H_{11}(z) \frac{1}{2} \left[ z^{-1/2} X(z^{1/2}) - z^{-1/2} X(-z^{1/2}) \right]
+\end{align*}
+
+The first expression in the square brackets is the output of a downsampler whose input is $X(z)$, the second expression in square brackets is the output of a downsampler whose input is $z^{-1}X(z)$. The outputs of the downsampler are then filtered by the polyphase components of $H(z)$. Therefore, we can implement this system as shown in the following Figure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{images/2021-11-09-subband_10.png}
+\end{figure}
+
+We can do the same polyphase decomposition of the synthesis filters, $F(z)$,
+
+\bee
+F_i(z) = F_{i0}(z^2) + z^{-1} F_{i1}(z^2)
+\eee
+
+The output of the synthesis filter $U_i(z)$ is then given by
+
+\bee
+U_i(z) = V_i(z^2) F_i(z) = V_i(z^2) F_{i0}(z^2) + z^{-1} V_i(z^2) F_{i1}(z^2)
+\eee
+
+We can implement this system as shown in the following Figure (replace $G$ with $F$!).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{images/2021-11-09-subband_11.png}
+\end{figure}
+
+Putting everything together, we arrive with the following system (again replace $G$ with $F$!); everything inside the dashed rectangle is now a time-invariant system (runnig with half the sampling frequency).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{images/2021-11-09-subband_12.png}
+\end{figure}
+
+The polyphase representation is a very useful tool for analysis; one application is the perfect reconstruction QMF filterbank.
+
+From \eqref{2021-21-09:eq2} , we had
+
+\bee
+T(z) = H_1(z) H_2(-z) - H_1(-z) H_2(-z) = c z^{-n_0}
+\eee
+
+Imposing the mirror condition $H_2(z) = H_1(-z)$, this becomes
+
+\be\label{2021-21-09:eq3}
+T(z) = \frac{1}{2} \left[ H_1^2(z) - H_1^2(-z) \right]
+\ee
+
+The polyphase decompositions of $H_1(z)$ and $H_1(-z)$ are given by
+
+\bee
+H_1(z) = H_{10}(z^2) + z^{-1} H_{11}(z^2), \text{ and } H_1(-z) = H_{10}(z^2) - z^{-1} H_{11}(z^2)
+\eee
+
+and if we insert this into  \eqref{2021-21-09:eq3}, we obtain
+
+\bee
+T(z) = 2 z^{-1} H_{10}(z^2) H_{11}(z^2)
+\eee
+
+For $T(z)$ to be of the form $c z^{-n_0}$, the only way is if both polyphase components are simple delays; that is
+
+\bee
+H_{1i}(z) = h_i z^{-k_i}
+\eee
+
+which results in
+
+\bee
+T(z) = c h_0 h_1 z^{-(2k_0 +2k_1 +1)}
+\eee
+
+which has the desired form. The resulting analysis filters then have the form
+
+\bee
+H_i(z) = h_o z^{-2k_i} + h_1 z^{-(2k_1 + 1)}
+\eee
 
 %%% Local Variables:
 %%% mode: latex
