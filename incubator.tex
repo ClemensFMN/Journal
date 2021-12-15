@@ -1,6 +1,6 @@
 \DiaryEntry{Upcoming Ideas...}{}{}
 
-Making a denominator square-root free.
+\subsection{Making a denominator square-root free.}
 
 \bee
 \frac{1}{1 + \sqrt{2}} = \frac{1 - \sqrt{2}}{(1 + \sqrt{2})(1 - \sqrt{2})} = \frac{1 - \sqrt{2}}{1 - 2} = \sqrt{2} - 1
@@ -12,6 +12,46 @@ A similar idea is to make the denominator real,
 
 \bee
 \frac{1}{1-j} = \frac{1+j}{(1-j)(1+j)} = \frac{1+j}{(1-j)(1+j)} = \frac{1+j}{2}
+\eee
+
+
+\subsection{Graph / Tree traversal}
+
+Actually, two things. Numerb one: The DFS algorithm \ref{2020-02-27:entry} is recursive. There is, however, also an iterative version available which uses a stack. Implement this algorithm.
+
+Number two: Both BFS and DFS simplify in case of a tree as it is a graph without cycles. Show how the algs simplify in this case.
+
+
+\subsection{Inequalities and Squareroots}
+
+Prove that $0 < 11 - 6 \sqrt{3} < 1$. We have the following reasoning:
+
+\begin{align*}
+  &121 > 108 > 100 \\
+  &\sqrt{121} > \sqrt{108} > \sqrt{100} \\
+  &11 > 6 \sqrt{3} > 10 \\
+  &-11 < -6 \sqrt{3}  < -10
+\end{align*}
+
+The square root is a convex function, therefore from $A > B$ follows $\sqrt{A} > \sqrt{B}$ which explains the step from the first to second line.
+
+Adding $11$ to the last line yields
+
+\bee
+0 < 11 - 6 \sqrt{3} < 1 \qed
+\eee
+
+Also interesting is to bound a square root between integers which differ by one; e.g. $A < \sqrt{37} < B$. We can bound this as follows
+
+\begin{align*}
+  &\sqrt{36} < \sqrt{37} < \sqrt{49} \\
+  & 6 < \sqrt{37} < 7
+\end{align*}
+
+For the lower / upper bound we use the ``closest'' square number. The root then gives integers and the bounds differ by $1$ as requested. This holds for all numbers in between; i.e. we have
+
+\bee
+6 < \sqrt{37} \cdots \sqrt{48} < 7
 \eee
 
 

@@ -1,5 +1,7 @@
 \DiaryEntry{Subband Coding}{2021-11-09}{Coding}
 
+Taken from \cite{sayood2012introduction}.
+
 Working with signals in the temporal or spatial domain allowed us to use their correlation properties to develop techniques such as differential encoding and vector quantization. Working with signals in the frequency domain allowed us to use their spectral structure and develop transform coding approaches. In each case we stayed exclusively in one domain—either temporal and spatial or spectral.
 
 
@@ -300,10 +302,10 @@ and define
 
 \begin{align}
   H_{10}(z) &= h_0 + h_2 z^{-1} + h_4 z^{-2} + \cdots \\
-  H_{11](z) &= h_1 + h_3 z^{-1} + h_5 z^{-2} + \cdots
+  H_{11}(z) &= h_1 + h_3 z^{-1} + h_5 z^{-2} + \cdots
 \end{align}
 
-Then $H_1(z) = H_{10}(z^2} + z^{-1} H_{11}(z^2}$. We can also decompose the second analysis filter into $H_{20}(z), H_{21}(z)$ in a similar manner. These filter components are called \emph{polyphase components}. Applying the inverse $z$-transform to the polyphase components of $H_1(z)$, we obtain
+Then $H_1(z) = H_{10}(z^2) + z^{-1} H_{11}(z^2)$. We can also decompose the second analysis filter into $H_{20}(z), H_{21}(z)$ in a similar manner. These filter components are called \emph{polyphase components}. Applying the inverse $z$-transform to the polyphase components of $H_1(z)$, we obtain
 
 \bee
 h_{10}[n] = h_{2n}, h_{11}[n] = h_{2n+1}, \quad \forall n
