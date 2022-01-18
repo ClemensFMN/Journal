@@ -59,15 +59,17 @@ which matches the intuition.
 
 \subsection{Event in the Unit Interval}
 
-Now we consider the slightly different case when the \emph{whole event} is located inside the unit interval. Using the same naming conventions as above, this means that
+Now we consider the slightly different case where the \emph{whole event} is located inside the unit interval. Using the same naming conventions as above, this means that
 
 \bee
 t_{i,1} \sim \Uc(0, 1 - w_i), \quad i \in \{A,B\}
 \eee
 
-and implies that $t_{i,2} < 1$.
+and implies $t_{i,2} < 1$.
 
-Fix again the value of $t_{A,1}$. For an overlap to happen, the realisation of $t_{B,1}$ must be in the interval $[t_{A,1}, t_{A,2}$; note however, that $t_{B,2} < 1$ \todo{Check / Continue}
+Fix again the value of $t_{A,1}$. For an overlap to happen, the realisation of $t_{B,1}$ must be in the interval $[t_{A,1}, t_{A,2}]$; note however, that $t_{B,2} < 1$.
+
+Finding a closed-form expression seems to be difficult (as we have two different uniform distributions); however, we see that the probability for an overlap is higher in this case than in the previous one. In addition, $P = 1$ for $w_A + w_B \geq 1$ as in this case the intervals will overlap for sure.
 
 %%% Local Variables:
 %%% mode: latex
