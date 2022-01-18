@@ -1,0 +1,96 @@
+\DiaryEntry{Knapsack Problem}{2022-01-17}{}
+
+We have a set of $N$ different item types, each type has a weight $w_i$ and a value $v_i$. We want to pack $x_i$ items of each type into a knapsack with maximum weight capacity $W$ so that the overall value $m[W]$ is maximized,
+
+\bee
+m[W] = \max_{x_i} \sum_{i=1}^N v_i w_i
+\eee
+
+with the constraint
+
+\bee
+\sum_{i=1}^N w_i x_i \leq W
+\eee
+
+The weights must be strictly positive ($w_i < 0$), otherwise any solution could be improved (unboundedly) by adding an infinite number of items with negative weight.
+
+There are several possibilites for the allowed value of the $x_i$; the \emph{0-1 Knapsack Problem} allows at most one item of each type; i.e. $x_i \in \{0,1\}$. In a \emph{bounded Knapsack problem}, the $x_i$ are restricted to a maximum number of each item type denoted by the integer $c$. Finally, the \emph{unbounded Knapsack problem} has no bounds on the $x_i$.
+
+
+\subsection{Unbounded Knapsack Problem}
+
+We solve the Knapsack problem in a recursive manner (using a dynamic programming approach); i.e. we solve it for a knapsack with capacity $W = 0$, then for a knapsack with capacity $W=1$ and so on. We define the function
+
+\bee
+m[w'] = \max_{x_i} \sum_{i=1}^N v_i w_i
+\eee
+
+with the constraint 
+
+\bee
+\sum_{i=1}^N w_i x_i \leq w'
+\eee
+
+This function has the following characteristics,
+
+\bee
+m[0] = 0
+\eee
+
+as we can not fit any items in a knapsack having empty capacity, $W = 0$. A second characteristic is
+
+\bee
+m[w] = \max(v_1 + m[w - w_1], v_2 + m[w - w_2], cdots, v_N + m[w - w_N]), \quad w_i \leq w
+\eee
+
+This can be explained as follows: Assume we want to fill a knapsack with capacity $w$ and think which item we put in next. We can choose any item $i$ out of the $N$ types and this will add a value of $v_i$ to the knapsack. However, this item has weight $w_i$ so the value $v_i$ is added to the knapsack with weight $w - w_i$ in order not to exceed capacity. We chose the item which creates the knapsack with maximum value. In the end, we arrive at $m[W]$ which holds the solution to the problem. If we additionally keep track of which item $i$ we add in each step (i.e. the $\arg \min$), then we also know which items the knapsack contains.
+
+\paragraph{Example.}  We have $N = 2$ different items with weights $w_1 = 2, w_2 = 3$ and values $v_1 = 3, v_2 = 5$, respectively. As outlined above, we start with $m[0] = 0$. For $m[1]$ we observe that the item with the smallest weight has weight $2$, therefore we cannot add anything to the knapsack and $m[1] = 0$. In our formula, we see that there are no terms to take the maximum over and therefore
+
+\bee
+m[1] = \max_{w_i \leq 1}(v_i + m[w - w_i]) = 0
+\eee
+
+The next one is more interesting, we have
+
+\bee
+m[2] = \max_{w_i \leq 2} (v_i + m[2-w_i]) = \max(v_1 + m[2-w_1]) = \max(3 + m[0]) = \max(3) = 3
+\eee
+
+which was realized by adding item $1$ to the knapsack. Since the second item has weight $w_2 = 3 > 2$, it was not considered in the maximization. Next we consider $w=3$ and obtain
+
+\bee
+m[3] = \max_{w_i \leq 3} (v_i + m[2-w_i]) = \max(3 + m[1], 5 + m[0]) = \max(3, 5) = 5
+\eee
+
+which was realized by adding item $2$ to the knapsack. We continue with $m=4$ and get
+
+\bee
+m[4] = \max_{w_i \leq 4} (v_i + m[2-w_i]) = \max(v_1 + m[2], v_2 + m[1]) = \max(3 + 3, 5 + 0) = 6
+\eee
+
+We have added one item $1$ to the knapsack; however, the ``starting point'' was the knapsack $m[2]$ which already held one item $1$. Therefore $m[4]$ is realized by a knapsack with \emph{two items $1$}. This is typical for such dynamic programming solutions that a small increase in the function argument (going from $m[3]$ to $m[4]$) causes a different solution (similar with the Viterbi algorithm).
+
+
+\subsection{Binary Knapsack Problem}
+
+A similar dynamic programming solution for the 0-1 Knapsack Problem also runs in pseudo-polynomial time. We define $m[i,w]$  to be the maximum value that can be attained with weight $\leq w$ using only the first $i$ item types. We can define $m[i,w]$ recursively with starting point
+
+\bee
+m[0,w]  = 0
+\eee
+
+For values $i > 0$, we have two cases: (i) The new item is heavier than the current weight limit and we therefore cannot add it. In this case we have $m[i,w] = m[i-1,w]$. (ii) The new item is allowed from the weight limit. In this case we need to check whether replacing item $i-1$ by item $i$ increases value, $m[i,w] = \max(m[i-1,w], m[i-1,w-w_i]+v_i)$. Combining this, we have
+
+\bee
+m[i,w] = \begin{cases} m[i-1,w] \quad w_i > w \\
+  \max(m[i-1,w], m[i-1,w-w_i]+v_i) \quad w_i \leq w \end{cases}
+\eee
+
+The solution can then be found by calculating $m[n,W]$. To do this efficiently, we can use a table to store previous computations and knapsack content. Be aware, that there is an upper value limit $\sum w_i$ we can get at most into a knapsack (as we are allowed to take at most one of each item type). So for the algorithm to make sense, we need $\sum w_i \geq W$
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
