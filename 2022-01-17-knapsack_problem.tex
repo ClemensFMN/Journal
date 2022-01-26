@@ -1,20 +1,20 @@
 \DiaryEntry{Knapsack Problem}{2022-01-17}{}
 
-We have a set of $N$ different item types, each type has a weight $w_i$ and a value $v_i$. We want to pack $x_i$ items of each type into a knapsack with maximum weight capacity $W$ so that the overall value $m[W]$ is maximized,
+We have a set of $N$ different item types, each type has a weight $w_i$ and a value $v_i$. We want to pack $x_i$ items ($x_i \in \mN$; further constraints see below) of each type into a knapsack with maximum weight capacity $W$ so that the overall value $m[W]$ is maximized,
 
 \bee
 m[W] = \max_{x_i} \sum_{i=1}^N v_i w_i
 \eee
 
-with the constraint
+with the constraints
 
 \bee
-\sum_{i=1}^N w_i x_i \leq W
+  \sum_{i=1}^N w_i x_i \leq W
 \eee
 
-The weights must be strictly positive ($w_i < 0$), otherwise any solution could be improved (unboundedly) by adding an infinite number of items with negative weight.
+The weights must be strictly positive ($w_i > 0$), otherwise any solution could be improved (unboundedly) by adding an infinite number of items with zero or negative weight.
 
-There are several possibilites for the allowed value of the $x_i$; the \emph{0-1 Knapsack Problem} allows at most one item of each type; i.e. $x_i \in \{0,1\}$. In a \emph{bounded Knapsack problem}, the $x_i$ are restricted to a maximum number of each item type denoted by the integer $c$. Finally, the \emph{unbounded Knapsack problem} has no bounds on the $x_i$.
+There are several possibilites for the allowed values of the $x_i$; the \emph{0-1 Knapsack Problem} allows at most one item of each type; i.e. $x_i \in \{0,1\}$. In a \emph{bounded Knapsack problem}, the integers $x_i$ are restricted to a maximum number of each item type denoted by the integer $c$. Finally, the \emph{unbounded Knapsack problem} has no bounds on the integers $x_i$.
 
 
 \subsection{Unbounded Knapsack Problem}
@@ -125,16 +125,56 @@ m[3,5] = \max( m[2,5], m[2,0] + 7) = \max(8, 7) = 8
 
 where we keep the content of $m[2,5]$; i.e. item one and item two. If the value of the third item were higher; e.g. $v_3 = 10$, then we would choose $m[2,0]$ (which is empty) and add item three to it.
 
-\paragraph{Other interesting things.} The available capacity cannot always be filled up; there will be some slack between $\sum w_i x_i$ and $w$. How is this slack distributed for e.g. random weights and values?
+\paragraph{Other interesting things.} There exist so called \emph{dominance relations} whih can simplify a Knapsack problem. If two items $i, j$ have the same weight $w_i=w_j$, but one has a higher value $v_i > v_j$, then we can exclude item $j$ from the problem. In a simialr spirit, if we have a set $J$ of items with the same weight as an item $i$; i.e. $\sum_{k \in J} w_k = wi$ but smaller value, $\sum_{k \in J} w_k < v_i$, we can exclude the items from $J$ from the problem.
 
-Dominance relations; e.g. two items with same weight, but different value -> item with lower value can be ignored.
+\todo{The available capacity cannot always be filled up; there will be some slack between $\sum w_i x_i$ and $w$. How is this slack distributed for e.g. random weights and values?}
 
 
 \subsubsection{Suboptimal Solutions}
 
-\paragraph{Greedy Algorithm.}
+\paragraph{Greedy Algorithm.} An intuitive approach is to assign a \emph{profit to weight ratio} $e_i = p_j / w_j$ to every item. We next order the items with decreasing ration and start adding the items with highest ration to the knapsack if the weigh constrinat allows for it.
 
-\paragraph{Linear Programming Relaxation.}
+\begin{verbatim}
+wG = 0
+zG = 0
+for i = 0:N
+   if wG + wj <= w
+      xj = 1
+      wG = wG + wj
+      zG = zG + vj
+   end
+end
+\end{verbatim}
+
+This algorithm is not optimal \todo{show example}
+
+\paragraph{Linear Programming Relaxation.} The NP complexity of the 0-1-Knapsack problem comes from the fact that the $x_i$ are binary variables. If we relax this contraint, we get a linear program which can be solved much more easily. We have
+
+\bee
+m_{rel}[W] = \max_{x_i} \sum_{i=1}^N v_i w_i
+\eee
+
+with the constraints
+
+\begin{align*}
+  & \sum_{i=1}^N w_i x_i \leq W \\
+  & x \in \mR \\
+  & 0 \leq x_i \leq 1
+\end{align*}
+
+This relaxation causes a potentially better value for the knapsack value; i.e. $m_{rel}[W] \geq m[W]$. This is the case when we cannot completely fill the knapsack with items. In the example above, we can fill the knapsack completely (by choosing the first two items and $w_1 + w_2 = 5 = W$). Therefore, the linear programming relaxation does not yield an increased value. However, if we use a larger knapsack with $W = 6$, then we cannot use the additional space as our smallest weight is $w_1 = 2$ and does not fit. Therefore, $m[6] = m[5] = 8$. If we solve this problem using linear programming we obtain $x_1 = x_2 = 1$ and $x_3 = 0.2$ yielding $m_{rel} = 9.4$ which fills the knapsack completely; i.e. $\sum m_i x_i = 6$. Since the first two items have already been included completely, the optimizer ``decided'' to include the third item.
+
+Note that this is not the best choice in terms of profit to weight ratio. Had we used constraint as follows,
+
+\begin{align*}
+  & \sum_{i=1}^N w_i x_i \leq W \\
+  & x \in \mR \\
+  & 0 \leq x_i
+\end{align*}
+
+then the optimizer chooses $x_1 = x_3 = 0, x_2 = 2$ as the second item has the biggest profit to weight ratio. This is the unbounded Knapsack problem with \emph{real} coefficients.
+
+\todo{Show that the solution to the linear program can be obtained by a greedy algorithm.}
 
 
 %%% Local Variables:
