@@ -16,7 +16,7 @@ Dijkstra(G, w, s)
           relax(u,v,w)
 \end{Verbatim}
 
-Initially, \verb Init-Single-Source assigns a distance estimate $d$ of infinity and no parent to each vertex with the exception of the source vertex (Line 2) - this is the same as in the Bellman-Ford algorithm. Lines $3$ and $4$ initialize the set $S$ to empty and the min-priority queue $Q$ with all vertices.
+Initially, \verb|Init-Single-Source| assigns a distance estimate $d$ of infinity and no parent to each vertex with the exception of the source vertex (Line 2) - this is the same as in the Bellman-Ford algorithm. Lines $3$ and $4$ initialize the set $S$ to empty and the min-priority queue $Q$ with all vertices.
 
 Then we iterate over all elements of the min-priority queue (Line $5$): We take the vertex $u$ with the smallest distance estimate $u.d$ from the queue (line $6$) anf add it to $S$ (line $7$). Now we iterate over all vertices $v$ adjacent to $u$ (line $8$) and relax each edge $u-v$ (line $9$).
 
@@ -31,14 +31,14 @@ The algorithm is greedy in the sense that in every iteration it chooses the most
 \includegraphics[scale=0.5]{images/dijkstra_1.png}
 \end{figure}
 
-Choosing vertex $1$ as source, \verb Init-Single-Source yields the following attribute vaues for each vertex.
+Choosing vertex $1$ as source, \verb|Init-Single-Source| yields the following attribute vaues for each vertex.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{images/dijkstra_2.png}
 \end{figure}
 
-Calling \verb Extract-min  yields vertex $1$ (as it has the smallest distance estimate). Relaxing all edges (to vertices $2,3,$ and $4$, yields the following.
+Calling \verb|Extract-min| yields vertex $1$ (as it has the smallest distance estimate). Relaxing all edges (to vertices $2,3,$ and $4$, yields the following.
 
 \begin{figure}[H]
 \centering

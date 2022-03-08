@@ -51,7 +51,7 @@ Assume that the $X_i$ have Bernoulli distribution; i.e. they are 0 w.p. $1-p$ an
 I(a) = \max_{t \geq 0} \left\{ ta - \log\left( (1-p)e^{t0} + pe^{t1} \right) \right\} = \max_{t \geq 0} \left\{ ta - \log\left( (1-p) + pe^{t} \right) \right\}
 \end{equation*}
 %
-Using \verb SymPy, we can differentiate this wrt $t$, set the expression to zero and solve for the optimum value $t^\star$:
+Using \verb|SymPy|, we can differentiate this wrt $t$, set the expression to zero and solve for the optimum value $t^\star$:
 
 \begin{equation*}
 t^\star = \frac{a(p-1)}{p(a-1)}

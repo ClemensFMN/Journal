@@ -53,7 +53,7 @@ By the upper-bound property, we have $\infty = \delta(s,v) \leq v.d$ and therefo
 
 
 \begin{theorem}
-  We consider an endge $(u,v) \in E$. Then, immediately after relaxing $(u,v)$ by executing \verb Relax(u,v,w) , we have $v.d  \leq u.d + w(u,v)$.
+  We consider an endge $(u,v) \in E$. Then, immediately after relaxing $(u,v)$ by executing \verb|Relax(u,v,w)| , we have $v.d  \leq u.d + w(u,v)$.
 \end{theorem}
 
 \begin{proof}
@@ -61,7 +61,7 @@ By the upper-bound property, we have $\infty = \delta(s,v) \leq v.d$ and therefo
 \end{proof}
 
 \begin{theorem}[Convergence Property]
-  Let $s \sim u - v$ be a shortest path from vertex $s$ to vertex $v$. $s \sim u$ denotes a path containing possibly several vertices, $u-v$ denotes the edge $(u.v)$. We initialize the graph with \verb initialize-single-source(G,s) And execute a sequence of relaxation steps on the graph's edges, including a call to \verb Relax(u,v,w) . If $u.d = \delta(s,u)$ at any time prior to the relaxation call, then $v.d = \delta(s,v)$ at all times after the call.
+  Let $s \sim u - v$ be a shortest path from vertex $s$ to vertex $v$. $s \sim u$ denotes a path containing possibly several vertices, $u-v$ denotes the edge $(u.v)$. We initialize the graph with \verb|initialize-single-source(G,s)| And execute a sequence of relaxation steps on the graph's edges, including a call to \verb|Relax(u,v,w)|. If $u.d = \delta(s,u)$ at any time prior to the relaxation call, then $v.d = \delta(s,v)$ at all times after the call.
 \end{theorem}
 
 \begin{proof}
@@ -79,7 +79,7 @@ By the upper-bound property, we have $\infty = \delta(s,v) \leq v.d$ and therefo
 \end{proof}
 
 \begin{theorem}[Path-relaxation Property]
-Consider a shortest path $p = \langle v_0, v_1, \ldots, v_k \rangle$ from $s=v_0$ to $v_k$. Now assume that $G$ is intialized with \verb initialize-single-source(G,s) and then a sequence of relaxation steps occurs, which includes (in this order), relaxation of the edges $(v_0, v_1), (v_1, v_2), \ldots, (v_{k-1},v_k)$. Then we have $v_k.d=\delta(s,v_k)$. after the relaxations and at all times afterwards. This property holds no matter which other relaxations occur; even if these other relaxations are intermixed with the edges of $p$.
+Consider a shortest path $p = \langle v_0, v_1, \ldots, v_k \rangle$ from $s=v_0$ to $v_k$. Now assume that $G$ is intialized with \verb|initialize-single-source(G,s)| and then a sequence of relaxation steps occurs, which includes (in this order), relaxation of the edges $(v_0, v_1), (v_1, v_2), \ldots, (v_{k-1},v_k)$. Then we have $v_k.d=\delta(s,v_k)$. after the relaxations and at all times afterwards. This property holds no matter which other relaxations occur; even if these other relaxations are intermixed with the edges of $p$.
 \end{theorem}
 
 \begin{proof}
@@ -93,12 +93,12 @@ Consider a shortest path $p = \langle v_0, v_1, \ldots, v_k \rangle$ from $s=v_0
 
 In this Subsection we present two more lemmas.
 
-\begin{theorem} We have a weighted, directed graph $G$ and a source vertex $s$. We assume that $G$ contains no negative-weight cycles reachable from $s$. Initialize the graph via \verb initialize-single-source(G,s) . Then the predecessor subgraph $G_\pi$ forms a rooted tree with root $s$, and any sequence of relaxation steps on edges of $G$ maintains this property as invariant.
+\begin{theorem} We have a weighted, directed graph $G$ and a source vertex $s$. We assume that $G$ contains no negative-weight cycles reachable from $s$. Initialize the graph via \verb|initialize-single-source(G,s)|. Then the predecessor subgraph $G_\pi$ forms a rooted tree with root $s$, and any sequence of relaxation steps on edges of $G$ maintains this property as invariant.
 \end{theorem}
 
 The (lengthy) proof is omitted. Finally, we show that any sequence of relaxation steps which produces $v.d = \delta(s,v)$ yields a shortest-paths tree.
 
-\begin{theorem}[Predecessor-Subgraph Property] We have a weighted, directed graph $G$ and a source vertex $s$. We assume that $G$ contains no negative-weight cycles reachable from $s$. Initialize the graph via \verb initialize-single-source(G,s)  and then execute any sequence of relaxation steps on edges of $G$ that produces $v.d = \delta(s,v)$ for all vertices $v \in V$. The, the predecessor subgraph $G_\pi$ is a shortest-paths tree rooted at $s$. 
+\begin{theorem}[Predecessor-Subgraph Property] We have a weighted, directed graph $G$ and a source vertex $s$. We assume that $G$ contains no negative-weight cycles reachable from $s$. Initialize the graph via \verb|initialize-single-source(G,s)|  and then execute any sequence of relaxation steps on edges of $G$ that produces $v.d = \delta(s,v)$ for all vertices $v \in V$. The, the predecessor subgraph $G_\pi$ is a shortest-paths tree rooted at $s$. 
 \end{theorem}
 
 We again omit the proof. The interesting part is the \emph{any sequence of relaxation steps} . So when we want to prove that single-source shortest path algoerithms work, we only need to show that their sequence of relaxation steps yields $v.d = \delta(s,v)$. The rest follows from the above theorem.
