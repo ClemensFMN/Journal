@@ -96,20 +96,20 @@ Note that the integral does not depend on the name of the integration
 variable; therefore we can write
 
 \[
-\Gamma(m) \Gamma(n) = 4 \int_0^\infty e^{-x^2} x^{2n-1} dx \int_0^\infty e^{-y^2} y^{2m-1} dy = 4 \int_0^\infty \int_0^\infty e^{-(x^2+y^2} x^{2m-1} y^{2n-1} du
+\Gamma(m) \Gamma(n) = 4 \int_0^\infty e^{-x^2} x^{2n-1} dx \int_0^\infty e^{-y^2} y^{2m-1} dy = 4 \int_0^\infty \int_0^\infty e^{-(x^2+y^2)} x^{2m-1} y^{2n-1} du
 \]
 
 We can express this integral in terms of polar coordinates;
 \(r^2 = x^2 + y^2\) and \(dx dy = r dr d\phi\):
 
 \[
-\Gamma(m) \Gamma(n) = 4 \int_{r=0}^\infty \int_{\phi=0}^{pi/2}  e^{-r^2} (r \cos \phi)^{2m-1} (r \sin \phi)^{2n-1} r dr d\phi
+\Gamma(m) \Gamma(n) = 4 \int_{r=0}^\infty \int_{\phi=0}^{\pi/2}  e^{-r^2} (r \cos \phi)^{2m-1} (r \sin \phi)^{2n-1} r dr d\phi
 \]
 
 which we can rewrite as follows
 
 \[
-\Gamma(m) \Gamma(n) = \left[ 2 \int_{r=0}^\infty e^{-r^2} r^{2(m+n)-1} dr \right] \left[  \int_{\phi=0}^{pi/2}   (\cos \phi)^{2m-1} (\sin \phi)^{2n-1} d \phi \right]
+\Gamma(m) \Gamma(n) = \left[ 2 \int_{r=0}^\infty e^{-r^2} r^{2(m+n)-1} dr \right] \left[  \int_{\phi=0}^{\pi/2}   (\cos \phi)^{2m-1} (\sin \phi)^{2n-1} d \phi \right]
 \]
 
 The first expression in brackets is simply \(\Gamma(m+n)\), for the
@@ -119,13 +119,24 @@ second expression we substitute \(x=\cos^2 \phi\) in the Beta function
 B(m,n) = \int_0^1 x^{m-1} (1-x)^{n-1} dx = -2 \int_{\pi/2}^0 (\cos \phi)^{2m-2} (\sin \phi)^{2n-2} sin\phi \cos\phi d\phi
 \]
 
-where we have used \(dx =+ -2 \sin \phi \cos \phi d \phi\) and
-\(1 - x = \sin^2 \phi\). But this is exactly the second expression
-above; and therefore we have
+where we have used \(dx = -2 \sin \phi \cos \phi d \phi\) and
+\(1 - x = \sin^2 \phi\). We can further simplify this as
+
+\bee
+B(m,n) = 2 \int_0^{\pi/2} (\cos \phi)^{2m-1} (\sin \phi)^{2n-1} d\phi
+\eee
+
+which is exactly the second expression above; and therefore we have
 
 \[
 \Gamma(m) \Gamma(n) = \Gamma(m+n) B(m,n)
 \]
+
+or
+
+\bee
+B(m,n) = \frac{\Gamma(m) \Gamma(n)}{\Gamma(m+n)}
+\eee
 
 \subsubsection{Plots}
 
@@ -171,19 +182,19 @@ I have no idea if there is a closed expression for this and what it is
 
 We have \(B(m,n) = B(m,n+1) + B(m+1,n)\) by the following reasoning:
 
-\[
-B(m,n+1) + B(m+1,n) = \int_0^1 x^{m-1} (1-x)^{n} dx + \int_0^1 x^{m} (1-x)^{n-1} dx = \int_0^1 x^{m-1} (1-x)^{n-1} \left[(1-x) + x\right] dx = \int_0^1 x^{m-1} (1-x)^{n-1} dx = B(m,n)
-\]
+\begin{align*}
+  B(m,n+1) + B(m+1,n) &= \int_0^1 x^{m-1} (1-x)^{n} dx + \int_0^1 x^{m} (1-x)^{n-1} dx \\
+               &= \int_0^1 x^{m-1} (1-x)^{n-1} \left[(1-x) + x\right] dx = \int_0^1 x^{m-1} (1-x)^{n-1} dx = B(m,n)
+\end{align*}
 
 Another property is \(B(m,n) = \frac{m-1}{n} B(m-1, n+1)\) which we can
-show by integration by parts (\(v = x^{m-1}, u' = (1-x)^{n-1}\)):
+show by integration by parts ($v = x^{m-1}, u' = (1-x)^{n-1}$, and therefore $u = -(1-x)^n/n, v' = (m-1)x^{m-2}$):
 
 \[
-B(m,n) = \int_0^1 x^{m-1} (1-x)^{n-1} dx = \left. \frac{1}{n} (1-x)^n x{m-1} \right|_0^1 + \int_0^1 \frac{1}{n} (1-x)^n (m-1) x^{m-2} dx
+B(m,n) = \int_0^1 x^{m-1} (1-x)^{n-1} dx = \left. - \frac{1}{n} (1-x)^n x^{m-1} \right|_0^1 + \int_0^1 \frac{1}{n} (1-x)^n (m-1) x^{m-2} dx
 \]
 
-The first summand becomes zero and the integral can be further
-simplified to
+The first term becomes zero and the integral can be further expressed as
 
 \[
 B(m,n) = \frac{m-1}{n} \int_0^1 x^{m-2} (1-x)^n dx = \frac{m-1}{n} B(m-1, n+1)
@@ -220,9 +231,10 @@ With \(y = x/(1-x)\), the limits of the integral become
 \(x=0 \rightarrow y=0\) and \(x=1 \rightarrow y=\infty\) and we finally
 obtain
 
-\[
-B(m,n) = \int_0^1 x^{m-1} (1-x)^{n-1} dx = \int_0^\infty \frac{y{m-1}}{(1+y){m-1}} \frac{1}{(1+y){n-1}} \frac{1}{(1+y)^2} dy = \int_0^\infty \frac{y^{m-1}}{(1+y)^{m+n}} dy
-\]
+\begin{align*}
+  B(m,n) &= \int_0^1 x^{m-1} (1-x)^{n-1} dx = \int_0^\infty \frac{y{m-1}}{(1+y){m-1}} \frac{1}{(1+y){n-1}} \frac{1}{(1+y)^2} dy\\
+  &= \int_0^\infty \frac{y^{m-1}}{(1+y)^{m+n}} dy
+\end{align*}
 
 Using the binomial expansion \((1-x)^n = \sum_k {n \choose k} (-x)^k\)
 we arrive at
@@ -246,5 +258,11 @@ can be solved by making the substitution \(u=\sin^2 x\): We have
 \(\sin x= \sqrt{u}, \cos x = \sqrt{1-u}\)) as
 
 \[
-\int_0^1 u^{1/4} \frac{du}{2\sqrt{u}\sqrt{1-u}} = \frac{1}{2} \int_0^1 u^{1/4} u^{-1/2} (1-u)^{-1/2} du = \frac{1}{2} \int_0^1 u^{-1/4} (1-u)^{-1/2} du = \frac{1}{2} B(3/3,1/2)
+\int_0^1 u^{1/4} \frac{du}{2\sqrt{u}\sqrt{1-u}} = \frac{1}{2} \int_0^1 u^{1/4} u^{-1/2} (1-u)^{-1/2} du = \frac{1}{2} \int_0^1 u^{-1/4} (1-u)^{-1/2} du = \frac{1}{2} B(3/4,1/2)
 \]
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
