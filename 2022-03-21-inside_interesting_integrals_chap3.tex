@@ -113,7 +113,7 @@ Interestingly, \eqref{2022-03-21:eq1} also works without integration bounds; i.e
 }
 \eee
 
-From this we deduce
+We can use this to show that
 
 \bee
 \boxed{
@@ -121,7 +121,24 @@ From this we deduce
 }
 \eee
 
-as $I(a) = \int \sin ax dx = - \frac{\cos ax}{a}, \frac{dI(a)}{da} = \int \frac{d \sin ax}{da} = \int x \cos ax dx$ and \\ $\frac{- d \frac{\cos ax}{a}}{da} = \frac{a x \sin{\left( a x\right) }+\cos{\left( a x\right) }}{{{a}^{2}}}$.
+We start with 
+
+\bee
+I(a) = \int \sin ax dx = - \frac{\cos ax}{a}
+\eee
+
+and taking the derivative, yields the integral we are actually interested in
+
+\bee
+\frac{dI(a)}{da} = \int \frac{d \sin ax}{da} = \int x \cos ax dx
+\eee
+
+Differentiating the integral result yields
+
+\bee
+\frac{- d \frac{\cos ax}{a}}{da} = \frac{a x \sin{\left( a x\right) }+\cos{\left( a x\right) }}{{{a}^{2}}} \qed
+\eee
+
 
 Also fun is the case $a=1$ with
 
@@ -129,14 +146,46 @@ Also fun is the case $a=1$ with
 \int x \cos x dx = x \sin x +\cos a x
 \eee
 
-We have sneaked in a parameter $a$ to get the integration going and finally removed it via setting $a=1$ :-) The integrand $x \cos x$ is shown in the following Figure.
+We have sneaked in a parameter $a$ to get the integration going and finally removed it via setting $a=1$ :-) The integrand $x \cos x$ is shown in the following Figure. The zeros from the $\cos$ are still there, but the amplitude of the oscillations blows up as $| x |$ gets large.
 
 \begin{figure}[H]
 \includegraphics[scale=0.7]{images/2022-03-21_plot_1.png}
 \end{figure}
+
+In a similar spirit we can also evaluate $\int x e^x dx$. We consider
+
+\bee
+I(a) = \int e^{ax} dx = \frac{1}{a} e^{ax}
+\eee
+
+Differentiating wrt $a$ yields
+
+\bee
+\frac{dI(a)}{da} = \int \left( \frac{d}{da} e^{ax} \right) dx = \int x e^{ax} dx
+\eee
+
+Taking the derivative from the result of $I(a)$ yields
+
+\bee
+\frac{d}{da} \left( \frac{1}{a} e^{ax} \right) = \frac{xe^{ax}a - e^{ax}}{a^2}
+\eee
+
+and we obtain
+
+\bee
+\boxed{
+    \int x e^{ax} dx = \frac{(xa - 1) e^{ax}}{a^2}
+}
+\eee
+
+The integrand $x e^{ax}$ (for different values of $a$) is shown in the following Figure.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-03-21_plot_2.png}
+\end{figure}
     
 
-\subsection{Normal Distribution}
+\subsection{Integrating the Normal Distribution}
 
 Now, let's use the machinery in earnest and try the following integral,
 
@@ -225,6 +274,57 @@ I = \int_{- \infty}^\infty e^{-\frac{x^2}{2}} dx = \sqrt{2 \pi}}
 \eee
 
 
+\subsection{Integrating Cosine $\times$ Normal Distribution}
+
+We consider the integral
+
+\bee
+I(t) = \int_0^\infty \cos(tx) e^{-x^2/2} dx
+\eee
+
+For $t=0$ this becomes $\sqrt{\frac{\pi}{2}}$ (using the previous result). Anyway, let's differentiate wrt $t$ and we obtain
+
+\bee
+\frac{d}{dt} I(t) = \int_0^\infty -x \sin(tx) e^{-x^2/2} dx
+\eee
+
+Interestingly, this can be solved via integration by parts. We set $u = \sin(tx)$ and $v' = -x e^{-x^2/2}$. Then $u' = t \cos(tx)$ and $v = e^{-x^2/2}$ (via the substitution $u = -x^2 / 2$). Integrating by parts yields
+
+\begin{align*}
+    \int_0^\infty -x \sin(tx) e^{-x^2/2} dx &= - \left. \frac{x^2}{2} e^{-x^2/2} \right|_0^\infty - \int_0^\infty t \cos(tx) e^{-x^2/2} dx \\ &= 0 - \int_0^\infty t \cos(tx) e^{-x^2/2} dx \\ &= - t I(t)
+\end{align*}
+
+So we have the following ODE
+
+\bee
+\frac{d}{dt} I(t) = - t I(t) \rightarrow \frac{dI(t)}{I(t)} = - t dt
+\eee
+
+and we can integrate both sides to obtain
+
+\bee
+\log I(t) = - \frac{t^2}{2} + C
+\eee
+
+Using the fact that we know $I(0) = \sqrt{\frac{\pi}{2}}$ we can determine the constant of integration $C$ as $\log I(0) = C \rightarrow C = \log(\sqrt{ \frac{\pi}{2} })$ and therefore
+
+\bee
+\log I(t) = - \frac{t^2}{2} + \log\left( \sqrt{ \frac{\pi}{2} } \right)
+\eee
+
+from which we obtain
+
+\bee
+\boxed{
+    I(t) = \int_0^\infty \cos(tx) e^{-x^2/2} dx = \sqrt{ \frac{\pi}{2} } e^{- \frac{t^2}{2}}
+}
+\eee
+
+The integrand $\cos(tx) e^{-x^2/2}$ is shown for different values of $t$ in the following Figure. The larger $t$, the more the function oscillates and the more positive and negative areas cancel each other, and therefore, the smaller the integral becomes.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-03-21_plot_3.png}
+\end{figure}
 
 
 %%% Local Variables:
