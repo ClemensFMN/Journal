@@ -273,6 +273,51 @@ and we arrive at
 I = \int_{- \infty}^\infty e^{-\frac{x^2}{2}} dx = \sqrt{2 \pi}}
 \eee
 
+The integrand is symmetric, therefore we have
+
+\bee
+\int_{0}^\infty e^{-\frac{x^2}{2}} dx = \sqrt{\frac{\pi}{2}}
+\eee
+
+We can use this result to calculate another (even scarier looking) integral. Let's substitute $u = x / \sqrt{2}$ and obtain ($du/dx = 1 / \sqrt{2} \rightarrow dx = \sqrt{2} du$)
+
+\bee
+\int_{0}^\infty e^{- u^2 } \sqrt{2} du = \sqrt{\frac{\pi}{2}}
+\eee
+
+and therefore
+
+\bee
+\boxed{
+    \int_{0}^\infty e^{- u^2 } du = \frac{\sqrt{\pi}}{2}
+}
+\eee
+
+Now we substitute $t = e^{-u^2}$ from which follows $u = \sqrt{- \log t}$ and $dt/du = -2ue^{-u^2} = -2ut$. The integration limits transform according to $u = 0 \rightarrow t = 1$ and $u = \infty \rightarrow t = 0$ and the integral becomes
+
+\bee
+\int_{0}^\infty e^{- u^2 } du = - \int_1^0 t \frac{dt}{2ut} = \int_0^1 \frac{dt}{2u} = \int_0^1 \frac{dt}{2 \sqrt{- \log t} }
+\eee
+
+We therefore have
+
+\bee
+\int_0^1 \frac{dt}{2 \sqrt{- \log t} } = \frac{\sqrt{\pi}}{2} \rightarrow \int_0^1 \frac{dt}{\sqrt{- \log t} } = \sqrt{\pi}
+\eee
+
+To summarize, we calculated
+
+\bee
+\boxed{
+    \int_0^1 \frac{dt}{\sqrt{- \log t} } = \sqrt{\pi}
+}
+\eee
+
+The following Figure shows the integrand.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-03-21_plot_2a.png}
+\end{figure}
 
 \subsection{Integrating Cosine $\times$ Normal Distribution}
 
@@ -325,6 +370,146 @@ The integrand $\cos(tx) e^{-x^2/2}$ is shown for different values of $t$ in the 
 \begin{figure}[H]
     \includegraphics[scale=0.7]{images/2022-03-21_plot_3.png}
 \end{figure}
+
+As the integrand is an even function, we have
+
+\bee
+\int_{-\infty}^\infty \cos(tx) e^{-x^2/2} dx = \sqrt{ 2\pi } e^{- \frac{t^2}{2}}
+\eee
+
+Next we sneak in a cosine expression and use $\cos(s + tx) = \cos(s) \cos(tx) - \sin(s)\sin(tx)$
+
+\begin{equation}
+    \int_{-\infty}^\infty \cos(s + tx) e^{-x^2/2} dx = \int_{-\infty}^\infty \cos(s) \cos(tx) e^{-x^2/2} dx - \int_{-\infty}^\infty \sin(s) \sin(tx) e^{-x^2/2} dx
+\end{equation}
+
+The second integrand is an odd function and therefore the integral vanishes; so we have
+
+\begin{equation}
+    \int_{-\infty}^\infty \cos(s + tx) e^{-x^2/2} dx = \int_{-\infty}^\infty \cos(s) \cos(tx) e^{-x^2/2} dx = \cos(s) \int_{-\infty}^\infty \cos(tx) e^{-x^2/2} dx
+\end{equation}
+
+and finally
+
+\begin{equation}
+    \boxed{
+    \int_{-\infty}^\infty \cos(s + tx) e^{-x^2/2} dx = \sqrt{ 2\pi } \cos(s) e^{- \frac{t^2}{2}}
+    }
+\end{equation}
+
+The following Figure shows the integrand for different values of $s$. For increasing values of $s$, the oscillations inside the $e^{-x^2/2}$ envelope shift to the left and the larger the negative area gets, causing the integral to become smaller (and negative, eventually; e.g. $\cos(4) \approx -0.6536$).
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-03-21_plot_4.png}
+\end{figure}
+
+\subsection{One Last - $\cos / (x^2+b^2)$}
+
+Let's consider one last integral where we solve an ODE to actually solve an integral,
+
+\bee
+I(a) = \int_0^\infty \frac{\cos ax}{x^2 + b^2} dx
+\eee
+
+We first integrate by parts and set $u = 1/(x^2+b^2), v' = \cos ax$ to get
+
+\bee
+\frac{du}{dx} = - \frac{2x}{(x^2+b^2)^2}, v = \frac{\sin ax}{a}
+\eee
+
+Therefore, we have
+
+\bee
+I(a) = \left. \frac{\sin ax}{a (x^2+b^2)^2} \right|_0^\infty + \frac{2}{a} \int_0^\infty \frac{x \sin ax}{(x^2 + b^2)^2} dx
+\eee
+
+The first term vanishes and we arrive at
+
+\be\label{2022-03-21:eq3}
+I(a) = \frac{2}{a} \int_0^\infty \frac{x \sin ax}{(x^2 + b^2)^2} dx
+\ee
+
+Multiply with $a$ and differentiate wrt $a$ to obtain
+
+\bee
+a \frac{dI(a)}{da} + I(a) = 2 \int_0^\infty \frac{x^2 \cos ax}{(x^2 + b^2)^2} dx
+\eee
+
+We can make a partial fraction expansion of the integrand and obtain
+
+\bee
+\frac{x^2 \cos ax}{(x^2 + b^2)^2} = \frac{\cos ax}{(x^2 + b^2)} - \frac{b^2 \cos ax}{(x^2 + b^2)^2}
+\eee
+
+Therefore, our integral becomes
+
+\bee
+2 \int_0^\infty \frac{x^2 \cos ax}{(x^2 + b^2)^2} dx = 2 \int_0^\infty \frac{\cos ax}{(x^2 + b^2)} dx - 2b^2 \int_0^\infty \frac{\cos ax}{(x^2 + b^2)^2} dx
+\eee
+
+The first integral happens to be $I(a)$ and we obtain
+
+\bee
+a \frac{dI(a)}{da} + I(a) = 2I(a) - 2b^2 \int_0^\infty \frac{\cos ax}{(x^2 + b^2)^2} dx \rightarrow a \frac{dI(a)}{da} - I(a) = - 2b^2 \int_0^\infty \frac{\cos ax}{(x^2 + b^2)^2} dx
+\eee
+
+Let's differentiate again wrt $a$ to obtain
+
+\bee
+a \frac{d^2I(a)}{da^2} + \frac{dI(a)}{da} - \frac{dI(a)}{da} = - 2b^2 \int_0^\infty \frac{x \sin ax}{(x^2 + b^2)^2} dx
+\eee
+
+or
+
+\bee
+a \frac{d^2I(a)}{da^2} = - 2b^2 \int_0^\infty \frac{x \sin ax}{(x^2 + b^2)^2} dx
+\eee
+
+Luckily, the integral has already appeared in \eqref{2022-03-21:eq3} and so we have
+
+\bee
+a \frac{d^2I(a)}{da^2} = 2b^2 \frac{a}{2} I(a) \rightarrow \frac{d^2I(a)}{da^2} - b^2 I(a) = 0
+\eee
+
+whcih is a second order ODE for the unknown function (which is actually our integral solution!) $I(a)$. An Ansatz is $I(a) = C e^{ka}$ (with $C$ and $k$ constants) and inserting this yields
+
+\bee
+I(a) = C_1 e^{ab} + C_2 e^{-ab}
+\eee
+
+All that is left is to calculate the constants $C_1$ and $C_2$. From the integal definition we see that
+
+\bee
+I(0) = \int_0^\infty \frac{1}{x^2 + b^2} dx = \frac{1}{b} \left. \arctan \frac{a}{b} \right|_0^\infty = \frac{\pi}{2b}
+\eee
+
+From \eqref{2022-03-21:eq3} we can obtain an expression for $I(\infty)$ as
+
+\bee
+I(\infty) = \lim_{a \rightarrow \infty} \frac{2}{a} \int_0^\infty \frac{x \sin ax}{(x^2 + b^2)^2} dx = 0
+\eee
+
+and we can use these two values to calculate $C_1$ and $C_2$.
+
+\begin{align*}
+    I(\infty) &= 0 \rightarrow C_1 = 0 \\
+    I(0) &= \frac{\pi}{2b} = C_1 + C_2 \rightarrow C_2 = \frac{\pi}{2b}
+\end{align*}
+
+Therefore, our solution finally is
+
+\bee
+\boxed{
+    I(a) = \int_0^\infty \frac{\cos ax}{x^2 + b^2} dx = \frac{\pi}{2b} e^{-ab}
+}
+\eee
+
+The integrand is shown in the following Figure for different values of $a$ and $b$. Larger values of $a$ cause faster oscillations and therefore a larger contribution of the negative part. Increasing $b$ decreases the amplitude, resulting in less area as well.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-03-21_plot_5.png}
+\end{figure}
+
 
 
 %%% Local Variables:
