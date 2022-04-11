@@ -1,0 +1,131 @@
+\DiaryEntry{Inside Interesting Integrals, Feynman's Trick (Chap 3), II}{2022-04-05}{Integrals}
+
+\subsection{Sinc-Integral}
+
+We start with
+
+\bee
+g(y) = \int_0^\infty e^{-xy} \frac{\sin ax}{x} dx, \quad y > 0
+\eee
+
+with some constant $a$. Let's differentiate wrt parameter $y$ to obtain
+
+\bee
+\frac{dg}{dy} = \int_0^\infty (-x) e^{-xy} \frac{\sin ax}{x} dx = - \int_0^\infty e^{-xy} \sin ax dx
+\eee
+
+This is a "standard" integral known to be
+
+\bee
+\int_0^\infty e^{-xy} \sin ax dx = \frac{a}{a^2 + y^2}
+\eee
+
+and we can now integrate $\frac{dg}{dy} = - \frac{a}{a^2 + y^2}$ to obtain
+
+\bee
+g(y) = C - \arctan \left(\frac{a}{y}\right)
+\eee
+
+The integration constant $C$ can be obtained by observing that $g(y) = \int_0^\infty e^{-xy} \frac{\sin ax}{x} dx$ goes to zero for $y \rightarrow \infty$ (because in the ntegration interval $x > 0$ and therefore the exp-function vanishes). Therefore,
+
+\bee
+0 = C - \tan (\pm \infty) \rightarrow C = \pm \frac{\pi}{2}
+\eee
+
+with the $\pm$ according to the sign of $a$. Therefore,
+
+\bee
+\boxed{
+g(y) = \int_0^\infty e^{-xy} \frac{\sin ax}{x} dx = \sign(a) \left(\frac{\pi}{2}\right) - \arctan \left(\frac{y}{a} \right)
+}
+\eee
+
+We can check this result with Maxima.
+
+\begin{verbatim}
+    (%i54)	a:3;y:2;
+    (%o53)	3
+    (%o54)	2
+    (%i55)	f:exp(-x*y)*sin(a*x)/x;
+    (%o55)	(%e^(-2*x)*sin(3*x))/x
+    (%i56)	quad_qags(f, x, 0, 1000);
+    (%o56)	[0.982793723247329,5.523470466813409*10^-11,357,0]
+    (%i57)	%pi/2 - atan(y/a), numer;
+    (%o57)	0.982793723247329
+\end{verbatim}
+
+
+For the special case of $g(0) = \int_0^\infty \frac{\sin ax}{x} dx$, we obtain
+
+\bee
+\int_0^\infty \frac{\sin ax}{x} dx = \begin{cases} \frac{\pi}{2}, \quad a > 0 \\
+    0, \quad a = 0 \\
+    -\frac{\pi}{2}, \quad a < 0
+    \end{cases} \qed
+\eee
+
+As an aside, let's calculate the "standard" integral
+
+\bee
+I =\int_0^\infty e^{-ax} \sin bx dx
+\eee
+
+We perform integration by parts with $u = e^{-ax}, v' = \sin(bx)$ and $u'=(-a)e^{-ax}, v = - 1/b \cos(bx)$ and obtain
+
+\bee
+I = - \left. \frac{1}{b} e^{-ax} \cos(bx) \right|_0^\infty  - \int_0^\infty (-a)e^{-ax} \left( -\frac{1}{b} \right) \cos(bx) dx = \frac{1}{b} - \frac{a}{b} \int_0^\infty e^{-ax} \cos(bx) dx
+\eee
+
+It seems as if we have not gained anything; however, we see that application of integration by parts "converted" the initial sine into a cosine. Let's do this again\dots
+
+We chose $u = e^{-ax}, v' = \cos(bx)$ and $u'=(-a)e^{-ax}, v = 1/b \cos(bx)$ and get
+
+\bee
+I = \frac{1}{b} - \frac{a}{b} \left( \left. \frac{1}{b} e^{-ax} \sin(bx) \right|_0^\infty - \int_0^\infty (-a)e^{-ax} \frac{1}{b} \sin(bx) dx \right)
+\eee
+
+which can be further evaluated into
+
+\bee
+I = \frac{1}{b} - \frac{a^2}{b^2} \int_0^\infty e^{-ax} \sin(bx) dx
+\eee
+
+That looks better; let's write down what we have
+
+\bee
+\int_0^\infty e^{-xy} \sin ax dx = \frac{1}{b} - \frac{a^2}{b^2} \int_0^\infty e^{-ax} \sin(bx) dx
+\eee
+
+from which we obtain
+
+\bee
+\left( \int_0^\infty e^{-xy} \sin ax dx \right) \left(1 +  \frac{a^2}{b^2} \right) = \frac{1}{b}
+\eee
+
+and finally
+
+\bee
+\boxed{
+    \int_0^\infty e^{-ax} \sin bx dx =  \frac{b}{a^2 + b^2}
+} \qed
+\eee
+
+The integrand is shown in the following Figure; not overly exciting: $a$ controls the exponential decay, $b$ the oscillation frequency.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-04-05_plot_1.png}
+\end{figure}
+
+The dependence of the integral value $\frac{b}{a^2 + b^2}$ on the oscillation frequency $b$ is interesting: It has a peak at $b = a$. Slow and fast oscillations yield a smaller integral value: Slow oscillations cause the exponential decay to kick in, dampening the curve; fast oscillation contain a negative area reducing the area under the curve.
+
+The integral value for $a = 1$ as function of $b$ is shown in the following Figure.
+
+\begin{figure}[H]
+    \includegraphics[scale=0.7]{images/2022-04-05_plot_2.png}
+\end{figure}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
