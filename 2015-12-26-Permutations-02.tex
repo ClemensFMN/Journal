@@ -1,15 +1,12 @@
-\DiaryEntry{Permutations, 2}{2015-12-26}{Combinatorics}
+\DiaryEntry{Permutations, 2 (Derangements)}{2015-12-26}{Combinatorics}
 
-As stated before, a permutation is a bijection (one-to-one mapping) from \(\mathcal{S}\) onto \(\mathcal{S}\).
+As stated before, a permutation is a bijection (one-to-one mapping) from $\mathcal{S}$ onto $\mathcal{S}$.
 
-A permutation can have fixed points; i.e.~elements \(x^\star\) which
-stay constant under the mapping: \(\sigma(x^\star) = x^\star\).
+A permutation can have fixed points; these are elements $x^\star$ which stay constant under the mapping: $\sigma(x^\star) = x^\star$.
 
 The opposite to fixed points are derangements, which are permutations of the elements, such that no element appears in its original position.
 
-If we take \(\mathcal{S} = \{1,2,3,4\}\), then there are \(4!\)
-permutations. Out of these, the derangements are as follows
-
+If we take $\Sc = \{1,2,3,4\}$, then there are $4!$ permutations. Out of these, the derangements are as follows
 
 \begin{align*}
     & (2,1,4,3), (2,3,4,1), (2,4,1,3) \\
@@ -17,51 +14,44 @@ permutations. Out of these, the derangements are as follows
     & (4,1,2,3), (4,3,1,2), (4,3,2,1) \\ 
 \end{align*}
 
+There are $9$ derangements. 
 
-We will denote with \(!n\) the number of derangements of \(n\) elements;
-from above example it follows that \(!3 = 9\).
+We will denote with $!n$ the number of derangements of $n$ elements; from above example it follows that $!3 = 9$.
 
 \subsubsection{Recurrence Relation}
 
-Let's consider the permutation of the first position \(\sigma(1) = i\)
-with \(i \neq 1\). There are \(n-1\) way to select such an \(i\). Next
-we need to select a value for \(\sigma(i)\). There are two options:
+Let's consider the permutation of the first position $\sigma(1) = i$ with $i \neq 1$. There are $n-1$ ways to select such an $i$. Next we need to select a value for $\sigma(i)$. There are two options:
 
 \begin{itemize}
-\item
-  We choose any \(i \neq 1\) (and \(\sigma(i) \neq i\)). In this case we
-  have a derangement with \(n-1\) elements.
-\item
-  We choose \(\sigma(i)=1\), in this case a derangement with \(n-2\)
-  elements remains.
+    \item We choose any $i \neq 1$ (and $\sigma(i) \neq i$). In this case we have a derangement with $n-1$ elements.
+    \item We choose $\sigma(i)=1$, in this case a derangement with $n-2$ elements remains.
 \end{itemize}
 
-Combining these two options (and considering that we can select the
-original \(i\) in \(n-1\) way), we obtain for the number of derangements
+Combining these two options (and considering that we can select the original $i$ in $n-1$ ways), we obtain for the number of derangements
 
 \begin{equation}
 \label{recur}
 !n = (n-1) \left[ !(n-1) +  !(n-2)\right]
 \end{equation}
 
-The initial conditions are \(!0=1\) and \(!1=0\). The next values are
-then (starting with \(n = 2\))
+The initial conditions are $!0=1$ and $!1=0$. The values are
 
-\[
-1, 2, 9, 44, 265, 1854, 14833, 133496, 1334961, 14684570, 176214841, 2290792932, \cdots
-\]
+\vspace*{2mm}
 
-which is \href{https://oeis.org/A000166}{OEIS sequence}. We have
-\(!2 = 1\); i.e.~there is only one derangement (which is \((2,1)\)),
-\(!3 = 2\), the two derangements are \((2,3,1)\) and \((3,1,2)\).
+\begin{tabular}{c|ccccccccccc}
+  n &  0 & 1 & 2 & 3 & 4 &  5 &   6 &   7 &     8 & 9 &           10 \\ \hline
+  !n & 1 & 0 & 1 & 2 & 9 & 44 & 265 &1854 & 14833 & 133496 & 1334961 \\
+\end{tabular}
+
+\vspace*{2mm}
+
+which is \href{https://oeis.org/A000166}{OEIS sequence A000166}. We have $!2 = 1$; i.e.there is only one derangement (which is $(2,1)$) and $!3 = 2$ with the two derangements being $(2,3,1)$ and $(3,1,2)$.
 
 \subsubsection{Relation with Factorial}
 
-As the factorial counts the number of \emph{all} permutations and not
-all permutations are derangements, we have \(!n < n!\).
+As the factorial counts the number of \emph{all} permutations and not all permutations are derangements, we have $!n < n!$.
 
-First observe that we have the same recurrence relation as
-\(\eqref{recur}\) for the factorials:
+First observe that we have the same recurrence relation as \(\eqref{recur}\) for the factorials:
 
 \begin{equation}
 \label{recur2}
