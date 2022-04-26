@@ -1,10 +1,8 @@
 \DiaryEntry{Permutations, 3 (Number of Fixed Points)}{2016-01-04}{Combinatorics}
 
-Consider a set of \(n\) elements: In total there are \(n!\) permutations - How many permutations are there with \(k\) fixed points? This number is callled
-\href{https://en.wikipedia.org/wiki/Rencontres_numbers}{Recontres
-Number} and will be denoted as \(D_{n,k}\).
+Consider a set of $n$ elements: In total there are $n!$ permutations - How many permutations are there with $k$ fixed points? This number is callled \href{https://en.wikipedia.org/wiki/Rencontres_numbers}{Recontres Number} and will be denoted as $D_{n,k}$.
 
-For example \(n=5\) and consider the permutation
+For example, chose $n=5$ and consider the permutation
 
 \[
 \sigma=\begin{pmatrix}
@@ -13,32 +11,32 @@ For example \(n=5\) and consider the permutation
 \end{pmatrix}
 \]
 
-We have one fixed point: \(\sigma(3) = 3\).
+We have one fixed point: $\sigma(3) = 3$.
 
-In order for a permutation to have \textbf{one} fixed point, any of the \(n\) elements can become the fixed point. The other \(n-1\) must not have a fixed point, therefore they must form a derangement. There are \(!(n-1)\) such derangements. Therefore, the number of permutations with exactly one fixed point is
+In order for a permutation to have \textbf{one} fixed point, any of the $n$ elements can become the fixed point. The other $n-1$ must not have a fixed point, therefore they must form a derangement. There are $!(n-1)$ such derangements. Therefore, the number of permutations with exactly one fixed point is
 
-\[
+\bee
 D_{n,1} = n !(n-1)
-\]
+\eee
 
-In a similar way we can argue for the number of permutations having two fixed points: There are \(n \choose 2\) ways to select the two fixed points and the other \(n-2\) elements must form a derangement.
+In a similar way we can argue for the number of permutations having two fixed points: There are $n \choose 2$ ways to select the two fixed points and the other $n-2$ elements must form a derangement.
 Therefore, we have
 
-\[
+\bee
 D_{n,2} = {n \choose 2} !(n-2)
-\]
+\eee
 
 Generalizing, we obtain
 
-\[
+\bee
 D_{n,k} = {n \choose k} !(n-k)
-\]
+\eee
+
+for the number of permutations of $n$ elements having $k$ fixed points.
 
 \subsubsection{Some Values}
 
-can be found
-\href{https://en.wikipedia.org/wiki/Rencontres_numbers}{here} and are
-shown below.
+can be found \href{https://en.wikipedia.org/wiki/Rencontres_numbers}{here} and are shown below.
 
 \begin{figure}
 \includegraphics{images/recontres_numbers.png}
@@ -47,19 +45,44 @@ shown below.
 The following properties can be observed:
 
 \begin{itemize}
-\item
-  It can be seen that \(D_{n,n-1} = 0\); there are no permutations of
-  \(n\) elements having \(n-1\) fixed points; the last element must also
-  be a fixed point.
-\item
-  There is one n-permutation with n fixed points: \(D_{n,n} = 1\) which
-  is the identity permutation.
-\item
-  The number of permutations without a fixed point (i.e. \(k=0\)) equals
-  the derangements; i.e. \(D_{n,0} = !n\).
-\item
-  The row-sum equals the number of permutations; i.e.
-  \(\sum_{k} D_{n,k} = n!\). We can split the permutations into groups
-  having the same number of fixed points. Summing over the group-sizes
-  yields the total number of permutations.
+\item  It can be seen that $D_{n,n-1} = 0$; there are no permutations of $n$ elements having $n-1$ fixed points; the last element must also be a fixed point.
+\item  There is one $n$-permutation with $n$ fixed points: $D_{n,n} = 1$ which is the identity permutation.
+\item  The number of permutations without a fixed point (i.e. $k=0$) equals the number of derangements; i.e. $D_{n,0} = !n$.
+\item  The row-sum equals the number of permutations; i.e. $\sum_{k} D_{n,k} = n!$. We can split the permutations into groups having the same number of fixed points. Summing over the group-sizes yields the total number of permutations.
 \end{itemize}
+
+\subsubsection{Probability of $k$ fixed points}
+
+Now let's calculate the probability $P_{n,k}$ that a randomly chosen permutation has $k$ fixed points. We have
+
+\bee
+P_{n,k} = {n \choose k} \frac{!(n-k)}{n!}
+\eee
+
+Inserting the definition of ${n \choose k} = \frac{n!}{(n-k)! k!}$ and obtain
+
+\bee
+P_{n,k} = \frac{n!}{(n-k)! k!} \frac{!(n-k)}{n!} = \frac{!(n-k)}{(n-k)! k!} = \frac{1}{k!} \frac{!(n-k)}{(n-k)!}
+\eee
+
+Let's consider this in the case of large $n$; from the previous entry \ref{2015-12-26:entry} we know that $\lim_{n \rightarrow \infty} \frac{!n}{n!} = e^{-1}$ and therefore
+
+\bee
+\lim_{n \rightarrow \infty} P_{n,k} = \frac{1}{e k!}
+\eee
+
+As a cross-check, the probabilities must sum up to one; $\sum_{k=0}^\infty \frac{1}{e k!} = \frac{e}{e} = 1$ \qed.
+
+We can also calculate the expected number of fixed points; we have
+
+\bee
+\sum_{k=0}^\infty k \frac{1}{e k!} = \frac{1}{e} \sum_{k=0}^\infty k \frac{1}{k!} = \frac{1}{e} \sum_{k=0}^\infty \frac{1}{(k-1)!} = \frac{1}{e} e = 1
+\eee
+
+So in the limit of large $n$, we have an expected number of one fixed point in a randomly chosen permutation.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
