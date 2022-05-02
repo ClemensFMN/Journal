@@ -157,6 +157,34 @@ I(k) = \int_0^1 (x-x^2)^k dx = \frac{(k!)^2}{(2k+1)!}
 
 Especially interesting is $k =1/2$. TODO
 
+
+\subsection{Integral $\log(x)/x^k$}
+
+Start with $k = 2$ and consider the following integral
+
+\bee
+I = \int_1^\infty \frac{\log(x)}{x^2}dx
+\eee
+
+which we can solve via partial integration: We chose $u=\log(x), v'=1/x^2$ and obtain $u' = 1/x, v = -1/x$ and therefore the integral becomes
+
+\bee
+I = - \left. \frac{\log(x)}{x} \right|_1^\infty + \int_1^\infty \frac{1}{x^2} dx = 0 + \left.\left( - \frac{1}{x} \right)\right|_1^\infty = 1
+\eee
+
+Interestingly, this can be extended to
+
+\bee
+I = \int_1^\infty \frac{\log(x)}{x^k}dx
+\eee
+
+Same procedure, $u=\log(x), v'=1/x^k$ and obtain $u' = 1/x, v = \frac{x^{-k+1}}{-k+1}$ and therefore we have
+
+\bee
+I = - \left. \frac{x^{-k+1} \log(x)}{-k+1} \right|_1^\infty - \int_1^\infty x^{-1} \frac{x^{-k+1}}{-k+1} dx = 0 - \frac{1}{1-k} \int_1^\infty x^{-k} dx = \frac{1}{(k-1)^2}
+\eee
+
+
 \subsection{TIKZ}
 
 Some text...
