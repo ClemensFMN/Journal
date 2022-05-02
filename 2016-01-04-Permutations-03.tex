@@ -61,17 +61,19 @@ P_{n,k} = {n \choose k} \frac{!(n-k)}{n!}
 
 Inserting the definition of ${n \choose k} = \frac{n!}{(n-k)! k!}$ and obtain
 
-\bee
+\be\label{2016-01-04:eq1}
 P_{n,k} = \frac{n!}{(n-k)! k!} \frac{!(n-k)}{n!} = \frac{!(n-k)}{(n-k)! k!} = \frac{1}{k!} \frac{!(n-k)}{(n-k)!}
-\eee
+\ee
 
 Let's consider this in the case of large $n$; from the previous entry \ref{2015-12-26:entry} we know that $\lim_{n \rightarrow \infty} \frac{!n}{n!} = e^{-1}$ and therefore
 
-\bee
+\be\label{2016-01-04:eq2}
 \lim_{n \rightarrow \infty} P_{n,k} = \frac{1}{e k!}
-\eee
+\ee
 
-As a cross-check, the probabilities must sum up to one; $\sum_{k=0}^\infty \frac{1}{e k!} = \frac{e}{e} = 1$ \qed.
+As a cross-check, the probabilities must sum up to one; we have $\sum_{k=0}^\infty \frac{1}{e k!} = \frac{e}{e} = 1$ \qed.
+
+Simulating things in Julia we can compare between \eqref{2016-01-04:eq1} and \eqref{2016-01-04:eq2}; for fixed value of $n$ the difference becomes bigger for larger values of $k$. For $k=n-1$, the approximation yields a non-zero value (but from above we know that thee are no permutations of $n$ elements having $n-1$ fixed points). As an example, at $n = 10, k=7$, the true value is $7.3 \cdot 10^{-5}$ and the approximation yields $6.6 \cdot 10^{-5}$. At $n = 10, k=10$, the true value is $10^{-7}$ whereas the approximation yields $2.7 \cdot 10^{-7}$, a much larger error. At $n=20$, the errors are much smaller, there is only a significant error for $k=20$.
 
 We can also calculate the expected number of fixed points; we have
 
