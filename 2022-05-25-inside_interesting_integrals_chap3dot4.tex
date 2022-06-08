@@ -80,8 +80,17 @@ Combining this yields the following result,
   }
 \eee
 
+The following Figure shows plots of the three functions $e^{-2x^2}/x^2$ (blue), $e^{-x^2}/x^2$ (red), and $(e^{-x^2} - e^{-2x^2})/x^2$ (green). The pole of $e^{-qx^2}/x^2$ at $x=0$ is compensated in the integrand and in the limit $x=0$ we have
+
+\begin{align*}
+  \lim_{t \rightarrow 0} \frac{e^{-q t^2} - e^{-p t^2} }{t^2} &= \lim_{t \rightarrow 0} \left( \frac{1}{x^2} - q + \frac{q^2x^2}{2} + \cdots \right) - \left( \frac{1}{x^2} - p + \frac{p^2x^2}{2} + \cdots \right)\\
+  &= \lim_{t \rightarrow 0} \left( \frac{1}{x^2} - \frac{1}{x^2} -q + p + \frac{q^2x^2}{2} - \frac{p^2x^2}{2} + \cdots \right) = p-q
+\end{align*}
+
+In the exmaple we have $p=1, q=2$ and therefore the integrand becomes $p-q=1$ at $x=0$.
+
 \begin{figure}[H]
-    \includegraphics[scale=0.7]{images/2022-05-25-plot_1.png}
+    \includegraphics[scale=0.35]{images/2022-05-25-plot_1.png}
 \end{figure}
 
   
