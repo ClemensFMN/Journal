@@ -184,6 +184,33 @@ Same procedure, $u=\log(x), v'=1/x^k$ and obtain $u' = 1/x, v = \frac{x^{-k+1}}{
 I = - \left. \frac{x^{-k+1} \log(x)}{-k+1} \right|_1^\infty - \int_1^\infty x^{-1} \frac{x^{-k+1}}{-k+1} dx = 0 - \frac{1}{1-k} \int_1^\infty x^{-k} dx = \frac{1}{(k-1)^2}
 \eee
 
+\subsection{Where should I open my restaurant?}
+
+Based on \cite{Kaplan2017}.
+
+A walk on the $\Zc^2$ lattice using only the steps $(0, 1)$, which we call ``North'', and $(1, 0)$, which we call ``East'' is a lattice path.
+
+Question 1: How many lattice paths begin at $(0, 0)$ and end at $(m, n)$?
+
+The path consists of $m$ steps East and $n$ steps North. In total we need to make $m+n$ steps to reach the destination and it does not matter when we go North and East. We therefore have
+
+\bee
+{m+n \choose m}
+\eee
+
+different lattice paths. A classical application of the binomial.
+
+Question 2: How many of these paths pass through the point $(a, b)$?
+
+We can split the path into two parts: One from $(0,0)$ to $(a,b)$ and one from $(a,b)$ to $(m,n)$. We can apply the same argument from before to each of the two paths and note that we can chose them independently; i.e. we multiply their numbers.
+
+For the first part we have ${a+b \choose a}$ possibilities, for the second one (with $m-a$ steps East and $n-b$ steps North) we have ${m-a+n-b \choose m-a}$ possibilities. Therefore, there are
+
+\bee
+{a+b \choose a} {m-a+n-b \choose m-a}
+\eee
+
+different lattice paths.
 
 \subsection{TIKZ}
 
