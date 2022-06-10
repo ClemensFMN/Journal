@@ -17,11 +17,17 @@ Consider $n = 3$ elements. We have $3! = 6$ different permutations and we classi
 
 Note that the total counts of all items in the cycle classes for permutations of $n$ items adds up to $n!$.
 
-We want to count the number of permutations in a cycle class: A cycle class $\Cc=(p_1, p_2, \ldots)$ contains $p_1$ permutations of length $1$, $p_2$ permutations of length $2$ and so on. The number of permutations in a cycle class $\Cc$ is given by (without proof)
+We want to count the number of permutations in a cycle class: A cycle class $\Cc=(p_1, p_2, \ldots)$ contains $p_1$ permutations of length $1$, $p_2$ permutations of length $2$ and so on. All elements from $1$ to $n$ must be used (each in a separate cycle), so we have
 
 \bee
-|\Cc| = \frac{n!}{\prod_i i^{p_i} p_i!}
+\sum_i i p_i = n
 \eee
+
+The number of permutations in a cycle class $\Cc$ is given by (for a sketch proof, see the end of the entry)
+
+\be\label{2022-04-25:eq1}
+|\Cc| = \frac{n!}{\prod_i i^{p_i} p_i!}
+\ee
 
 In our example, the number permutations having three $1$-cycles ($p_1 = 3, p_2=p_3=0$) is $|\Cc| = 3! / ((1^3 3!) \cdot 1 \cdot 1) = 1$, the number of permutations having one $1$-cycle and one $2$-cycle ($p_1 = p_2 = 1, p_3=0$) is $|\Cc| = 3! / ((1^1 1!) \cdot (2^1 1!) \cdot 1) = 3$, and finally the number of permutations having one $3$-cycle ($p_1=p_2=0, p_3 = 1$) is $|\Cc| = 3! / (1 \cdot 1 \cdot (3^1 1!)) = 2$. \qed
 
@@ -51,7 +57,7 @@ The case of $n=7$ has the same behaviour with a maximum of $840$ permutations ha
 Note: This may not be so easy as we need to find the location of the $|\Cc|$ maximum in the expression above. In the entry \ref{2016-01-04:entry} we calculate the expected number of fixed points in case of large $n$ which is one. However, this does not imply that the maximum of $|\Cc|$ is attained with one fixed point.
 
 
-\paragrpah{Relation with permutation having $k$ fixed points.} The permutation classes are related to the number of permutations having $k$ fixed points (see \cite{Baez2019} and entry \ref{2016-01-04:entry}). We choose $k$ points and create a derangement of the remaining $n-k$ points (so that we do not have any additional fixed points); therefore, we have
+\paragraph{Relation with permutations having $k$ fixed points.} The permutation classes are related to the number of permutations having $k$ fixed points (see \cite{Baez2019} and entry \ref{2016-01-04:entry}). We choose $k$ points and create a derangement of the remaining $n-k$ points (so that we do not have any additional fixed points); therefore, we have
 
 \bee
 {n \choose k} !(n-k)
@@ -75,6 +81,35 @@ The size of these two permutation classes are (with $p_1=2, p_4=1$ for $\Cc_1$ a
 
 In order to get the total number of permutations (having two fixed points), we need to add these two cardinalities, $|\Cc_1| + |\Cc_2| = 135$ which matches the result from above. \qed
 
+\paragraph{Prof of \eqref{2022-04-25:eq1}, Cardinality of Cycle Class.} Let's start with the case where all cycles occur only once (if at all). As example, consider $n=8$ and ask for the size of the cycle class $[5, 2, 1]$ ($p_1=1, p_2=1, p_5=1$). All permutations of this class must have the following form
+
+\bee
+(\cdot, \cdot, \cdot, \cdot, \cdot)(\cdot, \cdot)(\cdot)
+\eee
+
+We can place our $n=8$ elements in $8!$ different ways into these 8 slots. Each cycle can be restarted anywhere; e.g. $(1,2,3,4,5)$ can also be represented as $(2,3,4,5,1), (3,4,5,1,2), \cdots$. In total, each cycle of length $i$ can be represented in $i$ equivalent ways; therefore the size of the cycle class is $8! / (5 \cdot 2 \cdot 1)$.
+
+This special case of having only one cycle of a specific length is covered by
+
+\bee
+|\Cc| = \frac{n!}{\prod_i i^{p_i} }
+\eee
+
+and this uses the fact that all $i^0 = 1$; so ``non-existing'' cycles do not affect the result.
+
+What happens if we consider cycle classes with $p_i > 1$; e.g. [3,3,3,3,3]? We have $p_3=5$ and all permutations of this class must have the following form
+
+\bee
+(\cdot, \cdot, \cdot)(\cdot, \cdot, \cdot)(\cdot, \cdot, \cdot)(\cdot, \cdot, \cdot)(\cdot, \cdot, \cdot)
+\eee
+
+With the reasoning from before, each cycle can be represented in $3$ equivalent ways, so we need to divide $15!$ by $3^5$. In addition, we can also juggle the cycles around; e.g. $(1,2,3)(4,5,6)(7,8,9)\\(10,11,12)(13,14,15)$ is equivalent to $(4,5,6)(1,2,3)(7,8,9)(10,11,12)(13,14,15)$. In total, there are $5!$ ways to do that. So, all in all, the size of the cycle class is $15!/(3^5 \cdot 5!)$ and this case is covered by
+
+\bee
+|\Cc| = \frac{n!}{\prod_i i^{p_i} \cdot p_i!}
+\eee
+
+Similar to above, this uses the fact that $i^0 0! = 1$; so ``non-existing'' cycles do not affect the result. Combining several such cases together, we finally arrive at \eqref{2022-04-25:eq1}.
 
 %%% Local Variables:
 %%% mode: latex
