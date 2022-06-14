@@ -81,7 +81,7 @@ The size of these two permutation classes are (with $p_1=2, p_4=1$ for $\Cc_1$ a
 
 In order to get the total number of permutations (having two fixed points), we need to add these two cardinalities, $|\Cc_1| + |\Cc_2| = 135$ which matches the result from above. \qed
 
-\paragraph{Prof of \eqref{2022-04-25:eq1}, Cardinality of Cycle Class.} Let's start with the case where all cycles occur only once (if at all). As example, consider $n=8$ and ask for the size of the cycle class $[5, 2, 1]$ ($p_1=1, p_2=1, p_5=1$). All permutations of this class must have the following form
+\paragraph{Proof of \eqref{2022-04-25:eq1}, Cardinality of Cycle Class.} Let's start with the case where all cycles occur only once (if at all). As example, consider $n=8$ and ask for the size of the cycle class $[5, 2, 1]$ ($p_1=1, p_2=1, p_5=1$). All permutations of this class must have the following form
 
 \bee
 (\cdot, \cdot, \cdot, \cdot, \cdot)(\cdot, \cdot)(\cdot)
@@ -110,6 +110,59 @@ With the reasoning from before, each cycle can be represented in $3$ equivalent 
 \eee
 
 Similar to above, this uses the fact that $i^0 0! = 1$; so ``non-existing'' cycles do not affect the result. Combining several such cases together, we finally arrive at \eqref{2022-04-25:eq1}.
+
+
+\paragraph{Cycle Index.} The cycle structure of a permutation $g$ can be coded as a \emph{cycle index monomial} in several dummy variables $a_k$ where $k$ denotes the cycle length. The cycle index monomial is then defined as
+
+\bee
+\prod_k a_k^{p_k(g)}
+\eee
+
+So the permutation $(1,2)(3,4)(5)(6,7,8,9)(10,11,12,13)(14,15,16,17)$ corresponds to the polynomial $a_1 a_2^2 a_4^3$ as we have one cycle of length one, two cycles of length two, and three cycles of length four.
+
+The \emph{cycle index} $\Zc(G)$ of a permutation group $\Gc$ is the average of the cycle index monomials of all permutations in the group and it is given by
+
+\bee
+\Zc(\Gc) = \frac{1}{|\Gc|} \sum_{g \in \Gc} \prod_k a_k^{p_k(g)}
+\eee
+
+As an example, consider the cyclic group $C_4$ which contains the following four permutations: $(1)(2)(3)(4), (1,2,3,4), (1,4,3,2),(1,3)(2,4)$. The corresponding monomials are as follows
+
+\begin{align*}
+  (1)(2)(3)(4) &\rightarrow a_1^4 \\
+  (1,2,3,4)  &\rightarrow a_4 \\
+  (1,4,3,2)  &\rightarrow a_4 \\
+  (1,3)(2,4) &\rightarrow a_2^2 \\
+\end{align*}
+
+Therefore the cycle index of $C_4$ is given as
+
+\bee
+\Zc(C_4) = \frac{1}{4} (a_1^4 + a_2^2 + 2a_4)
+\eee
+
+There are expressions for the cycle index of several well-known groups (see for example \href{https://en.wikipedia.org/wiki/Cycle_index}{here}); in particular, the cycle index of the symmetric group $S_n$ is given by
+
+\bee
+\Zc(S_n) = \sum_{p_1 + 2 p_2 + \cdots + n p_n = n} \frac{1}{\prod_k k^{p_k} p_k!} \prod_k a_k^{p_k}
+\eee
+
+For example, the cycle index for $S_3$ which contains the following permutations $(1)(2)(3), \\ (12)(3), (13)(2), (23)(1), (123),(132)$ is
+
+\bee
+\Zc(S_3) = \frac{1}{6} \left[ a_1^3 + 3 a_1 a_2 + 2a_3 \right]
+\eee
+
+From this expression we can read off the cardinality of the corresponding cycle classes.
+
+
+\paragraph{Number of permutations with $n$ cycles of length $k$.} Also interesting is to ask for ``less structure''; i.e. how many permutations of $N$ elements are there which have $n$ cycles of length $k$. For example, $N=6$ and we want to know how many permutations have one cycle of length $2$ with the rest of the permutation \emph{unspecified}. The permutations $(1,2)(3,4,5,6), (1,2)(3)(4,5,6), (3,4)(1,2,5,6)$ all fit.
+
+I'm not sure if there is a simple relation; I simply added the size of all fitting permutation classes; therefore
+
+\bee
+\sum_{p_k=n, \sum_i i p_i = N } \left( \frac{N!}{\prod_i i^{p_i} p_i!} \right)
+\eee
 
 %%% Local Variables:
 %%% mode: latex
