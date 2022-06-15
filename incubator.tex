@@ -231,6 +231,39 @@ Some text...
 \end{figure}
 
 
+\subsection{Cycle Index - Generating Function}
+
+Based on \cite{Stanley2012}. On p. 24, they define the cycle index as
+
+\bee
+Z_n(p_1, \ldots, p_n) = \frac{1}{n!} \sum_p \prod_i t_i^{p_i}
+\eee
+
+and provide a generating function for $Z_n$ as
+
+\bee
+\sum_n Z_n x^n = \exp \left( t_1 x + t_2 \frac{x^2}{2} + t_3 \frac{x^3}{3} + \cdots \right)
+\eee
+
+We need to be a bit careful with the number of terms we want to include in the series expansion; permutations of $N$ elements will have $N$-cycles at most, so we need to go up to $t_N$. As example, for $N=3$ we have
+
+\begin{verbatim}
+(%i8)	f1:exp(t1*x + t2*x^2/2 + t3*x^3/3);
+(%o8)	%e^((t3*x^3)/3+(t2*x^2)/2+t1*x)
+(%i11)	taylor(f1, x, 0, 3);
+(%o11)	1+t1*x+((t1^2+t2)*x^2)/2+((t1^3+3*t2*t1+2*t3)*x^3)/6+...
+\end{verbatim}
+
+and we can read off the cycle index $Z_3$ as $\frac{1}{6}(t_1^3+3t_1*t_2+2t_3)$. For $N=4$ we need to include another term and we have
+
+\begin{verbatim}
+(%i12)	f1:exp(t1*x + t2*x^2/2 + t3*x^3/3 + t4*x^4/4);
+(%o12)	%e^((t4*x^4)/4+(t3*x^3)/3+(t2*x^2)/2+t1*x)
+(%i14)	taylor(f1, x, 0, 4);
+(%o14)	1+t1*x+((t1^2+t2)*x^2)/2+((t1^3+3*t2*t1+2*t3)*x^3)/6+((t1^4+6*t2*t1^2+8*t3*t1+3*t2^2+6*t4)*x^4)/24+...
+\end{verbatim}
+
+Therefore the cycle index $Z_4$ is given by $\frac{1}{24}( t_1^4+6t_2 t_1^2+ 8 t_3 t_1+ 3 t_2^2+6 t_4  )$.
 
 %%% Local Variables:
 %%% mode: latex
