@@ -164,6 +164,47 @@ I'm not sure if there is a simple relation; I simply added the size of all fitti
 \sum_{p_k=n, \sum_i i p_i = N } \left( \frac{N!}{\prod_i i^{p_i} p_i!} \right)
 \eee
 
+The following table shows some numbers for N=8 and different $n$ and $k$.
+
+\vspace{2mm}
+
+\begin{tabular}{ccc}
+  n  & k & Number of permutations \\ \hline
+  1  & 2 & 12180 \\
+  2  & 2 & 3150 \\
+  3  &2 & 420 \\
+  4  &2 & 105 \\ \hline
+  1  &3 & 8960 \\
+  2  &3 & 2240 \\
+\end{tabular}
+
+\vspace{2mm}
+
+The table shows no surprises: If we fix the cycle length, then the number permutations decreases with more cycles (increasing $n$). There are fewer permutations having one cycle of length $3$ than permutations with one cycle of length $2$.
+
+The next table shows the number of permutations having one $2$-cylce ($n=1, k=2$) for different values of $N$. In comparison, we show the number of all permutations ($N!$) as well. 
+
+\vspace{2mm}
+
+\begin{tabular}{ccc}
+  N & Number of permutations with one $2$-cycle & N! \\ \hline
+  2 & 1 & 2 \\
+  3 & 3 & 6 \\
+  4 & 6 & 24 \\
+  5 & 30 & 120 \\
+  6 & 225 & 720 \\
+  7 & 1575 & 5040 \\
+  8 & 12180 & 40320 \\
+  9 & 109620 & 362880 \\
+  10 & 1100925 & 3628800 
+\end{tabular}
+
+\vspace{2mm}
+
+It seems that about $30\%$ of all permutations have one $2$-cycle.
+
+Getting a closed form expression seems to be ather tricky; for $N=5$, the allowed permutations can have one of the following structures $(\sqcup \sqcup)(\sqcup)(\sqcup)(\sqcup)$ or $(\sqcup\sqcup)(\sqcup\sqcup\sqcup)$. Choosing two elements for the $2$-cycle can be done in ${5 \choose 2}$ ways, the three $1$-cylces can be chosen in one way, the one $3$-cycle can be chosen in two ways, e.g. $(1,2,3)$ and $(1,3,2)$. So in total we have ${5 \choose 2} \times (1 + 2) = 30$ which matches the table. For other values of $N$ the allowed cycle structures are different and require a different calculation.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
