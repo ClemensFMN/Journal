@@ -42,13 +42,13 @@ and they are sequence \href{https://oeis.org/A000108}{A000108} in the OEIS.
 
 \subsection{Application, Proofs}
 
-There are literally hundreds of things which the Catalan numbers count. See Stanley, Catalan Numbers \todo{make proper bibtex ref}.
+There are literally hundreds of things which the Catalan numbers count. See \cite{Stanley2015}. Here we concentrate on the ``main'' applications.
 
 \paragraph{Counting Polygon Triangulations.} Let $\Pc_n$ denote a convex polygon with $n$ vertices. A triangulation of $\Pc_n$ is a set of $n-3$ diagonals which do not cross. A triangulation partitions the polygon $\Pc_{n+2}$ into $n$ triangles and we define the $n$th Catalan number as the number of triangulations of $\Pc_{n+2}$.
 
 The triangulations for $\Pc_3, \Pc_4$ and $\Pc_5$ are shown in the following Figure.
 
-\begin{figure}[H]v
+\begin{figure}[H]
 \centering
 \includegraphics[scale=0.5]{images/2022-06-15-catalan_01.png}
 \end{figure}
@@ -57,7 +57,7 @@ This counting argument allows to prove the recurrence relation \eqref{2022-06-15
 
 The following Figure shows an example of an $8$-polygon ($n=5$), having $C_6 = 132$ triangulations. The selected edge $e$ is shown in red; it splits the $8$-polygon into the $4$-polygon $\Qc_1$ with vertices $1,6,7,8$ ($a_1=2$) and the $5$-polygon $\Qc_2$ ($a_2=3$) with vertices $2,3,4,5,6$.
 
-\begin{figure}[H]v
+\begin{figure}[H]
 \centering
 \includegraphics[scale=1.0]{images/2022-06-15-catalan_02.png}
 \end{figure}
@@ -68,6 +68,50 @@ If we fix the edge $e$, $\Qc_1$ has $C_{a_1}= C_2=2$ different triangulations (o
 C_{n+1} = \sum_{k=0}^n C_k C_{n-k} \qed
 \eee
 
+\paragraph{Counting Binary Trees.} A binary tree has a root vertex $v$, a left subtree $T_1$, and a right subtree $T_2$. The two subtrees are (again) binary trees. There are $C_n$ different binary trees with $n$ vertices. The following Figure shows the $C_3=5$ different binary trees with $n=3$ vertices.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2022-06-15-catalan_10.png}
+\end{figure}
+
+
+\paragraph{Counting Ballot Sequences.} A ballot sequence of length $2n$ is a sequence with $n$ $-1$s and $n$ $+1$s, such that every partial sum (i.e. the sum starts at the beginning) is non-negative. There are $C_n$ different ballot sequences of length $2n$. For $n=3$, we have the following $C_3=5$ ballot sequences,
+
+\begin{align*}
+  &+1, +1, +1, -1, -1, -1 \\
+  &+1, +1, -1, +1, -1, -1 \\
+  &+1, +1, -1, -1, +1, -1 \\
+  &+1, -1, +1, +1, -1, -1 \\
+  &+1, -1, +1, -1, +1, -1
+\end{align*}
+
+
+\paragraph{Counting Paranthesizations (or Bracketings).} Assume we have a string of $n+1$x's and a binary operation which we denote by $\cdot$. There are $C_n$ different ways to put parantheses on the string.
+
+\begin{align*}
+  &x \cdot (x\cdot (x\cdot x)) \\
+  &x \cdot ((x\cdot x) \cdot x) \\
+  &(x\cdot x)\cdot (x\cdot x) \\
+  &(x \cdot ((x\cdot x))\cdot x \\
+  &x((x\cdot x) \cdot x) \cdot x
+\end{align*}
+
+\paragraph{Counting Dyck Paths.} Finaly, we consider lattice paths on $\mZ^2$ from $(0,0)$ to $(2n,0)$ with steps $(1,1)$ and ($1,-1)$. A \emph{Dyck path} of length $2n$ is such a lattice path, wit the additional constraint that the path never passes below the $x$-axis.
+
+Again, there are $C_n$ such Dyck paths of length $2n$. The following Figure shows the $5$ paths for $2n=6$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/2022-06-15-catalan_11.png}
+\end{figure}
+
+We can rotate the sheet and consider paths on $\mZ$ from $(0,0)$ to $(n,n)$ with steps $(1,0)$ and $(0,1)$. A Dyck path then goes from $(0,0)$ to $(n,n)$ but stays below the $y=x$ line. See the following Figure for an example.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/2022-06-15-catalan_12.png}
+\end{figure}
 
 \subsection{Generating Function}
 

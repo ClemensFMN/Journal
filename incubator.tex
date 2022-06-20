@@ -265,6 +265,34 @@ and we can read off the cycle index $Z_3$ as $\frac{1}{6}(t_1^3+3t_1*t_2+2t_3)$.
 
 Therefore the cycle index $Z_4$ is given by $\frac{1}{24}( t_1^4+6t_2 t_1^2+ 8 t_3 t_1+ 3 t_2^2+6 t_4  )$.
 
+With this closed-form expression, we can get some nice results: Let $E_k(n)$ denotes the expected number of $k$-cycles of an $n$-permutation,
+
+\bee
+E_k(n) = \frac{1}{n!} \sum_{w \in S_n} c_k(w)
+\eee
+
+where $c_k(w)$ denotes the number of $k$-cycles in the permutation $w$. We can write for the expectation
+
+\bee
+E_k(n) = \left. \frac{\partial}{\partial t_k} Z_n(t_1, t_2, \ldots, t_n) \right|_{t_i=1}
+\eee
+
+Now let's insert our closed form expression for $Z_k$ and we have
+
+\begin{align*}
+  \sum_{n \geq 0} E_k(n) x^n &= \frac{\partial}{\partial t_k} \exp\left(  t_1 x + t_2 \frac{x^2}{2} + t_3 \frac{x^3}{3} + \cdots right) \\
+                             &= \frac{x^k}{k} \exp\left(  x + \frac{x^2}{2} + \frac{x^3}{3} + \cdots right) \\
+                             &= \frac{x^k}{k} \exp \log \frac{1}{1-x} \\
+                             &= \frac{x^k}{k} \sum_{n \geq 0} x^n
+\end{align*}
+
+\todo{not all steps are super clear}. From this we read off
+
+\bee
+E_k(n) = \frac{1}{k}
+\eee
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
