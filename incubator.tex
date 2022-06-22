@@ -280,8 +280,8 @@ E_k(n) = \left. \frac{\partial}{\partial t_k} Z_n(t_1, t_2, \ldots, t_n) \right|
 Now let's insert our closed form expression for $Z_k$ and we have
 
 \begin{align*}
-  \sum_{n \geq 0} E_k(n) x^n &= \frac{\partial}{\partial t_k} \exp\left(  t_1 x + t_2 \frac{x^2}{2} + t_3 \frac{x^3}{3} + \cdots right) \\
-                             &= \frac{x^k}{k} \exp\left(  x + \frac{x^2}{2} + \frac{x^3}{3} + \cdots right) \\
+  \sum_{n \geq 0} E_k(n) x^n &= \frac{\partial}{\partial t_k} \exp\left(  t_1 x + t_2 \frac{x^2}{2} + t_3 \frac{x^3}{3} + \cdots \right) \\
+                             &= \frac{x^k}{k} \exp\left(  x + \frac{x^2}{2} + \frac{x^3}{3} + \cdots \right) \\
                              &= \frac{x^k}{k} \exp \log \frac{1}{1-x} \\
                              &= \frac{x^k}{k} \sum_{n \geq 0} x^n
 \end{align*}
@@ -291,6 +291,150 @@ Now let's insert our closed form expression for $Z_k$ and we have
 \bee
 E_k(n) = \frac{1}{k}
 \eee
+
+
+\subsection{Coin Change and Generating Functions}
+
+Assume we have a coin system with values $a_1, a_2, \ldots, a_n$ and we ask for the number of possibilities $P_V$ we can represent a certain value $V$. This is answered by the generating function,
+
+\bee
+\sum_{k \geq 0} P_k x^k = \frac{1}{\prod_i (1-x^{a_i})}
+\eee
+
+For example, consider the case with three coins having values $a_1=1, a_2=2, a_3=5$. The generating function becomes
+
+\bee
+\sum_{k \geq 0} P_k x^k = \frac{1}{(1-x^1)(1-x^2)(1-x^5)}
+\eee
+
+A series expansion (using Maxima) yields
+
+\begin{verbatim}
+(%i4)	f:1/((1-x)*(1-x^2)*(1-x^5));
+(%o4)	1/((1-x)*(1-x^2)*(1-x^5))
+(%i5)	taylor(f, x, 0, 10);
+(%o5)	1+x+2*x^2+2*x^3+3*x^4+4*x^5+5*x^6+6*x^7+7*x^8+8*x^9+10*x^10+...
+\end{verbatim}
+
+and from this we read off that we can express the value $V=5$ in $P_5=4$ different ways. These are
+
+\bee
+1+1+1+1+1, 1+1+1+2, 1+2+2, 5
+\eee
+
+Since we have a coin with value $1$, every number is expressible; without such a coin, this is not necessarily possible. This would be seen that the series expansion has ``gaps''. E.g., consider the above example without the one-coin having generating function
+
+\bee
+\sum_{k \geq 0} P_k x^k = \frac{1}{(1-x^2)(1-x^5)}
+\eee
+
+which can be expanded into 
+
+\begin{verbatim}
+(%i6)	f:1/((1-x^2)*(1-x^5));
+(%o6)	1/((1-x^2)*(1-x^5))
+(%i7)	taylor(f, x, 0, 10);
+(%o7)	1+x^2+x^4+x^5+x^6+x^7+x^8+x^9+2*x^10+...
+\end{verbatim}
+
+and from this we see that e.g. $V=3$ cannot be expressed.
+
+\paragraph{Interesting Questions.}
+
+\begin{itemize}
+  \item Knowing the coin values, can we say whether all numbers can be expressed? In the second example, $V=3$ was not expresible - are there any larger numbers which are not expressible?
+  \item With certain coin values, there are larger gaps. Can we say something about the length and density of the gaps? Do they stop for large enough values; i.e. is there a certain value $V^\star$ above which all values are representable? 
+\end{itemize}
+
+
+\paragraph{Extensions.} We want to find the number of integer solutions of the equation
+
+\bee
+x_1 + x_2 + x_3 =10
+\eee
+
+with the constraints $0 \leq x_1 \leq 4$, $0 \leq x_2 \leq 8$, and $4 \leq x_3 \leq 10$. The corresponding generating function is
+
+\bee
+F(x) = (1+x^1+x^2+x^3+x^4)(1+x^1+\cdots + x^8)(x^4 + \cdots + x^{10}) = x^4 + \cdots + 25x^{10} + \cdots x^{22}
+\eee
+
+and therefore there are $25$ solutions to the equation. If we allow all positive values for $x_1$ (i.e. $0 \leq x_1$, then we have
+
+\bee
+F(x) = (1+x^1+x^2+\cdots)(1+x^1+\cdots + x^8)(x^4 + \cdots + x^{10}) = \frac{1}{1-x}(1+x^1+\cdots + x^8)(x^4 + \cdots + x^{10})
+\eee
+
+and we can obtain an infinite series expansion according to
+
+\bee
+F(x) = x^4 + \cdots + 28 x^{10} + \cdots + 63x^{22} + 63 x^{23} + \cdots
+\eee
+
+The first few terms are the same (the removed upper limit of $x_1$ is not relevant), but there are more solutions for the equation and also solutions for values larger then $22$.
+
+Also fun is to include summands which are allowed to be even; this corresponds to a factor of $(1+x^2+x^4 + \cdots)$ in the generating function.
+
+
+\subsection{Bounding $\pi$}
+
+We consider the following integral,
+
+\bee
+\int_0^1 \frac{x^4(1-x)^4}{1+x^2} dx
+\eee
+
+We can solve this integral by performing a partial fraction expansion and obtain
+
+\bee
+\int_0^1 \frac{x^4(1-x)^4}{1+x^2} dx = \int_0^1 \frac{-4}{1+x^2} + x^6 - 4x^5 + 5x^4-4x^2+4 dx
+\eee
+
+The first term yields $-4 \arctan(x)$, the other are trivial polynom integrals. Evaluating the integral at $0$ and $1$, we obtain
+
+\bee
+\int_0^1 \frac{x^4(1-x)^4}{1+x^2} dx = \frac{22}{7} - \pi
+\eee
+
+Looking at the integrand, we see that it is positive for all $x$ (in particular for $x \in [0,1]$, and integrating a positive function yields a positive value. So we have
+
+\bee
+\int_0^1 \frac{x^4(1-x)^4}{1+x^2} dx = \frac{22}{7} - \pi > 0 \rightarrow \pi < \frac{22}{7}
+\eee
+
+We can use this result to get a bound for $\pi$ as follows. First we have
+
+\bee
+\int_0^1 x^4(1-x)^4 dx = \frac{1}{630}
+\eee
+
+and we have the following bounds,
+
+\bee
+\int_0^1 \frac{x^4(1-x)^4}{2} dx < \int_0^1 \frac{x^4(1-x)^4}{1+x^2} dx < \int_0^1 x^4(1-x)^4 dx
+\eee
+
+The first inequality comes from the fact that $A/2 < A/(1+x^2)$ in the interval $[0,1]$, the second from the fact that $A/(1+x^2) < A$ in the interval $[0,1]$ (with $A = x^4(1-x)^4$.
+
+Solving the integrals yields
+
+\bee
+\frac{1}{2 \cdot 630} <  \frac{22}{7} - \pi < \frac{1}{630}
+\eee
+
+and we can simplify this to
+
+\bee
+\frac{1979}{630} < \pi < \frac{3959}{1260}
+\eee
+
+The bound is quite tight; a slightly looser (but nicer) one is
+
+\bee
+3 \frac{10}{71} < \pi < 3 \frac{10}{70}
+\eee
+
+
 
 
 %%% Local Variables:
