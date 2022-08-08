@@ -346,6 +346,30 @@ and from this we see that e.g. $V=3$ cannot be expressed.
   \item With certain coin values, there are larger gaps. Can we say something about the length and density of the gaps? Do they stop for large enough values; i.e. is there a certain value $V^\star$ above which all values are representable? 
 \end{itemize}
 
+\begin{verbatim}
+(%i21) f:1/(1-x^3)/(1-x^6);
+                                       1
+(%o21)                         -----------------
+                                     3        6
+                               (1 - x ) (1 - x )
+(%i22) c:taylor(f,x,0,100);
+               3      6      9      12      15      18      21      24      27
+(%o22)/T/ 1 + x  + 2 x  + 2 x  + 3 x   + 3 x   + 4 x   + 4 x   + 5 x   + 5 x
+      30      33      36      39      42      45      48      51       54
+ + 6 x   + 6 x   + 7 x   + 7 x   + 8 x   + 8 x   + 9 x   + 9 x   + 10 x
+       57       60       63       66       69       72       75       78
+ + 10 x   + 11 x   + 11 x   + 12 x   + 12 x   + 13 x   + 13 x   + 14 x
+       81       84       87       90       93       96       99
+ + 14 x   + 15 x   + 15 x   + 16 x   + 16 x   + 17 x   + 17 x   + . . .
+(%i23) makelist(coeff(c,x,n),n,0,100);
+(%o23)/R/ [1, 0, 0, 1, 0, 0, 2, 0, 0, 2, 0, 0, 3, 0, 0, 3, 0, 0, 4, 0, 0, 4, 
+0, 0, 5, 0, 0, 5, 0, 0, 6, 0, 0, 6, 0, 0, 7, 0, 0, 7, 0, 0, 8, 0, 0, 8, 0, 0, 
+9, 0, 0, 9, 0, 0, 10, 0, 0, 10, 0, 0, 11, 0, 0, 11, 0, 0, 12, 0, 0, 12, 0, 0, 
+13, 0, 0, 13, 0, 0, 14, 0, 0, 14, 0, 0, 15, 0, 0, 15, 0, 0, 16, 0, 0, 16, 0, 
+0, 17, 0, 0, 17, 0]
+\end{verbatim}
+
+
 
 \paragraph{Extensions.} We want to find the number of integer solutions of the equation
 
