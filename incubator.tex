@@ -458,42 +458,6 @@ The bound is quite tight; a slightly looser (but nicer) one is
 3 \frac{10}{71} < \pi < 3 \frac{10}{70}
 \eee
 
-\subsection{Convex Sets}
-
-Consider an inequality
-
-\bee
-\Abf \xbf \leq \bbf
-\eee
-
-which describes a convex region; as an example consider a two-dimensional case with the following three inequalities,
-
-\begin{align*}
-  x_1 &\leq 3 \\
-  x_2 &\leq 4 \\
-  x_1 + x_2 &\leq 6
-\end{align*}
-
-We can collect this in a matrix-vector form as
-
-\bee
-\begin{pmatrix} 1 & 0 \\ 0 & 1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}  \leq \begin{pmatrix} 3 \\ 4 \\ 6 \end{pmatrix}
-\eee
-
-Now consider two points $\pbf_1, \pbf_2$ in the convex region; i.e. $\Abf \pbf_i \leq \bbf$. The points are connected by a line $\lambda \pbf_1 + (1-\lambda) \pbf_2$ with $\lambda \in [0,1]$. For $\lambda$ outside this interval, the points are "outside" the line connecting $\pbf_1$ and $\pbf_2$.
-
-We want to show that all points between $\pbf_1$ and $\pbf_2$ are also in the convex region. We have
-
-\bee
-\Abf ( \lambda \pbf_1 + (1-\lambda) \pbf_2) = \lambda \Abf \pbf_1 + (1-\lambda) \Abf \pbf_2
-\eee
-
-The points are in the convex region; so $\Abf \pbf_i \leq \bbf$. If $\lambda \in [0,1]$ then $1-\lambda$ is positive as well (more exactely, it is $ \in [0,1]$) and \emph{only then} we are allowed to continue as
-
-\bee
-\lambda \Abf \pbf_1 + (1-\lambda) \Abf \pbf_2 \leq \lambda \bbf + (1-\lambda) \bbf = \bbf \qed
-\eee
-
 
 
 %%% Local Variables:
