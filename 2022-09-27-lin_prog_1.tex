@@ -13,7 +13,9 @@ This is based on \cite{Sierksma2015} which uses the model "Dovetail",
        & x_1, x_2 \geq 0
 \end{align*}
 
-The Figure below shows the feasible region $\Fc$ of the model together with the inequalities and the vertices.
+The Figure below shows the feasible region $\Fc$ of the model comprised of the inequalities and the objective function (as contour lines). It can be seen that the contour lines touch $\vbf_3$ which is therefore the optimum solution.
+
+Intuitively, a linear program will have its solution always at a vertex as it is farthest away and yields the largest objective function value. The only exception is when the contour of the objective function is parallel to a line of the feasible region: In this case, all points on the intersection of the contour line and feasible region are optimum points.
 
 \begin{figure}[H]
 \includegraphics[scale = 0.7]{images/2022-09-27_lin_prog_1_01.png}
@@ -45,7 +47,7 @@ The slack variable variable $x_3$ measures how far away we are from the equality
 
 In our Dovetail example, we have
 
-\begin{align}
+\begin{align*}
   &\max [3, 2]^T \xbf \\
   &\text{subject to} \; \begin{pmatrix} 1 & 1 & 1 & 0 & 0 & 0 \\ 3 & 1 & 0 & 1 & 0 & 0 \\ 1 & 0 & 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 & 0 & 1 \end{pmatrix} [x_1, x_2, x_3, x_4, x_5, x_6]^T = [9, 18, 7, 6]^T \\
   & x_1, \ldots , x_7 \geq 0
