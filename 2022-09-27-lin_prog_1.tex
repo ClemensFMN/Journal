@@ -166,12 +166,11 @@ The idea of the simplex algorithm is to manipulate the rows and columns of the t
 
 The simplex algorithm starts at a vertex of the feasible region and continues by choosing an adjacent vertex with larger objective value. The algorithm stops when the objective value cannot be improved by choosing a new adjacent vertex.
 
-\todo{Explain the algorithm in more detail} 
-
-We can use Julia to solve the Dovetail model; the source code is here (no big surprises). Optimum values are $x_1 = x_2 = 4.5$, yielding an optimum value of $22.5$. We have also calculated the slack and can see that we fully utilize the first two constraints,
+We can use Julia to solve the Dovetail model; the source code is \href{https://github.com/ClemensFMN/JuliaStuff/blob/master/JuMP/2022-09-27_dovetail_2.jl}{here} (no big surprises). Optimum values are $x_1 = x_2 = 4.5$, yielding an optimum value of $22.5$. We have also calculated the slack and can see that we fully utilize the first two constraints,
 
 \begin{verbatim}
-xxx
+  amounts = [4.5, 4.5]
+  slacks = [0.0, 0.0, -2.5, -1.5]
 \end{verbatim}
 
 \subsection{Appendix: Convex Sets}
