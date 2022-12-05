@@ -168,21 +168,10 @@ The simplex algorithm starts at a vertex of the feasible region and continues by
 
 \todo{Explain the algorithm in more detail} 
 
-We can use Julia to solve the Dovetail model; the source code is here (no big surprises). Optimum values are $x_1 = x_2 = 4.5$, yielding an optimum value of $22.5$. We have also calculated the slack and can see that we fully utilize the first two constraints, whereas there is some slack left in constraints three and four.
+We can use Julia to solve the Dovetail model; the source code is here (no big surprises). Optimum values are $x_1 = x_2 = 4.5$, yielding an optimum value of $22.5$. We have also calculated the slack and can see that we fully utilize the first two constraints,
 
 \begin{verbatim}
-julia> println(objective_value(model))
-22.5
-
-julia> println("amounts = ", value.(m))
-amounts = [4.5, 4.5]
-
-julia> A*value.(m) - r
-4-element Vector{Float64}:
-  0.0
-  0.0
- -2.5
- -1.5
+xxx
 \end{verbatim}
 
 \subsection{Appendix: Convex Sets}
