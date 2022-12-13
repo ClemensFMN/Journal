@@ -362,14 +362,12 @@ and from this we see that e.g. $V=3$ cannot be expressed.
        81       84       87       90       93       96       99
  + 14 x   + 15 x   + 15 x   + 16 x   + 16 x   + 17 x   + 17 x   + . . .
 (%i23) makelist(coeff(c,x,n),n,0,100);
-(%o23)/R/ [1, 0, 0, 1, 0, 0, 2, 0, 0, 2, 0, 0, 3, 0, 0, 3, 0, 0, 4, 0, 0, 4, 
+(%o23) [1, 0, 0, 1, 0, 0, 2, 0, 0, 2, 0, 0, 3, 0, 0, 3, 0, 0, 4, 0, 0, 4, 
 0, 0, 5, 0, 0, 5, 0, 0, 6, 0, 0, 6, 0, 0, 7, 0, 0, 7, 0, 0, 8, 0, 0, 8, 0, 0, 
 9, 0, 0, 9, 0, 0, 10, 0, 0, 10, 0, 0, 11, 0, 0, 11, 0, 0, 12, 0, 0, 12, 0, 0, 
 13, 0, 0, 13, 0, 0, 14, 0, 0, 14, 0, 0, 15, 0, 0, 15, 0, 0, 16, 0, 0, 16, 0, 
 0, 17, 0, 0, 17, 0]
 \end{verbatim}
-
-
 
 \paragraph{Extensions.} We want to find the number of integer solutions of the equation
 
@@ -457,6 +455,26 @@ The bound is quite tight; a slightly looser (but nicer) one is
 \bee
 3 \frac{10}{71} < \pi < 3 \frac{10}{70}
 \eee
+
+
+
+
+\subsection{Joining (overlapping) Intervals}
+
+We are given $N$ intervals $[a_1; b_1] \ldots [a_N; b_N]$ of which some are overlapping. We want to determine the smallest set of intervals covering the same ranges as the original intervals.
+
+The algorithm of joining the intervals is as follws:
+
+\begin{itemize}
+  \item Order the intervals by $a_k$.
+  \item If the first and second interval overlap (that is $[a_1; b_1] \cap [a_2; b_2] \neq 0$), then join them into a new interval $[a;b]$ with $a = \min a_1, a_2$ and $b = \max b_1, b_2$.
+  \item If the next interval does not overlap with $[a;b]$, emit $[a;b]$ as part of the solution. Otherwise join $[a;b]$ with the next interval.
+  \item Continue until all intervals have been processed.
+\end{itemize}
+
+
+\paragraph{Example.} We are given the following three intervals: $[1;4], [0;2], [5;7]$. Luckily, the three intervals are already ordered. As next step we see that $[1;4]$ and $[0;2]$ overlap and join them into $[0;4]$. However, this interval does not overlap with $[5;7]$ and we therefore emit $[0;4]$. The last interval $[5;7]$ stands on its own and the solution are therefore the two intervals $[0;4], [5;7]$.
+
 
 %%% Local Variables:
 %%% mode: latex
