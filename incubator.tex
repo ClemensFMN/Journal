@@ -456,9 +456,6 @@ The bound is quite tight; a slightly looser (but nicer) one is
 3 \frac{10}{71} < \pi < 3 \frac{10}{70}
 \eee
 
-
-
-
 \subsection{Joining (overlapping) Intervals}
 
 We are given $N$ intervals $[a_1; b_1] \ldots [a_N; b_N]$ of which some are overlapping. We want to determine the smallest set of intervals covering the same ranges as the original intervals.
@@ -474,6 +471,92 @@ The algorithm of joining the intervals is as follws:
 
 
 \paragraph{Example.} We are given the following three intervals: $[1;4], [0;2], [5;7]$. Luckily, the three intervals are already ordered. As next step we see that $[1;4]$ and $[0;2]$ overlap and join them into $[0;4]$. However, this interval does not overlap with $[5;7]$ and we therefore emit $[0;4]$. The last interval $[5;7]$ stands on its own and the solution are therefore the two intervals $[0;4], [5;7]$.
+
+
+
+\subsection{Birthday Problem}
+
+The Birthday Problem asks for the probability that in a group of $N$ people, more than $2$ share their birthday. What puzzles many, is the fact that the probability becomes $50\%$ for $23$ people. The reason is that we ask for \emph{any} two (or more) birthdays to be the same and \emph{not} that myself and another person in the group share the same birthday.
+
+
+\paragraph{Proof.} We calculate the probability that no persons share a birthday, $P(A')$. The event that all $N$ people have different birthdays is the same as the event that person $2$ does not have the same birthday as person $1$, and that person $3$ does not have the same birthday as either person $1$ or person $2$, and so on, and finally that person $N$ does not have the same birthday as any of persons $1$ through $N-1$.
+
+The probability that person $2$ does not have the same birthday as person $1$ is $\frac{364}{365}$, the probability that person $3$ does not have the same birthday as either person $1$ or person $2$ is $\frac{363}{365}$ and so on. So we finally arrive at
+
+\bee
+P(A') = \frac{364}{365} \times \frac{363}{365} \times \cdots \times \frac{365-N+1}{365} 
+\eee
+
+and from this we obtain for the probability that at least two persons share their birthday as
+
+\bee
+P(A) = 1 - \frac{364}{365} \times \frac{363}{365} \times \cdots \times \frac{365-N+1}{365} 
+\eee
+
+For $N=23$, we have $P(A) = 0.5073$ and for $N=50$ we have reached a probability of $97\%$.
+
+The following plot shows the probability as function of $N$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{images/2022-12-15-birthday_01.png}
+\end{figure}
+
+
+\paragraph{Extension / Explaination.} We next try to understand which cases contribute to the probability: The condition in the birthday problem is a bit sloppy - it could be that more than two persons share the same birthday and/or we could have several duplicates (e.g. two persons share day $1$ and three persons share day $4$). We can analytically express these probabilities.
+
+We consider a slightly more general setting (not restricted to a year) and use the following notation: Let $N$ denote the number of people and each is assigned a number drawn uniformly from the interval $[1,M]$.
+
+Let's start simple by calculating the probability that exactely two persons share the same number; the numbers assigned to the other $N-2$ persons are all different. We can chose two persons  out of $N$ in ${N \choose 2}$ different ways and this pair is assigned one number out of $M$. The first person of the remaining $N-2$ gets a number from $M-1$ different values, the second person gets a number from $M-2$ different values and so on. We therefore have for the probability
+
+\bee
+\left( {N \choose 2} 365 \times 364 \times 363 \times \cdots \times M-N+2 \right) \frac{1}{M^N}
+\eee
+
+where we have used the fact that assigning a number in $[1,M]$ to $N$ people can be done in $M^N$ different ways.
+
+The following Figure shows the probability for $M=365$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{images/2022-12-15-birthday_01.png}
+\end{figure}
+
+Interestingly, it has a peak around $N=28$ and falls off below and above this value. The question is, why does the probability in the birthday paradox reach $1$ for large vaues of $N$ when the duplicate probability drops for large values of $N$?
+
+It turns out that mutiple duplicates contribute to the birthday problem probability (and not more than 2 persons sharing the same birthday).
+ (there are ${N \choose 2}$ ways to do this), assigning a value in $[1,M-1]$ to the second duplicate (there are ${N-2 \choose 2}$ ways to do this), assigning a value in $[1,M-2]$ to the first non-duplicate, assigning a value in $[1,M-3]$ to the second non-duplicate, and so on. We can exchange the positions of the two duplicates so we need to divide by $2! = 2$ and obtain
+
+\bee
+\frac{1}{2!} {N \choose 2} M {N-2 \choose 2} (M-1) \times (M-2) \times (M-3) \times \cdots \times (M-N+5) \frac{1}{M^N}
+\eee
+
+In a similar spirit, we obtain for three duplicates the following expression,
+
+\bee
+\frac{1}{3!}  {N \choose 2} M {N-2 \choose 2} (M-1) {N-4 \choose 2} (M-2) \times (M-3)\times \cdots \times (M-N+4) \frac{1}{M^N}
+\eee
+
+We have the following results for $M=365, N=50$: The probability for one duplicate is $\approx 0.115$, for two duplicates is $\approx 0.20$, for three duplicates $\approx 0.22$, and for four duplicates is $\approx 0.16$. In other words, if there is ``enough space'' ($N$ is large), the probability of having more than one duplicate becomes larger.
+
+The following plot shows the probability for different values of $N$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{images/2022-12-15-birthday_02.png}
+\end{figure}
+
+
+On the other hand, the probability of having $k$ persons sharing the same number is given by
+
+\bee
+{N \choose k} M \times (M-1) \times \cdots \times (M-N+k) \frac{1}{M^N}
+\eee
+
+For $M=365, N=50$, the probability of $k=3$ persons sharing the same number is $\approx 0.11$, of $k=4$ persons sharing the same number is $\approx 0.0058$, and of $k=5$ persons sharing the same number is $\approx 0.0021$. The probability drops off and is much smaller for than eg two duplicates.
+
+To summarize, the main contributors to the birthday problem probability are multiple duplicates and numbers shared between $k=3$ users. \qed
+
 
 
 %%% Local Variables:
