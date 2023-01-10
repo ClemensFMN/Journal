@@ -1,16 +1,14 @@
 \DiaryEntry{Primitive Roots and Indices}{2021-03-02}{Number Theory}
 
-The order of an integer $a$ modulo-$n$ (with $n>1$ and $\gcd(a,n)=1$) is the smallest positive integer $k$ such that $a^k \equiv 1 \mod n$.
+For $\gcd(a,n)=1$ and $n > 1$, Euclid's theorem states that $a^{\phi(n)} \equiv 1 \mod n$. However, $a^k$ could be $\equiv 1 \mod n$ for smaller $k < \phi(n)$. The smallest $k$ for which this is the case is the \emph{order} of the integer $a$ modulo-$n$ and we therefore can bound the order $k$ as $k \leq \phi(n)$.
 
-As an example, consider $a = 2, n = 7$ and write down successive powers of $2$ modulo-$7$. We have
+As an example, consider $a = 2, n = 7 (\gcd(2,7)=1)$, and write down successive powers of $2$ modulo-$7$. We have
 
 \bee
-2^1 \equiv 1 \mod 7, 2^2 \equiv 4 \mod 7, 2^3 \equiv 1 \mod 7, 2^4 \equiv 2 \mod 7, \ldots
+2^1 \equiv 1 \mod 7, 2^2 \equiv 4 \mod 7, 2^3 \equiv 1 \mod 7, 2^4 \equiv 2 \mod 7, \ldots, 2^{\phi(7)} = 2^6 \equiv 1 \mod 7
 \eee
 
 From this we can see that the order of $2$ modulo-$7$ is $k=3$.
-
-We can bound the order $k$ from above by using Euclid's theorem $a^{\phi(n)} \equiv 1 \mod n$ as $k \leq \phi(n)$. The order can be smaller than $\phi(n)$ but this need not be the case.
 
 If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
 
