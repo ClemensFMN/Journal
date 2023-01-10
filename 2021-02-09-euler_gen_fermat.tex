@@ -267,12 +267,12 @@ and therefore $F(n) = \sum_{d | n} \phi(d) = n$. \qed
 
 
 \begin{theorem}
-  For $n<1$, the sum of all positive integers less than $n$ and relatively prime to $n$ is $\frac{1}{2}n\phi(n)$.
+  For $n>1$, the sum of all positive integers less than $n$ and relatively prime to $n$ is $\frac{1}{2}n\phi(n)$.
 \end{theorem}
 
 For $n = 10$, we have $\frac{1}{2}10 \phi(10) = 5 \phi(10) = 20$ which equals $1 + 3 + 7 + 9 = 20$.
 
-Proof: Let $a_1, a_{\phi(n)}$ the integers smaller than $n$ and relatively prime to $n$. Becuase $\gcd(a,n) = 1$ iff $\gcd(n-a,a) = 1$, the numbers $n - a_1, n - a_{\phi(n)}$ are equal in some order to the $a_1, a_{\phi(n)}$. Thus we have
+Proof: Let $a_1, a_{\phi(n)}$ the integers smaller than $n$ and relatively prime to $n$. Because $\gcd(a,n) = 1$ iff $\gcd(n-a,a) = 1$, the numbers $n - a_1, n - a_{\phi(n)}$ are equal in some order to the $a_1, a_{\phi(n)}$. Thus we have
 
 \bee
 a_1 + a_2 + \cdots + a_{\phi(n)} = (n-a_1) + (n-a_2) + \cdots + (n-a_{\phi(n)}) = \phi(n) - (a_1 + a_2 + \cdots + a_{\phi(n)})
