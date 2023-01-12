@@ -1,5 +1,7 @@
 \DiaryEntry{Primitive Roots and Indices}{2021-03-02}{Number Theory}
 
+\subsection{Order}
+
 For $\gcd(a,n)=1$ and $n > 1$, Euclid's theorem states that $a^{\phi(n)} \equiv 1 \mod n$. However, $a^k$ could be $\equiv 1 \mod n$ for smaller $k < \phi(n)$. The smallest $k$ for which this is the case is the \emph{order} of the integer $a$ modulo-$n$ and we therefore can bound the order $k$ as $k \leq \phi(n)$.
 
 As an example, consider $a = 2, n = 7 (\gcd(2,7)=1)$, and write down successive powers of $2$ modulo-$7$. We have
@@ -8,7 +10,7 @@ As an example, consider $a = 2, n = 7 (\gcd(2,7)=1)$, and write down successive 
 2^1 \equiv 1 \mod 7, 2^2 \equiv 4 \mod 7, 2^3 \equiv 1 \mod 7, 2^4 \equiv 2 \mod 7, \ldots, 2^{\phi(7)} = 2^6 \equiv 1 \mod 7
 \eee
 
-From this we can see that the order of $2$ modulo-$7$ is $k=3$.
+From this we can see that the order of $2$ modulo-$7$ is $k=3$ which is lower than $\phi(7)} = 6$ provided by Euler's theorem.
 
 If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
 
@@ -42,7 +44,8 @@ gap> OrderMod(2, 7);
 \end{verbatim}
 
 
-\begin{theorem}\label{2021-03-02-th1}
+\begin{theorem}
+  \label{2021-03-02:th1}
   If the integer $a$ has order $k$ modulo-$n$, then $a^i \equiv a^j \mod n$ iff $i \equiv j \mod n$.
 \end{theorem}
 
@@ -94,13 +97,22 @@ gap> OrderMod(6, 13);
 12
 \end{verbatim}
 
-\subsection{Primitive Root}
+\subsection{Primitive Roots}\label{2021-03-02:primroots}
 
-If an integer $a$ has the largest order possible, then we call it a primitive root of $n$. More exactely, if $\gcd(a,n)=1$ and $a$ is of order $\phi(n)$ modulo-$n$, then a is a \emph{primitive root} of the integer $n$.
+If an integer $a$ has the largest order possible, then we call it a primitive root of $n$. More exactely, if $\gcd(a,n)=1$ and $a$ is of order $\phi(n)$ modulo-$n$, then $a$ is a \emph{primitive root} of the integer $n$. In other words, $n$ has $a$ as primitive root if $a^{\phi(n)} \equiv 1 \mod n$ but $a^k \not \equiv 1 \mod n$ for all integers $k < \phi(n)$.
 
-In other words, $n$ has $a$ as primitive root if $a^{\phi(n)} \equiv 1 \mod n$ but $a^k \not \equiv 1 \mod n$ for all integers $k < \phi(n)$.
+Continuing with our example $n=13$, we write down the order of integers from $1$ to $12$,
 
-Continue with $n=13$, we have $\phi(13) = 12$ and the primitive roots are $2, 6, 7, 11$ because they have order $12$. We can do this in Gap via the \verb+PrimitiveRootMod+ function (which takes an optional parameter from which value to start searching for the next primitive root) as follows:
+\vspace*{2mm}
+
+\begin{tabular}{lllllllllllll}
+  a     & 1 & 2  & 3 & 4 & 5 & 6  & 7  & 8 & 9 & 10 & 11 & 12 \\ \hline
+  Order & 1 & 12 & 3 & 6 & 4 & 12 & 12 & 4 & 3 & 6  & 12 & 2 
+\end{tabular}
+
+\vspace*{2mm}
+
+With $\phi(13) = 12$, the maximum order is $12$. From the table, we see that the numbers $2, 6, 7, 11$ have order $12$ and are therefore the primitive roots of $13$. We can do this in Gap via the \verb+PrimitiveRootMod+ function (which takes an optional parameter from which value to start searching for the next primitive root) as follows:
 
 \begin{verbatim}
 gap> Phi(13);
@@ -134,10 +146,35 @@ We have some more theorems.
   a, a^2, \ldots, a^{\phi(n)}
   \eee
 
-  are congruent modulo $n$ to $a_1, a_2, \ldots, a_{\phi(n)}$.
+  are congruent modulo $n$ to $a_1, a_2, \ldots, a_{\phi(n)}$ in some order.
 \end{theorem}
 
-Because $a$ is relatively prime to $n$, the same holds for all the powers of $a$. Therefore, each $a^k$ is congruent modulo $n$ to one of the $a_i$. The $\phi(n)$ numbers in the set $a, a^2, \ldots, a^{\phi(n)}$ are incongruent by theorem \ref{2021-03-02-th1} and thus, these powers must represent (in different order) the integers $a_1, a_2, \ldots, a_{\phi(n)}$. \qed
+Because $a$ is relatively prime to $n$, the same holds for all the powers of $a$. Therefore, each $a^k$ is congruent modulo $n$ to one of the $a_i$. The $\phi(n)$ numbers in the set $a, a^2, \ldots, a^{\phi(n)}$ are incongruent by theorem %\ref{2021-03-02:th1} 
+and thus, these powers must represent (in different order) the integers $a_1, a_2, \ldots, a_{\phi(n)}$. \qed
+
+We illustrate this with our running example of $n=13$. Before we have shown that $a=2$ is a primitive root and $\phi(13) = 12$ (as $13$ is a prime). All numbers between $1$ and $12$ are relatively prime to $13$ and therefore the numbers $2^1, 2^2, \ldots 2^{12}$ are congruent modulo-$13$ to $1,2,\ldots, 12$.
+
+\vspace*{2mm}
+
+\begin{tabular}{lllllllllllll}
+  k     & 1 & 2  & 3 & 4 & 5 & 6  & 7  & 8 & 9 & 10 & 11 & 12 \\ \hline
+  $a^k$ & 2 & 4 & 8 & 3 & 6 & 12 & 11 & 9 & 5 & 10  & 7 & 1 
+\end{tabular}
+
+\vspace*{2mm}
+
+However, the theorem is not restricted to primes; let's consider $n=9$. With $\phi(9) = 6$, the integers less than $9$ and relatively prime to it are $1,2,4,5,7,8$. A primitive root is $2$ and we have
+
+\vspace*{2mm}
+
+\begin{tabular}{lllllll}
+  k     & 1 & 2  & 3 & 4 & 5 & 6  \\ \hline
+  $a^k$ & 2 & 4 & 8 & 7 & 5 & 1
+\end{tabular}
+
+\vspace*{2mm}
+
+\qed
 
 As a corollary, we have the following: If $a$ has order $k$ modulo-$n$, then $a^h$ has also order $k$ (modulo-$n$) iff $\gcd(h,k) = 1$.
 
@@ -147,23 +184,78 @@ If a primitive root exists, we can state how many there are using the following 
   If $n$ has a primitive root , then it has $\phi(\phi(n))$ of them.
 \end{theorem}
 
-In our running example of $n=13$, we have $\phi(\phi(13)) = 4$ primitive roots.
-
 If $a$ is a primitive root of $n$, then any other primitive root of $n$ is found among the members of the set $a, a^2, a^{\phi(n)}$. But the number of powers $a^k, 1 \leq k \leq \phi(n)$, that have order $\phi(n)$ is equal to the number of integers $k$ for which $\gcd(k, \phi(n)) = 1$; there are $\phi(\phi(n))$ such integers and $\phi(\phi(n))$ primitive roots of $n$. \qed
 
-WHat remains open is the question whether a number has a primitive root and how it can be obtained. What we observe is that non-primes can have primitive roots (e.g. $9$ has a primitive root of $2$); however, the existence of primitive roots is more of an exception than the rule.
+In our running example of $n=13$, we have $\phi(\phi(13)) = 4$ primitive roots.
 
-In case of $n$ being (an odd) prime, the following theorem shows when primitive roots exist.
+What remains open is the question whether a number has a primitive root and how it can be obtained. What we observe is that non-primes can have primitive roots (e.g. $9$ has a primitive root of $2$); however, the existence of primitive roots is more of an exception than the rule.
+
+\subsubsection{Primitive Roots of Primes}
+
+We start with a slight detour, namely the number of solutions of a polynomial congruence.
+
+\begin{theorem}
+If $p$ is prime and
+
+\bee
+f(x) = a_n x^n + \cdots + a_1 x + a_0 (a_n \not\equiv 0 \mod p)
+\eee
+
+is a polynomial of degree $n \geq 1$ with integral coefﬁcients, then the congruence $f(x) \equiv 0 \mod p$ has at most $n$ incongruent solutions modulo-$p$.
+\end{theorem}
+
+Proof is omitted.
+
+We have the following Corollary: If $p$ is prime and $d | p-1$, then
+
+\bee
+x^d - 1 \equiv 0 \mod p
+\eee
+
+has exactely $d$ solutions.
+
+Proof is omitted.
+
+Next we can show that, for any prime $p$, there exist integers with order corresponding to each divisor of $p-1$.
+
+\begin{theorem}
+  If $p$ is a prime number and $d | p-1$, then there are exactly $\phi(d)$ incongruent integers having order $d$ modulo-$p$.
+\end{theorem}
+
+Prof is omitted.\todo{add proof}
+
+In the running example with $n=13$, $p-1 = 12$ and the allowed values of $d$ are $1,2,3,4,6, 12$ (as they all divide $p-1=12$). According to the theorem, we have the following numbers with their corresponding order. We can compare with the table %\ref{2021-03-02:primroots} 
+at the beginnig of the Section to ensure that this is correct.
+
+\vspace*{2mm}
+
+\begin{tabular}{lll}
+  Order & Number & Integers \\ \hline
+  1     & 1      & 1        \\
+  2     & 1      & 12       \\
+  3     & 2      & 3, 9     \\
+  4     & 2      & 5, 8     \\
+  6     & 2      & 4, 10    \\
+  12    & 4      & 2, 6, 7, 11
+\end{tabular}
+
+\vspace*{2mm}
+
+For a prime $p$, a primitive root $a$ has to have order $\phi(p) = p-1$. So in the above theorem we set $d=p-1$ and there are $\phi(p-1)$ incongruent integers having order $p-1$; i.e. there are $\phi(p-1)$ primitive roots.
+
+
+Apart from this, there are tables listing whether and which primitive roots exist. For example, see \href{http://oeis.org/A046147}{OEIS sequence A046147}, which lists the primitive roots for every integer (if it / they exist). For example, the page shows that $n=5$ has two primitive roots ($2$ and $3$) and $n=9$ has also two primitive roots ($2$ and $5$). Just be careful, in the case of $n$ not prime, only the numbers relatively prime to $n$ are relevant.
+
+Looking at such tables, we see that the smallest primitive root, denoted as $\chi(n)$, is less or equal to $19$ for all integers up to $200$. The value $\chi(n)$ becomes arbitrarily large as $n$ increases without bound. However, in most cases $\chi(n)$ is quite small: Among the $78498$ odd primes up to $10^6$, $\chi(n) \leq 6$ holds for about $80\%$ of all primes, $\chi(n) = 2$ holds for about $37\%$ of all primes and $\chi(n) = 3$ for about $22\%$ of all primes.
+
+\subsubsection{Primitive Roots of Composite Numbers}
+
+There are some composite numbers having primitive roots; main result is that in case of $n$ being (an odd) prime, the following theorem shows when primitive roots exist.
 
 \begin{theorem}
   There are primitive roots modulo-$n$ iff $n=1,2,4, p^k, 2p^k$ with integer $k$ and $p$ an odd prime.
 \end{theorem}
 
-Proof is omitted \todo{Prove}
-
-Apart from this, there are tables listing whether and which primitive roots exist. For example, see \href{http://oeis.org/A046147}{OEIS sequence A046147}, which lists the primitive roots for every integer (if it / they exist). For example, the page yields two primitive roots $2$ and $3$ for $n=5$ and two primitive roots $2$ and $5$ for $n=9$. Just be careful, in the case of $n$ not prime, only the numbers relatively prime to $n$ are relevant.
-
-Looking at such tabels, we see that the smallest primitive root, denoted as $\chi(n)$, is less or equal to $19$ for all integers up to $200$. The value $\chi(n)$ becomes arbitrarily large as $n$ increases without bound. However, in most cases $\chi(n)$ is quite small: Among the $78498$ odd primes up to $10^6$, $\chi(n) \leq 6$ holds for about $80\%$ of all primes, $\chi(n) = 2$ holds for about $37\%$ of all primes and $\chi(n) = 3$ for about $22\%$ of all primes.
 
 
 \subsection{Indices}
@@ -174,7 +266,11 @@ Let $n$ be an integer with a primitive root $r$. The first $\phi(n)$ powers of $
 r, r^2, \ldots, r^{\phi(n)}
 \eee
 
-are congruent modulo-$n$, in some order, to those integers less than $n$ and relatively prime to it. Therefore, an arbitrary integer $a$ can be expressed as
+are congruent modulo-$n$, in some order, to those integers less than $n$ and relatively prime to it. 
+
+% \todo{n=0:12,mod.(2 .^ n,13) }
+
+Therefore, an arbitrary integer $a$ can be expressed as
 
 \bee
 a \equiv r^k \mod n
@@ -188,7 +284,7 @@ r^{\ind_r a} \equiv a \mod n
 
 Another name for the index is \emph{discrete logarithm}.
 
-Let's calculate a discrete logarithm $\ind_5 2$ with $n=7$; i.e. we seek $k$ so that $5^k \equiv 2 \mod 7$. In Gap, we can calculate it as follows:
+Let's calculate a discrete logarithm $\ind_5 2$ with $n=7$ ($5$ is a primitive root of $7$); i.e. we seek $k$ so that $5^k \equiv 2 \mod 7$. In Gap, we can calculate it as follows:
 
 \begin{verbatim}
 gap> LogMod( 2, 5, 7 );
@@ -199,7 +295,13 @@ gap> 5^4 mod 7;
 
 The discrete logarithm is a "one-way" function in that it is expensive to compute; the inverse (modular exponentation) is a (comparably) cheap operation.
 
-For other values of the discrete logarithm we obtain
+If $r$ is clear from the context, we can leave it away; i.e. we then have
+
+\bee
+r^{\ind a} \equiv a \mod n
+\eee
+
+For some other values of the discrete logarithm we obtain
 
 \begin{verbatim}
 gap> LogMod( 1, 5, 7 );
@@ -214,13 +316,16 @@ gap> LogMod( 5, 5, 7 );
 1
 gap> LogMod( 6, 5, 7 );
 3
+gap> LogMod(8, 5, 7);
+0
+gap> LogMod(9, 5, 7);
+4
+gap> LogMod(10, 5, 7);
+5
 \end{verbatim}
 
-If $r$ is clear from the context, we can leave it away; i.e. we then have
+From above list  we see that indices of integers that are congruent modulo $n$ are equal. For $a \equiv b \mod p$ to hold, we can use $r^{\ind a} \equiv a \mod n$ and $r^{\ind b} \equiv b \mod n$ and therefore $r^{\ind a} \equiv r^{\ind b} \mod p$ from which follows $\ind a = \ind b$.
 
-\bee
-r^{\ind a} \equiv a \mod n
-\eee
 
 The discrete logarithm fulfills some properties which are related to those of "normal" logarthms.
 
@@ -259,6 +364,15 @@ gap> 16 mod(Phi(7));
 4
 \end{verbatim}
 
+For part 3 we have
+
+\begin{verbatim}
+gap> LogMod(1,5,7);
+0
+gap> LogMod(5,5,7);
+1
+\end{verbatim}
+
 Let's prove the statements: We have $r^{\ind a} \equiv a \mod n$ and $r^{\ind b} \equiv b \mod n$ by the index definition. If we multiply things together, we obtain
 
 \bee
@@ -272,7 +386,7 @@ r^{\ind a + \ind b} \equiv r^{\ind ab} \mod n
 \eee
 
 
-Theorem \ref{2021-03-02-th1} states the following: If $a$ has order $k \mod n$, then $a^i \equiv a^j \mod n$ ifff $i \equiv j \mod k$. In our case, the order of $r \mod n$ is $\phi(n)$ - that's the definition of a primitive root $r$. Therefore, we know that the last equation holds iff the exponents are congruent modulo-$\phi(n)$; i.e.
+Theorem \ref{2021-03-02:th1} states the following: If $a$ has order $k \mod n$, then $a^i \equiv a^j \mod n$ ifff $i \equiv j \mod k$. In our case, the order of $r \mod n$ is $\phi(n)$ - that's the definition of a primitive root $r$. Therefore, we know that the last equation holds iff the exponents are congruent modulo-$\phi(n)$; i.e.
 
 \bee
 \ind a + \ind b \equiv \ind ab \mod(\phi(n))
