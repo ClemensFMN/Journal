@@ -1,0 +1,106 @@
+\DiaryEntry{Using Indices to solve Congruences}{2023-01-18}{Number Theory}
+
+We want to solve the following equation for $x$,
+
+\bee
+x^k \equiv a \mod n
+\eee
+
+with the positive integer $n$ having a prime root and $\gcd(a,n) =1$. We can convert this (by "taking logs") to
+
+\bee
+k \ind x \equiv \ind a \mod \phi(n)
+\eee
+
+with the unknown $\ind x$. Let's start by analyzing when this equation has solutions: To this end define $d = \gcd(k, \phi(n))$. If $d \nmid \ind a$, then there is no solution.
+
+\todo{explain in more detail / give example}
+
+On the other hand, if $d \mid \ind a$, then there are exactly $d$ values of $\ind x$ that will satisfy the congruence; and therefore, there are $d$ incongruent solutions of $x^k \equiv a \mod n$.
+
+The case $k = 2$ corresponds to a quadratic congruence, $x^2 \equiv a \mod n$. With $n=p$ being an odd prime, we have $d = \gcd(2, \phi(p)) = \gcd(2, p-1) = 2$ because $p-1$ is an even number. By the previous arguments, if $d \mid \ind a$, then the equation has exactely $2$ solutions; otherwise it has no solutions.
+
+If $r$ is a primitive root of $p$, then $r^k$ runs $\mod p$ through the integers $1,2,\ldots,p-1$ in some order for $k=1,2,\ldots,p-1$. The even powers of $r$ produce the values of $a$ for which the congruence $x^2 \equiv a \mod n$ is solvable; there are $(p-1)/2$ choices for $a$.
+
+As a reminder, index calculation is done in GAP via
+
+\bee
+  \ind_r a = \verb+ LogMod(a, r, n) +
+\eee
+
+
+\paragraph{Example 1.} Let's try this out with
+
+\bee
+x^2 \equiv 3 \mod 13
+\eee
+
+A primitive root of $13$ is $r = 2$ and $\ind_2 3 = 4$ is even, so we should have $2$ solutions. Let's start with searching for the solution via brute-force. We write down all values of $x$ and $x^2$ ($\mod 13$) for $x=1,\ldots,12$.
+
+\vspace{2mm}
+
+\begin{tabular}{lcccccccccccc}
+    $x$   & 1 & 2 & 3 & 4 & 5  & 6  & 7  & 8  & 9 & 10 & 11 & 12 \\ \hline
+    $x^2$ & 1 & 4 & 9 & 3 & 12 & 10 & 10 & 12 & 3 & 9  & 4  & 1 
+\end{tabular}
+
+\vspace{2mm}
+
+Looking at the values, we see that $x = 4$ and $x = 9$ solve our equation $x^2 \equiv 3 \mod 13$. So far, so good - there are two solutions as predicated. Now, let's use indices to speed up finding the solution.
+
+A primitive root of $p=13$ is $2$, so we can take the index on both sides and have
+
+\bee
+2 \ind_2 x \equiv \ind_2 3 \mod 12
+\eee
+
+Be careful that the index still uses $p=13$, but the mod on the right side uses $\mod \phi(13) = \mod 12$! With \verb+ LogMod(3, 2, 13) = 4+, we have
+
+\bee
+2 \ind_2 x \equiv 4 \mod 12
+\eee
+
+This has two solutions (below $12$): One solution is $\ind_2 x = 2$, the other is $\ind_2 x = 8$. To solve for $x$, we now go "backwards"; i.e. using $r^{\ind a} \equiv a \mod p$. Therefore $\ind_2 x = 2 \rightarrow x = 2^2 \mod 13 \equiv 4$ and $\ind_2 x = 8 \rightarrow x = 2^8 \mod 13 \equiv 9$ which match the results obtained by the brute-force search. \qed
+
+Another root of $p=13$ is $6$. Let's repeat the calculation with this value. Since $\ind_6 3 = 8$, we should also have $2$ solutions. Taking indices on both sides of the equation yields
+
+\bee
+2 \ind_6 x \equiv \ind_6 3 \mod 12
+\eee
+
+With \verb+ LogMod(3, 6, 13) = 8+, we have
+
+\bee
+2 \ind_6 x \equiv 8 \mod 12
+\eee
+
+The two solutions are $\ind_6 x = 4$ and $\ind_6 x = 10$. These correspond to $x = 6^4 \mod 13 \equiv 9 \mod 13$ and $x = 6^{10} \equiv 4 \mod 13$ which match the results obtained with another root. \qed
+
+
+\paragraph{Example 2.} Let's try another more complex example,
+
+\bee
+4x^9 \equiv 7 \mod 13
+\eee
+
+
+
+Backup: Index table
+
+\vspace{2mm}
+
+\begin{tabular}{lllllllllllll}
+    a     & 1  & 2 & 3 & 4 & 5 & 6 & 7  & 8 & 9 & 10 & 11 & 12 \\ \hline
+    ind a & 12 & 1 & 4 & 2 & 9 & 5 & 11 & 3 & 8 & 10 & 7  & 6 
+\end{tabular}
+
+\vspace{2mm}
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
