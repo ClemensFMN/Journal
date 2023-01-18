@@ -10,7 +10,7 @@ As an example, consider $a = 2, n = 7 (\gcd(2,7)=1)$, and write down successive 
 2^1 \equiv 1 \mod 7, 2^2 \equiv 4 \mod 7, 2^3 \equiv 1 \mod 7, 2^4 \equiv 2 \mod 7, \ldots, 2^{\phi(7)} = 2^6 \equiv 1 \mod 7
 \eee
 
-From this we can see that the order of $2$ modulo-$7$ is $k=3$ which is lower than $\phi(7)} = 6$ provided by Euler's theorem.
+From this we can see that the order of $2$ modulo-$7$ is $k=3$ which is lower than $\phi(7) = 6$ provided by Euler's theorem.
 
 If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
 
@@ -119,19 +119,19 @@ gap> Phi(13);
 12
 gap> PrimitiveRootMod(13);
 2
-gap> OrderMod(2,13);
+gap> OrderMod(2, 13);
 12
-gap> PrimitiveRootMod(13,2);
+gap> PrimitiveRootMod(13, 2);
 6
-gap> OrderMod(6,13);
+gap> OrderMod(6, 13);
 12
-gap> PrimitiveRootMod(13,6);
+gap> PrimitiveRootMod(13, 6);
 7
-gap> OrderMod(7,13);
+gap> OrderMod(7, 13);
 12
-gap> PrimitiveRootMod(13,7);
+gap> PrimitiveRootMod(13, 7);
 11
-gap> OrderMod(11,13);
+gap> OrderMod(11, 13);
 12
 \end{verbatim}
 
@@ -222,7 +222,7 @@ Next we can show that, for any prime $p$, there exist integers with order corres
   If $p$ is a prime number and $d | p-1$, then there are exactly $\phi(d)$ incongruent integers having order $d$ modulo-$p$.
 \end{theorem}
 
-Prof is omitted.\todo{add proof}
+Proof is omitted.\todo{add proof}
 
 In the running example with $n=13$, $p-1 = 12$ and the allowed values of $d$ are $1,2,3,4,6, 12$ (as they all divide $p-1=12$). According to the theorem, we have the following numbers with their corresponding order. We can compare with the table %\ref{2021-03-02:primroots} 
 at the beginnig of the Section to ensure that this is correct.
@@ -284,7 +284,13 @@ r^{\ind_r a} \equiv a \mod n
 
 Another name for the index is \emph{discrete logarithm}.
 
-Let's calculate a discrete logarithm $\ind_5 2$ with $n=7$ ($5$ is a primitive root of $7$); i.e. we seek $k$ so that $5^k \equiv 2 \mod 7$. In Gap, we can calculate it as follows:
+Let's calculate a discrete logarithm $\ind_5 2$ with $n=7$ ($5$ is a primitive root of $7$); i.e. we seek $k$ so that $5^k \equiv 2 \mod 7$. In Gap, we can calculate it as follows,
+
+\bee
+  \ind_r a = \verb+ LogMod(a, r, n) +
+\eee
+
+For example, we have
 
 \begin{verbatim}
 gap> LogMod( 2, 5, 7 );
@@ -292,6 +298,17 @@ gap> LogMod( 2, 5, 7 );
 gap> 5^4 mod 7;
 2
 \end{verbatim}
+
+As a fun side-note, we observe that $7$ has another primitive root, namely $3$. We therefore can also solve e.g. $3^k \equiv 2 \mod 7$ via
+
+\begin{verbatim}
+gap> LogMod( 2, 3, 7 );
+2
+gap> 3^2 mod 7;
+2
+\end{verbatim}
+
+\qed
 
 The discrete logarithm is a "one-way" function in that it is expensive to compute; the inverse (modular exponentation) is a (comparably) cheap operation.
 
@@ -304,17 +321,17 @@ r^{\ind a} \equiv a \mod n
 For some other values of the discrete logarithm we obtain
 
 \begin{verbatim}
-gap> LogMod( 1, 5, 7 );
+gap> LogMod(1, 5, 7);
 0
-gap> LogMod( 2, 5, 7 );
+gap> LogMod(2, 5, 7);
 4
-gap> LogMod( 3, 5, 7 );
+gap> LogMod(3, 5, 7);
 5
-gap> LogMod( 4, 5, 7 );
+gap> LogMod(4, 5, 7);
 2
-gap> LogMod( 5, 5, 7 );
+gap> LogMod(5, 5, 7);
 1
-gap> LogMod( 6, 5, 7 );
+gap> LogMod(6, 5, 7);
 3
 gap> LogMod(8, 5, 7);
 0
@@ -343,9 +360,9 @@ The discrete logarithm fulfills some properties which are related to those of "n
 Let's check this in Gap. For part $1$ we have
 
 \begin{verbatim}
-gap> a:=LogMod( 2, 5, 7 );
+gap> a:=LogMod(2, 5, 7);
 4
-gap> b:=LogMod( 3, 5, 7 );
+gap> b:=LogMod(3, 5, 7);
 5
 gap> LogMod(6, 5, 7);
 3
@@ -356,9 +373,9 @@ gap> (4+5) mod(Phi(7));
 For part $2$ we have
 
 \begin{verbatim}
-gap> LogMod(2^4, 5, 7 );
+gap> LogMod(2^4, 5, 7);
 4
-gap> 4*LogMod(2, 5, 7 );
+gap> 4*LogMod(2, 5, 7);
 16
 gap> 16 mod(Phi(7));
 4
@@ -403,6 +420,8 @@ As above, using theorem \ref{2021-03-02-th1} yields
 \bee
 \ind a^k \equiv k \ind a \mod(phi(n)) \qed
 \eee
+
+Indices can be used to solve certain types of congruences, namely $x^k \equiv a \mod n$. This is covered in entry \ref{2023-01-18:entry}.
 
 %%% Local Variables:
 %%% mode: latex
