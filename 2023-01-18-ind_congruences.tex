@@ -76,6 +76,7 @@ With \verb+ LogMod(3, 6, 13) = 8+, we have
 
 The two solutions are $\ind_6 x = 4$ and $\ind_6 x = 10$. These correspond to $x = 6^4 \mod 13 \equiv 9 \mod 13$ and $x = 6^{10} \equiv 4 \mod 13$ which match the results obtained with another root. \qed
 
+One thing to note is that the index values depend on the chosen primitive root and are in general different: So $\ind_2 3 = 4$ and $\ind_6 3 = 8$, but $\ind_2 8 = \ind_6 8 = 3$.
 
 \paragraph{Example 2.} Let's try another more complex example,
 
@@ -83,9 +84,31 @@ The two solutions are $\ind_6 x = 4$ and $\ind_6 x = 10$. These correspond to $x
 4x^9 \equiv 7 \mod 13
 \eee
 
+We chose $2$ as primitive root and take indices on both sides to obtain (again, be careful, that our $\mod 13$ becomes $\mod \phi(13) = 12$!)
 
+\bee
+\ind_2 4 + 9 \ind_2 x \equiv \ind_2 7 \mod 12
+\eee
 
-Backup: Index table
+We can use the index table from below or use GAP (or whatever) to calculate the indices and get
+
+\bee
+2 + 9 \ind_2 x \equiv 11 \mod 12 \rightarrow 9 \ind_2 x \equiv 9 \mod 12
+\eee
+
+We can now divide both sides by $9$ \todo{what happens if we cannot divide; e.g. how do we solve $5 x \equiv 9 \mod 13$} and finally arrive at
+
+\bee
+\ind_2 x \equiv 1 \mod 4 \todo{why does the mod change??}
+\eee
+
+We seek solutions below $\phi(13) = 12$ and these are $\ind_2 x = 1, 5, 9$ and (looking at our table) we obtain the matching values of $x$ as
+
+\bee
+x = 2, 5, 6 \mod 13
+\eee
+
+Index table
 
 \vspace{2mm}
 
@@ -96,7 +119,44 @@ Backup: Index table
 
 \vspace{2mm}
 
+If we chose a different primitive root, the calculation is different (since index values will change) but the results will be the same.
 
+The following theorem gives a condition for solvability of $x^k \equiv a \mod n$.
+
+\begin{theorem}
+Let $n$ be an integer with a primitive root and let $\gcd(a,n) = 1$. Then the congruence $x^k \equiv a \mod n$ has a solution iff
+
+\bee
+a^{\phi(n) / d} \equiv 1 \mod n
+\eee
+
+where $d = \gcd(k, \phi(n))$; if the congruence is solvable, then it has exactely $d$ solutions $\mod n$.
+\end{theorem}
+
+We can prove this by taking indices on both sides,
+
+\bee
+\frac{ \phi(n)}{d} \ind a \equiv 0 \mod \phi(n)
+\eee
+
+and this holds iff $d |\ind a$. Before we have seen that this is a necessary and sufficient condition for the congruence to be solvable. \qed
+
+In the special case of $n$ being prime and $\gcd(a,p) = 1$, the condition simplifies to
+
+\bee
+a^{(n-1) / d} \equiv 1 \mod n, \quad d = \gcd(k, n-1) \qed
+\eee
+
+Checking our first example $x^2 \equiv 3 \mod 13$, we have $d = \gcd(2, 12) = 2$ and $2^{12/2} = 2^6 \equiv 1 \mod 13$: the congruence is solvable and has $d = 2$ solutions. The congruence $x^2 \equiv 5 \mod 13$ has no solutions: The value $d$ is the same as before, $d = 2$, but we have $5^6 \equiv 12 \neq 1 \mod 13$.
+
+In Python SymPy, we can use \verb+ sqrt_mod + to solve such quadratic congruences. Redoing our previous examples, we have
+
+\begin{verbatim}
+print(sqrt_mod(3, 13, all_roots=(True)))
+[4, 9]
+print(sqrt_mod(5, 13, all_roots=(True)))
+[]
+\end{verbatim}
 
 
 
