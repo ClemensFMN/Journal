@@ -12,7 +12,7 @@ As an example, consider $a = 2, n = 7 (\gcd(2,7)=1)$, and write down successive 
 
 From this we can see that the order of $2$ modulo-$7$ is $k=3$ which is lower than $\phi(7) = 6$ provided by Euler's theorem.
 
-If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
+If two integers $a, b$ are congruent modulo-$n$, then they have the same order modulo-$n$. For if $a \equiv b \mod n$ and $a^k \equiv 1 \mod n$, we have $a^k \equiv b^k \mod n$ (see entry \ref{2020-11-17:entry}) and therefore $b^k \equiv 1 \mod n$.
 
 Note that the condition $\gcd(a,n)=1$ is a crucial one; if this condition is violated, then $a^k \equiv 1 \mod n$ would have no solution and the order is not defined. Therefore, we assume $\gcd(a,n)=1$ in the following.
 
@@ -46,7 +46,7 @@ gap> OrderMod(2, 7);
 
 \begin{theorem}
   \label{2021-03-02:th1}
-  If the integer $a$ has order $k$ modulo-$n$, then $a^i \equiv a^j \mod n$ iff $i \equiv j \mod n$.
+  If the integer $a$ has order $k$ modulo-$n$, then $a^i \equiv a^j \mod n$ iff $i \equiv j \mod k$.
 \end{theorem}
 
 First, suppose $a^i \equiv a^j \mod n$ with $i \geq j$. Because $a$ is relatively prime to $n$, we may cancel a power of $a$ and obtain $a^{i-j} \equiv 1 \mod n$. According to the previous theorem, this holds iff $k | i-j$ which is equivalent to $i \equiv j \mod k$ (definition of congruence). 
