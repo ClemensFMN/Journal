@@ -135,7 +135,7 @@ We can calculate the multiplicative inverse module $n$ via a slight variation of
     end
 \end{verbatim}
 
-As an example, consider $4x \equiv 1 \mod 17$. Calling above function yields $x = 13$ and indeed we have $4 \cdot 13 \equiv 1 \mod 17$.
+As an example, consider $4x \equiv 1 \mod 17$. Calling above function yields $x = 13$ and indeed we have $4 \cdot 13 = 52 \equiv 1 \mod 17$.
 
 We can use the multiplicative inverse to solve (some) linear congruences. As example, consider
 
@@ -143,13 +143,13 @@ We can use the multiplicative inverse to solve (some) linear congruences. As exa
 4x \equiv 2 \mod 7
 \eee
 
-The inverse of $7$ module-$7$ is $2$ and we multiply both sides by it and obtain
+The inverse of $4$ modulo-$7$ is $2$ and we multiply both sides by it and obtain
 
 \bee
 2 \cdot 4x \equiv 2 \cdot 2 \mod 7 \rightarrow x \equiv 4 \mod 7
 \eee
 
-We can do the same in GAP: We first define the identity element in the ``modulo-space''; then we can perform calculations with it. In the example below, we first calculate the inverse of $4$ modulo-$17$ and then solve $4x \equiv 2 \mod 7$.
+We can do the same in GAP: We first define the identity element in the ``modulo-space''; then we can perform calculations with it. In the example below, we first calculate the inverse of $4$ modulo-$17$ and then solve $4x \equiv 2 \mod 7$. \todo{Something's broken 7 vs 17?!}
 
 \begin{verbatim}
 gap> im:=Integers mod 17;
@@ -220,7 +220,7 @@ for all $k = 1, 2, \ldots r$ and so $n_k \mid (\bar{x} - x')$ for each value of 
 We have $n = 3 \cdot 5 \cdot 7 = 105$ and $N_1 = \frac{105}{3} = 35, N_2 = 21, N_3 = 15$. We therefore need to solve the linear congruences
 
 \bee
-35x \equiv 1 \mod 3, \quad 21x \equiv 1 \mod 5, \quad 15x \equiv 1 \mod 7
+35x_1 \equiv 1 \mod 3, \quad 21x_2 \equiv 1 \mod 5, \quad 15x_3 \equiv 1 \mod 7
 \eee
 
 Using the modified extended Euclidean algorithm, we obtain the three solutions $x_1 = 2, x_2 = x_3 = 1$. The general solution is therefore given by 
