@@ -78,6 +78,15 @@ The two solutions are $\ind_6 x = 4$ and $\ind_6 x = 10$. These correspond to $x
 
 One thing to note is that the index values depend on the chosen primitive root and are in general different: So $\ind_2 3 = 4$ and $\ind_6 3 = 8$, but $\ind_2 8 = \ind_6 8 = 3$.
 
+As with "normal" quadratic equations, the two solutions are related with each other; if $x_1^2 \equiv 3 \mod 13$ then the other solution is $x_2 = 13-x_1$. We have
+
+\bee
+(13-x_1)^2 = 13^2 - 2 \cdot 13 \cdot x_1 + x_1^2 \equiv 0 - 0 + x_1^2 \equiv 3 \mod 13 \qed
+\eee
+
+Indeed, we have $x_1 = 4$ and $x_2 = 13 - 4 = 9$.
+
+
 \paragraph{Example 2.} Let's try another more complex example,
 
 \bee
@@ -96,19 +105,22 @@ We can use the index table from below or use GAP (or whatever) to calculate the 
 2 + 9 \ind_2 x \equiv 11 \mod 12 \rightarrow 9 \ind_2 x \equiv 9 \mod 12
 \eee
 
-We can now divide both sides by $9$ \todo{what happens if we cannot divide; e.g. how do we solve $5 x \equiv 9 \mod 13$} and finally arrive at
+We can now divide both sides of the last equation by $9$ (this is covered in depth in theorem \ref{2020-11-17:th3}). The short story is that we need to divide the $\mod$ value by $d = \gcd(9, 12) = 4$ and we therefore arrive at the following equation,
 
-\bee
-\ind_2 x \equiv 1 \mod 4 \todo{why does the mod change??}
-\eee
+\begin{align*}
+\ind_2 x & \equiv 1 \mod 12/3 \\
+& \equiv 1 \mod 4
+\end{align*}
 
-We seek solutions below $\phi(13) = 12$ and these are $\ind_2 x = 1, 5, 9$ and (looking at our table) we obtain the matching values of $x$ as
+\todo{what happens if we cannot divide; e.g. how do we solve $5 x \equiv 9 \mod 13$} 
+
+The original congruence was $\mod 12$, so we seek solutions below $12$ and these are $\ind_2 x = 1, 5, 9$. Looking at our table (or elsewhere) we obtain the corresponding values of $x$ as
 
 \bee
 x = 2, 5, 6 \mod 13
 \eee
 
-Index table
+\paragraph{Index Table.} The following table gives the index table for $13$ and primitive root $2$.
 
 \vspace{2mm}
 
@@ -157,6 +169,36 @@ print(sqrt_mod(3, 13, all_roots=(True)))
 print(sqrt_mod(5, 13, all_roots=(True)))
 []
 \end{verbatim}
+
+\paragraph{Interpretation.} The mod operator causes numbers to "wrap around"; e.g. $3x \mod 13$ attains the following values,
+
+\vspace{2mm}
+\begin{tabular}{lllllllllllllll}
+  3x        & 0 & 3 & 6 & 9 & 12 & 15 & 18 & 21 & 24 & 27 & 30 & 33 & 36 & 39 \\ \hline
+  3x mod 13 & 0 & 3 & 6 & 9 & 12 & 2  & 5  & 8  & 11 & 1  & 4  & 7  & 10 & 0 
+\end{tabular}
+\vspace{2mm}
+
+Since $\gcd(3,13) = 1$, the expression $3x \mod 13$ will attain all values in the interval $[0, 12]$ and then start anew. If we had a different relation $kx \mod n$ with $\gcd(k, n) != 1$, then certain values would be left out and the congruence could not be solved for all combination of $k$ and $n$.
+
+In case of a quadratic congruence things seem to be similar - see the table below; because $x^2$ is nonlinear, the values are increasing faster. However, the mod operation "wraps" the values back into the interval $[0, 12]$. Every value appears two times; therefore, not all values in $[0, 12]$ appear and this causes not all quadratic congruences to be solvable.
+
+\vspace{2mm}
+\begin{tabular}{lllllllllllllll}
+  $x$          & 0 & 1 & 2 & 3 & 4  & 5  & 6  & 7  & 8  & 9  & 10  & 11  & 12  & 13  \\
+  $x^2$        & 0 & 1 & 4 & 9 & 16 & 25 & 36 & 49 & 64 & 81 & 100 & 121 & 144 & 169 \\ \hline
+  $x^2 \mod 13$& 0 & 1 & 4 & 9 & 3  & 12 & 10 & 10 & 12 & 3  & 9   & 4   & 1   & 0  
+\end{tabular}
+\vspace{2mm}
+
+From the table it can also be seen that the values of $x^2 \mod 13$ are symmetric around the middle; this is due to the fact that both $x_1$ and $13 - x_1$ are solutions.
+
+Interestingly (or unintuitivley), the values of $x^2 \mod 13$ are repeating with $x=13$. This can be seen by considering
+
+\bee
+(x+13)^2 \equiv x^2 + 2 \cot 13 \cdot x + 13^2 \equiv x^2 \mod 13 \qed
+\eee
+
 
 
 
