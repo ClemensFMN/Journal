@@ -1,0 +1,174 @@
+\DiaryEntry{Quadratic Reciprocity Law}{2023-02-13}{Number Theory}
+
+\subsection{Euler’s Criteria}
+
+The quadratic reciprocity law deals with the solvability of quadratic congruences,
+
+\be\label{2023-02-13:eq1}
+ax^2 + bx + c \equiv 0 \mod p
+\ee
+
+where $p$ is an odd prime and $a \not\equiv 0 \mod p$ and therefore $\gcd(a,p) = 1$. The assumption of $p$ being an odd prime implies that $\gcd(4a, p) = 1$ \todo{I don't get that} and we can therefore write
+
+\bee
+4a( ax^2 + bx + c) \equiv 0 \mod p
+\eee
+
+We can expand the LHS and obtain
+
+\bee
+4a^2x^2 + 4abx + 4ac \equiv 0 \mod p
+\eee
+
+and we complete the square as
+
+\bee
+4a^2x^2 + 4abx + 4ac = (2ax + b)^2 - b^2 + 4ac
+\eee
+
+So our quadratic congruence becomes
+
+\bee
+(2ax + b)^2 \equiv b^2 - 4ac \mod p
+\eee
+
+By substituting $y = 2ax + b$ and $d = b^2 - 4ac$ we obtain the simple looking quadratic congruence
+
+\be\label{2023-02-13:eq2}
+y^2 \equiv d \mod p
+\ee
+
+If $x_0$ is a solution to \eqref{2023-02-13:eq1}, then $y_0 = 2ax_0 + b \mod p$ will be a solution to \eqref{2023-02-13:eq2}; conversely, if we have an integer $y_0$ solving \eqref{2023-02-13:eq2}, we can solve $2ax_0 \equiv y_0 - b \mod p$ for $x_0$ which will then be a solution to \eqref{2023-02-13:eq1}.
+
+So in order to solve \eqref{2023-02-13:eq1}, we can first solve \eqref{2023-02-13:eq2}, and then solve the linear congruence $2ax_0 \equiv y_0 - b \mod p$. The quadratic congruence $y^2 \equiv d \mod p$ has either two or no solution; if it has two, they are related via $x_1 \equiv p - x_0 \mod p$ (see also previous entry).
+
+\paragraph{Example.} Let's consider the quadratic congruence
+
+\bee
+5x^2 - 6x + 2 \equiv 0 \mod 13
+\eee
+
+We calculate $d = 6^2 - 4\cdot 5 \cdot 2 = -4 \equiv 9 \mod 13$ and therefore have to solve
+
+\bee
+y^2 \equiv 9 \mod 13
+\eee
+
+This has two solutions, $y = 3, 10 \mod 13$ (note that $p-3 \equiv 10 \mod 13$. We next need to solve the linear congruence $y_0 = 2ax_0 + b \mod p$ which becomes
+
+\bee
+10x \equiv y_0 + 6 \mod 13
+\eee
+
+For $y = 3$, this becomes $10 x \equiv 9 \mod 13$ and therefore $x = 10$ and for $y = 10$, this becomes $10x \equiv 16 \mod 13 \rightarrow 10x \equiv 3 \mod 13$ with solution $x = 12$. So our two solutions are $x = 10, 12 \mod 13$ which we can check by inserting them into the original quadratic congruence. \qed
+
+Main topic of this entry is a test for solutions of $x^2 \equiv a \mod p, \gcd(a,p)=1$ or - to put it differently - we want to identify integers $a$ that are perfect squares modulo-$p$.
+
+We have the following definition: Let $p$ be an odd prime and the integer $a$ fulfill $\gcd(a,p) = 1$. Then $x^2 \equiv a \mod p$ has a solution, then $a$ is said to be a \emph{quadratic residue of $p$}. Otherwise, $a$ is called a \emph{quadratic nonresidue of $p$}.
+
+If $a \equiv b \mod p$, then $a$ is a quadratic residue of $p$ ifff $b$ is a quadratic residue of $p$.
+
+Looking at the table of $x, x^2 \mod 13$ in the last entry we see that $1, 3, 4, 9, 10, 12$ are quadratic residues of $13$; the nonresidues are $2,5,6,7,8,11$. In this case, there are two pairs of consecutive quadratic residues, namely the pair $3,4$ and the pair $9,10$. For any odd prime $p$, there are 
+
+\bee
+\frac{1}{4}(p-4-(-1)^{(p-1)/2})
+\eee
+
+such consecutive pairs.
+
+It seems to be the typical case that about half the numbers below $p$ are quadratic residues, the other half being quadratic nonresidues. \todo{Cross-check with Python scipt and include plot}
+
+
+
+There is a simple criterion by Euler for deciding whether an integer $a$ is a quadratic residue of a given prime p.
+
+\begin{theorem}
+Let $p$ be an odd prime and $\gcd(a,p)=1$. Then $a$ is a quadratic residue of $p$ iff
+
+\bee
+a^{(p-1)/2} \equiv 1 \mod p
+\eee
+\end{theorem}
+
+Suppose that $a$ is a quadratic residue of $p$ and $x_1$ is a solution, so that $x_1^2 \equiv a \mod p$. Because $\gcd(a,p) = 1$, we also have $\gcd(x_1,p) = 1$. We can therefore use Fermat's theorem (see entry \ref{2020-12-09:entry}) to obtain
+
+\bee
+a^{(p-1)/2} \equiv (x_1^2)^{(p-1)/2} \equiv x_1^{p-1} \equiv 1 \mod p
+\eee
+
+For the opposite direction, assume that the congruence $a^{(p-1)/2} \equiv 1 \mod p$ holds and let $r$ be a primitive root of $p$. Then $a \equiv r^k \mod p$ for some integer $k$ with $1 \leq k \leq p-1$. It follows that
+
+\bee
+r^{k(p-1)/2} \equiv a^{(p-1)/2} \equiv 1 \mod p
+\eee
+
+By theorem \ref{2021-03-02:th0}, the order of $r$ (namely, $p-1$) must divide the exponent $k(p-1)/2$ which implies that $k$ is an even integer which we can express as $k = 2j$. Therefore,
+
+\bee
+(r^j)^2 = r^{2j} = r^k \equiv  a \mod p
+\eee
+
+which makes the integer $r^j$ a solution of $x^2 \equiv a \mod p$. This proves that $a$ is a quadratic residue of the prime $p$. \qed
+
+If $p$ is (as always) an odd prime and $\gcd(a,p) = 1$, Fermat's theorem states that
+
+\bee
+a^{p-1} \equiv 1 \mod p \rightarrow a^{p-1} - 1 \equiv 0 \mod p
+\eee
+
+We can factor this as
+
+\bee
+a^{p-1} - 1 \equiv \left(a^{(p-1)/2} - 1\right)\left(a^{(p-1)/2} + 1\right) \equiv 0 \mod p
+\eee
+
+and for this to hold, either
+
+\bee
+a^{(p-1)/2} \equiv 1 \mod p \qquad a^{(p-1)/2} \equiv -1 \mod p
+\eee
+
+but not both. If both congruences held simultaneously, we would have $1 \equiv -1 \mod p$, and this would imply $p | 2$ (because the difference between $1$ and $-1$ is two - check for e.g. $p=4$), but would conflict the hypothesis. A quadratic nonresidue does not satisfy $a^{(p-1)/2} \equiv 1 \mod p$ (see previous theorem), it must therefore satisfy $a^{(p-1)/2} \equiv -1 \mod p$.
+
+We can collect this in another theorem.
+
+\begin{theorem}
+Let $p$ be an odd prime and $\gcd(a,p)=1$. Then $a$ is a quadratic residue iff
+
+\bee
+a^{(p-1)/2} \equiv 1 \mod p
+\eee
+
+and a quadratic nonresidue iff
+
+\bee
+a^{(p-1)/2} \equiv -1 \mod p
+\eee
+
+\end{theorem}
+
+
+There is another pprof due to Dirichlet but we skip this here.
+
+Euler’s criterion is not a practical test for determining whether a given integer is or is not a quadratic residue; the calculations involved are too cumbersome unless the modulus is small.
+
+\paragraph{Exercise 1.} We are given $6x^2 + 5x + 1 \equiv 0 \mod p$ and shall show that it has a solution for every prime (evben though $6x^2 + 5x + 1$ has no solutions over the integers). We have $d = 25 - 4 \cdot 6 \cdot 1 = 1$ and therefore
+
+\bee
+y^2 \equiv 1 \mod p \rightarrow y = 1, p-1
+\eee
+
+We now need to solve the linear congruence $12x \equiv y-5 \mod p$. For $y = 1$ this becomes $12x \equiv p-4 \mod p$. Using theorem \ref{2020-11-25:th1}, we have $d = \gcd(12, p) = 1$ and the linear congruence has a solution iff $d | b \rightarrow 1 | p-4$ which trivially holds. For $y = p-1$ we have $12x \equiv p-6 \mod p$ and this also has always a solution by the same reasoning. \qed.
+
+
+\subsection{Legendre Symbols}
+
+ 
+
+\subsection{Quadratic Reciprocity}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
