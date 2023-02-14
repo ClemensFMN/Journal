@@ -76,7 +76,7 @@ Looking at the table of $x, x^2 \mod 13$ in the last entry we see that $1, 3, 4,
 
 such consecutive pairs.
 
-It seems to be the typical case that about half the numbers below $p$ are quadratic residues, the other half being quadratic nonresidues. \todo{Cross-check with Python scipt and include plot}
+It seems to be the typical case that about half the numbers below $p$ are quadratic residues, the other half being quadratic nonresidues. \todo{Cross-check with Python scipt and include plot} For $p$ being an odd prime, $(p+1)/2$ integers are quadratic integers.
 
 
 
@@ -132,7 +132,7 @@ but not both. If both congruences held simultaneously, we would have $1 \equiv -
 
 We can collect this in another theorem.
 
-\begin{theorem}
+\begin{theorem}\label{2023-02-13:th2}
 Let $p$ be an odd prime and $\gcd(a,p)=1$. Then $a$ is a quadratic residue iff
 
 \bee
@@ -152,7 +152,7 @@ There is another pprof due to Dirichlet but we skip this here.
 
 Euler’s criterion is not a practical test for determining whether a given integer is or is not a quadratic residue; the calculations involved are too cumbersome unless the modulus is small.
 
-\paragraph{Exercise 1.} We are given $6x^2 + 5x + 1 \equiv 0 \mod p$ and shall show that it has a solution for every prime (evben though $6x^2 + 5x + 1$ has no solutions over the integers). We have $d = 25 - 4 \cdot 6 \cdot 1 = 1$ and therefore
+\paragraph{Exercise 1.} We are given $6x^2 + 5x + 1 \equiv 0 \mod p$ and shall show that it has a solution for every prime (even though $6x^2 + 5x + 1$ has no solution over the integers). We have $d = 25 - 4 \cdot 6 \cdot 1 = 1$ and therefore
 
 \bee
 y^2 \equiv 1 \mod p \rightarrow y = 1, p-1
@@ -163,7 +163,113 @@ We now need to solve the linear congruence $12x \equiv y-5 \mod p$. For $y = 1$ 
 
 \subsection{Legendre Symbols}
 
+We start with the definition of the \emph{Legendre symbol $(a/p)$}. If $p$ is an odd prime and $\gcd(a,p)=1$, the Legendre symbol $(a/p)$ is defined as
  
+\bee
+(a/p) = \begin{cases} 1 \quad &\text{if $a$ is a quadratic residue of $p$} \\
+-1 \quad &\text{if $a$ is a quadratic nonresidue of $p$} \end{cases}
+\eee 
+ 
+We call $a$ the numerator and $p$ the denominator of $(a/p)$.
+
+\paragraph{Example.} Looking at our running example with $p=13$, we have $(1/13) = (3/13) =(4/13) = (9/13) = (10/13) = (12/13) = 1$ as these are all the quadratic residues, and $(2/13) = (5/13) = (6/13) = (7/13) = (8/13) = (11/13) = -1$ as these are all the quadratic nonresidues. \qed
+
+The following theorem summarizes some facts about Legendre symbols.
+
+\begin{theorem}
+Let $p$ be an odd prime and $a, b$ integers that are relatively prime to $p$. Then the Legendre symbol has the following properties:
+
+\begin{enumerate}
+	\item If $a \equiv b \mod p$, then $(a/p) = (b/p)$.
+	\item $(a^2/p) = 1$
+	\item $(a/p) \equiv a^{(p-1)/2} \mod p$
+	\item $(ab/p) = (a/p)(b/p)$
+	\item $(1/p) = 1$ and $(-1/p) = (-1)^{(p-1)/2}$
+	\item $(ab^2/p) = (a/p)(b^2/p) = (a/p)$
+\end{enumerate}
+\end{theorem}
+
+Proofs: For 1), we observe that if $a \equiv b \mod p$, then the congruences $x^2 \equiv a \mod p$ and $x^2 \equiv b \mod p$ have exactely the same solutions if any. Thus, $x^2 \equiv a \mod p$ and $x^2 \equiv b \mod p$ are both solvable or neither one has a solution. This is reflected in the statement $(a/p) = (b/p)$.
+
+For 2), we observe that the integer $a$ satisfies $x^2 \equiv a^2 \mod p$ and therefore $(a/p) = 1$.
+
+Part 3) is just a restatement of \ref{2023-02-13:th2}.
+
+For part 4) we use the definition of 3): $(ab/p) = (ab)^{(p-1)/2} = a^{(p-1)/2} b^{(p-1)/2} = (a/p)(b/p)$.
+
+Part 5) can be obtained from 3) by setting $a=1$ and $a=-1$, respectively.
+
+And finally 6) can be obtained by combining 2) and 4). \qed
+
+The second part of 5) can be used to obtain a result for primes having special forms. If $p$ has the form $p = 4k+1$, then $(p-1)/2 = 2k$ which is even and therefore $(-1/p) = (-1)^{2k} = 1$. In a similar spirit, for $p = 4k+3$, we have $(p-1)/2 = 2k+1$ which is odd and therefore $(-1/p) = -1$. We can combine this as
+
+\bee
+(-1/p) = \begin{cases} 1 \quad & p \equiv 1 \mod 4 \\
+-1 \quad & p \equiv 3 \mod 4 \end{cases} \qed
+\eee
+
+The next theorem to tackle is about the number of quadratic residues and nonresidues.
+
+\begin{theorem}
+If $p$p is an odd prime, then
+
+\bee
+\sum_{a=1}^{p-1} (a/p) = 0	
+\eee	
+
+Therefore, there are $(p-1)/2$ quadratic residues and $(p-1)/2$ quadratic nonresidues.
+\end{theorem}
+
+Let $r$ be a primitive root of $p$ and from previous entries we know that we can express $a$ in terms of this primitive root: $r^k \equiv a \mod p$. Let's calculate $(a/p)$ as
+
+\bee
+(a/p) = \equiv a^{(p-1)/2} \mod p \equiv (r^k)^{(p-1)/2} \mod p = (r^{(p-1)/2})^k \mod p \equiv (-1)^k \mod p
+\eee
+
+where, because $r$ is a primitive root of $p$, $r^{(p-1)/2} \equiv -1 \mod p$. Both $(a/p)$ and $(-1)^k$ can attain only $-1$ and $1$; therefore, equality holds in the above equation (instead of "only" $\equiv$). Adding up the Legendre symbols yields,
+
+\bee
+\sum_{a=1}^{p-1} (a/p) = \sum_{k=1}^{p-1} (-1)^k = 0 \qed
+\eee
+
+We have a corollary: The quadratic residues of an odd prime $p$ are congruent modulo $p$ to the even powers of a primitive root $r$ of $p$; the quadratic nonresidues are congruent to the odd powers of $r$.
+
+\paragraph{Example.} The odd prime $p=13$ has a primitive root $r=2$. According to the corollary, even powers of $r$ yield the quadratic residues, and odd powers yields the quadratic nonresidues.
+
+The quadratic residues are $1, 3, 4, 9, 10, 12$ and the even powers of $r=2$ are
+
+\begin{align*}
+& 2^0 \equiv 1 \mod 13, 2^2 \equiv 4 \mod 13, 2^4 \equiv 3 \mod 13 \\
+& 2^6 \equiv 12 \mod 13 2^8 \equiv 9 \mod 13, 2^{10} \equiv 12 \mod 13
+\end{align*}
+
+The quadratic nonresidues are therefore $2, 5, 6, 7, 8, 11$ and the odd powers of $r=2$ are
+
+\begin{align*}
+& 2^1 \equiv 1 \mod 13, 2^3 \equiv 8 \mod 13, 2^5 \equiv 6 \mod 13 \\
+& 2^7 \equiv 11 \mod 13 2^9 \equiv 5 \mod 13, 2^{11} \equiv 7 \mod 13
+\end{align*}
+
+\qed
+
+We next have Gauss' Lemma.
+
+\begin{theorem}
+Let $p$ be an odd prime and $\gcd(a,p)=1$. If $n$ denotes the number of integers in the set $S = \{a, 2a, 3a, \cdots, \frac{p-1}{2}a \}$ whose remainders upon division by $p$ exceeds $p/2$, then
+
+\bee
+(a/p) = (-1)^n
+\eee
+
+\end{theorem}
+
+\paragraph{Example.} For $p=13$ and $a=5$, $(p-1)/2 = 6$ and
+
+\bee
+S = \{5, 10, 15, 20, 25, 30\}
+\eee
+
+If we take the elements $\mod 13$, we have $\{5, 10, 2, 7, 12, 4\}$ and three of them are greater than $p/2 = 13/2$, therefore $n=3$. According to the theorem $(5/13) = (-1)^3 = -1$ and this corresponds to the fact that $5$ is a quadratic nonresidual. \qed
 
 \subsection{Quadratic Reciprocity}
 
