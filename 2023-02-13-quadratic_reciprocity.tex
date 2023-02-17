@@ -76,8 +76,13 @@ Looking at the table of $x, x^2 \mod 13$ in the last entry we see that $1, 3, 4,
 
 such consecutive pairs.
 
-It seems to be the typical case that about half the numbers below $p$ are quadratic residues, the other half being quadratic nonresidues. \todo{Cross-check with Python scipt and include plot} For $p$ being an odd prime, $(p+1)/2$ integers are quadratic integers.
+Later on, we will show that for $p$ being an odd prime, $(p+1)/2$ integers are quadratic residues. For other values of $p$, there are fewer quadratic residues. This is shown in the following plot which shows the number of quadratic residues for numbers between $1$ and $1000$.
 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{images/2023-02-13-num_quad_residues.png}
+\end{figure}
 
 
 There is a simple criterion by Euler for deciding whether an integer $a$ is a quadratic residue of a given prime p.
