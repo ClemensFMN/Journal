@@ -213,6 +213,13 @@ The second part of 5) can be used to obtain a result for primes having special f
 -1 \quad & p \equiv 3 \mod 4 \end{cases} \qed
 \eee
 
+As a consequence of part 4, we have that the product of two quadratic nonresidues yields a quadratic residue. For if $(a/p) = (b/p) = -1$, then
+
+\bee
+(ab/p) = (a/p)(b/p) = 1 \qed
+\eee
+
+
 The next theorem to tackle is about the number of quadratic residues and nonresidues.
 
 \begin{theorem}
@@ -277,6 +284,45 @@ S = \{5, 10, 15, 20, 25, 30\}
 If we take the elements $\mod 13$, we have $\{5, 10, 2, 7, 12, 4\}$ and three of them are greater than $p/2 = 13/2$, therefore $n=3$. According to the theorem $(5/13) = (-1)^3 = -1$ and this corresponds to the fact that $5$ is a quadratic nonresidual. \qed
 
 \subsection{Quadratic Reciprocity}
+
+Let $p$ and $q$ be distinct odd primes, so that both of the Legendre symbols $(p/q)$ and $(q/p)$ are defined. We ask whether the value of $(p/q)$ can be determined if that of $(q/p)$ is known. To put the question more generally, is there any connection at all between the values of these two symbols?
+
+It turns out there is and it is the Quadratic Reciprocity Law,
+
+\bee
+(p/q)(q/p) = (-1)^{\frac{p-1}{2} \frac{q-1}{2} }
+\eee
+
+\paragraph{Example.} Let's try this with a simple example; $p=13, q=17$. Starting with $q=17$, we have that $p=13$ is a quadratic residue and therefore $(13/17) = 1$. The other way round, also $17 \equiv 4 \mod 13$ is a quadratic residue of $13$, therefore $(17/13) = 1$. Their product is therefore $(13/17) (17/13) = 1$.
+
+Comparing with the quadratic reciprocity law, we have
+
+\bee
+(-1)^{\frac{p-1}{2} \frac{q-1}{2}} = (-1)^{6 \cdot 8} = (-1)^{48} = 1
+\eee
+
+We can also do this in Python,
+
+\begin{verbatim}
+from sympy.ntheory import quadratic_residues
+from sympy.ntheory import legendre_symbol
+
+quadratic_residues(13)
+Out[3]: [0, 1, 3, 4, 9, 10, 12]
+
+quadratic_residues(17)
+Out[4]: [0, 1, 2, 4, 8, 9, 13, 15, 16]
+
+legendre_symbol(13, 17)
+Out[5]: 1
+
+legendre_symbol(17, 13)
+Out[6]: 1
+
+(-1)**(6*8)
+Out[7]: 1
+\end{verbatim}
+
 
 
 %%% Local Variables:
