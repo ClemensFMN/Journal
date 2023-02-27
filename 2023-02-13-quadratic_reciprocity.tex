@@ -66,7 +66,11 @@ For $y = 3$, this becomes $10 x \equiv 9 \mod 13$ and therefore $x = 10$ and for
 
 Main topic of this entry is a test for solutions of $x^2 \equiv a \mod p, \gcd(a,p)=1$ or - to put it differently - we want to identify integers $a$ that are perfect squares modulo-$p$.
 
-We have the following definition: Let $p$ be an odd prime and the integer $a$ fulfill $\gcd(a,p) = 1$. Then $x^2 \equiv a \mod p$ has a solution, then $a$ is said to be a \emph{quadratic residue of $p$}. Otherwise, $a$ is called a \emph{quadratic nonresidue of $p$}.
+We have the following definition.
+
+\begin{definition}
+	Let $p$ be an odd prime and the integer $a$ fulfill $\gcd(a,p) = 1$. If $x^2 \equiv a \mod p$ has a solution, then $a$ is said to be a \emph{quadratic residue of $p$}. Otherwise, $a$ is called a \emph{quadratic nonresidue of $p$}.
+\end{definition}
 
 If $a \equiv b \mod p$, then $a$ is a quadratic residue of $p$ ifff $b$ is a quadratic residue of $p$.
 
@@ -267,7 +271,7 @@ The quadratic nonresidues are therefore $2, 5, 6, 7, 8, 11$ and the odd powers o
 
 \qed
 
-We next have Gauss' Lemma.
+We next have Gauss's Lemma.
 
 \begin{theorem}
 	\label{2023-02-13:th4}
@@ -346,7 +350,7 @@ But the RHS is exactely $(a/p)$ and we conclude that
 (a/p) \equiv (-1)^n \mod p \qed
 \eee
 
-We can use Gauss' lemma for some interesting results.
+We can use Gauss's lemma for some interesting results.
 
 \begin{theorem}
 	If $p$ is an odd prime, then

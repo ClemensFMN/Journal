@@ -1,6 +1,6 @@
 \DiaryEntry{Quadratic Reciprocity, Proof}{2022-02-27}{Number Theory}
 
-The proof of the Quadratic Reciprocity Law is based on Gauss' lemma \ref{2023-02-13:th4} and the following lemma.
+The proof of the Quadratic Reciprocity Law is based on Gauss's lemma \ref{2023-02-13:th4} and the following lemma.
 
 \begin{theorem}
     If $p$ is an odd prime and $a$ an odd integer with $\gcd(a,p)=1$, then
@@ -21,7 +21,7 @@ As an example, consider $(5/11$). The upper limit of the sum is $(p-1)/2 = 5$ an
 
 and therefore $(5/11) = (-1)^4 = -1$.
 
-\paragraph{Proof.} We start with the set $S = \{a, 2a, 3a, \cdots, \frac{p-1}{2}a \}$ and divide each number by $p$ to obtain
+\paragraph{Proof.} The underlying idea is to find a closed-form expression for $n$ in Gauss's lemma and use this to calculate $(a/n)$. We start with the set $S = \{a, 2a, 3a, \cdots, \frac{p-1}{2}a \}$ and divide each number by $p$ to obtain
 
 \begin{equation*}
     ka = q_k p + t_k, \quad 1 \leq t_k \leq p-1
@@ -33,18 +33,18 @@ We can rewrite this as $ka/p = q_k + t_k / p$ and therefore $[ka/p] = q_k$. So w
     ka = \left[ \frac{ka}{p} \right] p + t_k
 \end{equation*}
 
-where $t_k$ is the remainder. In the proof of Gauss' lemma we split the remainders into two sets, $r_1, \ldots, r_m$ as the remainders upon division by $p$ smaller than $p/2$ and $s_1, \ldots, s_n$ as the $n$ remainders upon division by $p$ larger than $p/2$. If a reminder $t_k < p/2$, then it is one of the integers $r_k$, otherwise it is one of the integers $s_k$.
+where $t_k$ is the remainder. In the proof of Gauss's lemma we split the remainders into two sets: (i) the set $r_1, \ldots, r_m$ as the remainders $t_k$ upon division by $p$ smaller than $p/2$ and (ii) the set $s_1, \ldots, s_n$ as the remainders $t_k$ upon division by $p$ larger than $p/2$. If a reminder $t_k < p/2$, then it is one of the integers $r_k$, otherwise it is one of the integers $s_k$.
 
 Summing up the $(p-1)/2$ equations, we obtain
 
 \begin{equation}\label{2023-02-27:eq1}
-    \sum_{k=1}^{(p-1)/2} ka = \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] p + \sum_{k=1}^m r_k + \sum_{k=1}^m s_k
+    \sum_{k=1}^{(p-1)/2} ka = \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] p + \sum_{k=1}^m r_k + \sum_{k=1}^n s_k
 \end{equation}
 
-In proving Gauss' lemma, we showed that the $(p-1)/2$ numbers $r_1, \ldots, r_m \quad \text{and} \quad p - s_1, \ldots, p - s_m$ are just an rearrangement of the integers $1, 2, \ldots, (p-1)/2$. Therefore,
+In proving Gauss's lemma, we showed that the $(p-1)/2$ numbers $r_1, \ldots, r_m, s_1, \ldots, p - s_n$ are just an rearrangement of the integers $1, 2, \ldots, (p-1)/2$. Therefore,
 
 \begin{equation*}
-    \sum_{k=1}^{(p-1)/2} k  = \sum_{k=1}^m r_k + \sum_{k=1}^m p - s_k = pn + \sum_{k=1}^m r_k - \sum_{k=1}^m s_k
+    \sum_{k=1}^{(p-1)/2} k  = \sum_{k=1}^m r_k + \sum_{k=1}^n (p - s_k) = pn + \sum_{k=1}^m r_k - \sum_{k=1}^n s_k
 \end{equation*}
 
 Subtracting this from \eqref{2023-02-27:eq1}, we obtain
@@ -53,19 +53,19 @@ Subtracting this from \eqref{2023-02-27:eq1}, we obtain
     (a-1) \sum_{k=1}^{(p-1)/2} k = p \left( \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] - n \right) + 2\sum_{k=1}^m s_k 
 \end{equation*}
 
-We can now use the fact that $p \equiv a \mod 2$ to translate the last equation into a congruence relation,
+We can now use the fact that $p \equiv a \mod 2$ to translate the last equation into a congruence relation. The relation $p \equiv a \mod 2$ means that either $a$ and $p$ are odd or even. Since $p$ is a prime, it is odd, therefore $a$ is also odd. This implies $a-1$ is even and let's now write down the remainders after division by $2$,
 
 \bee
-0 \cdot \sum_{k=1}^{(p-1)/2} k \equiv 1 \cdot \left( \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] - n \right)
+0 \cdot \sum_{k=1}^{(p-1)/2} k \equiv 1 \cdot \left( \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] - n \right) + 0
 \eee
 
-or
+This is equivalent to
 
 \bee
 n \equiv \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] \mod 2
 \eee
 
-The rest follows from Gauss's lemma, as we have
+Having a closed-form expression for $n$, we can now use Gauss's lemma to express $(a/n)$,
 
 \bee
 (a/p) = (-1)^n = (-1)^{\sum_{k=1}^{(p-1)/2} [ka/p]} \qed
