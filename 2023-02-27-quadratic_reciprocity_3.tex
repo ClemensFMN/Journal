@@ -1,0 +1,77 @@
+\DiaryEntry{Quadratic Reciprocity, Proof}{2022-02-27}{Number Theory}
+
+The proof of the Quadratic Reciprocity Law is based on Gauss' lemma \ref{2023-02-13:th4} and the following lemma.
+
+\begin{theorem}
+    If $p$ is an odd prime and $a$ an odd integer with $\gcd(a,p)=1$, then
+
+    \begin{equation*}
+        (a/p) = (-1)^{\sum_{k=1}^{(p-1)/2} [ka/p]}
+    \end{equation*}
+
+    Be careful, $[ \cdot ]$ denotes the greatest integer function!
+\end{theorem}
+
+As an example, consider $(5/11$). The upper limit of the sum is $(p-1)/2 = 5$ and we therefore have to sum
+
+\begin{align*}
+\sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] &= \left[ \frac{1 \cdot 5}{11} \right] + \left[ \frac{2 \cdot 5}{11} \right] + \left[ \frac{3 \cdot 5}{11} \right] + \left[ \frac{4 \cdot 5}{11} \right] + \left[ \frac{5 \cdot 5}{11} \right] \\
+&= 0 + 0 + 1 + 1 + 2 = 4
+\end{align*}
+
+and therefore $(5/11) = (-1)^4 = -1$.
+
+\paragraph{Proof.} We start with the set $S = \{a, 2a, 3a, \cdots, \frac{p-1}{2}a \}$ and divide each number by $p$ to obtain
+
+\begin{equation*}
+    ka = q_k p + t_k, \quad 1 \leq t_k \leq p-1
+\end{equation*}
+
+We can rewrite this as $ka/p = q_k + t_k / p$ and therefore $[ka/p] = q_k$. So we can write (for $1 \leq k \leq (p-1)/2$),
+
+\begin{equation*}
+    ka = \left[ \frac{ka}{p} \right] p + t_k
+\end{equation*}
+
+where $t_k$ is the remainder. In the proof of Gauss' lemma we split the remainders into two sets, $r_1, \ldots, r_m$ as the remainders upon division by $p$ smaller than $p/2$ and $s_1, \ldots, s_n$ as the $n$ remainders upon division by $p$ larger than $p/2$. If a reminder $t_k < p/2$, then it is one of the integers $r_k$, otherwise it is one of the integers $s_k$.
+
+Summing up the $(p-1)/2$ equations, we obtain
+
+\begin{equation}\label{2023-02-27:eq1}
+    \sum_{k=1}^{(p-1)/2} ka = \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] p + \sum_{k=1}^m r_k + \sum_{k=1}^m s_k
+\end{equation}
+
+In proving Gauss' lemma, we showed that the $(p-1)/2$ numbers $r_1, \ldots, r_m \quad \text{and} \quad p - s_1, \ldots, p - s_m$ are just an rearrangement of the integers $1, 2, \ldots, (p-1)/2$. Therefore,
+
+\begin{equation*}
+    \sum_{k=1}^{(p-1)/2} k  = \sum_{k=1}^m r_k + \sum_{k=1}^m p - s_k = pn + \sum_{k=1}^m r_k - \sum_{k=1}^m s_k
+\end{equation*}
+
+Subtracting this from \eqref{2023-02-27:eq1}, we obtain
+
+\begin{equation*}
+    (a-1) \sum_{k=1}^{(p-1)/2} k = p \left( \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] - n \right) + 2\sum_{k=1}^m s_k 
+\end{equation*}
+
+We can now use the fact that $p \equiv a \mod 2$ to translate the last equation into a congruence relation,
+
+\bee
+0 \cdot \sum_{k=1}^{(p-1)/2} k \equiv 1 \cdot \left( \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] - n \right)
+\eee
+
+or
+
+\bee
+n \equiv \sum_{k=1}^{(p-1)/2} \left[ \frac{ka}{p} \right] \mod 2
+\eee
+
+The rest follows from Gauss's lemma, as we have
+
+\bee
+(a/p) = (-1)^n = (-1)^{\sum_{k=1}^{(p-1)/2} [ka/p]} \qed
+\eee
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:

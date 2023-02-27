@@ -1,5 +1,7 @@
 \DiaryEntry{Quadratic Reciprocity Law}{2023-02-13}{Number Theory}
 
+Coming from \cite{Burton2011}, chapter 9.
+
 \subsection{Euler’s Criteria}
 
 The quadratic reciprocity law deals with the solvability of quadratic congruences,
@@ -182,6 +184,7 @@ We call $a$ the numerator and $p$ the denominator of $(a/p)$.
 The following theorem summarizes some facts about Legendre symbols.
 
 \begin{theorem}
+	\label{2023-02-13:th3}
 Let $p$ be an odd prime and $a, b$ integers that are relatively prime to $p$. Then the Legendre symbol has the following properties:
 
 \begin{enumerate}
@@ -267,6 +270,7 @@ The quadratic nonresidues are therefore $2, 5, 6, 7, 8, 11$ and the odd powers o
 We next have Gauss' Lemma.
 
 \begin{theorem}
+	\label{2023-02-13:th4}
 Let $p$ be an odd prime and $\gcd(a,p)=1$. We define the set $S = \{a, 2a, 3a, \cdots, \frac{p-1}{2}a \}$ which has $(p-1)/2$ elements. Now let $n$ denote the number of integers in $S$ whose remainders upon division by $p$ exceeds $p/2$. Then we have
 
 \bee
@@ -341,6 +345,69 @@ But the RHS is exactely $(a/p)$ and we conclude that
 \bee
 (a/p) \equiv (-1)^n \mod p \qed
 \eee
+
+We can use Gauss' lemma for some interesting results.
+
+\begin{theorem}
+	If $p$ is an odd prime, then
+
+	\bee
+		(2/p) = \begin{cases}
+			1 & \text{if } p \equiv 1 \mod 8 \text{ or } p \equiv 7 \mod 8 \\
+			- 1 & \text{if } p \equiv 3 \mod 8 \text{ or } p \equiv 5 \mod 8
+		\end{cases}
+	\eee
+\end{theorem}
+
+Proof is omitted. We can use this theorem to prove that there are infinitely many primes of the form $8k-1$ (proof omitted). As a corollary, we have
+
+\begin{theorem}
+	If $p$ is an odd prime, then
+
+	\bee
+	(2/p) = (-1)^{(p^2-1)/8}
+	\eee
+\end{theorem}
+
+and finally
+
+\begin{theorem}
+	If $p$ and $2p+1$ are both odd primes, then the integer
+
+\begin{equation}
+	(-1)^{(p-1)/2} \cdot 2
+\end{equation}
+
+is a primitive root of $2p+1$.
+
+\end{theorem}
+
+As an exmaple, we consider $p = 5$ with $2p+1=11$ being an odd prime. Therefore $(-1)^{(p-1)/2} \cdot 2 = 2$ is a primitive root of $11$. Perhaps more interesting is the case $p=11$ ($2p+1=23$ being an odd prime) from which we conclude that $(-1)^{(p-1)/2} \cdot 2 = -2 \equiv 21 \mod 23$ is a primitive root of $23$.
+
+We can prove this by denoting $q=2p+1$ and distinguish two cases: $p \equiv 1 \mod 4$ and $p \equiv 3 \mod 4$. 
+
+Let's start with $p \equiv 1 \mod 4$ (i.e. $p=5, 9, 13,\ldots = 4k+1$). We first observe that $(-1)^{(p-1)/2} \cdot 2 = (-1)^{2k} \cdot 2 = 2$. Because $\phi(q) = q-1 = 2p$ (the first because $q$ is a prime and the second from the definition of $q$), the order of $2 \mod q$ is either $1, 2, , p$, or $2p$ \todo{why?}. Using property 3) of theorem \ref{2023-02-13:th3}, we have
+
+\bee
+(2/q) \equiv 2^{(q-1)/2} = 2^p \mod q
+\eee
+
+With $p \equiv 1 \mod 4$, we have $q \equiv 3 \mod 8$ and therefore $(2/q) = -1$ \todo{why}. It follows that $2^p \equiv -1 \mod q$ and therefore $2$ cannot have order $p \mod q$. The order of $2$ being neither $1$ or $2$ ($2^2 \equiv 1 \mod q$ implies that $q |3$ and this contradicts the prime assumption), nor $p$, we conclude that the order of $2 \mod q$ is $2p$ and therefore $2$ is a primitive root of $q$.
+
+The other case is $p \equiv 3 \mod 4$ (i.e. $p=7, 11, 15,\ldots = 4k+3$). and yields $(-1)^{(p-1)/2} \cdot 2 = (-1)^{2k+1} \cdot 2 = -2$. Therefore
+
+\begin{equation}
+	(-2)^p \equiv (-2/q) = (-1/q)(2/q) \mod q
+\end{equation}
+
+With $p \equiv 3 \mod 4$, we have $q \equiv 7 \mod 8$ and therefore $(-1/q) = -1$ and we therefore have $(2/q) = 1$ which leads to $(-2)^p \equiv -1 \mod q$. We can follow an argument simialr to the first case, and conclude that $-2$ is a primitive root of the prime $2p+1$. \qed
+
+There is a another result of the same character: If both $p$ and $4p+1$ are primes, then $2$ is a primitive root of $4p+1$.
+
+An odd prime $p$ such that $2p+1$ is also a prime is called a \emph{Germain prime}, after the French number theorist Sophie Germain (1776–1831). An unresolved problem is to determine whether there exist inﬁnitely many Germain primes.
+
+
+
 
 
 \subsection{Quadratic Reciprocity}
