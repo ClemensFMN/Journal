@@ -216,6 +216,23 @@ print(16**2 % 29)
 \end{verbatim}
 \qed
 
+Similar as \ref{2023-02-13:th5} allows calculation of $(2/p)$, we can use the Quadratic Reciprocity Law to directly calculate $(3/p)$ as shown in the folloing theorem.
+
+\begin{theorem}
+    If $p \neq 3$ is an odd prime, then
+
+    \bee
+    (3/p) = \begin{cases}
+        1 & \text{ if } p \pm 1 \mod 12 \\
+        -1 & \text{ if } p \pm 5 \mod 12
+    \end{cases}
+    \eee
+\end{theorem}
+
+Proof is omitted.
+
+Some observations and thoughts about square roots mod-$p$: Because mod-$p$ wraps around, the modular square root can be larger; i.e. $a^2 \equiv b \mod p$ can imply that $a > b$ which is not the case with "normal" square roots (If $x^2 = y$, then $x \leq y$.) The existence and value of a square root $\mod p$ depends (of course) also on $p$; i.e. $a_p^2 \equiv b \mod p$ can have a solution whereas $a_q^2 \equiv b \mod q$ not; in addition, if both are solvable, then in general $a_p \neq a_q$. Nevertheless, it is interesting to see that there are criteria (at least for some $p$) whether a modular square root exists, like \ref{2023-02-13:th5} or the above theorem. I'm not aware that there is a criteria whether an integer has an integer root or not.
+
 
 %%% Local Variables:
 %%% mode: latex
