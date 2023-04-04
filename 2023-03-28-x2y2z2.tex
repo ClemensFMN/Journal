@@ -186,6 +186,98 @@ for some $t > 1$. From $z - y = 2 = s^2+t^2 - (s^2 - t^2) = 2t^2$ we have $t = 1
 
 For $s=2$ this yields our well-known $(3,4,5)$, for $s=3$ we obtain $(6,8,10)$, but this is \emph{not} a Pythagorean triple. Be careful - the statement works in the direction "Pythagorean triple" $\rightarrow$ "express $x,y,z$ as ... and \emph{not the other way round}. For $s=4$ the formulas give a Pythagorean triple, $(8, 15, 17)$.
 
+\todo{Include some stuff from Wikipedia}
+
+\subsection{Fermat's Last Theorem}
+
+Fermat's last theorem stated that the equation
+
+\bee
+x^n + y^n = z^n
+\eee
+
+has no solution in the integers for $n > 2$. He stated, "It is impossible to write a cube as a sum of two cubes, a fourth power as a sum of two fourth powers, and, in general, any power beyond the second as a sum of two similar powers. For this, I have discovered a truly wonderful proof, but the margin is too small to contain it."
+
+For $n=4$, there is a proof for this. Let's start with a similar result.
+
+\begin{theorem}
+    The Diophantine equation $x^4 + y^4 = z^2$ has no solution in the positive integers $(x,y,z)$.
+\end{theorem}
+
+Proof: Let's assume that there exists a solution $(x_0, y_0, z_0)$ of $x_0^4 + y_0^4 = z_0^2$ with $\gcd(x_0, y_0) = 1$ (if $\gcd(x_0, y_0) = d$ we could define $x_0 = d x_1, y_0 = d y_1, z_0 = d^2 z_0^2$ so that $x_1^4 + y_1^4 = z_1^2$ with $\gcd(x_1, y_1) = 1$).
+
+We now rewrite the equation with the new variables,
+
+\bee
+(x_0^2)^2 + (y_0^2)^2 = z_0^2
+\eee
+
+and from this we see that $(x_0^2, y_0^2, z_0)$ meet the requirements of a Pythagorean triple and we can reuse the stuff the previous Section. In particular, theorem \ref{2023-03-28:th3} states that one of $x_0^2, y_0^2$ is even while the other is odd. Assume that $x_0^2$ (and therefore $x_0$) is even, there exist relatively prime integers $s > t > 0$ satisfying
+
+\bee
+x_0^2 = 2st, \quad y_0^2 = s^2 - t^2, \quad z_0 = s^2 + t^2
+\eee
+
+where one of $s, t$ is even. If it happens that $s$ is even, then we have
+
+\bee
+1 \equiv y_0^2 = s^2 - t^2 \equiv 0 - 1 \equiv 3 \mod 4
+\eee
+
+which is not possible \todo{why mod 4??}. Therefore, $s$ must be an odd integer and $t$ an even integer. So we can write $t = 2r$ and $x_0^2 = 2st$ becomes $x_0^2 = 4sr$ which we can rewrite as
+
+\bee
+\left( \frac{x_0}{2} \right)^2 = sr
+\eee
+
+Above we noted that $\gcd(s, t) = 1$ and therefore $\gcd(s, r) = 1$ as well. Theorem \ref{2023-03-28:th2} for $n=2$ states that if $ab=c^2$ with $\gcd(a,b)=1$, then $a, b$ are squares as well. In our case, we therefore have that $s, r$ are squares,
+
+\bee
+s = z_1^2, \quad r = w_1^2
+\eee
+
+for positive integers $w_1, z_1$.
+
+Next, let's apply Theorem \ref{2023-03-28:th3} to $y_0^2 = s^2 - t^2 \rightarrow y_0^2 + t^2 = s^2$. Because $\gcd(s,t) = 1$, we have $\gcd(t, y_0, s) = 1$, thereby making $(t, y_0, s)$ a primitive Pythagorean triple. With $t$ even, we have
+
+\bee
+t = 2uv, \quad y_0 = u^2 - v^2, \quad s = u^2 + v^2
+\eee
+
+for relatively prime integers $u > v > 0$. The first relation can be rewritten as
+
+\bee
+uv = \frac{t}{2}
+\eee
+
+and with the definition of $t = 2r$ we have 
+
+\bee
+uv = r = w_1^2
+\eee
+
+Again using Theorem \ref{2023-03-28:th2}, we see that $u, v$ are both squares, $u=x_1^2, v = y_1^2$ and when we substitute this back into $s = u^2 + v^2$, we obtain
+
+\bee
+z_1^2 = s = u^2 + v^2 = x_1^4 + y_1^4
+\eee
+
+With $z_1$ and $t$ being positive, we can construct the following relation
+
+\bee
+0 < z_1 \leq z_1^2  = s \leq s^2 \leq s^2 + t^2 = z_0
+\eee
+
+What we have done is the following: We started with a solution $(x_0, y_0, z_0)$ to $x_0^4 + y_0^4 = z_0^2$ and constructed a solution $x_1, y_1, z_1$ to $x_1^4 + y_1^4 = z_1^2$ with $0 < z_1 < z_0$. We can continue the procedure from above again and again to generate a sequence of solutions with a decreasing sequence of $z$: $z_0 > z_1 > z_2 > \cdots > 0$. But $z$ has to be a positive integer and therefore this procedure will eventually run into a contradiction. We therefore conclude that $x^4 + y^4 = z^2$ has no solution in the positive integers. \qed
+
+As a consequence, we immediately have the following theorem.
+
+\begin{theorem}
+    The equation $x^4 + y^4 = z^2$ has no solution in the positive integers.
+\end{theorem}
+
+Proof: If $x_0, y_0, z_0$ were a positive solution of $x^4 + y^4 = z^4$, then $(x_0, y_0, z_0^2)$ would satisfy $x^4 + y^4 =z^2$ which is not possible as just shown. \qed
+
 
 %%% Local Variables:
 %%% mode: latex
