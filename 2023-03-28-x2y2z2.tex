@@ -42,7 +42,7 @@ In the following, we will choose $x$ to be even and $y$ to be odd. Then $x^2$ is
 
 By virtue of above theorem, there exist no primitive Pythagorean triple $(x , y, z)$ all of whose values are prime numbers (as one number is even). There are primitive Pythagorean triples in which $z$ and one of $x$ or $y$ is a prime; for instance, $(3, 4, 5)$, $(11, 60, 61), (19, 180, 181)$. It is unknown whether there exist infinitely many such triples.
 
-We have another theorem about when numbers are square.
+We have another theorem about when numbers are powers.
 
 \begin{theorem}\label{2023-03-28:th2}
 If $ab = c^n$, with $\gcd(a,b) = 1$, then $a$ and $b$ are $n$-th powers; i.e. $a=a_1^n$ and $b = b_1^n$.
@@ -73,6 +73,8 @@ a_1 = p_1^{k_1 / n} p_2^{k_2 / n} \cdots p_r^{k_r / n}, \quad b_1 = q_1^{j_1 / n
 \eee
 
 and therefore $a_1^n = a, b_1^n = b$. \qed
+
+As a simple example, we have $6^2 = 36 = 4 \cdot 9$. The two factors are relatively prime and therefore they must be powers, $4 = ^2, 9 = 3^2$. Note that this $\gcd$ condition depends on the factorization; e.g. $12^2 = 144 = 16 \cdot 9 = 8 \cdot 18$. The first factorization has relatively prime factors, $\gcd(16, 9) = 1$, and correspondingly, we can express the factors as sqaures, $16 = 4^2, 9 = 3^2$. The second factorization is not relatively prime, $\gcd(8, 18) = 2$, and neither is a square.
 
 
 With all this in place, we can characterize all primitive Pythagorean triples as follows.
@@ -224,7 +226,9 @@ where one of $s, t$ is even. If it happens that $s$ is even, then we have
 1 \equiv y_0^2 = s^2 - t^2 \equiv 0 - 1 \equiv 3 \mod 4
 \eee
 
-which is not possible \todo{why mod 4??}. Therefore, $s$ must be an odd integer and $t$ an even integer. So we can write $t = 2r$ and $x_0^2 = 2st$ becomes $x_0^2 = 4sr$ which we can rewrite as
+which is not possible. It's a bit tricky to derive this, so here we go a bit more slowly: Above we assumed that $y_0^2$ is odd (and $x_0^2$ is even). Therefore, $y_0$ is also odd and we can write $y_0 = 2k+1$. Squaring this yields $y_0^2 = 4k^2 + 4k + 1 \equiv 1 \mod 4$. Next, we assumed $s$ even, so $s = 2k$, $s^2 = 4k^2 \equiv 0 \mod 4$. Finally, $t$ is odd, and with the same argument as for $y_0^2$, we have $t^2 \equiv 1 \mod 4$. Combining this, we have $s^2 - t^2 \equiv 0 - 1 \equiv 3 \mod 4$.
+
+From this we see that $s$ cannot be even but must be odd and that $t$ is the even integer. So we can write $t = 2r$ and $x_0^2 = 2st$ becomes $x_0^2 = 4sr$ which we can rewrite as
 
 \bee
 \left( \frac{x_0}{2} \right)^2 = sr
@@ -277,6 +281,27 @@ As a consequence, we immediately have the following theorem.
 \end{theorem}
 
 Proof: If $x_0, y_0, z_0$ were a positive solution of $x^4 + y^4 = z^4$, then $(x_0, y_0, z_0^2)$ would satisfy $x^4 + y^4 =z^2$ which is not possible as just shown. \qed
+
+If $n > 2$, then $n$ is either a power of $2$ or divisible by an odd prime $p$. In the first case, $n =4k$ for some $k \geq 1$ and $x^n + y^n = z^n$ can be rewritten as
+
+\bee
+(x^k)^4 + (y^k)^4 = (z^k)^4
+\eee
+
+But we have just seen that this equation has no solution in the positive integers. When $n$ is divisible by an odd prime $p$, then $n = pk$ and we obtain
+
+\bee
+(x^k)^p + (y^k)^p = (z^k)^p
+\eee
+
+If it could be shown that the equation $u^p + v^p = w^p$ has no solution, then, in particular, there would be no solution of the form $u = x^k, v = y^k, w = z^k$; hence, $x^n + y^n = z^n$ would not be solvable. Therefore, Fermat’s conjecture reduces to this: For no odd prime $p$ does the equation 
+
+\bee
+x^p + y^p = z^p
+\eee
+
+admit a solution in the positive integers. Fermat's conjecture was unproven for more than 300 years; only in 1994, it was proven by Andrew Wiles.
+
 
 
 %%% Local Variables:
