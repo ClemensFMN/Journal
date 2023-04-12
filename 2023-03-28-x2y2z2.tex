@@ -146,6 +146,14 @@ The following screenshot shows a table with some Pythagorean triples. For each v
 
 Looking at this, we suspect that if $(x , y, z)$ is a primitive Pythagorean triple, then exactly one of the integers $x$ or $y$ is divisible by $3$. According to the previous theorem, we have $x=st, y=s^2-t^2, z=s^2+t^2$ with $\gcd(s,t)=1$, If either $3|s$ or $3|t$, then $3|x$ and we are done. Now consider the case that $3 \nmid s$ and $3 \nmid t$. That is, we can write $s = 3k+1$ or $s=3k+2$. In the first case, $s^2 =  9k^2 + 6k + 1 \equiv 1 \mod 3$; in the latter case, $s^2 = 9k^2 + 12k + 4 \equiv 1 \mod 3$. Therefore, $y = s^2 - t^2 \equiv 0 \mod 3$. So, $y$ is divisible by $3$. \qed
 
+The following Figure shows the distribution of primitive Pythagorean triples for values $x, y < 2500$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-03-28-triples_2.png}
+\end{figure}
+
+
 \paragraph{Problem 12.1} a) Find Pythagorean triples (not necessarily primitive) of the form $(16,y,z)$.
 
 We start by $x= 2st$ from Theorem \ref{2023-03-28:th3} from which we obtain $st = 8$. The easiest way is to enumerate all $(s,t)$; however, we have to keep in mind that $s > t > 0$ and $\gcd(s,t) = 1$. There are not many left, in fact only the pair $(s=8, t=1)$. From this follows $y = s^2 - t^2 = 63$ and $z = s^2 + t^2 = 65$ and our first primitive triple is $(16, 63, 65)$. Since there are no other $(s,t)$ combinations possible, we have to find non-primitive Pythagorean triples and multiply them with some factor to obtain a triple of the desired form $(16, y, z)$.
@@ -176,7 +184,7 @@ x = 2t(t+1), \quad y = 2t+1 \quad z = 2t(t+1)+1
 
 for some $t > 0$. We start by noting that $z - x = 1 = s^2+t^2 - 2st = (s-t)^2$ from which follows $s - t = 1$ or $s = t+1$. Inserting this into $x = 2st$ yields $x = 2t(t+1)$ and $y = s^2-t^2 = (t+1)^2 - t^2 = 2t+1$. Finally, $z = x+1 = st(t+1)+1$. \qed
 
-For $t=1$, this yields $(3,4,5)$, for $t=$ we obtain $(12, 5, 13)$.
+For $t=1$, this yields $(3,4,5)$, for $t=2$ we obtain $(12, 5, 13)$.
 
 b) Prove that if $(x , y, z)$ is a primitive Pythagorean triple in which the difference $z-y = 2$, then
 
@@ -188,7 +196,16 @@ for some $t > 1$. From $z - y = 2 = s^2+t^2 - (s^2 - t^2) = 2t^2$ we have $t = 1
 
 For $s=2$ this yields our well-known $(3,4,5)$, for $s=3$ we obtain $(6,8,10)$, but this is \emph{not} a Pythagorean triple. Be careful - the statement works in the direction "Pythagorean triple" $\rightarrow$ "express $x,y,z$ as ... and \emph{not the other way round}. For $s=4$ the formulas give a Pythagorean triple, $(8, 15, 17)$.
 
-\todo{Include some stuff from Wikipedia}
+\paragraph{Further Properties.} Wikipedia holds some more interesting stuff. The expression
+
+\bee
+\frac{1}{2}(z-x)(z-y) = \frac{1}{2}(s^2+t^2 - 2st)(s^2+t^2-(s^2-t^2) = \frac{1}{2} (s-t)^2 2t^2 = t^2(s-t)^2
+\eee
+
+is a perfect square. Note that this is only a necessary condition not a sufficient one (i.e. a triple fulfilling the condition need not be a Pythagorean triple). In addition, from above we see that $(z-x) = (s-t)^2$ is a perfect square as is $\frac{1}{2}(z-y) = t^2$.
+
+\todo{TBC...}
+
 
 \subsection{Fermat's Last Theorem}
 
@@ -301,6 +318,98 @@ x^p + y^p = z^p
 \eee
 
 admit a solution in the positive integers. Fermat's conjecture was unproven for more than 300 years; only in 1994, it was proven by Andrew Wiles.
+
+
+Let's move on to another closely related Diophantine equation, $x^4 - y^4 = z^2$ whcih is also unsolvable.
+
+\begin{theorem}\label{2023-03-28:th4}
+The Diophantine equation $x^4 - y^4 = z^2$ has no solution in the positive integers $x, y, z$.
+\end{theorem}
+
+Proof: Similar to before, we provide via contradiction. Assume we have a solution $x_0, y_0, z_0$ in the positive integers with a least value $x$. Then $x_0$ has to be odd \todo{why}. Were $\gcd(x_0, y_0) = d > 1$, then defining $x_0 = d x_1, y_0 = d y_1$, we would have $d^4(x_1^4 - y_1^4) = z_0^2$ which would result in $d^2 | z_0$or $z_0 = d^2 z_1$ for some $z_1 > 0$. So $x_1, y_1, z_1$ would be another solution to the equation with $0 < x_1 < x_0$ which is a contradiction. So, we can stick to a solution $x_0, y_0, z_0$ with $\gcd(x_0, y_0) = 1$.
+
+The following argument depends on whether $y_0$ is even or odd.
+
+We start with $y_0$ being an odd integer. We rewrite the equation as
+
+\bee
+z_0^2 + (y_0^2)^2 = (x_0^2)^2
+\eee
+
+and we see that $(z_0, y_0^2, x_0^2)$ is a Pythagorean triple. Therefore, we can express the solution by means of two relatively prime integers $s, t$ with $s > t > 0$ as
+
+\bee
+z_0 = 2st, \quad y_0^2 = s^2 - t^2, \quad x_0^2 = s^2 + t^2
+\eee
+
+This ensures the assumned oddness of $y_0$. Multiplying the last two equations together, we arrive at
+
+\bee
+x_0^2 y_0^2 = (x_0 y_0)^2 = (s^2 - t^2)(s^2 + t^2) = s^4 - t^4
+\eee
+
+Therefore, the triple $s, t, x_0 y_0$ is a solution to $x^4 - y^4 = z^2$. But we have
+
+\bee
+0 < s < \sqrt{s^2 + t^2} = x_0
+\eee
+
+and this contradicts the assumption that $x_0$ is the minimal solution.
+
+Next we assume that $y_0$ is even. We still have that $(z_0, y_0^2, x_0^2)$ is a Pythagorean triple; since $y_0$ is even, we have
+
+\bee
+y_0^2 = 2st, \quad z_0 = s^2 - t^2, \quad, x_0^2 = s^2 + t^2
+\eee
+
+We chose $s$ to be even and $t$ as odd and therefore $\gcd(2s, t) = 1$. Since $y_0^2 = (2s)t$, we can apply \ref{2023-03-28:th2} and we can write $2s$ and $t$ as squares of integers: $2s = w^2, t = v^2$. Therefore $w$ has to be even, $w = 2u$ and $s = w^2 / 2 = 2u^2$. We have
+
+\bee
+x_0^2 = s^2 + t^2 = 4u^4 + v^4
+\eee
+
+and so $(2u^2, v^2, x_0)$ form a primitive Pythagorean triple which we can express as
+
+\bee
+2u^2 = 2ab, \quad v^2 = a^2 - b^2, \quad x_0 = a^2 + b^2
+\eee
+
+with $\gcd(a,b) = 1$. From $u^2 = ab$ follows that we express $a, b$ as perfect sqaures again, $a = c^2, b = d^2$. Substituting back we obtain $v^2 = c^4 - d^4$ and so we have found another solution to $x^4 - y^4 = z^2$ with the property that
+
+\bee
+0 < c = \sqrt{a} < a^2 + b^2 = x_0^2
+\eee
+
+This, however, contradicts the initial assumption that $x_0$ is the solution with the smallest value of $x$.
+
+The conclusion of all this is that $x^4 - y^4 = z^2$ has no solution in the positive integers. \qed
+
+Last but not least we find the following.
+
+\begin{theorem}
+The area of a Pythagorean triangle can never be equal to a perfect (integral) square.
+\end{theorem}
+
+Proof: Consider a Pythagorean triangle with sides $x, y$ and hypotenuse $z$ so that $x^2 + y^2 = z^2$. Its area is $1/2 xy$ and if this were a square, $1/2 xy = u^2$, we would have $2xy = 4u^2$. We can add / subtract this from $x^2 + y^2 = z^2$ to obtain,
+
+\bee
+x^2+y^2+2xy = z^2+4u^2 \rightarrow (x+y)^2 = z^2 + 4u^2
+\eee
+
+and
+
+\bee
+x^2+y^2-2xy = z^2-4u^2 \rightarrow (x-y)^2 = z^2 - 4u^2
+\eee
+
+When we multiply these two equations together, we obtain
+
+\bee
+(x+y)^2 (x-y)^2 = ((x+y)(x-y))^2 = (x^2-y^2)^2 = (z^2 + 4u^2)(z^2 - 4u^2) = z^4 - 16u^4 = z^4 - (2u)^4
+\eee
+
+But this is something of the form $x^4 - y^4 = z^2$ and from Theorem \ref{2023-03-28:th4} we know that this has no solution. Therefore, there can be no Pythagorean
+triangle whose area is a square. \qed
 
 
 
