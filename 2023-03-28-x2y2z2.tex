@@ -146,14 +146,6 @@ The following screenshot shows a table with some Pythagorean triples. For each v
 
 Looking at this, we suspect that if $(x , y, z)$ is a primitive Pythagorean triple, then exactly one of the integers $x$ or $y$ is divisible by $3$. According to the previous theorem, we have $x=st, y=s^2-t^2, z=s^2+t^2$ with $\gcd(s,t)=1$, If either $3|s$ or $3|t$, then $3|x$ and we are done. Now consider the case that $3 \nmid s$ and $3 \nmid t$. That is, we can write $s = 3k+1$ or $s=3k+2$. In the first case, $s^2 =  9k^2 + 6k + 1 \equiv 1 \mod 3$; in the latter case, $s^2 = 9k^2 + 12k + 4 \equiv 1 \mod 3$. Therefore, $y = s^2 - t^2 \equiv 0 \mod 3$. So, $y$ is divisible by $3$. \qed
 
-The following Figure shows the distribution of primitive Pythagorean triples for values $x, y < 2500$.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.75]{images/2023-03-28-triples_2.png}
-\end{figure}
-
-
 \paragraph{Problem 12.1} a) Find Pythagorean triples (not necessarily primitive) of the form $(16,y,z)$.
 
 We start by $x= 2st$ from Theorem \ref{2023-03-28:th3} from which we obtain $st = 8$. The easiest way is to enumerate all $(s,t)$; however, we have to keep in mind that $s > t > 0$ and $\gcd(s,t) = 1$. There are not many left, in fact only the pair $(s=8, t=1)$. From this follows $y = s^2 - t^2 = 63$ and $z = s^2 + t^2 = 65$ and our first primitive triple is $(16, 63, 65)$. Since there are no other $(s,t)$ combinations possible, we have to find non-primitive Pythagorean triples and multiply them with some factor to obtain a triple of the desired form $(16, y, z)$.
@@ -195,17 +187,6 @@ x = 2t, \quad y = t^2-1, \quad z = t^2+1
 for some $t > 1$. From $z - y = 2 = s^2+t^2 - (s^2 - t^2) = 2t^2$ we have $t = 1$. So $x = 2st = 2s, y = s^2-t^2 = s^2-1, z = s^2 + t^2 = s^2 + 1$. \qed
 
 For $s=2$ this yields our well-known $(3,4,5)$, for $s=3$ we obtain $(6,8,10)$, but this is \emph{not} a Pythagorean triple. Be careful - the statement works in the direction "Pythagorean triple" $\rightarrow$ "express $x,y,z$ as ... and \emph{not the other way round}. For $s=4$ the formulas give a Pythagorean triple, $(8, 15, 17)$.
-
-\paragraph{Further Properties.} Wikipedia holds some more interesting stuff. The expression
-
-\bee
-\frac{1}{2}(z-x)(z-y) = \frac{1}{2}(s^2+t^2 - 2st)(s^2+t^2-(s^2-t^2) = \frac{1}{2} (s-t)^2 2t^2 = t^2(s-t)^2
-\eee
-
-is a perfect square. Note that this is only a necessary condition not a sufficient one (i.e. a triple fulfilling the condition need not be a Pythagorean triple). In addition, from above we see that $(z-x) = (s-t)^2$ is a perfect square as is $\frac{1}{2}(z-y) = t^2$.
-
-\todo{TBC...}
-
 
 \subsection{Fermat's Last Theorem}
 
