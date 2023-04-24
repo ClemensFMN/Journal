@@ -164,17 +164,17 @@ We can clear the denominator and obtain,
 
 \subsection{Misc}
 
-We can generate all primitive Pythagorean triples from two integers, $s, t$ (with conditions on them as $s < t < 0, \gcd(s,t)=1$,
+We can generate all primitive Pythagorean triples from two integers, $s, t$ (with conditions on them as $s > t > 0, \gcd(s,t)=1$,
 
 \bee
 x = 2st, \quad y = s^2 - t^2, \quad z = s^2 + t^2
 \eee
 
-Therefore, there is a one-to-one mapping from the rationals $\frac{m}{n}$ in the interval $[0,1]$ to the primitive Pythagorean triples.
+We consider the fraction $t/s$: With $s > t$, the fraction will be confined to the interval $[0,1]$ and due to $\gcd(s,t) = 1$ all fractions will be different (the gcd condition prevents eg. $3/9$ and allows only $1/3$). We therefore have a one-to-one mapping from the rationals $t/s$ in the interval $[0,1]$ to the primitive Pythagorean triples.
 
 The reverse mapping (from a triple $(x,y,z)$ to the tuple $(s,t)$) is also possible. We consider the two sums $x+z$ and $y+z$: One of them will be twice a square $y + z = 2s^2$, the other, $x + z = 2st + s^2 + t^2 = (s+t)^2$, will be a square, which yields $s+t$.
 
-In order to enumerate primitive Pythagorean triples the rational $\frac{m}{n}$ can be expressed as an ordered pair $(s,t)$ and mapped to an integer using a \emph{pairing function} such as Cantor's pairing function.
+The next step is to map the tuple $(s,t)$ onto an integer. At first sight, it does not seem obvious how the two numbers $s, t$ can be mapped one-to-one to one number, but there exist so called \emph{pairing functions} which do the job. We will consider Cantor's pairing function here.
 
 \paragraph{Cantor pairing function.} A Cantor pairing function is a bijection
 
