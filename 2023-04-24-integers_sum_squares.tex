@@ -1,0 +1,78 @@
+\DiaryEntry{Representing Integers as Sums of Squares}{2023-04-24}{Number Theory}
+
+We deal with the problem of representing integers as sums of squares. For example, we have
+
+\begin{align*}
+    1 &= 1^2 \\
+    2 &= 1^2 + 1^2 \\
+    3 &= 1^2 + 1^2 + 1^2 \\
+    4 &= 2^2 \\
+    5 &= 1^2 + 2^2
+\end{align*}
+
+The question is if there is an upper limit on the number of squares to express every integer. A famous theorem of Lagrange, proved in 1770, asserts that four squares are sufﬁcient; that is, every positive integer is realizable as the sum of four squared integers, some of which may be $0 = 0^2$.
+
+We start with a simple theorem.
+
+\begin{theorem}
+    If $m$ and $n$ are each the sum of two squares, then so is their product $mn$.
+\end{theorem}
+
+We can prove this by performing the calculation: Let $m = a^2 + b^2$ and $n = c^2 + d^2$, then we have
+
+\bee
+mn = (a^2 + b^2)(c^2 + d^2) = a^2c^2 + b^2c^2 + a^2d^2 + b^2d^2 = (ac + bd)^2 + (ad - bc)^2 \qed
+\eee
+
+It is clear, that not every prime can be written as sum of two squares; eg. $3 = a^2 + b^2$ does not have an integer solution. In particular, we have the following theorem.
+
+\begin{theorem}
+    No prime of the form $4k+3$ is a sum of two squares.
+\end{theorem}
+
+We first note that $a \equiv 0, 1, 2, 3 \mod 4$ for any integer $a$. Therefore, $a^2 \equiv 0, 1 \mod 4$ (as $2^2 \equiv 0 \mod 4$ and $3^2 \equiv 1 \mod 4$). So, for two integers $a, b$, we have
+
+\bee
+a^2 + b^2 \equiv 0, 1, 2 \mod 4
+\eee
+
+with equivalence $\mod-2$ when both $a \equiv b \equiv 1 \mod 4$. But our prime has the form $4k+3$, therefore $4k+3 \equiv 3 \mod 4$ and therefore such a prime cannot be expressed as sum of two squares. \qed
+
+Fun side-note: The primeness of $4k+3$ is actually not relevant here, so we have the stronger statement that no integer of the form $4k+3$ is a sum of two squares.
+
+On the other hand, the proof shows that a prime can be expressed as sum of two squares if it can be expressed in the form $4k+1$. The first few primes of the form $4k+1$ and their expression as squares are as follows,
+
+\bee
+1 = 1^2 + 0^2, 5 = 1^2 + 2^2, 13 = 2^2 + 3^2, 17 = 1^2 + 4^2, 29 = 2^2 + 5^2, \cdots
+\eee
+
+The book presents another proof. It requires the pigeon principle.
+
+\begin{theorem}
+    Pigeonhole principle. If $n$ objects are placed in $m$ pigeonholes and if $n > m$, then some pigeonhole will contain at least two objects.
+\end{theorem}
+
+We next have the following theorem.
+
+\begin{theorem}
+    Let $p$ be a prime and let $\gcd(a,p)=1$. Then the congruence
+
+    \bee
+    ax \equiv y \mod p
+    \eee
+
+    has a solution $x_0, y_0$ where
+
+    \bee
+    0 < | \sqrt{x_0} < \sqrt{p} \quad \text{and} \quad 0 < | \sqrt{y_0} < \sqrt{p}
+    \eee
+
+\end{theorem}
+
+CONTINUE...
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
