@@ -12,6 +12,8 @@ We deal with the problem of representing integers as sums of squares. For exampl
 
 The question is if there is an upper limit on the number of squares to express every integer. A famous theorem of Lagrange, proved in 1770, asserts that four squares are sufﬁcient; that is, every positive integer is realizable as the sum of four squared integers, some of which may be $0 = 0^2$.
 
+\subsection{Sum of two Sqaures}
+
 We start with a simple theorem.
 
 \begin{theorem}
@@ -26,7 +28,7 @@ mn = (a^2 + b^2)(c^2 + d^2) = a^2c^2 + b^2c^2 + a^2d^2 + b^2d^2 = (ac + bd)^2 + 
 
 It is clear, that not every prime can be written as sum of two squares; eg. $3 = a^2 + b^2$ does not have an integer solution. In particular, we have the following theorem.
 
-\begin{theorem}
+\begin{theorem}\label{2023_04_24:th1}
     No prime of the form $4k+3$ is a sum of two squares.
 \end{theorem}
 
@@ -54,7 +56,7 @@ The book presents another proof. It requires the pigeon principle.
 
 We next have the following theorem.
 
-\begin{theorem}
+\begin{theorem}\label{2023_04_24:th2}
     Let $p$ be a prime and let $\gcd(a,p)=1$. Then the congruence
 
     \bee
@@ -69,7 +71,173 @@ We next have the following theorem.
 
 \end{theorem}
 
-CONTINUE...
+Be careful, as the theorem does \emph{not} mean that we are allowed to fix eg $y_0$ and there will be a corresponding $x_0$ such that $0 < | \sqrt{x_0} < \sqrt{p}$ and $0 < | \sqrt{y_0} < \sqrt{p}$ for every choice of $y_0$; instead, the theorem guarantees there is a pair $(x_0, y_0)$ which fulfills the conditions. As an example, $p=7, a=3$ and we have
+
+\bee
+3x \equiv y \mod 7
+\eee
+
+This can be solved by many $(x,y)$ pairs, but $x_0 = -2$ yields $y = 3 x_0 = -6 \equiv 1 \mod 7$ is a valid solution.
+
+Proof: Let $k = \lfloor \sqrt{p} \rfloor + 1$ and consider the set of integers
+
+\bee
+S = \{ax - y | 0 \leq x \leq k-1, 0 \leq y \leq k-1\}
+\eee
+
+The expression $ax-y$ takes on $k^2$ different values ($k$ values for $x$ and $k$ valuues for $y$). From the $k$-definition we have $k^2 > p$, and by the pigeonhole principle we have that at least two members of $S$ must be congruent modulo $p$; let's call them $ax_1 - y_1$ and $ax_2 - y_2$, with $x_1 \neq x_2$ and $y_1 \neq y_2$. Then we have
+
+\bee
+a(x_1 - x_2) \equiv y_1 - y_2 \mod p.
+\eee
+
+Setting $x_0 = x_1 - x_2$ and $y_0 = y_1 - y_2$, it follows that $(x_0, y_0)$ provide a solution to $ax \equiv y \mod p$. If either $x_0 = 0$ or $y_0 = 0$, then by $\gcd(a,p) = 1$ it follows that the other must also be zero, contrary to the assumption. Therefore, $0 < |x_0| \leq k-1 < \sqrt{p}$ and $0 < |y_0| \leq k-1 < \sqrt{p}$. \qed
+
+
+We can now state and prove the following theorem by Fermat.
+
+\begin{theorem}
+An odd prime $p$ is expressible as a sum of two squares iff $p \equiv 1 \mod 4$.
+\end{theorem}
+
+Proof: In theorem \eqref{2023_04_24:th1} we showed that $a^2 \equiv 0, 1 \mod 4$ and therefore $a^2 + b^2 \equiv 0, 1, 2 \mod 4$ - \qed
+
+The book gives an additional proof: Suppose that $p$ can be written as sum of two squares, $p = a^2 + b^2$. Because $p$ is a prime, we have $p \nmid a$ and $p \nmid b$ - if $p | a$, then $p | b^2$ and therefore $p|b$, leading to the contradiction $p^2 | p$.
+
+Therefore, there exists an integer $c$ for which $bc equiv 1 \mod p$. Taking the relation $(ac)^2 +(bc)^2 = pc^2$ mod-$p$, we obtain
+
+\bee
+(ac)^2 \equiv -1 \mod p
+\eee
+
+which makes $-1$ a quadratic residue of $p$. From one of the previous entries (actually, the stuff below \ref{2023-02-13:th3}), we have $(-1/p) = 1$ only when $p \equiv 1 \mod 4$. So that's the "only if" part.
+
+For the converse, assume that $p \equiv 1 \mod 4$. Because $-1$ is a quadratic residue of $p$, we can find an integer $a$ such that $a^2 \equiv -1 \mod p$, namely $a = [(p-1)/2]!$ (according to Wilson's theorem). With $\gcd(a,p) = 1$ the congruence $ax \equiv y \mod p$ has a solution $(x_0, y_0)$ for which the conclusion of theorem \ref{2023_04_24:th2} holds; Therefore, 
+
+\bee
+-x_0^2 \equiv a^2 x_0^2 \equiv (a x_0)^2 \equiv y_0^2 \mod p
+\eee
+
+or $x_0^2 + y_0^2 \equiv 0 \mod p$. This is equivalent to $x_0^2 + y_0^2 = kp$ for some integer $k \geq 1$. From the bounds on $x_0$ and $y_0$, $0 < | \sqrt{x_0} < \sqrt{p}$ and $0 < | \sqrt{y_0} < \sqrt{p}$, we obtain $0 < x_0^2 + y_0^2 < 2p$ which implies $k=1$. Therefore $x_0^2 + y_0^2 = p$ and we are finished. \qed
+
+If we count $a^2$ and $(-a)^2$ as the same, we can strengthen the statement to: Any prime of the form $4k+1$ can be expressed uniquely as the sum of two squares. Proof is omitted.
+
+As an example, consider $p = 13 = 4 \cdot 2 + 1$. We first need to choose an integer $a$ such that $a^2 \equiv -1 \mod p$: This is achieved by choosing $a = [(p-1)/2]! = 6! = 720$. So the congruence to solve becomes
+
+\bee
+720 x \equiv y \mod 13 \rightarrow 5 x \equiv y \mod 13
+\eee
+
+To solve it we consider the set
+
+\bee
+S = \{ 5x - y | 0 \leq x, y < 4\}
+\eee
+
+which are the integers $S = \{0, 5, 10, 15, -1, 4, 9, 14, -2, 3, 8, 13, -3, 2, 7, 12\}$ which, modulo-$13$ becomes $\{0, 5, 10, 12, 12, 4, 9, 1, 11, 3, 8, 0, 10, 2, 7, 12\}$. We choose
+
+\bee
+5 \cdot 1 - 3 \equiv 2 \equiv 5 \cdot 3 - 0 \mod 13
+\eee
+
+or
+
+\bee
+5 (1-3) \equiv 3 \mod 13
+\eee
+
+Therefore, we take $x_0 = -2$ and $y_0 = 3$ to obtain
+
+\bee
+13 = x_0^2 + y_0^2 = 2^2 + 3^2
+\eee
+
+
+However, it's not only primes $p$ of the form $p \equiv 1 \mod 4$ which can be epxressed as sum of two squares; it's also integers; eg
+
+\bee
+10 = 1^2 + 3^2
+\eee
+
+Which integers can be expressed as sum of two squares is given by the following theorem.
+
+\begin{theorem}
+Let the positive integer $n$ be written as $n = N^2 m$, where $m$ is squarefree. Then $n$ can be represented as the sum of two squares if and only if $m$ contains no prime factor of the form $4k + 3$.
+\end{theorem}
+
+We can express $10 = 1^2 \cdot 10$ and the prime factors of $m = 10$ are $10 = 2 \cdot 5$. Neither has the form $4k+3$ and therefore $10$ can be represented as the sum of two squares.
+
+Proof is omitted.
+
+We can extend this to the following result.
+
+\begin{theorem}
+A positive integer $n$ is representable as the sum of two squares if and only if each of its prime factors of the form $4k + 3$ occurs to an even power.
+\end{theorem}
+
+As an example, the number $459$ cannot be written as the sum of two squares, because $459 = 3^33 \cdot 17$, with the prime $3$ occurring to an odd exponent. On the other hand, $153 = 3^2 \cdot 17$ admits representation as sum of two squares, $153 = 12^2 + 3^2$ (the proof of the theorem explains how the representation can be achieved).
+
+As a last topic considering two squares, we can ask for representation as \emph{difference} of two squares - the answer is given in the following theorem.
+
+\begin{theorem}
+A positive integer $n$ can be represented as the difference of two squares iff $n$ is not of the form $4k+2$.
+\end{theorem}
+
+Proof: We start by nothing that $a^2 \equiv 0, 1 \mod 4$ for all integers $a$ from which follows that
+
+\bee
+a^2 - b^2 \equiv 0, 1, 3 \mod 4
+\eee
+
+Thus, if $n \equiv 2 \mod 4$, we cannot have $n = a^2 - b^2$ for any choice of $a$ and $b$.
+
+On the other hand, if $n$ is not of the form $4k+2$, we have $n \equiv 0, 1, 3 \mod 4$. If $n \equiv 1, 3 \mod 4$, then $n+1$ and $n-1$ are both even integers; therefore $n$ can be written as
+
+\bee
+n = \left( \frac{n+1}{2} \right)^2 - \left( \frac{n-1}{2} \right)^2
+\eee
+
+which is a difference of squares. If $n \equiv 0 \mod 4$, then we have
+
+\bee
+n = \left( \frac{n}{4} + 1 \right)^2 - \left( \frac{n}{4} - 1 \right)^2
+\eee
+
+As a Corollary, we note that an odd prime is the difference of two successive squares; eg $11 - 6^2 - 5^2, 17 = 9^2 - 8^2, 29 = 15^2 - 14^2$.
+
+
+\subsection{Sums of more than two Sqaures}
+
+The more summands we allow, the fewer numbers will be which cannot be expressed as sum of such squares. Eg we cannot express $14$ as sum of two sqaures, but $14 = 3^2 + 2^2 + 1^2$. However, there are still numbers which are not expressible as the sum of two sqaures.
+
+\begin{theorem}
+	No positive integer of the form $4^n (8m + 7)$ can be represented as the sum of three squares.
+\end{theorem}
+
+
+Proof is omitted.
+
+For the final results, we need Euler's Lemma.
+
+\begin{theorem}
+	If the integers $m$ and $n$ are each the sum of four squares, then $mn$ is likewise so representable.
+\end{theorem}
+
+The proof relies on expressing $m = a_1^2 + \cdots a_4^2$ (same for $n$) and writing out $mn$.
+
+Using this and some other stuff introduced in the book, we have the following theorem.
+
+\begin{theorem}
+	Any prime p can be written as the sum of four squares.
+\end{theorem}
+
+Proof is omitted; however, we can express any number $n$ as product of $r$ primes. From above, we have that every prime can be expressed as sum of four squares. Euler's identity permits us to express the product of any two primes as a sum of four squares. This, by induction, extends to any finite number of prime factors, so that applying the identity $r - 1$ times, we obtain that we can express any positive integer as sum of four squares. This is the famous Lagrange theorem.
+
+\begin{theorem}
+Any positive integer $n$ can be written as the sum of four squares, some of which may be zero.
+\end{theorem}
+
+
 
 
 %%% Local Variables:
