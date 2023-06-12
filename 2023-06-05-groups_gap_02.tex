@@ -40,6 +40,16 @@ This matches the definition from above as we find
     <identity ...>
 \end{verbatim}
 
+We can also display the relators (ie the set of defining equations) of the group,
+
+\begin{verbatim}
+	gap> RelatorsOfFpGroup(DihedralGroup(8));
+	[ r^4, s^2, s^-1*r*s*r ]
+\end{verbatim}
+
+The first two exactely follow our definition; for the last we have $s^{-1}rsr = e \rightarrow rsr = s \rightarrow sr = r^{-1}s \rightarrow srs = r^{-1}ss = r^{-1}$. \qed
+
+
 We can obtain the main properties for $D_8$,
 
 \begin{verbatim}
@@ -55,17 +65,17 @@ From the \href{https://nathancarter.github.io/group-explorer/Multtable.html?grou
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.25]{images/2023-06-05_groups_gap_D4.png}
+    \includegraphics[scale=0.35]{images/2023-06-05_groups_gap_D4.png}
 \end{figure}
 
-We can compare some cases with Gap.
+We can compare some cases with Gap (the numbers in the Figure corresponds to the numbers in the session below)
 
 \begin{verbatim}
-    gap> s*r^3;
+    gap> s*r^3;     # item (1)
     r*s
-    gap> r^2*s*r^2;
+    gap> r^2*s*r^2; # item (2)
     s
-    gap> s*r^2*s;
+    gap> s*r^2*s;   # item (3)
     r^2
 \end{verbatim}
 
@@ -77,8 +87,10 @@ When we store the elements of the group in a variable \verb+e+, and store the nu
     gap> n:=Size(e);
     8
     gap> M:=MultiplicationTable(D8);
-    [ [ 1, 2, 3, 4, 5, 6, 7, 8 ], [ 2, 5, 1, 7, 3, 4, 8, 6 ], [ 3, 1, 5, 6, 2, 8, 4, 7 ], [ 4, 6, 7, 1, 8, 2, 3, 5 ], 
-    [ 5, 3, 2, 8, 1, 7, 6, 4 ], [ 6, 8, 4, 3, 7, 1, 5, 2 ], [ 7, 4, 8, 2, 6, 5, 1, 3 ], [ 8, 7, 6, 5, 4, 3, 2, 1 ] ]
+    [ [ 1, 2, 3, 4, 5, 6, 7, 8 ], [ 2, 5, 1, 7, 3, 4, 8, 6 ], 
+	  [ 3, 1, 5, 6, 2, 8, 4, 7 ], [ 4, 6, 7, 1, 8, 2, 3, 5 ], 
+      [ 5, 3, 2, 8, 1, 7, 6, 4 ], [ 6, 8, 4, 3, 7, 1, 5, 2 ], 
+	  [ 7, 4, 8, 2, 6, 5, 1, 3 ], [ 8, 7, 6, 5, 4, 3, 2, 1 ] ]
     gap> for i in [1..n] do
     >         for j in [1..n] do
     >         ind := M[i][j];
@@ -97,7 +109,7 @@ When we store the elements of the group in a variable \verb+e+, and store the nu
     s*r^2 s*r    r*s    r^2    s     r      r^-1   e   
 \end{verbatim}
 
-The result looks a bit different than the table from Group Explorer, but contains the same information.
+The ordering of the columns is different compared to GroupExplorer; in addition, Gap seems to minimize the exponents (at the expense of negative ones); eg prefering \verb+r^-1 + over \verb+r^3+. Therefore, the result looks different than the table from GroupExplorer, but contains the same information.
 
 \paragraph{Permutation Representation.} We can also get the group elements as permutations (that makes interpretation in terms of how the element affect points easier),
 
@@ -105,7 +117,8 @@ The result looks a bit different than the table from Group Explorer, but contain
     gap> DihedralGroup(IsPermGroup, 8);
     Group([ (1,2,3,4), (2,4) ])
     gap> e:=Elements(DihedralGroup(IsPermGroup, 8));
-    [ (), (2,4), (1,2)(3,4), (1,2,3,4), (1,3), (1,3)(2,4), (1,4,3,2), (1,4)(2,3) ]
+    [ (), (2,4), (1,2)(3,4), (1,2,3,4), (1,3), (1,3)(2,4), 
+	  (1,4,3,2), (1,4)(2,3) ]
 \end{verbatim}
 
 If we consider a square with points labelled $1, 2, 3, 4$ as shown below, the Dihedral Group $D_4$ contains the following:
@@ -123,6 +136,25 @@ If we consider a square with points labelled $1, 2, 3, 4$ as shown below, the Di
     \centering
     \includegraphics[scale=0.75]{images/2023-06-05_groups_gap_D4_2.png}
 \end{figure}
+
+We can display the mapping from permutations to "equation symbols" as follows.
+
+\begin{verbatim}
+	gap> GroupHomomorphismByImages(DihedralGroup(IsPermGroup, 8), DihedralGroup(8));
+	[ (1,2,3,4), (2,4) ] -> [ r, s ]
+\end{verbatim}
+
+With this knowledge, we can (manually) create a mapping table from "equation symbols" to permutations.
+
+\begin{verbatim}
+	r^-1 -> (1,4,3,2)
+	r    -> (1,2,3,4)
+    s    -> (2,4)
+    r^2  -> (1,3(2,4)
+    rs   -> (1,4(2,3)
+	sr   -> (1,2)(3,4)
+	sr^2 -> (1,3)
+\end{verbatim}
 
 The order of the group elements are as follows,
 
@@ -168,7 +200,7 @@ Since every group can be expressed as subgroup of the Symmetric Group, we can al
       \textcolor{red}{"D8", "D8", "D8"}, "A4", "S4" ]
 \end{Verbatim}
 
-Above subgroups labelled as $D_8$ have different generators than what Gap returned (\verb+Group([ (1,2,3,4), (2,4) ])+); nevertheles, we are almost there; in the third group (\verb+Group([ (1,2)(3,4), (1,4)(2,3), (2,4) ])+), let's define
+Above subgroups labelled as $D_8$ have different generators than what Gap returned (\verb+Group([ (1,2,3,4), (2,4) ])+); nevertheless, we are almost there; in the third group (\verb+Group([ (1,2)(3,4), (1,4)(2,3), (2,4) ])+), let's define
 
 \begin{verbatim}
     gap> g1:=(1,2)(3,4);;
@@ -263,6 +295,36 @@ The multiplication table of the cyclic group $C_6$ is really different and I don
       [ 4, 5, 6, 1, 2, 3 ], [ 5, 6, 1, 2, 3, 4 ], [ 6, 1, 2, 3, 4, 5 ] ]
 \end{verbatim}
 
+We can use some Gap magic to find out whether two groups are isomorphic or not \todo{add citation!}
+
+\begin{verbatim}
+gap> AreIsomorphic := function(G, H)
+> return not IsomorphismGroups(G, H) = fail;
+> end;
+function( G, H ) ... end
+gap> AreIsomorphic(g2, CyclicGroup(6));
+true
+\end{verbatim}
+
+So, yes, the two groups are isomorphic! Let's work out how the isommorphism looks like using Gap. We can use the function \verb+IsomorphismGroups+,
+
+\begin{verbatim}
+gap> IsomorphismGroups(s2, C6);
+[ f1, f2^2 ] -> [ a^3, a^2 ]
+\end{verbatim}
+
+
+The elements of \verb+g2+ are \verb+e, f1, f2, f1*f2, f2^2, f1*f2^2 + (see further above). Using the isommorphism provided by Gap, we can rewrite this as \\
+\verb+e, a^3, f2, f1*f2, a^2, a^5+; the mapping of two elements is still open (\verb+f2+ could be either \verb+a+ or \verb+a^4 +).
+
+Let's assume that \verb+f2 = a^4 +. From the group structure we know that $a^6 = e$ and therefore \verb+f2 f2^2 = e+. Let's check in Gap (using the fact that \verb+e[5] = a^2+ ),
+
+\begin{verbatim}
+gap> e[3]*e[5];
+<identity> of ...
+\end{verbatim}
+
+which confirms our assumption. The element \verb+f1*f2+ now becomes \verb+a^5 + and the elements of the group \verb+g2+ are \verb+e, a^3, a^4, a, a^2, a^5+ .
 
 
 %%% Local Variables:
