@@ -47,6 +47,52 @@ A bit more tricky things happen when we consider addition modulo-$n$. Addition $
 \end{array}
 \eee
 
+The first line repeats (in a shifted manner) in the lines below; this is a chracteristic of a \emph{cyclic group}; in addition, such a cyclic group can be created by repeatedly applying the group operation on the \emph{generator element}. The element $1$ is such a generator element and indeed we have
+
+\bee
+0 \star 1 = 1, 1 \star 1 = 2, 2 \star 1 = 3, 3 \star 1 = 4, 4 \star 1 = 0
+\eee
+
+
+As a last example, we again consider a set of integers $G = \{0, 1, \cdots, n-1\}$ but now with multiplication $\mod-n$ instead. The element $1$ acts as identitiy element $a \star 1 = 1 \star a = a$, but there is no inverse element for the element $0$: $a \star 0 = 0$ for all $a$. The way out of this is to remove the element $0$; ie we consider $G = \{1, 2, \cdots, n-1\}$ instead.
+
+In the table below, the multiplication table of $G = \{1, 2, 3\}$ under multiplication $\mod-4$ is shown.
+
+\bee
+\begin{array}{c|ccc}
+\star & 1 & 2 & 3 \\ \hline
+1     & 1 & 2 & 3 \\
+2     & 2 & 0 & 2 \\
+3     & 3 & 2 & 1 \\
+\end{array}
+\eee
+
+We can see that $0 \notin G$ appears in the second row and $2$ does not have an inverse - this is not a group! From the number theory entries and in particular theorm \ref{2020-11-25:th2}, we know that $a x \equiv 1 \mod n$ has a solution iff $\gcd(a,n) = 1$. So there are two ways to continue: (i) We remove all those elements $a$ from $G$ for which $\gcd(a,n) \neq 1$ or (ii) we consider only sets $G$ with prime cardinality (thereby trivially fulfilling the $\gcd(a,n) = 1$ condition).
+
+Continuing way (i) in above example, we see that $2$ has $\gcd(2,4) = 2$ and we therefore must remove it from $G$. This results in the following multiplication table.
+
+\bee
+\begin{array}{c|cc}
+\star & 1 & 3 \\ \hline
+1     & 1 & 3 \\
+3     & 3 & 1 \\
+\end{array}
+\eee
+
+The alternative is to consider a set with a prime number of elements; "closest" is $n=5$ and for $G = \{1,2,3,4\}$ we have
+
+\bee
+\begin{array}{c|cccc}
+\star & 1 & 2 & 3 & 4 \\ \hline
+1     & 1 & 2 & 3 & 4 \\
+2     & 2 & 4 & 1 & 3 \\
+3     & 3 & 1 & 4 & 2 \\
+4     & 4 & 3 & 2 & 1
+\end{array}
+\eee
+
+No elements other than $G$ occur and every element has an inverse, so we have a group. We also see that the first row is not repeated (neither in a shifted manner), so this does not appear to be a cyclic group.
+
 
 
 %%% Local Variables:
