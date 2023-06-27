@@ -306,7 +306,7 @@ The simplest (and most verbose) way of describing permutations is by writing dow
 
 Permutation $\tau$ does not change elements $1, 2, 3$, but exchanges $4$ and $5$. Permutation $\tau$ (cyclically) moves $1, 2, 3$, leaving $4, 5$ unchanged. Finally, permutation $\mu$ (cyclically) moves $1, 2, 3$, and exchanges $4$ and $5$.
 
-\paragraph{Cycle Notation.} From above examples we can see that permutations either do not affect elements or exchange / move them around. Repeated application of the same permutation creates \emph{cycles} and it turns out that we can characterize a permutation by its cycles. We write the elements belonging to a cycle in brackets, and the cycles next to each other.
+\paragraph{Cycle Notation.} From above examples we can see that permutations either do not affect elements or exchange / move them around. Repeated application of the same permutation creates \emph{cycles} and it turns out that we can characterize a permutation by its cycles. We use a special notation for writing down cycles: Elements belonging to a cycle are written in brackets and the cycles (if there are several) are written next to each other. For example, a permuation $(1,3,5)(2,4)$ has two cycles, one with $3$ elements and on with $2$ elements.
 
 Cycles with one element are not written down; the shortest cycle is one of length $2$ and called a \emph{transposition}. The length of a cycle is the number of integers that appear in it. A cycle of length $t$ will be called $t$-cycle.
 
@@ -346,56 +346,111 @@ We can check on this in Gap, however, we must be careful as Gap uses left-to-rig
   (1,3,6,2)
 \end{verbatim}
 
-\paragraph{Cycle Identities.} \todo{add some stuff / align with stuff further below}
+\paragraph{Cycle Identities.} There are some rules / simplifications which can be helpful. A \emph{transposition} is a cylce of length 2, $(a,b)$ which we can  also interpret as an element exchange. The inverse of a transposition is the transposition itself; i.e.
 
-\begin{itemize}
-  \item $(a,b)^{-1} = (a,b)$
-  \item $(a,b) \star (c,d) = (a,b)(c,d)$ for all $a \neq b \neq c \neq d \in G$.
-  \item $(a,b,c)^{-1} = (a,c,b)$ for all $a \neq b \neq c \in G$.
-\end{itemize}
+\bee
+(a,b)^{-1} = (a,b)
+\eee
 
+The inverse of longer cycles has also a simple form, namely
 
+\bee
+(a_1,a_2, \ldots, a_N)^{-1} = (a_1, a_N, a_{N-1}, \ldots a_{2})
+\eee
 
-\paragraph{Cycle Representation.} Two cycles are \emph{disjoint} if they contain different elements. If $\sigma$ and $\tau$ are disjoint cycles, then $\sigma \tau = \tau \sigma$.
+Two cycles are \emph{disjoint} if they contain different elements. If $\sigma$ and $\tau$ are disjoint cycles, then $\sigma \tau = \tau \sigma$. Multiplication of two disjoint cycles becomes
 
-Proof: For elements in neither cycle, both $\sigma$ and $\tau$ leave these elements untouched, therefore order of  ermutations is not important. If an element is contained in one cycle it is not contained in the other cycle (by definition of disjointness) and therefore not touched by this permutation.
-
-Assume that $a$ is contained in $\sigma$, but not in $\tau$. Therefore $\tau(a) = a$ and $\sigma(\tau(a)) = \sigma(a)$ and $\tau(\sigma(a)) = \sigma(a)$. The argument stays the same when $a$ is contained in $\tau$ instead. \qed
-
-Every permutation in $S_n$ can be expressed as product of disjoint cycles.
-
-A \emph{transposition} is a cylce of length 2; i.e.~an element exchange. Any permutation of finite elements with at least $2$ elements can be written as product of transpositions (not necessarily disjoint).
-
-As an example, consider the product of $\sigma_1 \sigma_2 = (2,4)(2,6)$. We need only to consider what happens to the elements $2,4,6$ as all other elements are outside the cycle(s). Therefore, we have $\sigma_1(\sigma_2(2)) = 6$, $\sigma_1(\sigma_2(4)) = 2$, $\sigma_1(\sigma_2(6)) = 4$. Combining this into a cycle yields $(2,6,4)$. From this we deduce the general rule that
-
-\[
-(a,b)(a,c) = (a,c,b), \quad \mbox{and} \quad (a,b)(a,c)(a,d) = (a,d,c,b)
-\]
-
-There is no unique way of writing permutations as product of transpositions; however, the number of transpositions to  express a permutation is a constant. We define a permutation to be \textbf{even}, if it can be expressed as an even number of transpositions and \textbf{odd} if it can be expressed as an odd number of transpositions.
+\bee
+(a_1, a_2, \ldots, a_N) \star (b_1, b_2, \ldots, b_M) = (a_1, a_2, \ldots, a_N) (b_1, b_2, \ldots, b_M)
+\eee
 
 
+\begin{theorem}
+Every permutation can be epxressed as product of disjoint cycles. This representation is unique up to the rearrangement of the cycles.
+\end{theorem}
 
-% \subsubsection{\texorpdfstring{Relation with
-% $S_4$}{Relation with S\_4}}\label{relation-with-s_4}
+Proof is omitted.
 
-% Contrary to the rigid motions of the triangle (which were equivalent
-% with $S_3$), the group $D_4$ (and all other groups $D_n$ with
-% $n > 3$) is a subgroup of $S_4$. Put another way, $D_4$ does not
-% contain all permutations of $4$ elements like $S_4$ does. The Figure
-% below shows 2 missing permutations: the left one is created by twisting
-% the square along the x-axis; the right one is created by twisting along
-% the y-axis. Each of these 2 permutations can be rotated and reflected in
-% 8 differerent ways (like discussed above), giving rise to additional
-% $2 \times 8 = 16$ elements. Therefore we have $8 + 16 = 24 = 4!$
-% elements; the same number of $S_4$ has.
+In a similar spirit, we can express longer cycles as product of transpositions, eg
 
-% \begin{figure}[H]
-% \centering
-% \includegraphics[scale=0.7]{images/groups_04_6.png}
-% \caption{Page1}
-% \end{figure}
+\bee
+(1,2,3) = (1,3)(1,2)
+\eee
 
+This raises the question whether all permutations can be expressed as product of transpositions. This is indeed the case. We first observe that we can split any $m$-cycle into a product of transpositions as follows,
+
+\bee
+(a_1, a_2, \ldots a_N) = (a_1, a_m)(a_1, a_{m-1}) \cdots (a_1, a_2)
+\eee
+
+Now any permutation can be written as product of disjoint cycles and therefore, we can write every permutation as product of transpositions, or equivalently,
+
+\bee
+S_n = \langle T \rangle, \quad T = \{(i,j) | 1 \leq i < j \leq n\}
+\eee
+
+As an example, we have
+
+\bee
+(1,2,7)(4,5)(6,8,10,9) = (1,7)(1,2)(4,5)(6,9)(6,10)(6,8)
+\eee
+
+Note, however, that the representation is not unique \todo{show example}
+
+However, we can define the \emph{parity of a permutation} which is the same for any representation of the permutation.
+
+Define a polynomial $\Delta$ in the variables $x_1, \ldots, x_n$ as follows,
+
+\bee
+\Delta = \prod_{1 \leq i < j \leq n} (x_i - x_j)
+\eee
+
+For example, for $n=4$ we obtain the polynomial $\Delta = (x_1 - x_2)(x_1 - x_3)(x_1 - x_4)(x_2 - x_3)(x_2 - x_4)(x_3 - x_4)$. Now we let a permutation $\sigma$ operate on the polynomial $\Delta$ by permutating its indices:
+
+\bee
+\sigma(\Delta) = \prod_{1 \leq i < j \leq n} (x_{\sigma(i)} - x_{\sigma(j)})
+\eee
+
+If we choose $\sigma = (1,2,3,4)$ and apply this to the polynomal defined above, we obtain
+
+\bee
+\sigma(\Delta) = (x_2 - x_3)(x_2 - x_4)(x_2 - x_1)(x_3 - x_4)(x_3 - x_1)(x_4 - x_1)
+\eee
+
+We see that $\sigma(\Delta)$ has the same terms as $\Delta$, however, sometimes the order of variables is reversed (in our example, this is eg $(x_1 - x_2)$). We can revert the original order by inserting a factor $(-1)$ (in the example, $(-1)(x_2 - x_1)$) and we therefore have
+
+\bee
+\sigma(\Delta) = \pm \Delta
+\eee
+
+We define the \emph{parity or sign} $\epsilon$ of the permuation $\sigma$ as
+
+\bee
+\epsilon(\sigma) = \begin{cases} &+1, \text{ if } \sigma(\Delta) = \Delta \\
+-1, \text{ if } \sigma(\Delta) = -\Delta \end{cases}
+\eee
+
+In our running example, the order of variables is reversed three times and therefore
+
+\bee
+\sigma(Delta) = (-1) \Delta
+\eee
+
+and therefore the parity of $\sigma = (1,2,3,4)$ is $\epsilon((1,2,3,4)) = -1$.
+
+\begin{definition}
+The quantity $\epsilon(\sigma)$ is called the parity or sign of a permutation. A permutation is called even, if $\epsilon(\sigma) = 1$, otherwise it is odd.
+\end{definition}
+
+The set of even permuations is a group under permutation composition and is called the \emph{alternating} group $A_n$.
+
+Futhermore, we have.
+
+\begin{theorem}
+The alternating group $A_n$ is a non-abelian group for $n \geq 5$.
+\end{theorem}
+
+Proof is omitted.
 
 
 %%% Local Variables:
