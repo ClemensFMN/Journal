@@ -442,9 +442,20 @@ and therefore the parity of $\sigma = (1,2,3,4)$ is $\epsilon((1,2,3,4)) = -1$.
 The quantity $\epsilon(\sigma)$ is called the parity or sign of a permutation. A permutation is called even, if $\epsilon(\sigma) = 1$, otherwise it is odd.
 \end{definition}
 
+We can obtain the sign in Gap as follows.
+
+\begin{verbatim}
+  gap> s:=(1,2,3,4);
+  (1,2,3,4)
+  gap> SignPerm(s);
+  -1
+\end{verbatim}
+
+which matches the calculation we did above. \qed
+
 The set of even permuations is a group under permutation composition and is called the \emph{alternating} group $A_n$.
 
-Futhermore, we have.
+Futhermore, we have the following theorem.
 
 \begin{theorem}
 The alternating group $A_n$ is a non-abelian group for $n \geq 5$.
