@@ -453,6 +453,22 @@ The alternating group $A_n$ is a non-abelian group for $n \geq 5$.
 Proof is omitted.
 
 
+\subsection{Group Actions}
+
+A permutation is an element of the symmetric group and acts on elements from a set. It is important to distinguish between the permutation itself (eg $(1,2,3)$) and the element it actos upon (eg $2$): $(1,2,3) 2 = 3$.
+
+\begin{definition}
+A \emph{group action} of a group $G$ on a set $A$ is a map from $G \times A$ to $A$, written as $g \cdot a$ (with $g \in G, a \in A$) satisfying the following properties:
+\begin{itemize}
+\item $g_1 \cdot (g_2 \cdot a) = (g_1 g_2) a$ for all $g_1, g_2 \in G$ and $a \in A$ and
+\item $1 \cdot a = a$ for all $a \in A$.
+\end{itemize}
+\end{definition}
+
+If we fix $g$, then we get a map $\sigma_g: A \rightarrow A$ with $\sigma_g(a) = g \cdot a$ and we can show that this map $\sigma_g$ is a permutation of $A$ (proof omitted).
+
+Intuitively, a group action of $G$ on a set $A$ just means that every element $g \in G$ acts as a permutation on $A$ in a manner consistent with the group operations in $G$.
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
