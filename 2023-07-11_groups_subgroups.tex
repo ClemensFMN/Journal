@@ -51,7 +51,7 @@ If $H = \langle x \rangle$, then $|H| = |x|$. In particular, we have
 
 \begin{itemize}
 \item If $|H| = n < \infty$, then $x^n = 1$ and $1, x, x^2, \ldots, x^{n-1}$ are all the distinct elements of $H$.
-\item If $|H| = \infty$,, then $x^n \neq 1$ for all $n \neq 0$ and $xâ \neq x^b$ for all $a \neq b$ in $\mZ$.
+\item If $|H| = \infty$, then $x^n \neq 1$ for all $n \neq 0$ and $x^a \neq x^b$ for all $a \neq b$ in $\mZ$.
 \end{itemize}
 
 \end{theorem}
@@ -86,7 +86,7 @@ The relation between cyclic groups and their subgroup structure is given in the 
 Proof is omitted. As an example, consider the cyclic group of order $12$, denoted (according to the definition above) as $Z_{12}$. The positive integers $a$ dividing $n = 12$ are $1, 2, 3, 4, 6, 12$, so we expect the corresponding subgroups:
 
 \begin{itemize}
-	\item $a = 1 \rightarrow d = 12$: The group $\langle x^12 \rangle = \{e\}$ of order $1$.
+	\item $a = 1 \rightarrow d = 12$: The group $\langle x^{12} \rangle = \{e\}$ of order $1$.
 	\item $a = 2 \rightarrow d = 6$: The group $\langle x^6 \rangle$ of order $2$.
 	\item $a = 3 \rightarrow d = 4$: The group $\langle x^4 \rangle$ of order $3$.
 	\item $a = 4 \rightarrow d = 3$: The group $\langle x^3 \rangle$ of order $4$.
@@ -157,10 +157,11 @@ Asn an example consider the set $A$ containing two permutations $A = \{(1,2), (1
 
 The subgroup lattice is a graphical representation which shows the subgroup relationship between groups. To draw the subgroup lattice of a group $G$, we start at the bottom with $\{e\}$, and end at the top with $G$. In between we place the subgroups of $G$, with subgroups of larger order positioned higher on the Figure than those of smaller order.In addition, we draw paths between two subgroups $A$ and $B$ only when $A \leq B$ and there are no subgroups properly between $A$ and $B$. Thus if $A \leq B$, there is a path (possibly many paths) upward from $A$ to $B$ passing through a chain of intermediate subgroups.
 
+The following Figure shows the subgroup lattice for $\mZ_{12}$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.55]{images/2023-07-11_Z12_lattice.png}
+\includegraphics[scale=0.65]{images/2023-07-11_Z12_lattice.png}
 \end{figure}
 
 

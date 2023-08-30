@@ -109,7 +109,7 @@ which is the $y-$axis. The fiber of $\phi$ over $a \in mR$ is the line $x = a$. 
 The group operation can be described by using the map $\phi$ as the sum of the line $x=a$ and the line $x=b$ is the line $x = a+b$ or in terms of cosets: The sum of the vertical line containing the point $(a, y_1)$ and the vertical line containing the point $(b, y_2)$ is the vertical line containing th point $(a+b,y)$. The representative does not matter; ie which point on the line we chose does not matter. \qed
 
 
-By the previous theorem, if we are given a subgroup $K$ of a group $G$ which is the kernel od some homomorphism, we may define the quotient $G/K$ without recourse to the homomorphism by the multiplication $uK vK = uv K$. This raises the question whether we can define the quotient group $G/N$ for \emph{any} subgroup $N$ of $G$. The answer to this is no, as multiplication is in general not defined in this case. In fact, it is possible to define a quotient group iff $N$ is the kernel of some homomorphism.
+By the previous theorem, if we are given a subgroup $K$ of a group $G$ which is the kernel of some homomorphism, we may define the quotient $G/K$ without recourse to the homomorphism by the multiplication $uK vK = uv K$. This raises the question whether we can define the quotient group $G/N$ for \emph{any} subgroup $N$ of $G$. The answer to this is no, as multiplication is in general not defined in this case. In fact, it is possible to define a quotient group iff $N$ is the kernel of some homomorphism.
 
 We next show that the cosets of an arbitrary subgroup $G$ partition $G$.
 
@@ -155,15 +155,75 @@ If $G$ s a finite group and $H$ is a subgroup of $G$, then the order of $H$ divi
 
 The proof relies on the fact that the cosets partition the group $G$.
 
+This theorem is extremely powerful in that limits the subgroups of a group. As example, a group of order $6$ can only have subgroups of order $1, 2$, and $3$.
+
+Be careful in that the reverse of the theorem  is \emph{not} true: If $G$ is a finite group and $n$ divides $|G|$, then $G$ need not to have a subgroup of order $n$. 
+
 The number of cosets of $H$ in $G$ is called the \emph{index} of $H$ in $G$ and is denoted by $|G:H|$.
 
 \begin{theorem}
-If $G$ is a finite group and $x \in G$, then the order of §x$ divides the order of $G$. In particaulr, $x^{|G|} = e$ for all $x \in G$.	
+If $G$ is a finite group and $x \in G$, then the order of $x$ divides the order of $G$. In particular, $x^{|G|} = e$ for all $x \in G$.	
 \end{theorem}
 
 \begin{theorem}
 If $G$ is a group of prime order $p$, then $G$ is cyclic and isomorphic to $\mZ_p$.
 \end{theorem}
+
+
+\subsection{Transpositions and the Alternating Group}
+
+In \ref{2023-06-13:entry} we defined the parity $\epsilon(\sigma)$ of a permutation $\sigma$ and defined the set of even permuations as the \emph{alternating} group $A_n$. In addition, we have the following facts.
+
+\begin{theorem}
+Transpositions (ie cycles of length $2$) are all odd permutations.
+\end{theorem}
+
+Not really a proof, but in \ref{2023-06-13:entry} we considered the example of $n=4$ with $\Delta = (x_1 - x_2)(x_1 - x_3)(x_1 - x_4)(x_2 - x_3)(x_2 - x_4)(x_3 - x_4)$. A transposition $\tau$ now exchanges two elements (eg $\tau = (1,2)$), thereby changing the sign of $\Delta$. In the example, 
+
+\bee
+\tau(\Delta) = (x_2 - x_1)(x_2 - x_3)(x_2 - x_4)(x_1 - x_3)(x_1 - x_4)(x_3 - x_4) = - \Delta \qed
+\eee
+
+
+\begin{theorem}
+The map $\epsilon: S_n \rightarrow \{ \pm 1\}$ is a homomorphism.
+\end{theorem}
+
+To prove this, we show that for two permutations $\tau, \sigma$, we have that $(\tau \sigma)(\Delta) = \epsilon(\tau) \epsilon(\sigma)$. The details are omitted.
+
+Since a homomorphism defines a quotient group, we have the following (alternative) definition of the alternating group.
+
+\begin{definition}
+The alternating group $A_n$ of degree $n$ is the kernel of the homomorphism $\epsilon$.
+\end{definition}
+
+
+Based on these considerations, we can provide a quick way to determine $\epsilon(\sigma)$ from the cycle decomposition of $\sigma$: We start with the fact that we can express any $m$-cycle as a product of $m-1$ transpositions (cf \ref{2023-06-13:eq1}),
+
+\bee
+(a_1, a_2, \ldots a_N) = (a_1, a_m)(a_1, a_{m-1}) \cdots (a_1, a_2)
+\eee
+
+For the sign we have
+
+\bee
+\epsilon(a_1, a_2, \ldots a_N) = \epsilon(a_1, a_m)\epsilon(a_1, a_{m-1}) \cdots \epsilon(a_1, a_2)
+\eee
+
+and therefore an $m$-cycle is an odd permutation iff $m$ is even. Any permutation $\sigma$ can be expressed by its cycles as $\sigma = \alpha_1 \alpha_2 \cdots \alpha_k$. Then 
+
+\bee
+\epsilon(\sigma) = \epsilon(\alpha_1) \epsilon(\alpha_2) \cdots \epsilon(\alpha_k)
+\eee
+
+and $\epsilon(\alpha_k) = -1$ iff the length of $\alpha_k$ is even. It follows that for $\epsilon(\sigma) = -1$, the product of the $\epsilon(\alpha_k)$'s must contain an odd number of factors of $(-1)$. We can summarize this as
+
+\begin{theorem}
+The permutaton $\sigma$ is odd iff the number of cycles of even length in its cycle decomposition is odd.
+\end{theorem}
+
+As example, the permutation $\sigma = (1,2,3)(5,8)$ has one cycle of even length, so $\epsilon(\sigma) = -1$, whereas the permuation $\tau = (1,2)(3,4)(6,7,8)$ has two cycles of even length and therefore $\epsilon(\tau) = 1$. \todo{cross-check with gap}
+
 
 
 %%% Local Variables:
