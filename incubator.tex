@@ -460,7 +460,7 @@ The bound is quite tight; a slightly looser (but nicer) one is
 
 We are given $N$ intervals $[a_1; b_1] \ldots [a_N; b_N]$ of which some are overlapping. We want to determine the smallest set of intervals covering the same ranges as the original intervals.
 
-The algorithm of joining the intervals is as follws:
+The algorithm of joining the intervals is as follows:
 
 \begin{itemize}
   \item Order the intervals by $a_k$.
@@ -473,7 +473,90 @@ The algorithm of joining the intervals is as follws:
 \paragraph{Example.} We are given the following three intervals: $[1;4], [0;2], [5;7]$. Luckily, the three intervals are already ordered. As next step we see that $[1;4]$ and $[0;2]$ overlap and join them into $[0;4]$. However, this interval does not overlap with $[5;7]$ and we therefore emit $[0;4]$. The last interval $[5;7]$ stands on its own and the solution are therefore the two intervals $[0;4], [5;7]$.
 
 
+\subsection{Counting the Number of Polynomial Roots (Sturm's Theorem)}
 
+We are given a univariate polynomial $p(x)$ and want to know the number of distinct real root located in an interval $[a,b]$.
+
+We define the Sturm chain or Sturm sequence of $p(x)$ as follows.
+
+\begin{definition}
+The Sturm chain or Sturm sequence of a polynomial $p(x)$ is given such that
+
+\begin{align}
+P_0 &= p(x) \\
+P_1 &= p'(x) \\
+P_{n+2} &= - P_n \mod P_{n+1}
+\end{align}
+
+\end{definition}
+
+The length of the Sturm sequence is at most the degree of $p$. The number of sign variations at $a$ of the Sturm sequence of $p$ is the number of sign changes – ignoring zeros — in the sequence of real numbers
+
+\bee
+P_0(a), P_1(a), P_2(a), \ldots 
+\eee
+
+The  number of sign variations is denoted as $V(a)$. Sturm's theorem states that if $p(x)$ is a square-free polynomial, the number of distinct real roots of $p$ in the half-open interval $(a, b]$ is $V(a) - V(b)$.
+
+\paragraph{Example.} We consider the polynomial $p(x) = x^3 + 2x +1$. The Sturm sequence starts with 
+
+\bee
+P_0 = x^3 + 2x +1
+\eee
+
+and
+
+\bee
+P_1 = p'(x) = 3x^2+2
+\eee
+
+Next is
+
+\bee
+P_2 = - P_1 \mod P_1
+\eee
+
+By manual polynomial division we obtain $(x^3 + 2x + 1):(3x^2+2) = 1/3 x + \left(4/3x + 1 \right)$ and therefore
+
+\bee
+P_2 = - \frac{4}{3}x - 1
+\eee
+
+The next (and final) element in the Sturm sequence is then
+
+\bee
+P_3 = -P_1 \mod P_2
+\eee
+
+which we obtain as $P_3 = - 59/16$.
+
+We want to know how many real roots the polynomial has; so we consider the interval $(-\infty, \infty]$. We calculate the values of the Sturm sequence at $x = -\infty$:
+
+\bee
+P_0(-\infty) = -\infty, P_1(-\infty) = \infty, P_2(-\infty) = \infty, P_3(-\infty) = -59/16
+\eee
+
+The number of sign changes is $V(-\infty) = 2$. In a similar spirit, we repeat the exercise for $x = \infty$:
+
+\bee
+P_0(\infty) = \infty, P_1(\infty) = \infty, P_2(\infty) = -\infty, P_3(\infty) = -59/16
+\eee
+
+The number of sign changes is $V(-\infty) = 1$. Therefore the number of real roots is $V(\infty) - V(-\infty) = 1$. We can use Python's sympy to obtain the solutions and see that the number of real roots matches.
+
+\begin{verbatim}
+import sympy as sym
+
+x = sym.symbols('x')
+p0 = x**3 + 2*x + 1
+sols = sym.solve(x**3 + 2*x + 1, x)
+
+[sym.N(sol) for sol in sols]
+
+[0.226698825758202 + 1.46771150871022*I,
+ 0.226698825758202 - 1.46771150871022*I,
+ -0.453397651516404]
+\end{verbatim}
 
 
 %%% Local Variables:
