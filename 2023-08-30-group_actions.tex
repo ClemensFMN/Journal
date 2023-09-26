@@ -1,0 +1,70 @@
+\DiaryEntry{Group Actions}{2023-08-30}{Algebra}
+
+Let $G$ be a group acting on an non-empty set A$A. Then for each $g \in G$, the map
+
+\bee
+\sigma_g: A \rightarrow A, \quad \sigma_g: a \rightarrow g \cdot a
+\eee
+
+is a permutation of $A$. In addition, there is also a map $\phi$ from $G$ to $S_A$ defined by $g \rightarrow \sigma_g: \phi(g) = \sigma_g$. This map can be shown to be a homomorphism and is called the permutation representation associated to the given action.
+
+There are a couple of definitions associated with the permutation representation.
+
+\begin{definition}
+The \emph{kernel} of the action is the set of elements of $G$ that act trivially on every element of $A$: \{g \in G | g \cdot a = a \forall a \in A\}$. For each $a \in A$, the \emph{stabilizer} of $a$ in $G$ is the set of elements of $G$ that fix $a$: $G_a = \{g \in G | g \cdot a = a\}$. An action is \emph7faithful} if its kernel is the identity.
+\end{definition}
+
+\begin{theorem}
+Let $G$ be a group acting on the non-empty set $A$. The relation on $A$ defined by $a \sim b$ iff $a = g \cdot b$ for some $g \in G$ is an equivalence relation.
+\end{theorem}
+
+Proof is omitted. Based on this theorem, we see that a group $G$ acting on the set $A$ partitions $A$ into disjoint equivalence classes. This leads to the following definitions.
+
+\begin{definition}
+The equivalence class $\{ g \cdot a | g \in G\}$ is called the \emph{orbit} of $G$ containing $a$.
+The action of $G$ on $A$ is called \emph{transitive} if there is only one orbit; ie given any two elements $a, b \in A$, there is some $g \in G$ such that $a = g \cdot b$.
+\end{definition}
+
+Intuitively, an orbit of an element $a \in A$ is the set of elements in $A$ to which $a$ can me moved by an element of $g$.
+
+After some length discussions omitted here, we arrive at \emph{Cayley's Theorem}.
+
+\begin{theorem}
+Every group is ismorphic to  a subgroup of some symmetric group. If $G$ is a group of order $n$, then $G$ is isomorphic to a subgroup of $S_n$.
+\end{theorem}
+
+\subsection{Groups acting on Themselves by Conjugation}
+
+We now consider a group $G$ acting on itself; ie $A = G$ by \emph{conjugation}. Conjugation $\cdot$ is defined according to
+
+\bee
+g \cdot a = g a g^{-1}, \quad \forall g \in G, a \in G
+\eee
+
+The conjugation operation satisfies the two axioms for a group action because
+
+\bee
+g_1 \cdot (g_2 \cdot a) = g_1 \cdot (g_2 a g_2^{-1}) = g_1(g_2 a g_2^{-1})g_1^{-1} = (g_1 g_2)a(g_1 g_2)^{-1} = (g_1 g_2) \cdot a
+\eee
+
+and
+
+\bee
+1 \cdot a = 1 a 1^{-1} = a
+\eee
+
+for all $g_1, g_2 \in G$ and all $a \in G$. Note that we need to distinguish between the group action $\cdot$ (which is conjugation) and the group operation $g_1 g_2$.
+
+\begin{definition}
+Two elements $a, b \in G$ are conjugate in $G$  if there is some $g \in G$ such that $b = gag^{-1}$. The orbits of $G$ acting on itself by conjugation are called the conjugacy classes of $G$.
+\end{definition}
+
+\paragraph{Example.} In $S_3$, the conjugacy classes are $\{(1)\}$, $\{(1,2)\}$, $\{(1,2), (1,3), (2,3)\}$, and $\{(1,2,3), (1,3,2)\}$. \todo{check this!!}
+
+Intuitively, the conjugacy classes contain "related" permutations: In the above example, one class contains the permutations with only fixed-points (represented by $\{(1)\}$), another class contains the permutations with one 2-cycle (represented by $\{(1,2)\}$), another class contains the permutations with three 2-cycles (represented by $\{(1,2), (1,3), (2,3)\}$), and finally one \todo{check above paragraph first}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
