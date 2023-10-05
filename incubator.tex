@@ -559,6 +559,28 @@ sols = sym.solve(x**3 + 2*x + 1, x)
 \end{verbatim}
 
 
+\subsection{Thales's Theorem}
+
+Thales's theorem states that if $A$, $B$, and $C$ are distinct points on a circle where the line $AC$ is a diameter, the angle $\angle ABC$ is a right angle.
+
+This is shown in the Figure below.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2023-09-26-thales_01.png}
+\end{figure}
+
+We note that the triangle $AOB$ has sides of equal length, $|AO| = |BO|$, and therefore $\angle OAB = \angle OBA = \alpha$. Similarly, we the triangles $OCB$ has sides of equal length $|BO| = |CO|$, and therefore $\angle CBO = \angle OCB = \beta$.
+
+Since the sum of the angles in a triangle is $\pi$, the third angle is therefore determined (equal to $\pi - 2\alpha$ and $\pi - 2 \beta$, respectively). From the Figure we see that $\alpha + \beta + (\alpha + \beta) = 2 \pi$ and therefore
+
+\bee
+\alpha + \beta = \pi \qed
+\eee
+
+
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
