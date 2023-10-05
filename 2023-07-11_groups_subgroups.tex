@@ -14,7 +14,7 @@ Checking whether a set is a subgroup can be done by checking above definition fo
 A subset $H$ of a group $G$ is a subgroup iff $H \neq \{\}$ and for all $x, y \in H, xy^{-1} \in H$.
 \end{theorem}
 
-\subsection{Centralizers, Normalizers, Stabilizers, and Kernels}
+\subsection{Centralizers and Normalizers}
 
 We next introduce several families of subgroups of an arbitrary group $G$ which provide many examples of subgroups. In the following, let $A$ be a non-empty subset of $G$.
 
@@ -62,7 +62,7 @@ Proof is omitted. As a next point, we have the fact that all cyclic groups of th
 Any two cyclic groups of the same order are isomorphic. This holds for both finite and infinite cyclic groups.	
 \end{theorem}
 
-In the following, we will use the rotation group $\langle r \rangle$ as prototypical example of  a finite cyclic group of order $n$.
+In the following, we will use the rotation group $\langle r \rangle$ as prototypical example of a finite cyclic group of order $n$.
 
 \begin{definition}
 	For each $n \in \mZ^+$, let $Z_n$ be the cyclic group of order $n$ written multiplicatively.
@@ -164,7 +164,93 @@ The following Figure shows the subgroup lattice for $\mZ_{12}$.
 \includegraphics[scale=0.65]{images/2023-07-11_Z12_lattice.png}
 \end{figure}
 
+\subsection{Matrix Groups}
 
+We can also interpret matrices as groups with matrix multiplication as group operation. In order to have a defined inverse, we must restrict to matrices with non-zero determinant.
+
+We have the following definition.
+
+\begin{definition}
+The \emph{General Linear Group} $GL_n(F)$ consists of all $n \times n$ matrices $A$ with entries from the field $F$ and $det(A) \neq 0$.
+\end{definition}
+
+In most cases, we will restrict ourselves to matrices with real or complex values, respectively. 
+
+General Linear Groups have interesting subgroups which we consider next.
+
+\begin{definition}
+The group $SL_n(\mR)$ consists of $n \times n$ matrices $A$ with real entries and determinant $\det A = 1$. These represent linear transformations which preserve volume.
+
+The group $O_n(\mR)$ consists of $n \times n$ matrices $A$ with real entries having the property $A^T A = I$; ie they preserve the dot product, so $(Au)^T(Av) = u^T v$ for all real-valued length-$n$ vectors.
+\end{definition}
+
+Both $SL_n(\mR)$ and $O_n(\mR)$ are subgroups of $GL_n(\mR)$. Combining both conditions yields a subgroup of both $SL_n(\mR)$ and $O_n(\mR)$, the subgroup $SO_n(\mR)$ which consists of $n \times n$ matrices $A$ with real entries having the property $A^T A = I$ and $\det A = 1$.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{images/2023-07-11_matrices.png}
+\end{figure}
+
+We can repeat the same argument for complex-valued matrices, $GL_n(\mC)$. The definition for $SL_n(\mC)$ is the same. Matrices with complex entries fulfilling the condition $A^H A = I$ form the group $U_n(\mC)$. The intersection of $SL_n(\mC)$ and $U_n(\mC)$ is then the group of complex unitary matrices with determinant $1$, denoted as $SU_n(\mC)$. Of these, the group $SU_2(\mC)$ are of particular interest.
+
+\paragraph{The Quaternois $SU_2(\mC)$.} Let's see which matrices are in this group. We start with
+
+\bee
+A = \begin{pmatrix} \alpha & \beta \\ \gamma & \delta \end{pmatrix}
+\eee
+
+This matrix must fulfill two conditions: (i) $\det(A) = 1$, and (ii) $A^H = A^{-1}$. Let's express the inverse first,
+
+\bee
+A^{-1} = \frac{1}{\det(A)} \begin{pmatrix} \delta & -\beta \\ -\gamma & \alpha \end{pmatrix} = \begin{pmatrix} \delta & -\beta \\ -\gamma & \alpha \end{pmatrix}
+\eee
+
+With
+
+\bee
+A^H = \begin{pmatrix} \bar\alpha & \bar\beta \\ \bar\gamma & \bar\delta \end{pmatrix}
+\eee
+
+we have
+
+\bee
+\begin{pmatrix} \delta & -\beta \\ -\gamma & \alpha \end{pmatrix} = \begin{pmatrix} \bar\alpha & \bar\beta \\ \bar\gamma & \bar\delta \end{pmatrix}
+\eee
+
+and therefore $\delta = \bar\alpha$ and $\beta = - \bar\gamma$. So the matrix $A$ becomes
+
+\bee
+A = \begin{pmatrix} \alpha & \beta \\ -\bar\gamma & -\bar\alpha \end{pmatrix}, \quad |\alpha|^2 + |\beta|^2 = 1
+\eee
+
+We can write such a matrix as a linear combination of other matrices by splitting up the real and imaginary parts of $\alpha$ and $\beta$. Suppose $\alpha = x_0 + j x_1$ and $\beta = x_2 + j x_3$ where $x_i \in \mR$. Then we cn write
+
+\bee
+A = x_0 \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} + x_1 \begin{pmatrix} j & 0 \\ 0 & -j \end{pmatrix} + x_2 \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix} + x_3 \begin{pmatrix} 0 & j \\ j & 0 \end{pmatrix}
+\eee
+
+The first matrix is the identity matrix, we denote the other three as follows,
+
+\bee
+\ibf = \begin{pmatrix} j & 0 \\ 0 & -j \end{pmatrix}, \quad \jbf = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}, \quad \kbf = \begin{pmatrix} 0 & j \\ j & 0 \end{pmatrix}
+\eee
+
+Note that these matrices fulfill the following properties,
+
+\bee
+\ibf^2 = j = \kbf^2 = -I, \quad \ibf \jbf = \kbf, \quad \jbf \ibf = -\kbf
+\eee
+
+Using these, we can define a four-dimensional real vector space $H$ spanned by $I, \ibf, \jbf, \kbf$,
+
+\bee
+H = \{ x_0 I + x_1 \ibf + x_2 \jbf + x_3 \kbf\}
+\eee
+
+With the conditions onf the $I, \ibf, \jbf, \kbf$ as stated above, this space is closed under multiplication. The set $H$ is called the set of \emph{quaternions}. The quaternions are like four-dimensional complex numbers, but unlike them, multiplication is not commutative.
+
+We have $SU_2 \subset H$, as $SU_2$ are exactely those quaternions for which $x_0^2 + x_1^2 + x_2^2 + x_3^2 = 1$ (due to the $\det A = 1$ condition imposed on $SU_2$). So $SU_2$ sits inside $mR_4$ and consists of all vectors with length $1$ - this means its shape is a 3-dimensional sphere in $mR_4$.
 
 
 
