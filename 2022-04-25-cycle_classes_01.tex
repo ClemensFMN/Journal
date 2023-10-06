@@ -120,6 +120,13 @@ Similar to above, this uses the fact that $i^0 0! = 1$; so ``non-existing'' cycl
 
 So the permutation $(1,2)(3,4)(5)(6,7,8,9)(10,11,12,13)(14,15,16,17)$ corresponds to the polynomial $a_1 a_2^2 a_4^3$ as we have one cycle of length one, two cycles of length two, and three cycles of length four.
 
+We can calculate this in Gap as well.
+
+\begin{verbatim}
+gap> CycleIndex((1,2)(3,4)(5)(6,7,8,9)(10,11,12,13)(14,15,16,17),[1..17]);
+x_1*x_2^2*x_4^3
+\end{verbatim}
+
 The \emph{cycle index} $\Zc(G)$ of a permutation group $\Gc$ is the average of the cycle index monomials of all permutations in the group and it is given by
 
 \bee
@@ -140,6 +147,16 @@ Therefore the cycle index of $C_4$ is given as
 \bee
 \Zc(C_4) = \frac{1}{4} (a_1^4 + a_2^2 + 2a_4)
 \eee
+
+We can perform this in Gap as well,
+
+\begin{verbatim}
+gap> CycleIndex((1,2,3,4),[1..4]);
+x_4
+gap> CycleIndex((1,3)(2,4),[1..4]);
+x_2^2
+\end{verbatim}
+
 
 There are expressions for the cycle index of several well-known groups (see for example \href{https://en.wikipedia.org/wiki/Cycle_index}{here}); in particular, the cycle index of the symmetric group $S_n$ is given by
 
@@ -164,9 +181,12 @@ So we have three terms in the sum and we get
 \end{align*}
 
 
-The group contains one element with three 1-cycles $(1)(2)(3)$, three elements with one 1-cylce and one 2-cycle $(12)(3), (13)(2), (23)(1)$, and two elements with one 3-cycle $(123),(132)$. \qed
+The group contains one element with three 1-cycles $(1)(2)(3)$, three elements with one 1-cylce and one 2-cycle $(12)(3), (13)(2), (23)(1)$, and two elements with one 3-cycle $(123),(132)$. In Gap, we can calculate this as follows,
 
-Note: In gap, the cycle structure of a \emph{permutation} can be obtained using\\ \verb+CycleStructurePerm+ , but this accepts only a permutation and not a group (as obtained by eg \verb+SymmetricGroup(3)+).
+\begin{verbatim}
+gap> CycleIndex(SymmetricGroup(3),[1..3]);
+1/6*x_1^3+1/2*x_1*x_2+1/3*x_3
+\end{verbatim}
 
 
 \paragraph{Number of permutations with $n$ cycles of length $k$.} Also interesting is to ask for ``less structure''; i.e. how many permutations of $N$ elements are there which have $n$ cycles of length $k$. For example, $N=6$ and we want to know how many permutations have one cycle of length $2$ with the rest of the permutation \emph{unspecified}. The permutations $(1,2)(3,4,5,6), (1,2)(3)(4,5,6), (3,4)(1,2,5,6)$ all fit.

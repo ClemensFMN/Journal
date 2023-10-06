@@ -222,7 +222,14 @@ and $\epsilon(\alpha_k) = -1$ iff the length of $\alpha_k$ is even. It follows t
 The permutaton $\sigma$ is odd iff the number of cycles of even length in its cycle decomposition is odd.
 \end{theorem}
 
-As example, the permutation $\sigma = (1,2,3)(5,8)$ has one cycle of even length, so $\epsilon(\sigma) = -1$, whereas the permuation $\tau = (1,2)(3,4)(6,7,8)$ has two cycles of even length and therefore $\epsilon(\tau) = 1$. \todo{cross-check with gap}
+As example, the permutation $\sigma = (1,2,3)(5,8)$ has one cycle of even length, so $\epsilon(\sigma) = -1$, whereas the permuation $\tau = (1,2)(3,4)(6,7,8)$ has two cycles of even length and therefore $\epsilon(\tau) = 1$. We can check this in Gap,
+
+\begin{verbatim}
+	gap> SignPerm((1,2,3)(5,8));
+	-1
+	gap> SignPerm((1,2)(3,4)(6,7,8));
+	1
+\end{verbatim}
 
 
 
