@@ -1,0 +1,274 @@
+\DiaryEntry{Game Theory, I}{2023-10-10}{Game Theory}
+
+Game theory uses mathematical tools to model and analyze situations of interactive decision making. The situations involve several decision makers (called players) with different goals, in which the decision of each affects the outcome for all the decision makers.
+
+This interactivity distinguishes game theory from standard decision theory. Game theory tries to predict the behavior of the players and sometimes also provides decision makers with suggestions regarding ways in which they can achieve their goals.
+
+\subsection{Extensive-Form Games}
+
+We need a complete description of a game and this should contain the following elements:
+
+\begin{itemize}
+\item A set of players,
+\item The possible actions available to each player,
+\item Rules determining the order in which players make their moves,
+\item A rule determining when the game ends,
+\item A rule determining the outcome of every possible game ending.
+\end{itemize}
+
+A comprehensive description is by means of a tree where every player’s action is depicted as a transition from one vertex to another vertex.
+
+\paragraph{Example.} As a simple example consider a game with two players, I and II, which play on a 2 x2 gameboard as depicted in the following Figure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1.2]{images/2023-10-10-game_theory_01.png}
+\end{figure}
+
+Player I has the opening move, in which he "captures" one of the squares. By alternate turns, each player captures one of the squares, subject to the following conditions:
+
+\begin{itemize}
+	\item A square may be captured by a player only if it has not been previously captured by either player.
+	\item Square 4 may not be captured if square 2 or square 3 has been previously captured.
+	\item The game ends when square 1 is captured. The player who captures square 1 is the losing player.
+\end{itemize}
+
+Intuitively spoken, each player tries to froce the other to capture square 1 in order to win the game.
+
+We can represent the game in extensive-form with the following graph. Every circled vertex represents a decision by a player, and is labeled with the number of that player. The terminal vertices of the game are indicated by dark dots. The edges of the graph depict game actions. The number that appears next to each edge corresponds to the square that is captured. Next to every terminal vertex, the corresponding game outcome is indicated. A game depicted by such a graph is called a \emph{game in extensive form}, or \emph{extensive-form game}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1.2]{images/2023-10-10-game_theory_02.png}
+\end{figure}
+
+The graph starts in vertex $r$ where player I can choose to capture any of the $4$ squares. Chosing square $1$ brings us to vertex $a$ which corresponds to a loss of player I. Chosing square $2$ brings us to vertex $b$ where player II has two options: Either capture square $1$ (vertext $e$) in which case player I wins, or capture square $3$ which brings us to vertex $f$. Here the only option for player I is to capture square $1$ which results in the victory of player II.
+
+Based on above example, we state that various games can be represented by trees: The root of the tree corresponds to the initial position of the game, and every game position is represented by a vertex of the tree. The children of each vertex $v$ are the vertices corresponding to the game positions that can be arrived at from $v$ via one action. In other words, the number of children of a vertex is equal to the number of possible actions in the game position corresponding to that vertex. For every vertex that is not a leaf, we need to specify the player who is to take an action at that vertex. At each leaf, we need to describe the outcome of the game.
+
+\begin{definition}
+The formal definition of a game in extensive form is an ordered vector $\Gamma$,
+
+\bee
+\Gamma = (N, V, E, x^0, (V_i)_{i \in N}, O, u)
+\eee
+
+where
+
+\begin{itemize}
+	\item $N$ is finite set of players,
+	\item $(V, E, x^0)$ describes the game tree (with vertex set $V$, edge set $E$, and root vertex $x^0$),
+	\item $(V_i)_{i \in N}$ is a partition of the set of vertices that are not leaves,
+	\item $O$ is the set of possible game outcomes.
+	\item $u$ is a function associating every leaf of the tree with a game outcome in the set $O$.
+\end{itemize}
+
+\end{definition}
+
+For each player $i \in N$, the set $V_i$ is player $i$’s set of decision vertices. For each leave $x$, the outcome at that leave is $u(x)$.
+
+Note that the partition $V_i$ may contain empty sets. We accept the possibility of empty sets in order to be able to treat games in which a player may not be required to make any moves, but is still a game participant who is affected by the outcome of the game.
+
+In the example game above, the various sets have the following elements
+
+\begin{align*}
+N &= \{I, II\}	\\
+V &= \{r, a, b, c, d, e, f, g, h, i, j, k, l, m, p, q, s, w, y, z\}	\\
+x^0 &= r \\
+V_I &= \{r, f, h, j, k\} \\
+V_{II} &= \{b, c, d, q, w\}
+\end{align*}
+
+The set of possible outcomes is $O = \{I \text{ wins}, II \text{ wins} \}$, and the function $u$ is given by
+
+\begin{align*}
+u(a) &= u(l) = u(m) = u(p) = u(s) = \text{ II wins} \\
+u(e) &= u(g) = u(i) = u(y) = u(z) = \text{ I wins} \qed
+\end{align*}
+
+Finally, denote by $C(x)$ the set of all children of a non-leaf vertex $x$. Every edge that leads from $x$ to one of its children is called a possible action at $x$. We will associate every action with the child to which it is connected, and denote by $A(x)$ the set of all actions that are possible at the vertex $x$.
+
+By definition, the collection of the vertices of the graph is a finite set, so that the game necessarily ends at a leaf, yielding a sequence of vertices $(x^0, x^1, \ldots , x^k)$, where $x^0$ is the root of the tree, $x^k$ is a leaf, and $x^{l+1} \in C(x^l)$ for $l = 0, 1, \ldots k-1$. This sequence is called a play. Every play ends at a particular leaf $x^k$ with outcome $u(x^k)$. Similarly, every leaf $x^k$ determines a unique play, which corresponds to the unique path connecting the root $x^0$ with $x^k$.
+
+It follows from the above description that every player who is to take an action knows the current state of the game, meaning that he knows all the actions in the game that led to the current point in the play. This implicit assumption is called \emph{perfect information}.
+
+Above definitions are for finite games. There are also inifinite games, where the game tree $(V, E, x^0)$ is infinite. This can happen in two possible ways: (i) It is possible that the depth of the tree is bounded, i.e., that there exists a natural number $L$ such that the length of every path in the tree is less than or equal to $L$. This corresponds to a game that ends after at most $L$ actions have been played, and there is at least one player who has an infinite number of actions available at an information set. (ii) It is possible, that the depth of the vertices of the tree is not bounded; that is, there exists an infinite path in the game tree. This corresponds to a game that might never end.
+
+
+With all these formal definition in place, we can now define one of the central concepts of game theory: the strategy.
+
+\begin{definition}
+A strategy for player $i$ is a function $s_i$ mapping each vertex $x \in V_i$ to an element in $A(x)$(equivalently, to an element in $C(x)$).
+\end{definition}
+
+According to this definition, a strategy includes instructions on how to behave at each vertex in the game tree, including vertices that previous actions by the player preclude from being reached.
+
+In our runnning example, denote by $s_{I,r}$ the strategy of player I at vertex $r$. If player I's strategy is to initially capture sqaure $3$, then we would have $s_{I,r} = 3$.
+
+We next focus on games with two players, I and II, whose set of outcomes is $O = \{I wins, II wins, Draw\}$. We have the following types of strategies.
+
+\begin{definition}
+Let $\Gamma$ be an extensive-form game with two players I and II, and with outcome $O = \{I wins, II wins, Draw\}$. A strategy $s_I$ of player I is called a \emph{winning strategy} if
+
+\bee
+u(s_I, s_{II}) = I wins, \quad \forall s_{II} \in S_{II}
+\eee
+
+A strategy $s_I$ of player I is called a \emph{strategy guaranteeing at least a draw} for player II if
+
+\bee
+u(s_I, s_{II}) \in \{I wins, Draw\}, \quad \forall s_{II} \in S_{II}
+\eee
+\end{definition}
+
+We have the following theorem.
+
+\begin{theorem}
+\label{2023-10-10-th1}
+In every two-player game (with perfect information) in which the set of outcomes is $O = \{I wins, II wins, Draw\}$, one and only one of the following three alternatives holds:
+
+\begin{itemize}
+	\item Player I has a winning strategy.
+	\item Player II has a winning strategy.
+	\item Each of the two players has a strategy guaranteeing at least a draw.	
+\end{itemize}
+
+\end{theorem}
+
+
+\subsubsection{Games with Chance Moves}
+
+So far, the transition from one state to another has always been controlled by actions undertaken by the players. However, there are games where random events are part o the game (such as rolling a dice). To accommodate this feature, the model is expanded by labeling some of the vertices in the game tree $(V,E, x^0)$ as chance moves. The edges emanating from vertices corresponding to chance moves represent the possible outcomes of a lottery, and next to each such edge is listed the probability that the outcome it represents will be the result of the lottery.
+
+Formally, we handle chance moves by adding another player denoted by $0$ (so in total, the players become $N \cup 0$). For every vertex $x$ at which a chance move is implemented, we denote by $p_x$ the probability vector over the possible outcomes of a lottery that is implemented at vertex $x$.
+
+\begin{definition}
+The formal definition of a game with chance moves is now given by
+
+\bee
+\Gamma = (N, V, E, x^0, (V_i)_{i \in N \cup 0}, (p_x)_{x \in V_0}, O, u)
+\eee
+	
+\end{definition}
+
+The following Figure shows a game with chance moves. The outcomes of the game are noted by pairs of numbers $(z_I, z_{II})$, where $z_I$ is themonetary payoff to Player I, and $z_{II}$ is the monetary payoff to Player II.
+
+Player I starts with the choice of selecting between action a, which leads to the termination of the game with payoff
+$(0, 0)$, and action b, which leads to a chance move at vertex A. The chance move is a lottery (or a flip of a coin) leading with probability $1/2$ to state B, which is a decision vertex of Player II, and with probability $1/2$ to state C, which is a decision vertex of Player I.
+
+At state B, Player II chooses between action f , leading to a termination of the game with payoff $(2,0)$, and action e leading to
+state D which is a chance move; at this chance move, with probability $1/3$ the game ends with payoff $(5,-1)$, and with probability $2/3$ the game ends with payoff $(-2,5)$. At state C, Player I chooses between action g, leading to the termination of the game with payoff $(1,1)$, and action h, leading to a chance move at vertex E. At this chance move the game ends, with payoff $(0,2)$, or $(-1,1)$, or $(1,1)$, with respective probabilities $1/4$, $1/2$, and $1/4$.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1.2]{images/2023-10-10-game_theory_03.png}
+\end{figure}
+
+
+Note that there is a hidden assumption, that the probabilities of the chance moves are known to all the players. More advanced models take into account the possibility that the players do not all necessarily share the same assessments of the probabilities of chance moves, but these will be discussed later.
+
+Continuing with our example, let's assume that player I uses strategy $s_I$ defined as
+
+\bee
+s_I(R) = b, s_I(C) = h
+\eee
+
+and player II follows the strategy $s_{II}$ defined as
+
+\bee
+s_{II}(B) = f
+\eee
+
+Following these strategies, the following paths are possible
+
+\begin{align*}
+1:& R \rightarrow A \rightarrow B \rightarrow (2,0) \\
+2:& R \rightarrow A \rightarrow C \rightarrow E \rightarrow (0,2) \\
+3:& R \rightarrow A \rightarrow C \rightarrow E \rightarrow (-1,1) \\
+4:& R \rightarrow A \rightarrow C \rightarrow E \rightarrow (1,1)
+\end{align*}
+
+The probablities $p_i$ for these plays are given by multiplying the probabilities of each chance moves as
+
+\bee
+p_1 = \frac{1}{2}, \quad p_2 = \frac{1}{2} \frac{1}{4} = \frac{1}{8}, \quad p_3 = \frac{1}{2} \frac{1}{2} = \frac{1}{4}, \quad p_4 = \frac{1}{2} \frac{1}{4} = \frac{1}{8}
+\eee
+
+Note that von Neumann’s Theorem (\ref{2023-10-10-th1}) does not hold in games with chance moves. In dice games, such as backgammon, a player who benefits from favorable rolls of the dice can win regardless of whether or not he has the first move, and regardless of the strategy adopted by his opponent.
+
+\subsubsection{Games with Imperfect Information}
+
+So far in every stage of the game each of the players has perfect knowledge of all the developments in the game prior to that stage: he knows exactly which actions were taken by all the other players, and if there were chance moves, he knows what the results of the chance moves were. In other words, every player, when it is his turn to take an action, knows precisely at which
+vertex in the game tree the game is currently at. A game satisfying this condition is called a \emph{game with perfect information}.
+
+We can remedy this and consider \emph{games with imperfect information} by introducing \emph{information sets}: A player’s information set consists of a set of vertices that when play reaches one of these vertices, the player knows that play has reached one of these vertices, but he does not know which vertex has been reached.
+
+As an example, consider the following game with two players in which each player chooses one of the sides of a coin, H (for heads) or T (for tails) in the following way: each player inserts into an envelope a slip of paper on which his choice is written. The envelopes are sealed and submitted to a referee. If both players have selected the same side of the coin, Player II pays one dollar to Player I. If they have selected opposite sides of the coin, Player I pays one dollar to Player II.
+
+The information set is depicted by means of an ellipse: The two vertices A and B of Player II are surrounded by an ellipse. This visual element represents the fact that when Player II is in the position of selecting between h and t , he does not know whether the game state is currently at vertex A or vertex B, because he does not know whether Player I has selected H or T . These two vertices together form an information set of Player II.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{images/2023-10-10-game_theory_04.png}
+\end{figure}
+
+\subsection{Strategic-Form Games}
+
+The strategic-form description ignores dynamic aspects of the game, such as the order of the moves by the players, chance moves, and the informational structure of the game. Instead, a game in strategic form consists of a set of players, a strategy set for each player, and an outcome to each vector of strategies, which is usually given by the vector of utilities the players enjoy from the outcome. This allows to focus on which strategies are more likely to be played by the players, or to recommend to players which strategy to implement (or not to implement).
+
+\paragraph{Example Rock-Paper-Scissor.} The two players select simultaneously one of the three options. The outcome is determined by the following rules: rock smashes scissors, scissors cut paper, paper covers rock. This is shown in the following Figure. Note the big ellipse representing the information set of player II as he does not know what player I has selected.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=1]{images/2023-10-10-game_theory_05.png}
+\end{figure}
+
+Setting the payoff to a player to be $1$ for a win, $-1$ or a loss, and $0$ for a draw, we obtain the game in strategic form as shown in the Figure below. In each cell the left number denotes the payoff to Player I and the right number denotes the payoff to Player II.
+
+Note: Fig. 4.4 in the book \todo{citation} is wrong; below is the corrected one.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{images/2023-10-10-game_theory_06.png}
+\end{figure}
+
+\paragraph{Example 2.} This example is a game with perfect information. Player I can choose between U(p) and D(own). Having observed player I's decision, player II can decide between R(ight) and L(eft). Therefore player I has two strategies: L and R, whereas player II has four strategies,
+
+\begin{itemize}
+	\item $s_1$: Chose R when player I has chosen U, chose R when player I has chosen D (aka always chose R)
+	\item $s_2$: Chose R when player I has chosen U, chose L when player I has chosen D
+	\item $s_3$: Chose L when player I has chosen U, chose R when player I has chosen D
+	\item $s_4$: Chose L when player I has chosen U, chose L when player I has chosen D (aka always chose L)
+\end{itemize}
+
+To get our matrix simpler, we abbreviate the strategies as follows.
+
+\begin{itemize}
+	\item $s_1$: RR
+	\item $s_2$: RL
+	\item $s_3$: LR
+	\item $s_4$: LL
+\end{itemize}
+
+The following Figure\todo{redraw Figure} shows the extensive-form game on the left and the strategic-form game on the right. One has to be a bit careful with correctly interpreting the table and differentiating between a strategy and a decision.
+
+The upper left field at "coordinates" U-RL with payoff $5,2$ corresponds to the case that player I chose U and player II strategy $s_2$ yields an action of R, $s_2(U) = R$. According to the extensive-form representation, this corresponds to a payoff of $5,2$. Note that the field at "coordinates" U-RR yields the same $5,2$ payoff: Although the strategy is different, namely $s_1$, it yields the same action, $s_1(U) = R$, and therefore the payoff is the same.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{images/2023-10-10-game_theory_07.png}
+\end{figure}
+
+When there are no chance moves, a game in strategic form is derived from a game in extensive form in the following way:
+
+\begin{itemize}
+	\item List the set of all strategies $S_i$ available to each player $i$ in the extensive-form game.
+	\item For each vector $s$ of strategies find the play determined by this vector of strategies, and then derive the payoffs induced by this play, $u_1(s), u_2(s), \ldots, u_n(s)$.
+	\item Draw the appropriate n-dimensional matrix. When there are two players, the number of rows in the matrix equals the number of strategies of Player I, the number of columns equals the number of strategies of Player II, and the pair of numbers appearing in each cell is the pair of payoffs defined by the pair of strategies associated with that cell. When there are more than two players, the matrix is multi-dimensional.
+\end{itemize}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
