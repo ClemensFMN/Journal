@@ -1,5 +1,7 @@
 \DiaryEntry{Game Theory, I}{2023-10-10}{Game Theory}
 
+Based on the book \cite{Maschler2013}.
+
 Game theory uses mathematical tools to model and analyze situations of interactive decision making. The situations involve several decision makers (called players) with different goals, in which the decision of each affects the outcome for all the decision makers.
 
 This interactivity distinguishes game theory from standard decision theory. Game theory tries to predict the behavior of the players and sometimes also provides decision makers with suggestions regarding ways in which they can achieve their goals.
@@ -103,7 +105,13 @@ A strategy for player $i$ is a function $s_i$ mapping each vertex $x \in V_i$ to
 
 According to this definition, a strategy includes instructions on how to behave at each vertex in the game tree, including vertices that previous actions by the player preclude from being reached.
 
-In our runnning example, denote by $s_{I,r}$ the strategy of player I at vertex $r$. If player I's strategy is to initially capture sqaure $3$, then we would have $s_{I,r} = 3$.
+In the example from above, a strategy $s_I$ for player I would define $s_I(x)$ for \emph{all} vertices $x \in V$. Note that this is strictly not necessary for when $s_I(r) = 2$, the play can never reach vertex $j$. So we could omit this and simplify the strategy representation somewhat. So one strategy for player I could be as follows
+
+\bee
+s_I(r) = 4, s(j) = 1, s(k) = 2
+\eee
+
+When player I choses $4$ in the first move, this brings the play to vertex $d$. Depending on the action player II takes, the play can continue in vertices $i, j,k$. There is no decision necessary when player II has chosen $1$ (player I wins), but in the other two cases, a decision of player I is required.
 
 We next focus on games with two players, I and II, whose set of outcomes is $O = \{I wins, II wins, Draw\}$. We have the following types of strategies.
 
@@ -192,7 +200,7 @@ Following these strategies, the following paths are possible
 The probablities $p_i$ for these plays are given by multiplying the probabilities of each chance moves as
 
 \bee
-p_1 = \frac{1}{2}, \quad p_2 = \frac{1}{2} \frac{1}{4} = \frac{1}{8}, \quad p_3 = \frac{1}{2} \frac{1}{2} = \frac{1}{4}, \quad p_4 = \frac{1}{2} \frac{1}{4} = \frac{1}{8}
+p_1 = \frac{1}{2}, \quad p_2 = \frac{1}{2} \cdot \frac{1}{4} = \frac{1}{8}, \quad p_3 = \frac{1}{2} \cdot  \frac{1}{2} = \frac{1}{4}, \quad p_4 = \frac{1}{2} \cdot \frac{1}{4} = \frac{1}{8}
 \eee
 
 Note that von Neumann’s Theorem (\ref{2023-10-10-th1}) does not hold in games with chance moves. In dice games, such as backgammon, a player who benefits from favorable rolls of the dice can win regardless of whether or not he has the first move, and regardless of the strategy adopted by his opponent.
@@ -206,12 +214,17 @@ We can remedy this and consider \emph{games with imperfect information} by intro
 
 As an example, consider the following game with two players in which each player chooses one of the sides of a coin, H (for heads) or T (for tails) in the following way: each player inserts into an envelope a slip of paper on which his choice is written. The envelopes are sealed and submitted to a referee. If both players have selected the same side of the coin, Player II pays one dollar to Player I. If they have selected opposite sides of the coin, Player I pays one dollar to Player II.
 
-The information set is depicted by means of an ellipse: The two vertices A and B of Player II are surrounded by an ellipse. This visual element represents the fact that when Player II is in the position of selecting between h and t , he does not know whether the game state is currently at vertex A or vertex B, because he does not know whether Player I has selected H or T . These two vertices together form an information set of Player II.
+The information set is depicted by means of an ellipse: The two vertices A and B of Player II are surrounded by an ellipse which indicates that when Player II is in the position of selecting between h and t, he does not know whether the game state is currently at vertex A or vertex B, because he does not know whether Player I has selected H or T . These two vertices together form an information set of Player II.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=1]{images/2023-10-10-game_theory_04.png}
 \end{figure}
+
+Note: Above graph suggests that player I starts with his choice and then player II decides (being not aware of player I's decision). According to the game description, both players decide at the same time. However, using imperfect information, we can model the concurent decision by means of a sequential model. We could also have reversed the order of player I and II and achieved the same result.
+
+With imperfect information, a strategy looks slightly different. For player I, the strategy needs to define what to do at vertex $R$ (eg $s_I(R) = H$). However, for player II we can only state what to do in the information set (let's call it $AB$); $s_{II}(AB) = h$.
+
 
 \subsection{Strategic-Form Games}
 
@@ -226,39 +239,49 @@ The strategic-form description ignores dynamic aspects of the game, such as the 
 
 Setting the payoff to a player to be $1$ for a win, $-1$ or a loss, and $0$ for a draw, we obtain the game in strategic form as shown in the Figure below. In each cell the left number denotes the payoff to Player I and the right number denotes the payoff to Player II.
 
-Note: Fig. 4.4 in the book \todo{citation} is wrong; below is the corrected one.
+Note: Fig. 4.4 in the book \cite{Maschler2013} is wrong; below is the corrected one.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.7]{images/2023-10-10-game_theory_06.png}
 \end{figure}
 
-\paragraph{Example 2.} This example is a game with perfect information. Player I can choose between U(p) and D(own). Having observed player I's decision, player II can decide between R(ight) and L(eft). Therefore player I has two strategies: L and R, whereas player II has four strategies,
+
+
+\paragraph{Example 2.} This example is a game with perfect information. Player I has two strategies: He can choose between U(p) and D(own) in the first move,
+
+\bee
+s_{I,1}(R) = U, \quad s_{I,2}(R) = D
+\eee
+
+Having observed player I's decision, player II can decide between R(ight) and L(eft), leaving him with four strategies:
 
 \begin{itemize}
-	\item $s_1$: Chose R when player I has chosen U, chose R when player I has chosen D (aka always chose R)
-	\item $s_2$: Chose R when player I has chosen U, chose L when player I has chosen D
-	\item $s_3$: Chose L when player I has chosen U, chose R when player I has chosen D
-	\item $s_4$: Chose L when player I has chosen U, chose L when player I has chosen D (aka always chose L)
+	\item $s_{II,1}$: Chose R when player I has chosen U, chose R when player I has chosen D (aka always chose R), $s_{II,1}(U) = R, s_{II,1}(D) = R$. We will abbreviate this with "R,R".
+	\item $s_{II,2}$: Chose R when player I has chosen U, chose L when player I has chosen D, $s_{II,2}(U) = R, s_{II,2}(D) = L$. We will abbreviate this with "R,L".
+	\item $s_{II,3}$: Chose L when player I has chosen U, chose R when player I has chosen D, $s_{II,3}(U) = L, s_{II,3}(D) = R$. We will abbreviate this with "L,R".
+	\item $s_{II,4}$: Chose L when player I has chosen U, chose L when player I has chosen D (aka always chose L), $s_{II,4}(U) = L, s_{II,4}(D) = L$. We will abbreviate this with "L,L".
 \end{itemize}
 
-To get our matrix simpler, we abbreviate the strategies as follows.
+The following Figure shows the extensive-form game and the table below the strategic-form game. One has to be a bit careful with correctly interpreting the table and differentiating between a strategy and a decision.
 
-\begin{itemize}
-	\item $s_1$: RR
-	\item $s_2$: RL
-	\item $s_3$: LR
-	\item $s_4$: LL
-\end{itemize}
+The upper left field at "coordinates" U-R,L with payoff $5,2$ corresponds to the case that player I chose U and player II strategy $s_2$ yields an action of R, $s_2(U) = R$. According to the extensive-form representation, this corresponds to a payoff of $5,2$; the corresponding play is shown in red in the Figure. 
 
-The following Figure\todo{redraw Figure} shows the extensive-form game on the left and the strategic-form game on the right. One has to be a bit careful with correctly interpreting the table and differentiating between a strategy and a decision.
-
-The upper left field at "coordinates" U-RL with payoff $5,2$ corresponds to the case that player I chose U and player II strategy $s_2$ yields an action of R, $s_2(U) = R$. According to the extensive-form representation, this corresponds to a payoff of $5,2$. Note that the field at "coordinates" U-RR yields the same $5,2$ payoff: Although the strategy is different, namely $s_1$, it yields the same action, $s_1(U) = R$, and therefore the payoff is the same.
+Note that the field at "coordinates" U-R,R yields the same $5,2$ payoff: Although the strategy is different, namely $s_1$, it yields the same action, $s_1(U) = R$, and therefore the payoff is the same.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{images/2023-10-10-game_theory_07.png}
+    \includegraphics[scale=0.5]{images/2023-10-10-game_theory_07.png}
 \end{figure}
+
+\begin{table}[H]
+	\begin{tabular}{llllll}
+		&   & \multicolumn{4}{c}{Player 2}                                      \\ \cline{2-6} 
+\multicolumn{1}{l|}{}                           &   & R,L                        & L,R & R,R & \multicolumn{1}{l|}{L,L} \\ \cline{2-6} 
+\multicolumn{1}{c|}{}                           & U & {\color[HTML]{FE0000} 5,2} & 2,5 & 5,2 & \multicolumn{1}{l|}{2,5} \\
+\multicolumn{1}{c|}{\multirow{-2}{*}{Player 1}} & D & 0,0                        & 3,1 & 3,1 & \multicolumn{1}{l|}{0,0} \\ \cline{2-6} 
+\end{tabular}
+\end{table}
 
 When there are no chance moves, a game in strategic form is derived from a game in extensive form in the following way:
 
@@ -267,6 +290,42 @@ When there are no chance moves, a game in strategic form is derived from a game 
 	\item For each vector $s$ of strategies find the play determined by this vector of strategies, and then derive the payoffs induced by this play, $u_1(s), u_2(s), \ldots, u_n(s)$.
 	\item Draw the appropriate n-dimensional matrix. When there are two players, the number of rows in the matrix equals the number of strategies of Player I, the number of columns equals the number of strategies of Player II, and the pair of numbers appearing in each cell is the pair of payoffs defined by the pair of strategies associated with that cell. When there are more than two players, the matrix is multi-dimensional.
 \end{itemize}
+
+\subsection{Domination}
+
+We have now two ways to describe a game: By means of extensive form and by means of the strategic-form. We now tackle the question what can we expect to happen when such a game is played? What outcomes, or set of outcomes, will reasonably ensue, given certain assumptions regarding the behavior of the players?
+
+\paragraph{Example.} Consider the following strategic-form game shown in the follogin FIgure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2023-10-10-game_theory_10.png}
+\end{figure}
+
+Player I has two strategies, T and B, whereas player II has three strategies, L, M, and R. Let's compare player II's stategies M and R:
+
+\begin{itemize}
+	\item If Player I plays T , the payoff to Player II under strategy M is $2$, compared to only $1$ under strategy R.
+	\item If Player I plays B, the payoff to Player II under strategy M is $1$, compared to only $0$ under strategy R.
+\end{itemize}
+
+We see that independently of whichever strategy is played by Player I, strategy M always yields a higher payoff to Player II than strategy R. This motivates the following definition.
+
+\begin{definition}
+A strategy $s_i$ of player $i$ is strictly dominated if there exists another strategy $t_i$ of player $i$ such that for each strategy vector $s_{-i} \in S_{-i}$ of the other players,
+
+\bee
+u_i(si , s_{-i}) < u_i (t_i , s_{-i} )
+\eee
+
+If this is the case, we say that $s_i$ is strictly dominated by $t_i$ , or that $t_i$ strictly dominates $s_i$.
+\end{definition}
+
+In the previous example strategy R is strictly dominated by strategy M. It is therefore reasonable to assume that if Player II is “rational,” he will not choose R, because under any scenario in which he might consider selecting R, the strategy M would be a better choice.
+
+
+
+
 
 %%% Local Variables:
 %%% mode: latex
