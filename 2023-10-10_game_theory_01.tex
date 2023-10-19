@@ -293,13 +293,15 @@ When there are no chance moves, a game in strategic form is derived from a game 
 
 \subsection{Domination}
 
+We first introduce some new notation: Suppose we have an length-$n$ vector $x = (x_1, \ldots, x_n)$ and by omitting the $i$-th element, we obtain a length-$n-1$ vector which we denotes as $x_{-i} = (x_1, \ldots, x_{i-1}, x_{i+1}, \ldots x_n)$. We define the cartesian product of $n$ sets, $X_1 \times X_2 \ldots X_n = \prod_{i \in N} X_i$ where $N = \{1,2, \ldots, n\}$. Analogously, we define the cartesian product of all but the $i$-th set as $X_{- i} = \prod_{j \neq i} X_j$.
+
 We have now two ways to describe a game: By means of extensive form and by means of the strategic-form. We now tackle the question what can we expect to happen when such a game is played? What outcomes, or set of outcomes, will reasonably ensue, given certain assumptions regarding the behavior of the players?
 
-\paragraph{Example.} Consider the following strategic-form game shown in the follogin FIgure.
+\paragraph{Example.} Consider the following strategic-form game shown in the following Figure.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.5]{images/2023-10-10-game_theory_10.png}
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_10.png}
 \end{figure}
 
 Player I has two strategies, T and B, whereas player II has three strategies, L, M, and R. Let's compare player II's stategies M and R:
@@ -315,7 +317,7 @@ We see that independently of whichever strategy is played by Player I, strategy 
 A strategy $s_i$ of player $i$ is strictly dominated if there exists another strategy $t_i$ of player $i$ such that for each strategy vector $s_{-i} \in S_{-i}$ of the other players,
 
 \bee
-u_i(si , s_{-i}) < u_i (t_i , s_{-i} )
+u_i(s_i , s_{-i}) < u_i (t_i , s_{-i} )
 \eee
 
 If this is the case, we say that $s_i$ is strictly dominated by $t_i$ , or that $t_i$ strictly dominates $s_i$.
@@ -323,6 +325,97 @@ If this is the case, we say that $s_i$ is strictly dominated by $t_i$ , or that 
 
 In the previous example strategy R is strictly dominated by strategy M. It is therefore reasonable to assume that if Player II is “rational,” he will not choose R, because under any scenario in which he might consider selecting R, the strategy M would be a better choice.
 
+In the following, there is a lengthy discussion about player rationality and that all players know that the others are rational and all players know that all players know that all players are rational. The summary is that the fact that all players are rational is common knowledge among the players and strictly dominated strategies can be eliminated under this assumption.
+
+Elimination of strategy $R$ leads to the following strategic-form game.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_11.png}
+\end{figure}
+
+However, we can continue to search for dominated stategies: We find that for player I it is always better to play strategy T than strategy B, so we can eliminate this one as well. We finally arrive at the following strategic-form game.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_12.png}
+\end{figure}
+
+And - finally - we see that strategy M is better for player II than strategy L. After elimination of L only one result remains, namely $(1, 2)$, which is obtained when Player I plays T and Player II plays M.
+
+The process we have just described is called \emph{iterated elimination of strictly dominated strategies}. When this process yields a single strategy vector (one strategy per player), as in the example above, then, under the assumption of common knowledge of rationalityof all players, the resulting strategy vector can be regarded as the solution of the game.
+
+A special case in which such a solution is guaranteed to exist is the family of games in which every player has a strategy that strictly dominates all of his other strategies, that is, a \emph{strictly dominant strategy}. Clearly, in that case, the elimination of all strictly dominated strategies leaves each player with only one strategy: his strictly dominant strategy. When this occurs we say that the game has a solution in \emph{strictly dominant strategies}.
+
+\paragraph{Prisoner's Dilemma.} Two individuals who have committed a serious crime are apprehended. Lacking incriminating evidence, the prosecution can obtain an indictment only by persuading one (or both) of the prisoners to confess to the crime. Interrogators give each of the prisoners – both of whom are isolated in separate cells and unable to communicate with each other – the following choices:
+
+\begin{itemize}
+	\item If you confess and your friend refuses to confess, you will be released from custody and receive immunity as a state’s witness.
+	\item If you refuse to confess and your friend confesses, you will receive the maximum penalty for your crime (ten years of prison).
+	\item If both of you sit tight and refuse to confess, we will make use of evidence that you have committed tax evasion to ensure that both of you are sentenced to a year in prison.
+	\item If both of you confess, it will count in your favor and we will reduce each of your prison terms to six years.
+\end{itemize}
+
+This situation defines a two-player strategic-form game in which each player has two strategies: D, which stands for Defection, betraying your fellow criminal by confessing, and C, which stands for Cooperation, cooperating with your fellow criminal and not confessing the crime. Using this notation,the outcome of the game is summarized in the table below.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_20.png}
+\end{figure}
+
+Assume player I cooperates (choses strategy C). If player II does the same, player I and player II will go one year into prison (lower right corner). However, player II can improve his situation by chosing to defect, thereby avoiding jail at all. In this case, player I will go to jail for 10 years. Since player I knows this, he will not chose strategy C but D; in the worst case, he will go to jail for 6 years (when player II choses D). That's actually the optimum for player II, so both of them will chose strategy D, causing them to go to prison for 6 years.
+
+So while strategy $(C,C)$ yields the optimum for both player, it is not \emph{stable}: If one player deviates, he can improve his situation (and worsening the situation for the other). Therefore the players will not chose strategy C but D which leads to a worse outcome, but a stable one. \qed
+
+
+In the Prisoner's dilemma, two strictly dominated strategies were eliminated (one per player), but there was no specification regarding the order in which these strategies were eliminated: was Player I’s strategy C eliminated first, or Player II’s, or were they both eliminated simultaneously? It turns out that the order of elimination makes no difference. It turns out that this is a general result: whenever iterated elimination of strictly dominated strategies leads to a single strategy vector, that outcome is independent of the order of elimination. In fact, we can make an even stronger statement: even if iterated elimination of strictly dominated strategies yields a set of strategies (not necessarily a single strategy), that set does not depend on the order of elimination.
+
+There are games in which iterated elimination of strictly dominated strategies does not yield a single strategy vector. For example, in a game that has no strictly dominated strategies, the process fails to eliminate any strategy.
+
+Such a game is shown in the following Figure: There are no strictly dominated strategies in this game, however, strategy B has a special attribute: although it does not always guarantee a higher payoff to Player I relative to strategy T , in all cases it does grant him a payoff at least as high, and in the special case in which Player II chooses strategy L, B is a strictly better choice than T . In this case we say that strategy B weakly dominates strategy T (and strategy T is weakly dominated by strategy B).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_21.png}
+\end{figure}
+
+\begin{definition}
+Strategy $s_i$ of player $i$ is termed weakly dominated if there exists another strategy $t_i$ of player $i$ satisfying the following two conditions: 
+
+\begin{itemize}
+	\item For every strategy vector $s_{-i} \in S_{-i}$ of the other players,
+	\bee
+	u_i(s_i, s_{-i}) \leq u_i(t_i, s_{-i})
+	\eee
+
+	\item There exists a strategy vector $t_{-i} \in S_{-i}$ of the other players such that
+	\bee
+	u_i(s_i, t_{-i}) < u_i(t_i, t_{-i})
+	\eee
+\end{itemize}
+
+In this case we say that strategy $s_i$ is weakly dominated by strategy $t_i$, and that strategy $t_i$ weakly dominates strategy $s_i$.
+\end{definition}
+
+If strategy $t_i$ dominates (weakly or strictly) strategy $s_i$, then $s_i$ does not (weakly or strictly) dominate $t_i$. Clearly, strict domination implies weak domination. Because we will refer henceforth almost exclusively to weak domination, we use the term “domination” to mean “weak domination,” unless the term “strict domination” is explicitly used.
+
+We furthermore assume that a rational player does not use a dominated strategy.
+
+Under this assumption we can eliminate strategy T (as it is weakly dominated), and then proceed to eliminate strategy R (which
+is strictly dominated after the elimination of T ). The only remaining strategy vector is (B, L), with a payoff of $(2, 2)$. Such a strategy vector is called \emph{rational}, and the process of iterative elimination of weakly dominated strategies is called \emph{rationalizability}. The meaning of “rationalizability” is that a player who expects a certain strategy vector to obtain can explain to himself why that strategy vector will be reached, based on the assumption of rationality.
+
+\begin{definition}
+A strategy vector $s \in S$ is termed rational if it is the unique result of a process of iterative elimination of weakly dominated strategies.
+\end{definition}
+
+
+Note: While the elimation order of strictly dominated strategies does not matter, the elimination order of weakly dominated strategies may matter.
+
+\todo{include example 4.16?}
+
+
+
+\subsection{Stability: Nash Equilibrium}
 
 
 
