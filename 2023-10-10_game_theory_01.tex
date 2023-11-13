@@ -347,7 +347,7 @@ The process we have just described is called \emph{iterated elimination of stric
 
 A special case in which such a solution is guaranteed to exist is the family of games in which every player has a strategy that strictly dominates all of his other strategies, that is, a \emph{strictly dominant strategy}. Clearly, in that case, the elimination of all strictly dominated strategies leaves each player with only one strategy: his strictly dominant strategy. When this occurs we say that the game has a solution in \emph{strictly dominant strategies}.
 
-\paragraph{Prisoner's Dilemma.} Two individuals who have committed a serious crime are apprehended. Lacking incriminating evidence, the prosecution can obtain an indictment only by persuading one (or both) of the prisoners to confess to the crime. Interrogators give each of the prisoners – both of whom are isolated in separate cells and unable to communicate with each other – the following choices:
+\paragraph{Prisoner's Dilemma.}\label{2023-10-10_pd} Two individuals who have committed a serious crime are apprehended. Lacking incriminating evidence, the prosecution can obtain an indictment only by persuading one (or both) of the prisoners to confess to the crime. Interrogators give each of the prisoners – both of whom are isolated in separate cells and unable to communicate with each other – the following choices:
 
 \begin{itemize}
 	\item If you confess and your friend refuses to confess, you will be released from custody and receive immunity as a state’s witness.
@@ -412,7 +412,211 @@ Note: While the elimation order of strictly dominated strategies does not matter
 
 \subsection{Stability: Nash Equilibrium}
 
+As motivating example, we consider the following two-player game in strategic form.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_30.png}
+\end{figure}
+
+
+There is no dominance relationship between the strategies in this game: For example, if we compare the strategies T and M of Player I, it turns out that neither of them is always preferable to the other: M is better than T if Player II chooses L, and T is better than M if Player II chooses C. In fact, M is the best reply of Player I to L, while T is his best reply to C, and B is his best reply to R. Similarly, for Player II, L is the best reply to T and C
+is the best reply to M, while strategy R is the best reply to B.
+
+However, if a player knows which strategy the other player(s) are going to choose, he will choose the best reply to those strategies used by the other players. In our example, this is as follows,
+
+\begin{itemize}
+	\item If Player II knows that Player I will choose T , he will choose L (his best reply to T ).
+	\item If Player I knows that Player II will choose L, he will choose M (his best reply to L).
+	\item If Player II knows that Player I will choose M, he will choose C (his best reply to M).
+	\item If Player I knows that Player II will choose C, he will choose T (his best reply to C).
+	\item If Player II knows that Player I will choose B, he will choose R (his best reply to B).
+\end{itemize}
+
+The pair of strategies (B, R) satisfies a stability property: each strategy in this pair is the best reply to the other strategy. Alternatively, we can state this property in the following way: assuming the players choose (B, R), neither player has a profitable deviation; that is, under the assumption that the other player indeed chooses his strategy according to (B, R), neither player has a strategy that grants a higher payoff than sticking to (B, R).
+
+This stability property is called a \emph{Nash equilibrium} and formally defined as follows.
+
+\begin{definition}
+	A strategy vector $s^\star = (s^star_1, \ldots, s^\star_n)$ is a Nash equilibrium if for each player $i \in N$ and each strategy $s_i \in S_i$ the following is satisfied:
+	
+	\bee
+		u_i(s^\star) \geq u_i(s_i, s^\star_{- i})
+	\eee
+
+	The payoff vector $u(s^\star)$ is the equilibrium payoff corresponding to the Nash equilibrium $s^\star$.
+\end{definition}
+
+We can define a Nash equilibrium also in terms of a \emph{profitable deviation}. The strategy $\hat{s}_i \in S_i$ is a profitable deviation of player $i$ at a strategy vector $s \in S$ if $u_i(\hat{s}_i, s_{-i}) > u_i(s)$. A Nash equilibrium is a strategy vector at which no player has a profitable deviation.
+
+The Nash equilibrium $s^\star$ is often simply referred to as an equilibrium, and sometimes as an equilibrium point. As defined above, it says that no player $i$ has a profitable unilateral deviation from $s^\star$.
+
+The Nash equilibrium can also be equivalently expressed in terms of the best-reply concept.
+
+\begin{definition}
+Let $s_{-i}$ be a strategy vector of all the players not including player $i$. Player $i$’s strategy $s_i$ is termed a best reply to $s_{-i}$ if
+
+\bee
+u_i(s_i, s_{-i}) = \max_{t_i \in S_i} u_i(t_i, s_{-i})
+\eee
+
+\end{definition}
+
+Then we can define the Nash equilibrium in an equivalent manner as follows.
+
+\begin{definition}
+The strategy vector $s^\star = (s^\star_1, \ldots, s^\star_n)$ is a Nash equilibrium if $s^\star_i$ is a best reply to $s^\star_{-i}$ for every player $i \in N$.
+\end{definition}
+
+As a last practical definition, we can define a Nash equilibrium for two person games as follows: If the first payoff number, in the payoff pair of the cell, is the maximum of the column of the cell and if the second number is the maximum of the row of the cell - then the cell represents a Nash equilibrium.
+
+
+In the running example, we can use this last definition to verify that (B,R) is the unique Nash equilibrium. For example, the pair (T, L) is not an equilibrium, because T is not a best reply to L; Player I has a profitable deviation from T to M or to B. Out of all the nine strategy pairs, (B, R) is the only equilibrium.
+
+In case of the prisoner's dilemma, \ref{2023-10-10_pd}, there is one equilibrium (D, D), in which both prisoners confess to the crime, resulting in
+payoff (1, 1). 
+
+
+As another example, consider a \emph{coordination game}: Two players can choose two stragegies, and they get a payoff, if they chose the same strategy. The following Figure shows an example for such a game.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_31.png}
+\end{figure}
+
+Here, both (A, a) and (B, b) are equilibrium points. The equilibrium payoff associated with (A, a) is (1, 1), and the equilibrium payoff of (B, b) is (3, 3). In both cases, and for both players, the payoff is better than (0, 0), which is the payoff for “miscoordinated” strategies (A, b) or (B, a).
+
+
+\subsection{The Max-min Concept}
+
+As motivating example, consider the following two-person game.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_40.png}
+\end{figure}
+
+According to the above, it has a unique equilibrium for the strategy pair (B,R), with a payoff of (3,3). However, it is not sure whether this equilibrium will really be chosen. Player I would hesitate choosing B: What if Player II were to choose L (whether by accident, due to irrationality, or for any other reason)? The result (B, L) is catastrophic for Player I, so he may prefer strategy T, which guarantees a payoff of only 2 (compared to the equilibrium payoff of 3), but also guarantees that he will avoid getting -100 instead. If Player II is aware of this hesitation, and believes that there is a reasonable chance that Player I will flee to the safety of T, he will also be wary of choosing the equilibrium strategy R (and risking the -20 payoff), and will likely choose strategy L instead. This, in turn, increases Player I’s motivation to choose T.
+
+From player i's point if view, if he chooses strategy $s_i$, the worst possible payoff he can get is
+
+\bee
+\min_{t_{-i} \in S_{-i}} u_i(s_i, t_{-i})
+\eee
+
+Player $i$ can then choose the strategy $s_i$ that maximizes this value. In other words, disregarding the possible rationality (or irrationality) of the other players, he can guarantee for himself a payoff of
+
+\bee
+\underline{v}_i = \max_{s_i \in S_i} \min_{t_{-i} \in S_{-i}} u_i(s_i, t_{-i})
+\eee
+
+The quantity $\underline{v}_i$ is called the \emph{maxmin value} of player $i$ or player $i$'s security level. A strategy $s^\star_i$ that guarantees this value is called a \emph{maxmin strategy} and satisfies
+
+\bee
+\min_{t_{-i} \in S_{-i}} u_i(s^\star_i, t_{-i}) \geq \min_{t_{-i} \in S_{-i}} u_i(s_i, t_{-i}), \quad \forall s_i \in S_i
+\eee
+
+which is equvalent to
+
+\bee
+\min_{t_{-i} \in S_{-i}} u_i(s^\star_i, t_{-i}) \geq \underline{v}_i , \quad \forall t_{-i} \in S_{-i}
+\eee
+
+For the runing example, the following Figure additionally shows the the worst payoff to Player I if he chooses the strategy of the corresponding row in the right-most column (outside the payoff matrix). Similarly, the numbers in the bottom-most row (outside the payoff matrix) indicate the worst payoff to Player II if he chooses the strategy of the corresponding column. Finally, the oval contains the maxmin value of both players.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_40.png}
+\end{figure}
+
+The maxmin value of Player I is 2 and the strategy that guarantees this value is T. The maxmin value of Player II is 0 with maxmin strategy L. If the two players choose their maxmin strategies, the result is (T, L) with payoff (2, 1), in which Player II’s payoff of 1 is greater than his maxmin value.
+
+There are some connections between the maxmin strategy and dominant strategies.
+
+\begin{theorem}
+A strategy of player $i$ that dominates all his other strategies is a maxmin strategy for that player. Such a strategy, furthermore, is a best reply of player $i$ to any strategy vector of the other players.	
+\end{theorem}
+
+From this we obtain the following conclusions.
+
+\begin{theorem}
+In a game in which every player has a strategy that dominates all of his other strategies, the vector of dominant strategies is an equilibrium point and a vector of maxmin strategies.
+
+In a game in which every player $i$ has a strategy $s^\star_i$ that strictly dominates all of his other strategies, the strategy vector $(s^\star_1, \ldots, s^\star_n)$ is the unique equilibrium point of the game as well as the unique vector of maxmin strategies.
+\end{theorem}
+
+The next theorem establishes a connection between the maxmin value of a player and his payoff in a Nash equilibrium.
+
+\begin{theorem}
+Every Nash equilibrium $\sigma^\star$ of a strategic-form game satisfies $u_i(\sigma^\star) \geq \underline{v}_i$ for every player $i$.	
+\end{theorem}
+
+\subsection{Two-player zero-sum games}
+
+The Nash equilibrium and the maxmin are two different concepts that reflect different behavioral aspects: the first is an expression of stability, while the second captures the notion of security. Despite the different roots of the two concepts, there are cases in which both lead to the same results. A special case where this occurs is in the class of two-player zero-sum games.
+
+In a given two-player game, denote, as we have done so far, the set of players by $N = \{I, II\}$ and the set of strategies respectively by $S_I$ and $S_{II}$.
+
+\begin{definition}
+A two-player game is a zero-sum game if for each pair of strategies $(s_I, s_{II})$ one has
+
+\bee
+u_I(s_I, s_{II}) + u_{II}(s_I, s_{II}) = 0
+\eee
+
+\end{definition}
+
+In other words, a two-player game is a zero-sum game if it is a closed system from the perspective of the payoffs: each player gains what the other player loses. It is clear that in such a game the two players have diametrically opposed interests.	
+
+Many classical games, such as chess, backgammon, checkers, and a plethora of dice games, are two-player zero-sum games. These were the first games to be studied mathematically and the first to yield formal results, results that spawned and shaped game theory as a young field of study in the early part of the twentieth century.
+
+The following Figure shows an example for a two-player zero-sum game; the sum of each payoff pair is always zero.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2023-10-10-game_theory_50.png}
+\end{figure}
+
+In this example, $\underline{v}_I = 1$ and $\underline{v}_{II} =-1$. The maxmin strategy of Player I is M and that of Player II is R. The strategy pair (M, R) is also the equilibrium of this game. In other words, here we have a case where the vector of maxmin strategies is also an equilibrium point: the two concepts lead to the same result.
+
+Since the payoffs $u_I$ and $u_{II}$ satisfy $u_I + u_{II} = 0$, we need to consider only the function $u$, with $u_I = u$ and $u_{II} =-u$. The function $u$ will be termed the payoff function of the game, and it represents the payment that Player II makes to Player I.
+
+Player I, who is usually the row player, seeks to maximize $u(s)$ (his payoff) and Player II, who is usually the column player, is trying to minimize $u(s)$, which is what he is paying (since his payoff is $- u(s)$).
+
+Consider now the maxmin values of the players in a two-player zero-sum game. Player I’s maxmin value is given by
+
+\bee
+\underline{v}_I = \max_{s_I \in S_I} \min_{s_{II} \in S_{II}} u(s_I, s_{II})
+\eee
+
+and Player II’s maxmin value is
+
+\bee
+\underline{v}_{II} = \max_{s_{II} \in S_{II}} \min_{s_{I} \in S_{I}} - u(s_I, s_{II}) = - \min_{s_{II} \in S_{II}} \max_{s_{I} \in S_{I}} u(s_I, s_{II})
+\eee
+
+Denote
+
+\begin{align*}
+\underline{v} &= \max_{s_I \in S_I} \min_{s_{II} \in S_{II}} u(s_I, s_{II}), \\
+\bar{v} &= \min_{s_{II} \in S_{II}} \max_{s_{I} \in S_{I}} u(s_I, s_{II})
+\end{align*}
+
+The value $\underline{v}$ is called the maxmin value of the game, and $\bar{v}$ is called the minmax value. Player I can guarantee that he will get at least $\underline{v}$, and Player II can guarantee that he will pay no more than $\bar{v}$. A strategy of Player I that guarantees $\underline{v}$ is termed a maxmin strategy. A strategy of Player II that guarantees $\bar{v}$ is called a minmax strategy.
+
+The maxmin value $\underline{v}$ and the minmax value $\bar{v}$ may be unequal, but it is always the case that $\underline{v} \leq \bar{v}$. The inequality is clear from the definitions of the maxmin and minmax: Player I can guarantee that he will get at least $\underline{v}$, while Player II can guarantee that he will not pay more than $\bar{v}$. As the game is a zero-sum game, the inequality $\underline{v} \leq \bar{v}$ must hold.
+
+\begin{definition}
+A two-player game has a value if $\underline{v} = \bar{v}$. The quantity $v = \underline{v} = \bar{v}$ is then called the value of the game. Any maxmin and minmax strategies of Player I and Player II respectively are then called optimal strategies.
+\end{definition}
+
+The following two theorems establish a close relationship between the concepts of the value and of Nash equilibrium in two-player zero-sum games.
+
+\begin{theorem}
+If a two-player zero-sum game has a value $v$, and if $s^\star_{I}$ and $s^\star_{II}$ are optimal strategies of the two players, then $s^\star = (s^\star_{I}, s^\star_{II})$ is an equilibrium point with payoff $(v, -v)$.
+
+If $s^\star = (s^\star_{I}, s^\star_{II})$ is an equilibrium of a two-player zero-sum game, then the game has a value of $v = u(s^\star_{I}, s^\star_{II})$, and the strategies $s^\star_{I}$ and $s^\star_{II}$ are optimal strategies.
+\end{theorem}
 
 
 %%% Local Variables:
