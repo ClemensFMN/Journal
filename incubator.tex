@@ -579,6 +579,39 @@ Since the sum of the angles in a triangle is $\pi$, the third angle is therefore
 \eee
 
 
+\subsection{Number of Digits / Digit-sum of $2^n$}
+
+Based on https://math.stackexchange.com/questions/4811109/on-the-sum-of-digits-of-2x.
+
+The approxomate number of digits $N(n)$ of $2^n$ in base-$10$ iseries
+
+\bee
+N(n) = \log_{10}(2^n) = n \log_{10}(2) \approx 0.3010 x
+\eee
+
+We assume a uniform and independent distribution of all digits (which are in the range $[0,10]$), therefore the "digit-sum" of one digit is $4.5$. The approximate sum of the digitis, $S(n)$, is therefore
+
+\bee
+S(n) = 4.5 N(n) = 4.5 n \log_{10}(2) \approx 1.3546 n
+\eee
+
+We can (of course) generalize this to the number of digits / digit sum of the general expression
+
+\bee
+c^n
+\eee
+
+which is
+
+\begin{align*}
+N(n) &= n \log_{10}(c) \\
+S(n) &= 4.5 n \log_{10}(c)
+\end{align*}
+
+\todo{show Python plots}
+
+
+
 
 
 %%% Local Variables:

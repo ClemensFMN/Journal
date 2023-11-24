@@ -147,6 +147,7 @@ In the example from above, this matrix is shown in the following Figure.
 
 
 \subsection{Some Classical (Normal-form) Games}
+\label{2023-10-10:classicalgames}
 
 \paragraph{Game of matching Pennies.} Two players simultaneously and independently select “heads” or “tails” by each uncovering a penny in his hand. If their selections match, then player 2 must give his penny to player 1; otherwise, player 1 gives his penny to player 2.
 
@@ -170,6 +171,20 @@ The following Figure shows the corresponding payoff matrix.
 \end{figure}
 
 Note: Going from extensive-form to normal-form is always possible (just follow all paths and write down the payoff vector). Going from a normal-form to extensive form is more difficult as the relation is not 1:1; ie. more than one extensive-form representation has the same normal-form representation.
+
+
+\subsection{Beliefs and Mixed Stategies}
+
+We use the term \emph{belief} for a player’s assessment about the strategies of the others in the game.
+
+Consider the prisoner's dilemma: We let $p$ represent the likelihood that player 1 thinks the other player will select strategy C in the game. Formally, p is a probability -- a number between zero and one -- where $p = 1$ means that player 1 is certain that player 2 will select strategy C, and $p = 0$ means that player 1 is sure player 2 will not choose C. The probability that player 1 believes the other player will select D is $1 - p$. Thus, if $p = 1/2$, then player 1 believes that the other player is equally likely to select C and D. 
+
+Related to a belief is the notion of a \emph{mixed strategy}. A mixed strategy for a player is the act of selecting a strategy according to a probability distribution. For example, if a player can choose between strategies U and D, we can imagine her selecting U with some probability and D with some probability. She might flip a coin and select U if the coin lands with the head up and D if the coin lands with the tail up.
+
+To prevent confusion, we sometimes call a regular strategy a \emph{pure strategy} to distinguish it from a mixed strategy. Notice that the set of mixed strategies includes the set of pure strategies (each of which is a mixed strategy that assigns all probability to one pure strategy).
+
+If players use a mixed strategy and/or assigns positive probability to multiple strategies of the other player, we need to extend the payoff function to an \emph{expected payoff function}.
+
 
 
 %%% Local Variables:
