@@ -128,7 +128,7 @@ We start our analysis by noting that both players are rational (and know this fr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{images/2023-11-21-game_theory_03.png}
+    \includegraphics[scale=0.7]{images/2023-11-21-game_theory_04.png}
 \end{figure}
 
 Note that as in the prisoners’ dilemma, the prediction here is a decidedly inefficient outcome. Both players could fare better if the strategy profile
@@ -136,6 +136,42 @@ Note that as in the prisoners’ dilemma, the prediction here is a decidedly ine
 
 The procedure just illustrated is called \emph{iterative removal of (strictly) dominated strategies} (or iterated dominance, for short). We can apply the procedure to any normal-form game as follows. First, delete all of the dominated strategies for each player, because a rational player would never use one of these. Then define $R_1$ to be the strategy profiles that remain. Common knowledge of rationality therefore implies that it is common knowledge that a strategy profile in $R_1$ will be played. In other words, essentially the players are interacting in a “reduced” game in which $R_1$ is the set of strategy profiles. The next step is to remove any strategies that are dominated in this reduced game and define $R_2$ as the strategy profiles that remain. As before, it is then common knowledge that a strategy profile in $R_2$ will be played. Continue this process to identify smaller and smaller sets of strategy profiles, $R_3, R_4, \ldots$, until no more strategies can be deleted. Let $R$ denote the resulting set of strategy profiles; ie those that survive this iterated dominance procedure.
 
+The set of strategies that survive iterated dominance is therefore called the \emph{rationalizable strategies}.
+
+\subsection{Nash Equilibrium}
+
+If players are best responding to each others’ strategies, then the players’ strategies are \emph{mutual best responses} and the corresponding strategy / strategies are a \emph{Nash rquilibrium}. We have the following formal definition.
+
+\begin{definition}
+    A strategy profile $s \in S$ is a Nash equilibrium if and only if $s_i \in BR_i(s_{-i})$ for each player $i$. That is, $u_i(s_i , s_{-i}) \geq u_i(s'_i , s_{-i})$ for every $s'_i \in S_i$ and each player $i$.
+\end{definition}
+
+A more stringent version of the equilibrium concept is called \emph{strict Nash equilibrium}. A strategy profile $s$ is called a strict Nash equilibrium if and only if $\{s_i\} = BR_i(s_{-i})$ for each player $i$. In words, player $i$’s strategy $s_i$ is the only best response to $s_{-i}$.
+
+In general, Nash equilibria are not difficult to locate in matrix games. One needs to look for profiles such that each player’s strategy is a best response to the strategy of the other, by checking all of the strategy profiles (each cell of the matrix) one at a time.
+
+Alternatively, one can find the best responses of player 1 to each of the strategies of player 2 and then find the best responses of player 2 to each of the strategies of player 1. The following example illustrates this approach.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{images/2023-11-21-game_theory_05.png}
+\end{figure}
+
+We find player 1’s best responses to each of player 2’s strategies. By scanning player 1’s payoffs in the first column of the matrix, we can see that the greatest payoff for player 1 appears in the second row. Therefore, K is player 1’s best response to X. One the right side, the best response is indicated by underlining player 1’s payoff of 8 in the (K, X) cell of the matrix. 
+
+Proceeding to the second column, we find that M is player 1’s best response to Y, which is indicated on the right by the payoff of 7 that is underlined. Examination of the third column reveals that both K and L are best responses to Z; thus, both of the 5s in this column are underlined.
+
+The analysis of the game continues with the evaluation of player 2’s best responses. To find player 2’s best response to J, we scan across the first row of the matrix and look at player 2’s payoff numbers. The largest is 7, which is underlined in the right Figure. In other words, Y is player 2’s best response to J. Moving ahead to the second through fourth rows of the matrix, we find that X is player 2’s best response to K, Z is player 2’s best response to L, and both X and Y are best responses to M. These best responses are designated with the appropriately underlined numbers on the right.
+
+Having located the players’ best responses, we can easily find the Nash equilibria: There is a Nash equilibrium at each cell in which the payoff numbers for both players are underlined on the right. For example, (K, X) is a Nash equilibrium—K is player 1’s best response to X, and X is player 2’s best response to K. The game has two other Nash equilibria: (L, Z) and (M, Y). Observe that (K, X) is a strict Nash equilibrium because K and X are the only best responses to one another. Neither (L, Z) nor (M, Y) is a strict Nash equilibrium.
+
+
+The following Figure shows the Nash equilibria for the classical games discussed in the previous entry. The Nash equilibria are designated by circles around the relevant cells of the matrices. The set of rationalizable strategies also is indicated for each game (in that strategies removed by the iterated dominance procedure are stricken). Note that all strategies are rationalizable for every game except the pigs game and the prisoners’ dilemma.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/2023-11-21-game_theory_06.png}
+\end{figure}
 
 
 
