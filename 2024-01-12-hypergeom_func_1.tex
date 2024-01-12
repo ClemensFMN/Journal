@@ -1,0 +1,131 @@
+\DiaryEntry{Hypergeometric Functions}{2024-01-12}{Maths}
+
+\subsection{Introduction}
+
+We first define the rising factorial or Pochhammer symbol, $(q)_n$ for non-negative $n$ as
+
+\bee
+(q)_n = \begin{cases} 1 & n=0 \\
+q(q+1)\cdots (q+n-1) &  n > 0 \end{cases}
+\eee
+
+For $q$ being an integer, an equivalent definition using factorials is as follows,
+
+\begin{equation}
+\label{2024-01-12:eq1}
+(m)_n = \frac{(m+n-1)!}{(m-1)!}
+\end{equation}
+
+Some stuff for rising factorials can also be found in entry \ref{2015-10-29:entry} (but with slightly different notation). For our purposes here, it is important to note that $q$ can be a real / complex number. In case of $q$ being a negative integer, the Pochhammer symbol becomes zero; for example we have
+
+\begin{align*}
+(-2)_0 &= 1 \\
+(-2)_1 &= -2 \\
+(-2)_2 &= (-2)(-1) = 2 \\
+(-2)_3 &= (-2)(-1)0 = 0
+\end{align*}
+  
+For $m$ being a positive integer, we can write this as
+
+\bee
+(-m)_{n} = 0, \quad n \geq m+1
+\eee
+
+We can calculate values of the Pochhammer symbol using Python's sympy as follows.
+
+\begin{verbatim}
+from sympy import rf, Poly
+from sympy.abc import x
+rf(x, 5)
+>> x*(x + 1)*(x + 2)*(x + 3)*(x + 4)
+rf(-2,0)
+>> 1
+rf(-2,1)
+>> -2
+rf(-2,2)
+>> 2
+rf(-2,3)
+>> 0
+\end{verbatim}
+
+When $m$ is an integer, the Pochhammer symbols have some special values (using \eqref{2024-01-12:eq1}),
+
+\bee
+(1)_m = \frac{(m+1-1)!}{(0)!} = m!, \quad (2)_m = \frac{(2+m-1)!}{1!} = (m+1)!
+\eee
+
+We can also express the binomial coefficients by means of Pochhammer symbols according to
+
+\be
+\label{2024-01-12:eq2}
+\frac{(m)_n}{n!} = {m+n-1 \choose n}
+\ee
+
+With that in place, the hypergeometric function $_2 F_1(a,b;c;z)$ is defined as
+
+\bee
+_2 F_1(a,b;c;z) = \sum_{n=0}^\infty \frac{(a)_n (b)_n}{(c)_n} \frac{z^n}{n!} = 1 + \frac{ab}{c} \frac{z}{1!} + \frac{a(a+1)b(b+1)}{c(c+1)} \frac{z^2}{2!} + \cdots
+\eee
+
+Based on the discussion above about $(q)_n$ becoming zero, we note that the hypergeometric function reduces to a polynomial for either $a$ or $b$ being a negative integer,
+
+\begin{align*}
+_2 F_1(-m,b;c;z) &= \sum_{n=0}^m \frac{(a)_n (b)_n}{(c)_n} \frac{z^n}{n!} \\
+_2 F_1(a,-m;c;z) &= \sum_{n=0}^m \frac{(a)_n (b)_n}{(c)_n} \frac{z^n}{n!}
+\end{align*}
+
+Note also that $_2 F_1(a,b;c;z)$ is undefined (or infinite) if $c$ equals a non-positive integer.
+
+\subsection{Application / Special Cases}
+
+The most simple case of the hypergeometric function is with $a = 1, b = c$ which yields the geometric series,
+
+\bee
+_2 F_1(1, b; b; z) = \sum_{n=0}^\infty \frac{(1)_n (b)_n}{(b)_n} \frac{z^n}{n!} = \sum_{n=0}^\infty z^n = 1 + z + z^2 + \cdots
+\eee
+
+A bit more advanced is the expansion of $(1 + x)^a$ which can be shown to be
+
+\bee
+(1 + x)^a = _2 F_1(-a,b; b; -z)
+\eee
+
+We have (using \eqref{2024-01-12:eq1})
+
+\bee
+_2 F_1(-a,b; b; -z) = \sum_{n=0}^\infty \frac{(-a)_n (b)_n}{(b)_n} \frac{(-z)^n}{n!} = \sum_{n=0}^\infty \frac{(-a)_n }{(b)_n (-z)^n}{n!} = \sum_{n=0}^\infty {-a+n-1 \choose n} (-z)^n
+\eee
+
+Interestingly, the last expression matches the series expansion of $(1+x)^a$,
+
+\bee
+(1+x)^a = \sum_n {a \choose n} x^n
+\eee
+
+Many of the common mathematical functions can be expressed in terms of the hypergeometric function, or as limiting cases of it. As an example consider the function
+
+\bee
+\frac{\ln(x+1)}{x}
+\eee
+
+which has the following series expansion
+
+\bee
+\frac{\ln(x+1)}{x} = 1 - \frac{x}{2} + \frac{x^2}{3} - \frac{x^3}{4} + \frac{x^4}{5} \mp \cdots
+\eee
+
+We can make an educated guess (or check Wikipedia) how we can express this series by means of the hypergeometric function,
+
+\begin{align*}
+_2F_1(1,1;2;-z) &= \sum_{m=0}^\infty \frac{(1)_m (1)_m}{(2)_m} \frac{(-z)^m}{m!} \\
+&= \sum_{m=0}^\infty \frac{m! m!}{(m+1)!} \frac{(-z)^m}{m!} \\
+&= \sum_{m=0}^\infty \frac{m!}{(m+1)!} (-z)^m \\
+&= \sum_{m=0}^\infty \frac{(-z)^m}{m+1} \qed
+\end{align*}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
