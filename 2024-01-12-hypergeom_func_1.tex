@@ -61,6 +61,19 @@ We can also express the binomial coefficients by means of Pochhammer symbols acc
 \frac{(m)_n}{n!} = {m+n-1 \choose n}
 \ee
 
+Finally, we note that
+
+\bee
+(a)_{n+1} = a (a+1)_n
+\eee
+
+because
+
+\bee
+(a)_{n+1} = a(a+1) \cdots (a+n+1) = a \left[ (a+1) \cdots (a+n+1) \right] = a (a+1)_n \qed
+\eee
+
+
 With that in place, the hypergeometric function $_2 F_1(a,b;c;z)$ is defined as
 
 \bee
@@ -120,8 +133,14 @@ We can make an educated guess (or check Wikipedia) how we can express this serie
 _2F_1(1,1;2;-z) &= \sum_{m=0}^\infty \frac{(1)_m (1)_m}{(2)_m} \frac{(-z)^m}{m!} \\
 &= \sum_{m=0}^\infty \frac{m! m!}{(m+1)!} \frac{(-z)^m}{m!} \\
 &= \sum_{m=0}^\infty \frac{m!}{(m+1)!} (-z)^m \\
-&= \sum_{m=0}^\infty \frac{(-z)^m}{m+1} \qed
+&= \sum_{m=0}^\infty \frac{(-z)^m}{m+1}
 \end{align*}
+
+Therefore, we have
+
+\bee
+\frac{\ln(x+1)}{x} = _2F_1(1,1;2;-z)
+\eee
 
 
 
