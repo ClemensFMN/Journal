@@ -583,7 +583,7 @@ Since the sum of the angles in a triangle is $\pi$, the third angle is therefore
 
 Based on https://math.stackexchange.com/questions/4811109/on-the-sum-of-digits-of-2x.
 
-The approxomate number of digits $N(n)$ of $2^n$ in base-$10$ iseries
+The approxomate number of digits $N(n)$ of $2^n$ in base-$10$ is
 
 \bee
 N(n) = \log_{10}(2^n) = n \log_{10}(2) \approx 0.3010 x
@@ -609,6 +609,115 @@ S(n) &= 4.5 n \log_{10}(c)
 \end{align*}
 
 \todo{show Python plots}
+
+
+\subsection{Newton Method, Add-on}
+
+Already considered in \ref{2015-06-28:entry}, we add here some additional stuff. We want to find the zero of the function $f(x)$ and obtain a series of zero approxmations by the following iteration,
+
+\be\label{newton:eq1}
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+\ee
+
+\paragraph{Square-root.} As an example, we can use this to approximate the square root of a real $a$ by solving the equation $f(x) = x^2 - a = 0$. Inserting into the formula above, we obtain
+
+\bee
+x_{n+1} = x_n - \frac{x^2 - a}{2x} = x_n - \frac{1}{2}\left(x - \frac{a}{x]}\right) = \frac{1}{2} \left( x_n + \frac{a}{x_n}\right)
+\eee
+
+and we can interpret this is the arithmetic mean between the previous guess, $x_n$, and $\frac{a}{x_n}$.
+
+\paragraph{Convergence.} We next consider the convergence of the method. Suppose a root of $f(x)$ is at $a$ and we can make a Taylor expansion around the root,
+
+\bee
+0 = f(a) = f(x_n) + f'(x_n) (a - x_n) + \frac{1}{2}f''(\xi_n)(a - x_n)^2
+\eee
+
+where $\xi_n$ is in between $x_n$ and $a$. If we didvide above by $f'(x_n)$ and rearrange, we get
+
+\bee
+\frac{f(x_n)}{f'(x_n)} + (a - x_n) = - \frac{f''(\xi_n)}{2 f'(x_n)}(a - x_n)^2
+\eee
+
+We use the iteration equation \eqref{newton:eq1} to simplify the left side
+
+\bee
+(x_n - x_{n+1}) + (a - x_n) = a - x_{n+1} = - \frac{f''(\xi_n)}{2 f'(x_n)}(a - x_n)^2
+\eee
+
+We can interpret $a - x_{n+1}$ as the distance between the true zero and the estimate at stp $n+1$ and denote this as $\epsilon_{n+1}$. In a similar spirit, we can interpret $a - x_n$ as the distance between the true zero and the estimate at stp $n$ and denote this as $\epsilon_n$. So the error behaves according to
+
+\bee
+\epsilon_{n+1} = - \frac{f''(\xi_n)}{2 f'(x_n)} \epsilon_n^2
+\eee
+
+Or, if we take absolute values we obtain
+
+\bee
+|\epsilon_{n+1}| = \frac{ |f''(\xi_n)|}{2 |f'(x_n)|} \epsilon_n^2
+\eee
+
+This shows that the order of convergence is at least quadratic if (i) the first derivative is non-zero, $f'(x) \neq 0$, and if $f''(x)$ is continuous.\todo{Make this more precise}
+
+Let's start with finding the zeros of $f(x) = (x-2)(x-1)(x+3)$. A very simple Python script looks as follows.
+
+\begin{verbatim}
+  def f(x):
+  return(x-2)*(x-1)*(x+3)
+
+def fprime(x):
+  return(3*x**2 - 7)
+
+
+xn = 0 # [0]
+n = 0
+
+for n in range(5):
+  # xn = #[n]
+  xnp1 = xn - f(xn) / fprime(xn)
+  print(n, '&', xnp1, '&', 1-xnp1, '&', )
+  xn = xnp1
+\end{verbatim}
+
+It produces the following output.
+
+\begin{tabular}{c|lll} \hline
+  n & $x_{n+1}$ &  $1 - x_{n+1}$ \\ \hline
+  0 & 0.8571428571428571 & 0.1428571428571429 \\
+  1 & 0.9884498480243161 & 0.011550151975683876 \\
+  2 & 0.9999023971479097 & 9.760285209026165e-05 \\
+  3 & 0.9999999928567731 & 7.14322689887581e-09 \\
+  4 & 1.0 & 0.0
+\end{tabular}
+
+The amount of correct digits doubles with every iteration.
+
+\subsubsection{Non-quadratic Behaviour}
+
+If the conditions for the quadratic convergence proof above are not fulfilled, convergence will be slower. As an example, consider the case of the derivative being zero at the zero, as is the case with $f(x) = x^2$. Our iteration becomes
+
+\bee
+x_{n+1} = x_n - \frac{x_n^2}{2x_n} = \frac{x_n}{2}
+\eee
+
+and this equals $|\epsilon_{n+1}| = |x_{n+1} - 0| = |\frac{x_n}{2}|$ which is clearly linear convergence. Modifying the script from above for this equation, we obtain the following values which confirm our calculation.
+
+\begin{tabular}{c|lll} \hline
+n & $x_{n+1}$ &  $2 - x_{n+1}$ & $0.5^n$ \\ \hline
+0 & 1.0 & 1.0 & 1.0 \\
+1 & 1.5 & 0.5 & 0.5 \\
+2 & 1.75 & 0.25 & 0.25 \\
+3 & 1.875 & 0.125 & 0.125 \\
+4 & 1.9375 & 0.0625 & 0.0625 \\
+5 & 1.96875 & 0.03125 & 0.03125 \\
+6 & 1.984375 & 0.015625 & 0.015625 \\
+7 & 1.9921875 & 0.0078125 & 0.0078125 \\
+8 & 1.99609375 & 0.00390625 & 0.00390625 \\
+9 & 1.998046875 & 0.001953125 & 0.001953125
+\end{tabular}
+
+We can see that the error $\epsilon_{n+1} = |x_n - 2|$ halves in every iteration as predicted above (and which linear convergence??)
+
 
 
 
