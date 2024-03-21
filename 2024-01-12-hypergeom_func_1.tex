@@ -123,6 +123,27 @@ _2F_1(1,1;2;-z) &= \sum_{m=0}^\infty \frac{(1)_m (1)_m}{(2)_m} \frac{(-z)^m}{m!}
 &= \sum_{m=0}^\infty \frac{(-z)^m}{m+1} \qed
 \end{align*}
 
+\subsection{Differentiation Formulas, Differential Equation}
+
+We start with the following identity,
+
+\begin{equation*}
+    (a)_{n+1} = a (a+1)_n
+\end{equation*}
+
+This allows us to arrive with the following identity,
+
+\begin{equation*}
+    \frac{d}{dz} _2 F_1(a,b;c;z) = \frac{ab}{c} _2 F_1(a+1,b+1;c+1;z)
+\end{equation*}
+
+The hypergeometric function is a solution of the hypergeometric differential equation,
+
+\begin{equation*}
+    z(1-z) \frac{d^2 w}{dz^2} + \left[c - (a+b+1)\right] \frac{dw}{dz} - abw = 0
+\end{equation*}
+
+
 
 
 %%% Local Variables:
