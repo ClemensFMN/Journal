@@ -681,6 +681,8 @@ for n in range(5):
 
 It produces the following output.
 
+\vspace*{3mm}
+
 \begin{tabular}{c|lll} \hline
   n & $x_{n+1}$ &  $1 - x_{n+1}$ \\ \hline
   0 & 0.8571428571428571 & 0.1428571428571429 \\
@@ -690,17 +692,71 @@ It produces the following output.
   4 & 1.0 & 0.0
 \end{tabular}
 
+\vspace*{3mm}
+
 The amount of correct digits doubles with every iteration.
+
+\subsubsection{Failure Analysis}
+
+Newton's method is only guaranteed to converge if certain conditions are satisfied. If the assumptions made in the proof of quadratic convergence are met, the method will converge. Failure of the method to converge indicates that the assumptions made in the proof were not met. This is outlined in the following.
+
+\paragraph{Zero Derivative.} If we start at a point $x_0$ with derivative zero, $f'(x_0) = 0$, then $x_1$ is not defined and the algorithm will not start. The same happens if the algorithm reaches a point $x_k$ with zero derivative, $f(x_k) = 0$.
+
+Even if the derivative is small but not zero, the next iteration will be a far worse approximation.
+
+\paragraph{Cycle Points.} For some functions, some starting points may enter an infinite cycle, preventing convergence. Let
+
+\bee
+f(x)=x^{3}-2x+2
+\eee
+
+and take $0$ as the starting point. The first iteration produces $1$ and the second iteration returns to $0$ so the sequence will alternate between the two without converging to a root. In fact, this $2$-cycle is stable: there are neighborhoods around $0$ and around $1$ from which all points iterate asymptotically to the $2$-cycle (and hence not to the root of the function). In general, the behavior of the sequence can be very complex.
+
+\paragraph{Derivative does not exist at zero.} Consider the example of finding the cube root of zero, $f(x)={\sqrt[{3}]{x}}$. The function is continuous and infinitely differentiable, except for $x = 0$, where its derivative is undefined.
+
+For any iteration point $x_n$, the next iteration point will be:
+
+\bee
+x_{n+1}=x_{n} - \frac {f(x_{n})}{f'(x_{n})} = x_{n} - \frac {{x_{n}}^{\frac {1}{3}}}{{\frac {1}{3}}{x_{n}}^{-{\frac {2}{3}}}} = x_{n}-3x_{n}=-2x_{n}
+\eee
+
+The algorithm overshoots the solution and lands on the other side of the y-axis, farther away than it initially was; applying Newton's method actually doubles the distances from the solution at each iteration. 
+
+
+\paragraph{Discontinuous derivative.} If the derivative is not continuous at the root, then convergence may fail to occur in any neighborhood of the root. Consider the function
+
+\bee
+f(x)={\begin{cases}0&{\text{if }}x=0,\\x+x^{2}\sin {\frac {2}{x}}&{\text{if }}x\neq 0.\end{cases}}
+\eee
+
+Its derivative is:
+
+\bee
+f'(x)={\begin{cases}1&{\text{if }}x=0,\\1+2x\sin {\frac {2}{x}}-2\cos {\frac {2}{x}}&{\text{if }}x\neq 0.\end{cases}}
+\eee
+
+Within any neighborhood of the root, this derivative keeps changing sign as $x$ approaches $0$ from the right (or from the left) while $f(x) \geq x  - x^2 > 0$ for $0 < x < 1$.
+
+So $f(x)/f'(x)$ is unbounded near the root, and Newton's method will diverge almost everywhere in any neighborhood of it, even though allconditions are fulfilled.
+
 
 \subsubsection{Non-quadratic Behaviour}
 
-If the conditions for the quadratic convergence proof above are not fulfilled, convergence will be slower. As an example, consider the case of the derivative being zero at the zero, as is the case with $f(x) = x^2$. Our iteration becomes
+As an example, consider troothe case of the derivative being zero at the zero, as is the case with $f(x) = x^2$. Our iteration becomes
 
 \bee
 x_{n+1} = x_n - \frac{x_n^2}{2x_n} = \frac{x_n}{2}
 \eee
 
-and this equals $|\epsilon_{n+1}| = |x_{n+1} - 0| = |\frac{x_n}{2}|$ which is clearly linear convergence. Modifying the script from above for this equation, we obtain the following values which confirm our calculation.
+and from this we obtain
+
+\bee
+|\epsilon_{n+1}| = |x_{n+1} - 0| = |\frac{x_n}{2}| = \frac{|x_0|}{2^n}
+\eee
+
+The error reduces by a constant factor in very iteration and this is linear convergence. Modifying the script from above for this equation, we obtain the following values.
+
+\vspace*{3mm}
 
 \begin{tabular}{c|lll} \hline
 n & $x_{n+1}$ &  $2 - x_{n+1}$ & $0.5^n$ \\ \hline
@@ -716,7 +772,18 @@ n & $x_{n+1}$ &  $2 - x_{n+1}$ & $0.5^n$ \\ \hline
 9 & 1.998046875 & 0.001953125 & 0.001953125
 \end{tabular}
 
+\vspace*{3mm}
+
 We can see that the error $\epsilon_{n+1} = |x_n - 2|$ halves in every iteration as predicted above (and which linear convergence??)
+
+If we know the multiplicity $m$ of the zero, we can improve the rate of convergence by using the adapted iteration algorithm
+
+\bee
+x_{n+1} = x_n - m \frac{f(x_n)}{f'(x_n)}
+\eee
+
+Using $m=2$ and starting with $x_0=1$, the first iteration yields $x_1 = 0$ and we are finished.
+
 
 
 
