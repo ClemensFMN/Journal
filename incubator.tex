@@ -54,6 +54,7 @@ For the lower / upper bound we use the ``closest'' square number. The root then 
 6 < \sqrt{37} \cdots \sqrt{48} < 7
 \eee
 
+The only drawback is that we need to know the closest square numbers... 
 
 \subsection{Distance Point - Random Point}
 
@@ -78,67 +79,6 @@ E(d) = \int_{x,y} d f_x(x) f_y(y) dx dy
 \eee
 
 where $f_x(x), f_y(y)$ are the distributions of $x$ and $y$, respectively. The integrals seem to be rather tricky; even in case of the unit box (where the distribution is simple), I'm not sure if there is a closed-form solution for the double-integral. In case of the unit disc, already the distributions are complex (polar coordinates may help as $\phi$ is uniform in $[0, 2\pi]$ and $r$ is $\sim  r$ in $[0,1]$.
-
-\subsection{Predator-Prey}
-
-See entry \ref{2018-07-30:entry} and extend it to general coefficients,
-
-\begin{align}\label{2018-07-30-eq1}
-R' = \frac{dR}{dt} &= \alpha R - \beta RF \nonumber \\
-F' = \frac{dF}{dt} &= -\gamma F + \delta RF
-\end{align}
-
-We can rewrite the first equation as $R(\alpha - \beta F) = 0$ and obtain two fixed points from it: (i) $R = $, (ii) $F = \alpha/\beta$. We can use the second equation similarly, $F(- \gamma+  \delta R)$ and obtain (i) $F = 0$, (ii) $R = \gamma/\delta$. Therefore, we have two fixed points,
-
-\begin{align}
-  &R = F = 0\\
-  &R = \gamma / \delta, F = \alpha / \beta
-\end{align}
-
-To assess the stability of the fixed points, we calculate the Jacobian $\Jbf$ of the differential equation system \todo{Check!!!},
-
-\bee
-\Jbf = \begin{pmatrix} \frac{dR'}{dR} & \frac{dR'}{dF} \\ \frac{dF'}{dR} & \frac{dF'}{dF} \end{pmatrix} = \begin{pmatrix} \alpha - \beta F & - \beta R \\ \delta F & \delta R - \gamma \end{pmatrix}
-\eee
-
-Let's consider the fixed point $R = F = 0$ first. For these values, the Jacobian becomes
-
-\bee
-\Jbf_1 = \begin{pmatrix} \alpha & 0 \\ 0 & - \gamma \end{pmatrix}
-\eee
-
-The eigenvalues are the solution to $|\Jbf_1 - \lambda \Ibf | = 0$. We have
-
-\bee
-\begin{vmatrix} \alpha - \lambda & 0 \\ 0 & - \gamma - \lambda \end{vmatrix} = (\alpha - \lambda)(- \gamma - \lambda) = 0
-\eee
-
-and therefore the two eigenvalues become $\lambda_1 = \alpha, \lambda_2 = - \gamma$. In our model, the parameters $\alpha$ and $\gamma$ are always greater than zero, and therefore such the sign of the eigenvalues will be different. Hence the fixed point at the origin is a saddle point which is an instable fixed point \todo{is a saddle point always instable?}.
-
-For the other fixed point ($R = \gamma / \delta, F = \alpha / \beta$), the Jacobian becomes
-
-\bee
-\Jbf_2 = \begin{pmatrix} \alpha - \beta \alpha / \beta & - \beta \gamma / \delta \\ \delta \alpha / \beta & \delta \gamma / \delta - \gamma \end{pmatrix} = \begin{pmatrix} 0 & - \beta \gamma / \delta \\ \delta \alpha / \beta & 0 \end{pmatrix}
-\eee
-
-The eigenvalues of this matrix are given by
-
-\bee
-\begin{vmatrix} -\lambda & - \beta \gamma / \delta \\ \delta \alpha / \beta & - \lambda \end{vmatrix} = \lambda^2 - (- \beta \gamma / \delta)(\delta \alpha / \beta) = 0
-\eee
-
-From this follows
-
-\bee
-\lambda^2 + \alpha \gamma = 0 \rightarrow \lambda_{1,2} = \pm j \sqrt{\alpha \gamma}
-\eee
-
-As the eigenvalues are both purely imaginary and conjugate to each other, this fixed point must either be a center for closed orbits in the local vicinity or an attractive or repulsive spiral. In conservative systems, there must be closed orbits in the local vicinity of fixed points that exist at the minima and maxima of the conserved quantity. \todo{Copied from Wikipedia - do not understand completely!}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.6]{images/predator_prey.png}
-\end{figure}
 
 
 \subsection{Walli's Integral}
@@ -785,6 +725,118 @@ x_{n+1} = x_n - m \frac{f(x_n)}{f'(x_n)}
 Using $m=2$ and starting with $x_0=1$, the first iteration yields $x_1 = 0$ and we are finished.
 
 
+\subsection{Generating Functions, cont'd}
+
+Based on \cite{Tucker}.  At its heart, a generating function is a power series in one or more variables. By seleting the variables and some constraint on them, the product of the series can represent various combinatorial problems.
+
+\paragraph{Example 1.} Find the generating function for $a_r$, the number of ways to select $r$ balls from three green, three white, three blue, and three gold balls. This selection problem is equvalent to the number of integer solutions to
+
+\begin{equation*}
+  e_1 + e_2 + e_3 + e_4 = r, \quad 0 \leq e_i \leq 3
+\end{equation*}
+
+Here $e_1$ represents the number of green balls chosen, $e_2$ the number of white, $e_3$ blue, and $e_4$ gold. As a concrete example, suppose $r = 6$. Then the integer equation model is
+
+\begin{equation*}
+  e_1 + e_2 + e_3 + e_4 = 6, \quad 0 \leq e_i \leq 3
+\end{equation*}
+
+We want to construct a product of polynomial factors such that when multiplied out (formally), we obtain all products of the form $x^{e_1} \times x^{e_2} \times x^{e_3} \times x^{e_4}$ with each exponent $0 \leq e_i \leq 3$.
+
+In our example with $r=6$, a possible product would be
+
+\begin{equation*}
+  x^{2} \times x^{0} \times x^{1} \times x^{3}
+\end{equation*}
+
+which corresponds to two green balls, no white ball, one blue ball, and three gold balls. In total we have $r=6$ balls and each ball occurs in the range $[0,3]$ as required. So the generating function is an “inventory” of the powers of $x$ from which $e_i$ is chosen. That is, each factor should be $(x^0 + x^1 + x^2 + x^3)$. The desired generating function is thus $(x^0 + x^1 + x^2 + x^3)^4 = (1 + x^1 + x^2 + x^3)^4$.
+
+Expanding this expression in Maxima yields,
+
+\begin{verbatim}
+  (%i1)	f:(1+x+x^2+x^3)^4;
+  (%o1)	(x^3+x^2+x+1)^4
+  (%i2)	expand(f);
+  (%o2)	x^12+4*x^11+10*x^10+20*x^9+31*x^8+40*x^7+44*x^6+40*x^5+
+                                  +31*x^4+20*x^3+10*x^2+4*x+1
+\end{verbatim}
+
+Each coefficient $a_r$ in this series represents the number of ways to choose $r$ balls from our inventory of balls; Since we have $1 \times x^{12}$, there is one way to select $12$ balls (by choosing three of every color, the maximum number of balls available). On the other side, there is also one way to select $r=0$ balls, by taking none of each color.
+
+For the case of $r=6$ balls, we take the term $44 r^6$ and therefore, there are $44$ different ways to pick $6$ balls from our inventory.
+
+\paragraph{Example 2.} If we have a different number of balls for each color, the problem can be formulated in a similar manner. We still have the sum,
+
+\begin{equation*}
+  e_1 + e_2 + e_3 + e_4 = r
+\end{equation*}
+
+But the constraints for the $e_i$'s are different; for example,
+
+\begin{equation*}
+  1 \leq e_1 \leq 3, \quad 1 \leq e_2 \leq 3, \quad 0 \leq e_3 \leq 5, \quad  0 \leq e_4 \leq 5
+\end{equation*}
+
+which corresponds the generating function,
+
+\begin{align*}
+  &(x + x^2 + x^3)(x + x^2 + x^3)(1 + x + x^2 + x^3 + x^4 + x^5)(1 + x + x^2 + x^3 + x^4 + x^5) = \\
+  &(x + x^2 + x^3)^2(1 + x + x^2 + x^3 + x^4 + x^5)^2
+\end{align*}
+  
+Expanding this again, we obtain
+
+\begin{verbatim}
+  (%i5)	f:(x+x^2+x^3)^2*(1 + x + x^2 + x^3 + x^4 + x^5)^2;
+  (%o5)	(x^3+x^2+x)^2*(x^5+x^4+x^3+x^2+x+1)^2
+  (%i6)	expand(f);
+  (%o6)	x^16+4*x^15+10*x^14+18*x^13+27*x^12+36*x^11+43*x^10+46*x^9+
+                  +43*x^8+36*x^7+27*x^6+18*x^5+10*x^4+4*x^3+x^2
+\end{verbatim}
+
+The two ball colors represented by $e_1, e_2$ must occur at least once; therefore, the minimum number of balls to be retrieved from the inventory is two, as represented by $1 \times x^2$. Considering $r=6$ as above, we see $26 \times x^6$, so now the number of ways to choose $6$ has balls has reduced to $27$. This makes sense as now the constraints are tighter, therefore fewer possibilities remain.
+
+\paragraph{Example 3.}  We find the number of ways to collect $15$€ from $20$ distinct people if each of the first $19$ people can give a dollar (or nothing) and the twentieth person can give either $1$€ or $5$€ (or nothing).
+
+This corresponds to the following generating function
+
+\begin{equation*}
+  (1+x)^{19}(1+x+x^5)
+\end{equation*}
+
+We are interested in the coefficient of $x^{15}$ which we can obtain using the \verb|coeff| function as follows,
+
+\begin{verbatim}
+  (%i5)	gf:(1+x)^19 * (1+x+x^5);
+  (%o5)	(x+1)^19*(x^5+x+1)
+  (%i20)	coeff(expand(gf),x,15);
+  (%o20)	107882
+\end{verbatim}
+
+\paragraph{Example 4.} We can also include inifinte boxes; eg How many ways are there to distribute $25$ identical balls into seven distinct boxes if the first box can have no more than $10$ balls but any number can go into each of the other six boxes?
+
+The generating function becomes
+
+\begin{equation*}
+  (1 + x + x^2 + \cdots + x^{10})(1+x+x^2+\cdots)^6
+\end{equation*}
+
+We can write the generating function As
+
+\begin{equation*}
+  \frac{1-x^{11}}{1-x}\left(\frac{1}{1-x}\right)^6
+\end{equation*}
+
+In \cite{Tucker}, they use a lot of machinery to get a closed-form expression for the generating function; here I'm lazy and use wxMaxima
+
+\begin{verbatim}
+  (%i21)	gf:(1-x^11)/(1-x)*(1/(1-x))^6;
+  (%o21)	(1-x^11)/(1-x)^7
+  (%i29)	taylor(gf, x, 0, 25);
+  (%o29)/T/	1+7*x+28*x^2+84*x^3+210*x^4+462*x^5+924*x^6+1716*x^7+3003*x^8+5005*x^9+8008*x^10+12375*x^11+18557*
+  x^12+27104*x^13+38676*x^14+54054*x^15+74151*x^16+100023*x^17+132880*x^18+174097*x^19+225225*x^20+288002*
+  x^21+364364*x^22+456456*x^23+566643*x^24+697521*x^25+...
+\end{verbatim}
 
 
 
