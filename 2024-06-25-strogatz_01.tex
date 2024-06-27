@@ -1,0 +1,127 @@
+\DiaryEntry{Strogatz, I}{2024-06-25}{ODE}
+
+\subsection{Introduction - first-order ODEs}
+
+Consider the simple homogeneous differential equation,
+
+\begin{equation}\label{2024-06-25:eq1}
+y'(t) + p(t) y(t) = 0
+\end{equation}
+
+We can use separation of variables to solve as follows,
+
+\bee
+\frac{dy(t)}{dt} + p(t) y(t) = 0 \rightarrow \frac{dy(t)}{y(t)} = - p(t) y(t)
+\eee
+
+Integrating both sides yields
+
+\bee
+\ln y(t) = -P(t) + C \rightarrow y(t) = D e^{-P(t)}
+\eee
+
+where we have defined 
+
+\bee
+P(t) = \int p(t) dt
+\eee
+
+If we find a closed-form expression to the differential equation depends on the integratability of $p(t)$.
+
+Now let's consider the inhomogeneous counterpart,
+
+\begin{equation}\label{2024-06-25:eq2}
+y'(t) + p(t) y(t) = f(t)
+\end{equation}
+
+The solution $y(t)$ can be shown to consist of two parts,
+
+\bee
+y(t) = g(t) + h(t)
+\eee
+
+where $g(t)$ solves the homogeneous differential equation \eqref{2024-06-25:eq1} and $h(t)$ is a \emph{particular} solution. This particular solution can be found via several methods; in the following we consider the \emph{variation of parameters} approach. We set
+
+\bee
+h(t) = v(t) g(t)
+\eee
+
+and inserting this into \eqref{2024-06-25:eq2} yields
+
+\begin{align*}
+h'(t) + p(t) h(t) &= \left( v(t)g(t)\right)' + p(t) v(t) g(t) = v'(t) g(t) + v(t) g'(t) + p(t) v(t) g(t) \\
+                  &= v(t) \left[ g'(t) + p(t) g(t) \right] + v'(t) g(t) = v'(t) g(t)
+\end{align*}
+
+where we have used the fact that $g'(t) + p(t) g(t) = 0$ because $g(t)$ is the solution to the homogeneous differential equation.
+
+So from this we take that $v'(t) g(t) = f(t)$ for $h(t)$ to be a particular solution. From this we obtain
+
+\bee
+v'(t) = \frac{f(t)}{g(t)}
+\eee
+
+and the solution to \eqref{2024-06-25:eq2} becomes
+
+\bee
+y(t) = v(t) e^{-P(t)} + A e^{-P(t)}
+\eee
+
+\subsection{Exercise 5.2.11}
+
+Here we are given a system of linear differential equations determined by the matrix $\Abf$,
+
+\bee
+\Abf = \begin{pmatrix} \lambda & b \\ 0 & \lambda \end{pmatrix}
+\eee
+
+We can show that this matrix has one eigenvalue equal $\lambda$ and the corresponding eigenvector is $(1,0)^T$.
+
+This corresponds to the following system
+
+\begin{align*}
+x'(t) &= \lambda x(t) + b y(t) \\
+y'(t) &= \lambda y(t)
+\end{align*}
+
+Note that the two differential equations are "asymmetrically" coupled; the second one affects the first, but ot the other way round. We therefore start solving this system with the second equation. Either we "see" the solution or we recognize it as a homogeneous differential equation,
+
+\bee
+y'(t) - \lambda y(t) = 0
+\eee
+
+with $p(t) = - \lambda$ and therefore $P(t) = -\lambda t + C$. The solution therefore becomes
+
+\bee
+y(t) = D e^{\lambda t}
+\eee
+
+Plugging this into the first equation, we obtain
+
+\bee
+x'(t) - \lambda x(t) = b D e^{\lambda t}
+\eee
+
+Using the variation of parameter method from above, we have
+
+\bee
+v'(t) = \frac{f(t)}{g(t)} = \frac{ b D e^{\lambda t} }{ D e^{\lambda t} } = G \rightarrow v(t) = G t + H
+\eee
+
+and finally arrive at the following solution
+
+\bee
+y(t) = (Gt + H) e^{\lambda t} + A e^{\lambda t} = (Mt + N) e^{ \lambda t}
+\eee
+
+So the behaviour of the system is governed by the single eigenvalue; but since there is only one eigenvalue, we have the $t$-termi n the soluton as well.
+
+The $t$-term controls the behaviour of the solution for small values of $t$; if $t$ is sufficiently large, the exponential term dominates the linear $t$-term.
+
+The corresponding jupyter notebook can be found \href{https://github.com/ClemensFMN/Notebooks/blob/main/ODE/Ex_5.2.11.ipynb}{here}.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
