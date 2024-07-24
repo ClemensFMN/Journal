@@ -67,6 +67,76 @@ and the solution to \eqref{2024-06-25:eq2} becomes
 y(t) = v(t) e^{-P(t)} + A e^{-P(t)}
 \eee
 
+\subsection{Introduction - Linear ODE systems}
+
+\be\label{2024-06-25:eq3}
+\ybf' = \Abf \ybf
+\ee
+
+As a side note, the system has one fixed point at $\zerobf$.
+
+We assume the matrix $\Abf$ has eigenvalues $\lambda_1, \lambda_2, \ldots, \lambda_N$ and corresponding eigenvectors $\ubf_1, \ubf_2, \ldots, \ubf_N$. We collect the eigenvectors column-wise into a matrix $\Ubf$ and the eigenvalues in a diagonal matrix $\Lbf$.
+
+This allows us to factor the matrix (eigenvalue decomposition) as
+
+\bee
+\Abf = \Ubf \Lbf \Ubf^{-1}
+\eee
+
+The solutions $\ybf(t)$ to the ODE system \eqref{2024-06-25:eq3} are then 
+
+\bee
+\ybf(t) = c_1 \ubf_1 e^{\lambda_1 t)} + \cdots + c_N \ubf_N e^{\lambda_N t)}
+\eee
+
+where the constants $c_i$ depend on the initial conditions. So we have a linear combination of exponentials (whose decay is determined by the $\lambda_i$s) in the direction of the eigenvectors $\ubf_i$.
+
+We next consider the $2-$dimensional case where the following cases exist: (i) Two real distinct eigenvalues, (ii) complex eigenvalues, (iii) repeated (real) eigenvalues.
+
+\paragraph{Two real distinct eigenvalues.} Here we can subdivide into three cases: Both eigenvalues negative $\lambda_2 < \lambda_1 < 0$, both eigenvalues positive $0 < \lambda_2 < \lambda_1$, and one negative, one positive $\lambda_2 < 0 < \lambda_1$.
+
+When both are positive, the exponentials are diverging as $t \rightarrow \infty$ and the fixed point is a source. If the matrix $\Abf$ is not "special", the eigenvectors are linearly independent, but not orthogonal; so in most cases we see a linear combination of both solutions,
+
+\bee
+\ybf(t) = c_1 \ubf_1 e^{\lambda_1 t)} + c_2 \ubf_2 e^{\lambda_2 t)}
+\eee
+
+If the eigenvectors are orthogonal (for example, in case of diagonal matrices), then we have
+
+\bee
+\ybf(t) = c_1 \begin{pmatrix} 1 \\ 0 \end{pmatrix} e^{\lambda_1 t)} + c_2 \begin{pmatrix} 0 \\ 1 \end{pmatrix} e^{\lambda_2 t)}
+\eee
+
+and we can see the effect of the different eigenvalues in the components of $\ybf(t)$.
+
+When both eigenvalues are negative, then the exponentials are converging as $t \rightarrow \infty$ and the fixed point is a sink.
+
+More interesting is the case where the two eigenvalues have different sign, $\lambda_2 < 0 < \lambda_1$. Here we have a saddle point, where one solution represents a sink ($\lambda_1 > 0$), the other a source ($\lambda_2 < 0$).
+
+\paragraph{Complex Eigenvalues.}
+
+Here we get complex solutions, which we can rewrite as (increasing / decreasing) oscillations,
+
+\bee
+\ybf(t) = c_1 \begin{pmatrix} \cos \beta t \\ - \sin \beta t \end{pmatrix} e^{\alpha t)} + c_2 \begin{pmatrix} \sin \beta t \\ \cos \beta t \end{pmatrix} e^{\alpha t)}
+\eee
+
+\paragraph{Repeated Eigenvalues}
+
+In case of a (scaled) identity matrix $\Abf$, we have one eigenvalue $\lambda$, but still two eigenvectors. The solution is then 
+
+\bee
+\ybf(t) = c_1 \begin{pmatrix} 1 \\ 0 \end{pmatrix} e^{\lambda t)} + c_2 \begin{pmatrix} 0 \\ 1 \end{pmatrix} e^{\lambda t)}
+\eee
+
+In case of a system
+
+\bee
+\Abf = \begin{pmatrix} \lambda & b \\ 0 & \lambda \end{pmatrix}
+\eee
+
+we have one eigenvalue and one eigenvector and this is covered in the next Subsection.
+
 \subsection{Exercise 5.2.11}
 
 Here we are given a system of linear differential equations determined by the matrix $\Abf$,
