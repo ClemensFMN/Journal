@@ -137,6 +137,30 @@ In case of a system
 
 we have one eigenvalue and one eigenvector and this is covered in the next Subsection.
 
+\subsection{Converting a 2D ODE System into a 2nd order ODE}
+
+Consider the system
+
+\begin{align*}
+    x' &= ax + by \\
+    y' &= cx + dy
+\end{align*}
+
+with constant coefficients $a,b,cd,$. Differtiating the second equation yields $y'' = cx' + dy'$ and if we insert the first equation for $x'$ we obtain
+
+\bee
+y'' = c(ax + by) + dy' = cax + cby + dy'
+\eee
+
+There is one last $x$ in the result which we can get rid of as follows: From the second equation we obtain $x = \frac{1}{c}(y' - dy)$ and inserting yields
+
+\bee
+y'' = ca \frac{1}{c}(y' - dy) + cby + dy' = ay' - ady + cby + dy' = (a+d)y' + (cb-ad)y \qed
+\eee
+
+
+
+
 \subsection{Exercise 5.2.11}
 
 Here we are given a system of linear differential equations determined by the matrix $\Abf$,
