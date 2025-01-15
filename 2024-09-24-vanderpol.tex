@@ -4,9 +4,9 @@
 
 The ODE of the oscillator is given as
 
-\be\label{20240924:eq1}
+\begin{equation}\label{20240924:eq1}
 x'' - \mu(1-x^2)x' + x = x'' + \mu(x^2 - 1)x' + x = 0
-\ee
+\end{equation}
 
 We can convert this into an ODE system
 
@@ -17,9 +17,9 @@ x' &= y
 
 This is a special case of a Lienard System which is given by the following ODE,
 
-\bee
+\begin{equation*}
 x'' + f(x) x' + g(x) = 0
-\eee
+\end{equation*}
 
 We can rewrite it as an ODE system
 
@@ -43,9 +43,9 @@ This result should seem plausible. The assumptions on $g(x)$ mean that the resto
 
 We can analyze the conditions for the van der Pol system with $f(x) = \mu(x^2 - 1)$ and $g(x) = x$. Conditions 1 - 4 are fulfilled, for the last we calculate
 
-\bee
+\begin{equation*}
 F(x) = \int_0^x f(u) du = \mu \left( \frac{x^3}{3} - x \right) = \frac{x^3}{3} \mu x (x^2 - 3)
-\eee
+\end{equation*}
 
 This has one positive zero at $x = \sqrt{3}$, the last condition is fulfilled, and therefore the van der Pol system has a unique, stable limit cycle surrounding the origin in the phase plane.
 
@@ -55,21 +55,21 @@ We consider the case $\mu >> 1$. In this strongly nonlinear limit, we will see t
 
 We start with introduction of new variables based on the observation,
 
-\bee
+\begin{equation*}
 x'' + \mu x' (x^2 - 1) = \frac{d}{dt} \left( x' + \mu \left[ \frac{1}{3} x^3 - x \right] \right)
-\eee
+\end{equation*}
 
 We introduce $F(x) = \frac{1}{3} x^3 - x$ and $w = x' + \mu F(x)$ and then we have
 
-\bee
+\begin{equation*}
 x'' + \mu x' (x^2 - 1) = \frac{d}{dt} w
-\eee
+\end{equation*}
 
 Going back to the van der Pol ODE \eqref{20240924:eq1}, we see that $x'' + \mu x' (x^2 - 1) = - x$ and therefore 
 
-\bee
+\begin{equation*}
 \frac{d}{dt} w = -x
-\eee
+\end{equation*}
 
 Collecting everything together, we arrive at the following ODE system
 
@@ -91,21 +91,21 @@ This analysis shows that the limit cycle has two widely separated time scales: o
 
 With the above variable substitution, we can calculate an estimate for the oscillation period $T$ as two times the integral over $dt$ between time $t_A$ and $t_B$,
 
-\bee
+\begin{equation*}
 T \approx 2 \int_{t_A}^{t_B} dt
-\eee
+\end{equation*}
 
 On the slow branches, we approximately have $x' \approx 0$ and therefore $y \approx F(x)$. Therefore
 
-\bee
+\begin{equation*}
 \frac{dy}{dt} \approx F'(x) \frac{dx}{dt} = (x^2 - 1) \frac{dx}{dt}
-\eee
+\end{equation*}
 
 But from the ODE system, we have $y' = -x / \mu$ and therefore
 
-\bee
+\begin{equation*}
 \frac{dx}{dt} = \frac{dy}{dt} \frac{1}{x^2-1} = - \frac{x}{\mu(x^2-1)} \rightarrow dt = - \frac{\mu(x^2-1)}{x} dx
-\eee
+\end{equation*}
 
 Note: Keep in mind that this is \emph{only} valid on the slow branches!
 
@@ -116,23 +116,23 @@ Note: Keep in mind that this is \emph{only} valid on the slow branches!
 
 Before we can integrate, we need to know where the slow branch starts and ends; ie the coordinates $x_A, x_B$. Point B is given by the local minimum of $F(x)$,
 
-\bee
+\begin{equation*}
 \frac{dF(x)}{dx} = x^2 - 1 = 0 \rightarrow x = \pm 1
-\eee
+\end{equation*}
 
 Looking at above Figure, we choose $x_B = 1$. By symmetry, $x_A = - x_C$ and from the Figure we take $y_B = y_C$. For $y_B$, we obtain $y_B = F(x_B) = -2/3$, and from this we get $x_A = 2$. So our integral finally becomes
 
-\bee
+\begin{equation*}
 T \approx - 2 \int_{x_B}^{x_A} \frac{\mu(x^2-1)}{x} dx = \cdots = \mu (3 - 2 \ln 2) \qed
-\eee
+\end{equation*}
 
 \subsection{Weakly Nonliner Oscillators}
 
 We consider oscillators with a small non-linear damping term,
 
-\be\label{20240924:eq2}
+\begin{equation}\label{20240924:eq2}
 x''  + x + \epsilon h(x, x') = 0
-\ee
+\end{equation}
 
 with $0 < \epsilon << 1$ and the smooth non-linear damping function $h(x, x')$. Setting $h(x, x') = (x^2-1)$ returns the van der Pol oscillator, $h(x, x') = x^3$ is the \emph{Duffing equation}.
 
@@ -142,79 +142,79 @@ To apply two-timing, let $\tau = t$ denote the fast time, and let $T = \epsilon 
 
 We start with a series expansion of \eqref{20240924:eq2},
 
-\be\label{20240924:eq3}
+\begin{equation}\label{20240924:eq3}
 x(t, \epsilon) = x_0(\tau, T) + \epsilon x_1(\tau, T) + \Oc(\epsilon^2)
-\ee
+\end{equation}
 
 The time derivatives can be obtained by means of the chain rule,
 
-\bee
+\begin{equation*}
 x' = \frac{dx}{dt} = \frac{\partial x}{\partial \tau} + \frac{\partial x}{\partial T} \frac{\partial T}{\partial t} = \frac{\partial x}{\partial \tau} + \epsilon \frac{\partial x}{\partial T}
-\eee
+\end{equation*}
 
 Let's simplify notation by writing $\partial_\tau x = \frac{\partial x}{\partial \tau}$ so that we arrive at
 
-\bee
+\begin{equation*}
 x' = \frac{dx}{dt} = \partial_\tau x + \epsilon \partial_T x
-\eee
+\end{equation*}
 
 Let's use this in the series expansion \eqref{20240924:eq3},
 
-\be\label{20240924:eq10}
+\begin{equation}\label{20240924:eq10}
 x' = \partial_\tau x_0 + \epsilon ( \partial_T x_0 + \partial_\tau x_1 ) + \Oc(\epsilon^2)
-\ee
+\end{equation}
 
 and
 
-\be\label{20240924:eq11}
+\begin{equation}\label{20240924:eq11}
 x'' = \partial_{\tau \tau} x_0 + \epsilon (\partial_{\tau \tau} x_1 + 2 \partial_{T \tau} x_0) + \Oc(\epsilon^2)
-\ee
+\end{equation}
 
 We will use this approach to solve the damped linear oscillator.
 
 \paragraph{Damped Linear Oscillator.} We want to solve
 
-\bee
+\begin{equation*}
 x'' + 2 \epsilon x' + x = 0
-\eee
+\end{equation*}
 
 with initial value conditions $x(0) = 0, x'(0) = 1$. Using \eqref{20240924:eq10} and \eqref{20240924:eq11} we get 
 
-\bee
+\begin{equation*}
 \partial_{\tau \tau} x_0 + \epsilon ( \partial_{\tau \tau} x_1  + 2 \partial_{T \tau} x_0) + 2 \epsilon \partial_\tau x_0 + x_0  + \epsilon x_1 + \Oc(\epsilon^2) = 0
-\eee
+\end{equation*}
 
 Let's collect all powers of $\epsilon^0$ to get
 
-\bee
+\begin{equation*}
 \partial_{\tau \tau} x_0 + x_0 = 0
-\eee
+\end{equation*}
 
 which is a simple linear oscillator having solutions of the form
 
-\bee
+\begin{equation*}
 x_0(\tau) = A \sin \tau + B \cos \tau
-\eee
+\end{equation*}
 
 However, the interesting part is that the “constants” $A$ and $B$ are actually functions of the slow time $T$. Here we are invoking the above mentioned ideas that $\tau$ and $T$ should be regarded as independent variables, with functions of $T$ behaving like constants on the fast time scale $\tau$.
 
 We can determine $A(T)$ and $B(T)$ by looking at the next order of $\epsilon$. This yields
 
-\bee
+\begin{equation*}
 \partial_{\tau \tau} x_1  + 2 \partial_{T \tau} x_0 + 2 \partial_\tau x_0 + x_1 = 0
-\eee
+\end{equation*}
 
 Separating $x_0$ and $x_1$ terms, we obtain
 
-\bee
+\begin{equation*}
 \partial_{\tau \tau} x_1 + x_1 = - 2 ( \partial_{T \tau} x_0 + \partial_\tau x_0)
-\eee
+\end{equation*}
 
 Now inserting $_0(\tau) = A \sin \tau + B \cos \tau$ we obtain
 
-\bee
+\begin{equation*}
 \partial_{\tau \tau} x_1 + x_1 = -2 (A' + A) \cos \tau + 2(B' + B) \sin \tau
-\eee
+\end{equation*}
 
 This is again a second-order ODE but with sinusoidal driving force which will cause resonant behaviour. We want to avoid that and - with some handwaving - we set the coefficients to zero,
 
@@ -225,33 +225,33 @@ This is again a second-order ODE but with sinusoidal driving force which will ca
 
 This yields the solutions
 
-\be\label{20240924:eq20}
+\begin{equation}\label{20240924:eq20}
 A(T) = A(0) e^{-T}, \quad B(T) = B(0) e^{-T}
-\ee
+\end{equation}
 
 As a last step, we use the initial value conditions to obtain $A(0), B(0)$: We have $x(0) = 0$ and from \eqref{20240924:eq3}, we have 
 
-\bee
+\begin{equation*}
 0 = x(0) = x_0(0,0) + \epsilon x_1(0,0) + \Oc(\epsilon^2)
-\eee
+\end{equation*}
 
 From this follows $x_0(0,0) = x_1(0,0) = 0$. Inserting this into \eqref{20240924:eq20}, we find $B(0) = 0$.
 
 Using the second initial value condition, $x'(0) = 1$ and \eqref{20240924:eq10}, we obtain
 
-\bee
+\begin{equation*}
 1 = x'(0) = \partial_\tau x_0(0,0) + \epsilon ( \partial_T x_0(0,0) + \partial_\tau x_1(0,0) ) + \Oc(\epsilon^2)
-\eee
+\end{equation*}
 
 and therefore $\partial_\tau x_0(0,0) = 1$ and $\partial_T x_0(0,0) + \partial_\tau x_1(0,0) = 0$. Using $\partial_\tau x_0(0,0) = 1$ in \eqref{20240924:eq20}, we obtain $A(0) = 1$ and finally
 
-\bee
+\begin{equation*}
 x_0(\tau, T) = e^{-T} \sin \tau
-\eee
+\end{equation*}
 
 For the final solution $x$ we have
 
-\bee
+\begin{equation*}
 x = e^{-T} \sin \tau + \Oc(\epsilon) = e^{-\epsilon t} \sin t + \Oc(epsilon) \qed
-\eee
+\end{equation*}
 
