@@ -1,0 +1,60 @@
+\DiaryEntry{Lorenz Equations}{2025-02-23}{ODE}
+
+As first 3-dimensional system which exhibits chaotic behaviour, we study the following ODE system
+\begin{align*}
+    x' &= \sigma(y-x) \\
+    y' &= rx - y - xz \\
+    z' &= xy - bz
+\end{align*}
+
+It has three parameters, $\sigma, b, r > 0$. Lorenz discovered that this simple-looking deterministic system could have extremely erratic dynamics: over a wide range of parameters, the solutions oscillate irregularly, never exactly repeating but always remaining in a bounded region of phase space. When he plotted the trajectories in three dimensions, he discovered that they settled onto a  omplicated set, now called a strange attractor. Unlike stable fixed points and limit cycles, the strange attractor is not a point or a  curve or even a surface — it’s a fractal, with a fractional dimension between $2$ and $3$.
+
+The ODE system describes the dynamic behaviour of a special waterwheel, but we omit the derivation of the system here. 
+
+\subsection{Volume Contraction}
+
+The Lorenz system is dissipative: volumes in phase space contract under the flow. We can show this by considering the general dynamical system
+
+\begin{equation*}
+    \xbf' = f(\xbf)
+\end{equation*}
+
+We pick an arbitrary closed surface $S(t)$ of volume $V(t)$ in phase space; after an inifintesimal small timespan $dt$, we obtain a new surfce $S(t + dt)$ with volume $V(t+dt)$. The change of volume can be shown to be
+
+\begin{equation*}
+    V' = \int_S f \cdot \nbf dA = \int_V \nabla \cdot f dV
+\end{equation*}
+
+Here $\nbf$ is the outward normal of $S$. For the Lorenz system, the divergence operator yields
+
+\begin{equation*}
+    \nabla \cdot f = \frac{\partial}{\partial x} \left[ \sigma(y-x)\right] + \frac{\partial}{\partial y} \left[ rx - y - xz\right] + \frac{\partial}{\partial z} \left[ xy - bz\right]
+\end{equation*}
+
+This can be simplified to
+
+\begin{equation*}
+    \nabla \cdot f = - \sigma - 1 - b
+\end{equation*}
+
+With the assumption that the parameters are all positive, $\nabla \cdot f < 0$ and therefore the volume contracts. The divergence is constant, we have
+
+\begin{equation*}
+    V' = - (\sigma + 1 + b)V \rightarrow V(t) = V(0) e^{ - (\sigma + 1 + b) t}
+\end{equation*}
+
+Thus volumes in phase space shrink exponentially fast. Hence, if we start with an enormous solid blob of initial conditions, it eventually shrinks to a limiting set of zero volume, like a balloon with the air being sucked out of it. All trajectories starting in  the blob end up somewhere in this limiting set; later we’ll see it consists of fixed points, limit cycles, or for some parameter values, a strange attractor.
+
+Volume contraction imposes strong constraints on the possible solutions of the Lorenz equations as follows
+
+\begin{enumerate}
+    \item There are no quasiperiodic solutions of the Lorenz equations. If there were a quasiperiodic solution, it would have to lie on  the surface of a torus and this torus would be invariant under the flow. Hence the volume inside the torus would be constant in time. But this contradicts the fact that all volumes shrink exponentially fast.
+    \item It is impossible for the Lorenz system to have either repelling fixed points or repelling closed orbits. (By repelling, we mean that all trajectories starting near the fixed point or closed orbit are driven away from it.) Repellers are incompatible with volume contraction because they are sources of volume, in the following sense. Suppose we encase a repeller with a closed surface of initial conditions nearby in phase space. (Specifically, pick a small sphere around a fixed point, or a thin tube around a closed orbit.) A short time later, the surface will have expanded as the corresponding trajectories are driven away. Thus the volume inside the surface would increase. This contradicts the fact that all volumes contract.
+\end{enumerate}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
