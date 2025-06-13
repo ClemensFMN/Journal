@@ -1,0 +1,204 @@
+\DiaryEntry{Interpolation}{2025-06-12}{Maths}
+
+Based on \cite{suli2003numericalanalysis}.
+
+\subsection{Lagrange Interpolation}
+
+We start with a definition: Given that $n$ is a non-negative integer, let $\Pc_n$ denote the set of all (real-valued) polynomials of degree $\leq n$ defined over the set of $\mR$, the real numbers.
+
+We consider the following problem.
+
+\begin{definition}
+Let $n \geq 1$, and suppose that $x_i, i = 0, 1,\ldots,n$, are distinct real numbers (i.e., $x_i \neq x_j$ for $i \neq j$) and $y_i, i = 0, 1, \ldots , n$, are real numbers; we wish to find $p_n \in \Pc_n$ such that $p_n(x_i) = y_i, i = 0, 1,\ldots,n$.
+\end{definition}
+
+
+Define the fnuction
+
+\bee
+L_k(x) = \prod_{i=0, i \neq k}^n \frac{x - x_i}{x_k - x_i}
+\eee
+
+From this definition follows immediately
+
+\bee
+L_k(x_i) = \begin{cases} 1, \quad i=k \\ 0, \quad i \neq k \end{cases}
+\eee
+
+We can then define the Lagrange interpolation polynomial of degree $n$ for the set of points $\{(x_i, y_i): i = 0,\ldots,n\}$ as
+
+\be\label{2025-06-12:eq1}
+p_n(x) = \sum_{k=0}^n L_k(x) y_k
+\ee
+
+\paragraph{Example.} Let's consider $f(x) = e^x$ with interpolation points $x_0 = -1, x_1 = 0, x_2 = 1$.
+
+As $n = 2$, our three $L$ functions become
+
+\bee
+L_0 = \frac{(x - x_1)(x - x_2)}{(x_0 - x_1)(x_0 - x_2)} = \frac{1}{2}x (x-1)
+\eee
+
+\bee
+L_1 = \frac{(x - x_0)(x - x_2)}{(x_1 - x_0)(x_1 - x_2)} = 1 - x^2
+\eee
+
+and
+
+\bee
+L_2 = \frac{(x - x_0)(x - x_1)}{(x_1 - x_0)(x_1 - x_1)} = \frac{1}{2}x (x+1)
+\eee
+
+We can do this in Maxima \todo{extend}
+
+\begin{verbatim}
+    L0:(x-x1)*(x-x2)/(x0-x1)/(x0-x2);
+    subst(1,x2,subst(0,x1,subst(-1,x0,L0)));
+    L1:(x-x0)*(x-x2)/(x1-x0)/(x1-x2);
+    subst(1,x2,subst(0,x1,subst(-1,x0,L1)));
+    L2:(x-x0)*(x-x1)/(x2-x0)/(x2-x1);
+    subst(1,x2,subst(0,x1,subst(-1,x0,L2)));
+\end{verbatim}
+
+Having obtained the $L$ functions, we can write the Lagrange polynomial \eqref{2025-06-12:eq1} as
+
+\bee
+p_2(x) = \frac{1}{2}x (x-1) e^{-1} + (1-x^2)e^0 + \frac{1}{2}x (x+1) e^1
+\eee
+
+
+Although the values of the function $f$ and those of its Lagrange interpolation polynomial coincide at the interpolation points, $f(x)$ may be quite different from $p_n(x)$ when $x$ is not an interpolation point.
+
+\todo{add plot}
+
+\subsection{Integration}
+
+Newton-Cotes formula
+
+\bee
+\int_a^b f(x) dx \approx \int_a^b p_n(x) dx
+\eee
+
+If we insert the stuff from above and rename terms, we obtain the following approximation
+
+\bee
+\int_a^b f(x) dx \approx \sum_{k=0}^n w_k f(x_k)
+\eee
+
+with the weights $w_k$ given by
+
+\bee
+w_k = \int_a^b L_k(x) dx, \quad k=0,\ldots,n
+\eee
+
+The values $w_k$ are referred to as the quadrature weights, while the interpolation points $x_k$ are called the quadrature points. The numerical quadrature  rule quadrature weights and equally spaced quadrature points, is called the Newton-Cotes formula of order $n$. In order to illustrate the general idea, we consider two simple examples.
+
+\paragraph{Example 1.} Consider the cae $n=1$.
+
+
+\paragraph{Example 2.} Now let's move up one step and consider $n=2$.
+
+
+\subsection{Approximation in the 2-norm}
+
+Inner product between two functions
+
+\bee
+\langle f, g \rangle = \left( \int_a^b w(x) f(x) g(x) \right)^{1/2}
+\eee
+
+This induces a 2-norm
+
+\bee
+\| f  \|_2 = \left( \int_a^b w(x) f^2(x) \right)^{1/2}
+\eee
+
+Orthogonal polynomials
+
+
+Given a weight function $w$, defined, positive, continuous and integrable on the interval $(a, b)$, we say that the sequence of polynomials $\phi_j , j = 0, 1, \ldots$ is a system of orthogonal polynomials on the interval $(a, b)$ with respect to $w$, if each $\phi_j$ is of exact degree $j$, and
+if
+
+\bee
+\int_a^b w(x) \phi_j(x) \phi_k(x) dx \begin{cases} = 0 \quad \forall j \neq k \\ \neq 0 \quad \forall j = k \end{cases}
+\eee
+
+We can use the Gram-Schmidt orthogonalization procedure to obtain a sequence of orthogonal polynomials. If we chose $w(x) = 1$ and $\phi_0(x) = 1$, then the procedure yields the Legendre polynomials.
+
+The first four are:
+
+\begin{align*}
+    \phi_0(x) &= 0 \\
+    \phi_1(x) &= x \\
+    \phi_2(x) &= \frac{3}{2}x^2 - \frac{1}{2} \\
+    \phi_3(x) &= \frac{5}{2}x^3 - \frac{3}{2}x \\
+\end{align*}
+
+We can obtain these in Maxima using
+
+\begin{verbatim}
+    expand(legendre_p(2,x));
+    expand(legendre_p(3,x));
+\end{verbatim}
+
+With orthogonal polynomials in place, we can now define the 2-norm optimium approximation as
+
+There exists a unique polynomial $p_n \in \Pc_n$ such that $\| f - p_n \|_2 = \min_{q \in \Pc_n} \| f-q \|_2$.
+
+We first normalize the polynomials to obtain 
+
+\bee
+\psi_k(x) = \frac{\phi_k(x)}{\| phi_k \|_2}
+\eee
+
+Then we obtain the coefficients
+
+\bee
+\beta_k = \langle f, \psi_k \rangle
+\eee
+
+and then we obtain the approximation according to
+
+\bee
+p_n(x) = \beta_0 \psi_0(x) + \beta_1 \psi_1(x) + \cdots
+\eee
+
+\begin{verbatim}
+    integrate(legendre_p(2,x)*legendre_p(3,x),x,-1,1);
+    integrate(legendre_p(3,x)*legendre_p(3,x),x,-1,1);
+\end{verbatim}
+
+\paragraph{Example.} As a simple example, we approximate $e^x$ in the interval $[-1,1]$ for $n = 3$ in Maxima.
+
+\begin{verbatim}
+(%i11)	L0:legendre_p(0,x) / sqrt(integrate(legendre_p(0,x)^2, x,-1,1));
+(%o11)	1/sqrt(2)
+(%i12)	L1:legendre_p(1,x) / sqrt(integrate(legendre_p(1,x)^2, x,-1,1));
+(%o12)	(sqrt(3)*x)/sqrt(2)
+(%i13)	L2:legendre_p(2,x) / sqrt(integrate(legendre_p(2,x)^2, x,-1,1));
+(%o13)	(sqrt(5)*(-(3*(1-x))+(3*(1-x)^2)/2+1))/sqrt(2)
+(%i52)	L3:legendre_p(2,x) / sqrt(integrate(legendre_p(3,x)^2, x,-1,1));;
+(%o52)	(sqrt(7)*(-(3*(1-x))+(3*(1-x)^2)/2+1))/sqrt(2)
+(%i62)	f:exp(x);
+(%o62)	%e^x
+(%i63)	c0:integrate(f*L0, x, -1, 1);
+(%o63)	(%e-%e^(-1))/sqrt(2)
+(%i64)	c1:integrate(f*L1, x, -1, 1);
+(%o64)	sqrt(2)*sqrt(3)*%e^(-1)
+(%i65)	c2:integrate(f*L2, x, -1, 1);
+(%o65)	(sqrt(5)*(%e-7*%e^(-1)))/sqrt(2)
+(%i66)	c3:integrate(f*L3, x, -1, 1);
+(%o66)	(sqrt(7)*(%e-7*%e^(-1)))/sqrt(2)
+(%i67)	p:c0*L0 + c1*L1 + c2*L2 + c3*L3;
+(%o67)	3*%e^(-1)*x+6*(%e-7*%e^(-1))*(-(3*(1-x))+(3*(1-x)^2)/2+1)+(%e-%e^(-1))/2
+(%i68)	expand(p);
+(%o68)	9*%e*x^2-63*%e^(-1)*x^2+3*%e^(-1)*x-(5*%e)/2+(41*%e^(-1))/2
+\end{verbatim}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2025-06-12-exp.png}
+\end{figure}
+
+

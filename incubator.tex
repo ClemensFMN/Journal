@@ -727,7 +727,7 @@ Using $m=2$ and starting with $x_0=1$, the first iteration yields $x_1 = 0$ and 
 
 \subsection{Generating Functions, cont'd}
 
-Based on \cite{Tucker}.  At its heart, a generating function is a power series in one or more variables. By seleting the variables and some constraint on them, the product of the series can represent various combinatorial problems.
+Based on \cite{tucker2012appliedcombinatoris}.  At its heart, a generating function is a power series in one or more variables. By seleting the variables and some constraint on them, the product of the series can represent various combinatorial problems.
 
 \paragraph{Example 1.} Find the generating function for $a_r$, the number of ways to select $r$ balls from three green, three white, three blue, and three gold balls. This selection problem is equvalent to the number of integer solutions to
 
@@ -827,7 +827,7 @@ We can write the generating function As
   \frac{1-x^{11}}{1-x}\left(\frac{1}{1-x}\right)^6
 \end{equation*}
 
-In \cite{Tucker}, they use a lot of machinery to get a closed-form expression for the generating function; here I'm lazy and use wxMaxima
+In \cite{tucker2012appliedcombinatoris}, they use a lot of machinery to get a closed-form expression for the generating function; here I'm lazy and use wxMaxima
 
 \begin{verbatim}
   (%i21)	gf:(1-x^11)/(1-x)*(1/(1-x))^6;
@@ -839,6 +839,40 @@ In \cite{Tucker}, they use a lot of machinery to get a closed-form expression fo
 \end{verbatim}
 
 
+\subsection{Crossing a rectangle}
+
+Suppose we have a rectangle which we want to cross; ie go from point $A$ to point $C$. We can go upwards a length of $x$ (until point $B$), and then we move diagonally until we reach the destination $C$. The setup is shown in the following Figure.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.75]{images/crossing_rectangle.png}
+\end{figure}
+
+The total length of travel $d$ is given according to
+
+\bee
+d = x + \sqrt{(H - x)^2 + W^2}
+\eee
+
+The shortest path $d_0$ is achieved when we use the  diagonal for the whole trip. This equals $x=0$ and we have
+
+\bee
+d_0 = \sqrt{H^2 + W^2}
+\eee
+
+The longest path $d_H$ is achieved when we go up and then left; this equals $x=H$ and we have
+
+\bee
+d_H = H + W
+\eee
+
+We can define $r$ as the ratio between these two extremes,
+
+\bee
+r = \frac{d_H}{d_0} = \frac{H + W}{\sqrt{H^2 + W^2}} = \frac{1 + W / H}{\sqrt{1 + (W/H)^2}} = \frac{1 + \alpha}{\sqrt{1 + \alpha^2}}
+\eee
+
+where we have set $\alpha = W/H$. \todo{maximum is at x=1, show that}
 
 %%% Local Variables:
 %%% mode: latex
