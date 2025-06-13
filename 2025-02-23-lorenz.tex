@@ -52,6 +52,59 @@ Volume contraction imposes strong constraints on the possible solutions of the L
     \item It is impossible for the Lorenz system to have either repelling fixed points or repelling closed orbits. (By repelling, we mean that all trajectories starting near the fixed point or closed orbit are driven away from it.) Repellers are incompatible with volume contraction because they are sources of volume, in the following sense. Suppose we encase a repeller with a closed surface of initial conditions nearby in phase space. (Specifically, pick a small sphere around a fixed point, or a thin tube around a closed orbit.) A short time later, the surface will have expanded as the corresponding trajectories are driven away. Thus the volume inside the surface would increase. This contradicts the fact that all volumes contract.
 \end{enumerate}
 
+\subsection{Fixed Points}
+
+Let's look at the fixed points of the Lorenz system
+
+\begin{align*}
+    x' &= \sigma(y-x) \\
+    y' &= rx - y - xz \\
+    z' &= xy - bz
+\end{align*}
+
+One (trivial) fixed point is $x^\star = y^\star = z^\star = 0$. A second one follows from the first equation $x^\star = y^\star$. Inserting this into the second equation yields $r x^\star - x^\star - x^\star z = 0 \rightarrow x^\star(r - 1 - z^\star) = 0$ from which we obtain $z^\star = r-1$. Inserting this into the third equation finally yields ${x^\star}^2 - b(r-1) = 0 \rightarrow x^\star = \pm \sqrt{b(r-1)}$ and we obtain for the fixed points
+
+\begin{equation*}
+    \left(\pm \sqrt{b(r-1)}, \pm \sqrt{b(r-1)}, r-1 \right)^T
+\end{equation*}
+
+These are denoted as $C^+$ and $C^-$. When $r \rightarrow 1^+$, the two points coalesce with the origin in a \emph{pitchfork
+bifurcation}.
+
+\paragraph{Fixed point at origin.} We linearize the Lorenz system at the origin by omitting the $xz$ and $xy$ nonlinearities away,
+
+\begin{align*}
+    x' &= \sigma(y-x) \\
+    y' &= rx - y \\
+    z' &= - bz
+\end{align*}
+
+The equation for $z$ is decoupled and $z(t)$ approaches $0$ exponentially fast. The remaining system for $x-y$ has the following form
+
+\begin{align*}
+    x' &= \sigma(y-x) \\
+    y' &= rx - y
+\end{align*}
+
+with matrix
+
+\begin{equation*}
+    \begin{pmatrix}
+        -\sigma & \sigma \\
+        r & -1
+    \end{pmatrix}
+\end{equation*}
+
+The trace is $\tau = -\sigma-1 < 0$ and the determinant is $\Delta = \sigma(1-r)$. If $r > 1$, the origin is a saddle point because the determinant is negative. If $r < 1$, all directions are incoming and the origin is a sink. Specifically, since $\tau^2 - 4 \Delta = (\sigma + 1)^2 - 4 \sigma (1-r) = ... > 0$ and therefore the origin is a stable node for $r < 1$. \todo{more details}
+
+\paragraph{Fixed Points $C^+$ and $C^-$.} Now suppose $r > 1$, so that $C^+$ and $C^-$ exist. The calculation of their stability yields that they are linearly stable for
+
+\bee
+1 < r < r_H = \frac{\sigma (\sigma + b + 3)}{\sigma - b - 1}
+\eee
+
+
+
 
 
 %%% Local Variables:
