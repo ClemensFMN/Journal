@@ -848,13 +848,20 @@ Suppose we have a rectangle which we want to cross; ie go from point $A$ to poin
   \includegraphics[scale=0.75]{images/crossing_rectangle.png}
 \end{figure}
 
-The total length of travel $d$ is given according to
+The total length of travel as function of $x$, $d(x)$, is given according to
 
 \bee
-d = x + \sqrt{(H - x)^2 + W^2}
+d(x) = x + \sqrt{(H - x)^2 + W^2}, \quad 0 \leq x \leq H
 \eee
 
-The shortest path $d_0$ is achieved when we use the  diagonal for the whole trip. This equals $x=0$ and we have
+The following Figure shows the value of $d(x)$ for $W = H = 1$.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.75]{images/crossing_rectangle_1.png}
+\end{figure}
+
+From the plot we can see the shortest path $d_0$ is achieved when $x = 0$; i.e. we use the diagonal for the whole trip. In this case $d(x) = d_0$ and we have
 
 \bee
 d_0 = \sqrt{H^2 + W^2}
@@ -866,13 +873,19 @@ The longest path $d_H$ is achieved when we go up and then left; this equals $x=H
 d_H = H + W
 \eee
 
+The same applies for other values of $W$ and $H$ (in particular also for $W \neq H$). In the case of a very wide rectangle, $W \gg H$, the expression for $d(x)$ can be approximated by
+
+\bee
+d(x) \approx x + W
+\eee
+
 We can define $r$ as the ratio between these two extremes,
 
 \bee
-r = \frac{d_H}{d_0} = \frac{H + W}{\sqrt{H^2 + W^2}} = \frac{1 + W / H}{\sqrt{1 + (W/H)^2}} = \frac{1 + \alpha}{\sqrt{1 + \alpha^2}}
+r(\alpha) = \frac{d_H}{d_0} = \frac{H + W}{\sqrt{H^2 + W^2}} = \frac{1 + W / H}{\sqrt{1 + (W/H)^2}} = \frac{1 + \alpha}{\sqrt{1 + \alpha^2}}
 \eee
 
-where we have set $\alpha = W/H$. \todo{maximum is at x=1, show that}
+where we have set $\alpha = W/H$. We can show (by setting $dr / d \alpha = 0$ and solving for $\alpha$) that the maximum of $r(\alpha)$ is reached for $\alpha=1$.
 
 %%% Local Variables:
 %%% mode: latex
