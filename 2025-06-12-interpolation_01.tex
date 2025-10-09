@@ -71,7 +71,7 @@ Having obtained the $L$ functions, we can write the Lagrange polynomial \eqref{2
 p_2(x) = \frac{1}{2}x (x-1) e^{-1} + (1-x^2)e^0 + \frac{1}{2}x (x+1) e^1
 \eee
 
-The following Figure shows the plot of the function $e^x$ and the interpolation; note that both intersect at the interpolation points, but the interpolated function differs elsewhere. This shold not be surprising; we have added no further constraints (such as a minimization of the mean squared interpolation error) as we will do below.
+The following Figure shows the plot of the function $e^x$ and the interpolation; note that both intersect at the interpolation points, but the interpolated function differs elsewhere. This should not be surprising; we have added no further constraints (such as a minimization of the mean squared interpolation error) as we will do below.
 
 \begin{figure}[H]
     \centering
@@ -144,7 +144,7 @@ with the weights $w_k$ given by
 w_k = \int_a^b L_k(x) dx, \quad k=0,\ldots,n
 \eee
 
-The values $w_k$ are referred to as the quadrature weights, while the interpolation points $x_k$ are called the quadrature points. The numerical quadrature  rule quadrature weights and equally spaced quadrature points, is called the Newton-Cotes formula of order $n$. It is interesting to note that the quadratur weights $w_k$ do \emph{not} depend on the function to approximate; so the weights can be calculated and stored beforehand.
+The values $w_k$ are referred to as the quadrature weights, while the interpolation points $x_k$ are called the quadrature points. The integral approximation is called the Newton-Cotes formula of order $n$. It is interesting to note that the quadratur weights $w_k$ do \emph{not} depend on the function to approximate; so the weights can be calculated and stored beforehand.
 
 In order to illustrate the general idea, we consider two simple examples.
 
@@ -250,6 +250,7 @@ and
     K_k(x_i) = 0, \quad K'_k(x_i) = \begin{cases} 1, \quad i=k \\ 0, \quad i \neq k \end{cases}, \quad i,k=0, 1, \ldots n
 \end{equation*}
 
+\todo{continue}
 
 \subsection{Approximation in the 2-norm}
 
@@ -319,10 +320,10 @@ p_n(x) = \beta_0 \psi_0(x) + \beta_1 \psi_1(x) + \cdots
 \paragraph{Example.} As a simple example, we approximate $e^x$ in the interval $[-1,1]$ for $n = 3$ in Maxima. The following shows a (shortened) Maxima session obtaining the approximation.
 
 \begin{verbatim}
-L0:legendre_p(0,x) / sqrt(integrate(legendre_p(0,x)^2, x,-1,1));
+L0:legendre_p(0,x) / sqrt(integrate(legendre_p(0,x)^2, x,-1,1));
 L1:legendre_p(1,x) / sqrt(integrate(legendre_p(1,x)^2, x,-1,1));
 L2:legendre_p(2,x) / sqrt(integrate(legendre_p(2,x)^2, x,-1,1));
-L3:legendre_p(2,x) / sqrt(integrate(legendre_p(3,x)^2, x,-1,1));
+L3:legendre_p(3,x) / sqrt(integrate(legendre_p(3,x)^2, x,-1,1));
 f:exp(x);
 c0:integrate(f*L0, x, -1, 1);
 c1:integrate(f*L1, x, -1, 1);
@@ -331,13 +332,32 @@ c3:integrate(f*L3, x, -1, 1);
 p:c0*L0 + c1*L1 + c2*L2 + c3*L3;
 \end{verbatim}
 
-The Figure shows the approximation together with $e^x$; different to before, there are now no interpolation points where the function and its approximation match.
+The Figure shows the approximation together with $e^x$; the function and its approximation match very closely.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.75]{images/2025-06-12-exp_legendre.png}
 \end{figure}
 
+We can also investigate whether the RUnge phenomenon happens here as well. As before, we make a Legendre interpolation for $1/(1+x^2)$:
+
+\begin{verbatim}
+    N:10
+    legendres:makelist(legendre_p(k,x)  / sqrt(integrate(legendre_p(k,x)^2, x,-1,1)), k, 0, N)$
+    f:1/(1+x^2);
+    coeffs:makelist(integrate(f*legendres[k], x, -1, 1), k, 1, N);
+    approx:sum( coeffs[i]*legendres[i], i, 1, N)$
+    plot2d([approx, f], [x,-1.5,1.5], [plot_format, gnuplot])$
+\end{verbatim}
+
+and obtain the following Figure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{images/2025-06-12-runge_legendre.png}
+\end{figure}
+
+Inside the interval $[-1,1]$, the approximation is very good; however outside it is pretty bad (but this was to be expected). In any case, we don't observed a Runge phenomenon.
 
 \subsection{Gauss Quadrature Rules}
 
