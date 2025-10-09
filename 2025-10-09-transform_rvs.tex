@@ -1,0 +1,73 @@
+\DiaryEntry{Transformation of RVs}{2025-10-09}{Stochastic}
+
+Some additions to the continuous case covered in \ref{2019-01-31:entry}.
+
+To repeat, assume we have a continuous random variable $X$ which is mapped to another random variable $Y = g(X)$ by a function $g$. Then $Y$ has the pdf $f_Y(y)$ which depends on the distribution of $X$ and the function $g$,
+
+\be
+\label{2025-10-09:eq1}
+f_Y(y) = \sum_{y = g(x)} \left| \frac{dg^{-1}(y)}{dy} \right| f_X(g^{-1}(y))
+\ee
+
+\subsection{Transformation by $g(x) = x^2$}
+
+\paragraph{} With $y = g(x) = x^2$, we have $g^{-1}(y) = \sqrt{y}$ and therefore 
+
+\bee
+\frac{dg^{-1}(y)}{dy} = \frac{1}{2 \sqrt{y}}
+\eee
+
+According to \eqref{2025-10-09:eq1}, the pdf of $Y$ then becomes
+
+\bee
+f_Y(y) = \frac{1}{2 \sqrt{y}} \left[ f_X(\sqrt{y}) + f_X(-\sqrt{y})\right]
+\eee
+
+We can further simplify this when the distribution of $X$ is symmetric; ie $f_X(x) = f_X(-x)$,
+
+\be
+\label{2025-10-09:eq2}
+f_Y(y) = \frac{1}{\sqrt{y}} f_X(\sqrt{y})
+\ee
+
+\paragraph{Uniform Distribution 1.} When we transform $X$ with a uniform distribution in $[-1,1]$ with $g(x) = x^2$, then we have
+
+\bee
+f_Y(y) = \begin{cases} \frac{1}{2 \sqrt{y}} \quad 0 \leq y \leq 1 \\ 0 \qquad \text{otherwise} \end{cases}
+\eee
+
+The "interesting" observation is that the pdf goes to infinity for $y \rightarrow 0$. But this is actually not a problem, as we still get a finite probability for $Y$ being small,
+
+\bee
+P(Y \leq \epsilon) = \int_0^\epsilon \frac{1}{2 \sqrt{y}} dy = \frac{1}{2} \int_0^\epsilon y^{-1/2} dy = \left. y^{1/2} \right|_0^\epsilon = \sqrt{\epsilon}
+\eee
+
+\todo{show numerical results / plot}
+
+\paragraph{Uniform Distribution 2.} If we take a uniform distribution between $[0,1]$, then we cannot use the simplified formula \eqref{2025-10-09:eq2}for symmetric distributions, but we need \eqref{2025-10-09:eq1} instead.
+
+In the interval $[0,1]$ we have
+
+\bee
+f_Y(y) = \frac{1}{2 \sqrt{y}} \left[ f_X(\sqrt{y}) + f_X(-\sqrt{y})\right] = \frac{1}{2 \sqrt{y}}
+\eee
+
+\paragraph{Normal Distribution.} The distribution of $X$ is given by
+
+\bee
+f_X(x) = \frac{1}{\sqrt{2 \pi}} e^{-x^2 / 2}
+\eee
+
+With \eqref{2025-10-09:eq2} we get
+
+\bee
+f_Y(y) = \frac{1}{\sqrt{2 \pi y}} e^{-y / 2}
+\eee
+
+which is a $\chi^2$ distribution with one degree of freedom.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
