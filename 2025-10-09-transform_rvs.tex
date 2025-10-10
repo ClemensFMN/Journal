@@ -30,11 +30,18 @@ We can further simplify this when the distribution of $X$ is symmetric; ie $f_X(
 f_Y(y) = \frac{1}{\sqrt{y}} f_X(\sqrt{y})
 \ee
 
-\paragraph{Uniform Distribution 1.} When we transform $X$ with a uniform distribution in $[-1,1]$ with $g(x) = x^2$, then we have
+\paragraph{Uniform Distribution (1).} When we transform $X$ with a uniform distribution in $[-1,1]$ with $g(x) = x^2$, then we have
 
 \bee
 f_Y(y) = \begin{cases} \frac{1}{2 \sqrt{y}} \quad 0 \leq y \leq 1 \\ 0 \qquad \text{otherwise} \end{cases}
 \eee
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2025-10-09-plt_1.png}
+\caption{PDF}
+\end{figure}
+
 
 The "interesting" observation is that the pdf goes to infinity for $y \rightarrow 0$. But this is actually not a problem, as we still get a finite probability for $Y$ being small,
 
@@ -42,9 +49,22 @@ The "interesting" observation is that the pdf goes to infinity for $y \rightarro
 P(Y \leq \epsilon) = \int_0^\epsilon \frac{1}{2 \sqrt{y}} dy = \frac{1}{2} \int_0^\epsilon y^{-1/2} dy = \left. y^{1/2} \right|_0^\epsilon = \sqrt{\epsilon}
 \eee
 
-\todo{show numerical results / plot}
+This is also verified in the Python simulation in \verb+ /home/cnovak/sry/python/Notebooks/+ 
+\verb+ maths/RV_Transform_square.ipynb + and shown below.
 
-\paragraph{Uniform Distribution 2.} If we take a uniform distribution between $[0,1]$, then we cannot use the simplified formula \eqref{2025-10-09:eq2}for symmetric distributions, but we need \eqref{2025-10-09:eq1} instead.
+\begin{verbatim}
+    # generate a uniform distribution (-1,1)
+    n = stats.uniform(-1,2)
+    # and obtain RVs
+    x = n.rvs(N)
+    y = x**2
+    e = 0.02
+    print("analytical result = ", np.sqrt(e), "measured = ", len(y[y < e]) / N)
+    analytical result =  0.1414213562373095 measured =  0.141875
+\end{verbatim}
+
+
+\paragraph{Uniform Distribution (2).} If we take a uniform distribution between $[0,1]$, then we cannot use the simplified formula \eqref{2025-10-09:eq2}for symmetric distributions, but we need \eqref{2025-10-09:eq1} instead.
 
 In the interval $[0,1]$ we have
 
@@ -65,6 +85,61 @@ f_Y(y) = \frac{1}{\sqrt{2 \pi y}} e^{-y / 2}
 \eee
 
 which is a $\chi^2$ distribution with one degree of freedom.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2025-10-09-plt_1.png}
+\caption{PDF}
+\end{figure}
+
+
+\subsection{Transformation by $g(x) = 1/x$}
+
+Starting from \eqref{2025-10-09:eq1}, we note that $g^{-1}(y) = y^{-1}$ and 
+
+\bee
+\frac{dg^{-1}(y)}{dy} = - \frac{1}{y^2}
+\eee
+
+Since $g(x)$ is a one-to-one function, we do not need the summation in \eqref{2025-10-09:eq1} and arrive at
+
+\bee
+f_Y(y) =  \left| \frac{dg^{-1}(y)}{dy} \right| f_X(g^{-1}(y)) = \frac{1}{y^2} f_X(g^{-1}(y))
+\eee
+
+\paragraph{Uniform Distribution.} Let's start again with a uniform distribution in $[0,1]$. The expression $f_X(g^{-1}(y))$ can be simplified to
+
+\bee
+f_X(g^{-1}(y)) = f_x\left(\frac{1}{y}\right) = \begin{cases} 1 \quad y \geq 1 \\ 0 \quad y < 1 \end{cases}
+\eee
+
+We finally get the desired pdf
+
+\bee
+f_Y(y) =  \begin{cases} \frac{1}{y^2} \quad y \geq 1 \\ 0 \quad y < 1 \end{cases}
+\eee
+
+We can see that the pdf is "thinned out" to the right as the $1/x$ moves small values far to the right.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2025-10-09-plt_3.png}
+\caption{PDF}
+\end{figure}
+
+
+\paragraph{Normal Distribution.} We can repeat above with a normal distribution
+
+\bee
+f_X(x) = \frac{1}{\sqrt{2 \pi}} e^{-x^2 / 2}
+\eee
+
+and obtain
+
+\bee
+f_Y(y) = \frac{1}{y^2\sqrt{2 \pi}} e^{-1 / (2 y^2)}
+\eee
+
 
 
 %%% Local Variables:
