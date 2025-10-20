@@ -92,6 +92,28 @@ which is a $\chi^2$ distribution with one degree of freedom.
 \caption{PDF}
 \end{figure}
 
+\subsection{Transformation by $g(x) = \sqrt{x}$}
+
+Somehow as a converse example, we consider $g(x) = \sqrt{x} \rightarrow x = g^{-1}(y) = y^2$. The derivative of the inverse is
+
+\bee
+\frac{dg^{-1}(y)}{dy} = 2y
+\eee
+
+and therefore
+
+\bee
+f_Y(y) = 2 |y| \left[ f_X( \sqrt{x}) + f_X(- \sqrt{x}) \right]
+\eee
+
+\paragraph{Uniform Distribution.} With this choice of $g$ it makes only sense to consider a uniform distribution between $[0,1]$ and $f_Y(y)$ becomes
+
+\bee
+f_Y(y) = \begin{cases} 2y \quad 0 \leq y \leq 1 \\ 0 \qquad \text{otherwise} \end{cases}
+\eee
+
+
+
 
 \subsection{Transformation by $g(x) = 1/x$}
 
@@ -127,6 +149,18 @@ We can see that the pdf is "thinned out" to the right as the $1/x$ moves small v
 \caption{PDF}
 \end{figure}
 
+If we redo the exercise with a uniform distribution in $[-1,1]$, we obtain
+
+\bee
+f_Y(y) =  \begin{cases} \frac{1}{y^2} \quad |y| \geq 1 \\ 0 \quad |y| < 1 \end{cases}
+\eee
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2025-10-09-plt_4.png}
+\caption{PDF}
+\end{figure}
+
 
 \paragraph{Normal Distribution.} We can repeat above with a normal distribution
 
@@ -139,6 +173,13 @@ and obtain
 \bee
 f_Y(y) = \frac{1}{y^2\sqrt{2 \pi}} e^{-1 / (2 y^2)}
 \eee
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2025-10-09-plt_5.png}
+\caption{PDF}
+\end{figure}
+
 
 
 
