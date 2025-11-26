@@ -1,0 +1,220 @@
+\DiaryEntry{Calculation with Random Variables}{2025-10-20}{Stochastic}
+
+\subsection{Sum of Random Variables}
+
+\paragraph{Using convolution integral.} We start with a simple example of the sum $Z$ of two normal random variables $X, Y$,
+
+\bee
+Z = X + Y, \quad X, Y \sim \Nc(0,1)
+\eee
+
+The pdfs of $X$ and $Y$ are
+
+\begin{align*}
+f_X(x) &= \frac{1}{\sqrt{2\pi}} \exp \left( - \frac{x^2}{2}\right) \\
+f_Y(y) &= \frac{1}{\sqrt{2\pi}} \exp \left( - \frac{y^2}{2}\right)
+\end{align*}
+
+The pdf $f_Z(z)$ of the sum $Z$ is given by the convolution of the two pdfs,
+
+\bee
+f_Z(z) = \int_x f_X(x) f_Y(z-x) dx
+\eee
+
+which yields
+
+\begin{align}
+    f_Z(z) &= \frac{1}{2\pi} \int_x  \exp \left( - \frac{x^2}{2}\right) \exp \left( - \frac{(z-x)^2}{2}\right) dx \\
+    &= \frac{1}{2\pi} \int_x  \exp \left( - \frac{x^2 + (z-x)^2}{2}\right) dx \\
+    &= \frac{1}{2\pi} \int_x  \exp \left( - \frac{2x^2 - 2zx + z^2}{2}\right) dx \label{2025-10-20:eq0}
+\end{align}
+
+To make progress in solving this integral, we need to complete the square. Let's consider the relevant part only.
+
+We have 
+
+\bee
+2z^2 - 2xz + z^2
+\eee
+
+and we want to bring that into a form 
+
+\be\label{2025-10-20:eq1}
+(\sqrt{2} x - Az)^2 + B z^2 = 2x^2 - 2 \sqrt{2}A xz + A^2 z^2 + B^2 z^2
+\ee
+
+Comparing the coefficients of $xz$ we find 
+
+\bee
+2 \sqrt{2}A = 2 \rightarrow A = 1 / \sqrt{2}
+\eee
+
+Inserting this into \eqref{2025-10-20:eq1} yields
+
+\bee
+2x^2 - 2 xz + z^2 / 2 + B^2 z^2
+\eee
+
+and for this to match we have $B^2 = 1/2$. So all in all 
+
+
+\bee
+2z^2 - 2xz + z^2 = \left( \sqrt{2} x - \frac{1}{\sqrt{2}}z \right)^2 + \frac{z^2}{2}
+\eee
+
+Inserting this back into \eqref{2025-10-20:eq0} yields
+
+\begin{align*}
+    f_Z(z) &= \frac{1}{2\pi} \int_x  \exp \left( - \frac{2x^2 - 2zx + z^2}{2}\right) dx \\
+    &= \frac{1}{2\pi} \int_x  \exp \left( - \frac{\left( \sqrt{2} x - \frac{1}{\sqrt{2}}z \right)^2}{2}\right) \exp \left( - \frac{z^2}{2 \cdot 2}\right) dx
+\end{align*}
+
+The right factor does not depend on $x$, so we can move that out of the integral
+
+\bee
+f_Z(z) = \exp \left( - \frac{z^2}{2 \cdot 2}\right) \frac{1}{2\pi} \int_x  \exp \left( - \frac{\left( \sqrt{2} x - \frac{1}{\sqrt{2}}z \right)^2}{2}\right) dx
+\eee
+
+The integral corresponds to the area under a normal distribution (with mean $z$ and variance $1$) and therefore evaluates to a constant \emph{independent} of $z$. So we arrive at
+
+\bee
+f_Z(z) = C \exp \left( - \frac{z^2}{2 \cdot 2}\right)
+\eee
+
+where we have collected all factors into $C$. The factors are not important (their value must be such that the area under $f_Z(z)$ is $1$); what is important is that $z$ has normal distribution with $\Nc(0, 2)$.
+
+\paragraph{Using moment-generating functions.} When we consider the sum of normal random variables with non-zero mean and different variances, above calculations become cumbersome. The simpler solution is to consider the moment generation function $\phi_x(t)$ which can be obtained from the pdf as follows,
+
+\bee
+\phi_x(t)
+\eee
+
+The MGF has the nice property that the MGF of the sum of random variables is equal the product of the MGFs.
+
+A normal distribution has a MGF
+
+\bee
+X \sim \Nc(\mu_x, \sigma_x^2) \leftrightarrow \phi(t) = \exp \left( \mu_x t + \frac{1}{2} \sigma_x^2 t^2\right)
+\eee
+
+Then the MGF of the sum of two random variables $X \sim \Nc(\mu_x, \sigma_x^2)$ and $Y \sim \Nc(\mu_y, \sigma_y^2)$ is
+
+\bee
+\phi_Z(t) = \exp \left( \mu_x t + \frac{1}{2} \sigma_x^2 t^2\right) \exp \left( \mu_y t + \frac{1}{2} \sigma_y^2 t^2\right) = \exp \left( (\mu_x + \mu_y) t + \frac{1}{2} (\sigma_x^2 + \sigma_y^2) t^2\right)
+\eee
+
+and this corresponds to a normal variable distributed as 
+
+\bee
+Z \sim \Nc( \mu_x + \mu_y, \sigma_x^2 + \sigma_y^2)
+\eee
+
+\paragraph{Sum of $\chi^2$ RVs.} Using the MGF, we can also obtain the pdf of the sum $Z = \sum_N X_i$ of $N$ RVs $X_i$, each having a $\chi^2$ distribution with $k$ degrees of freedom. The MGF of $X_i$ is given by (Wikipedia)
+
+\bee
+\phi_X(t) = \frac{1}{(1-2t)^{k/2}}
+\eee
+
+and therefore their sum has MGF
+
+\bee
+\phi_Z(t) = \frac{1}{(1-2t)^{N k/2}}
+\eee
+
+which is a $\chi^2$ distribution having $N$ degrees of freedom.
+
+
+
+\subsection{Quotient}
+
+Assume we have two RVs, $X, Y$, having pdfs $f_X(x), f_Y(y)$, respectively. We can obtain the pdf of the quotient, $Z = X / Y$, $f_Z(z)$ from the following integral,
+
+\todo{check if this is really correct}
+
+\bee
+f_Z(z) = \int_x f_X(x) f_Y(z / x) dx
+\eee
+
+or
+
+\bee
+f_Z(z) = \int_x |x| f_X(x) f_Y(x z) dx
+\eee
+
+\subsubsection{Uniform Distribution}
+
+We can directly calculate the integral or make a sidestep using the cdf $F_Z(z)$ (as is done \href{https://math.stackexchange.com/questions/113295/pdf-of-a-quotient-of-uniform-random-variables}{here}).
+
+We start with the case of $z = 1$ which corresponds to the case $Y = X$ as shown below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/2025-10-20_quot_uni_1.png}
+\caption{PDF}
+\end{figure}
+
+If $0 \leq Z \leq 1$, the RVs are related as in the following Figure. In particular, the intersection of the line with the right boundary of the square domain will be $(1,z)$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/2025-10-20_quot_uni_2.png}
+\caption{PDF}
+\end{figure}
+
+The area in dark blue will be the probability $P(Y/X \leq z) = P(Y \leq zX )=1/2z$.
+
+
+If $z>1$, the line will intersect the top margin of the square at $x=1/z$. The area below the line will be cumbersome to calculate, and it is hence much easier to calculate the complementary area (shown as the yellow triangle in the Figure below).
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/2025-10-20_quot_uni_2.png}
+\caption{PDF}
+\end{figure}
+
+The probability $P(Y / X \leq z) = 1 - \frac{1}{2z}$.
+
+Combining the three cases, we obtain the following for the CDF,
+
+\bee
+F_Z(z) = \begin{cases} z/2 \quad 0 \leq z \leq 1 \\
+1 - \frac{1}{2z} \quad z > 1 \\
+0 \quad \text{otherwise}
+\end{cases}
+\eee
+
+By differentiation wrt to $z$, we can obtain the pdf
+
+\bee
+f_Z(z) = \begin{cases} 1/2 \quad 0 \leq z \leq 1 \\
+1 - \frac{1}{2z^2} \quad z > 1 \\
+0 \quad \text{otherwise}
+\end{cases}
+\eee
+
+
+
+\subsubsection{Normal Distribution}
+
+This is a case where we can directly calculate the integral,
+
+\begin{align*}
+f_Z(z) &= \frac{1}{2\pi} \int_{- \infty}^\infty |x| e^{- \frac{x^2}{2}} e^{- \frac{x^2 z^2}{2}} dx \\
+&= \frac{1}{2\pi} \int_{0}^\infty x e^{- \frac{1}{2} x^2 (1 + z^2)} dx
+\end{align*}
+
+where we have used the symmetry of the integrand. We can substitute $u = x^2$ and with $du/dx = 2x \rightarrow dx = du / (2x)$ we obtain
+
+\begin{align*}
+f_Z(z) &= \frac{1}{2\pi} \int_{0}^\infty x e^{- \frac{1}{2} u (1 + z^2)} \frac{du}{2x} \\
+&= \frac{1}{4\pi} \int_{0}^\infty e^{- \frac{1}{2} u (1 + z^2)} du = \cdots = \frac{1}{\pi (z^2 + 1)}
+\end{align*}
+
+which is the \emph{Cauchy} distribution.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
