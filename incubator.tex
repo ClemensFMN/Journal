@@ -887,6 +887,105 @@ r(\alpha) = \frac{d_H}{d_0} = \frac{H + W}{\sqrt{H^2 + W^2}} = \frac{1 + W / H}{
 
 where we have set $\alpha = W/H$. We can show (by setting $dr / d \alpha = 0$ and solving for $\alpha$) that the maximum of $r(\alpha)$ is reached for $\alpha=1$.
 
+
+\subsection{Feynam's Trick for Integration}
+
+Based on https://zackyzz.github.io/feynman.html
+
+\paragraph{Classical example.} We consider the integral,
+
+\bee
+I = \int_0^1 \frac{x - 1}{\ln x} dx
+\eee
+
+This is tricky / impossible to do; however, Feynam's trick comes to the rescue. As a first step, we parametrize the integral (that's the tricky part to parametrize in such a way that the integral becomes solvable),
+
+\bee
+I(t) = \int_0^1 \frac{x^t - 1}{\ln x} dx
+\eee
+
+Next we differentiatie wrt to $t$ to get
+
+\bee
+I'(t) = \int_0^1 \frac{\partial }{\partial t}\frac{x^t - 1}{\ln x} dx = \int_0^1 x^t dx = \cdots = \frac{1}{t+1}
+\eee
+
+which can be solved very easily. However, we have obtained $I'(t)$ and we need to integrate this to get $I(t)$. In the general case, we have
+
+\bee
+\int_a^b f'(x) dx = f(b) - f(a)
+\eee
+
+In our example, $I = I(1)$ and also $I(0) = \int_0^1 \frac{x^0 - 1}{\ln x} dx = \int_0^1 0 dx = 0$ and therefore
+
+\bee
+I = I(1) = \int_0^1 I'(t) dt = \int_0^1 \frac{1}{t+1}dt = \left. \ln(1+t)\right|_0^1 = \ln(2) \qed
+\eee
+
+So we finally have
+
+\bee
+\boxed{
+I = \int_0^1 \frac{x - 1}{\ln x} dx = \ln(2)
+}
+\eee
+
+\paragraph{Another Example.} Let's now consider
+
+\bee
+I = \int_{0}^\infty \frac{e^{-x^2}}{1 + x^2} dx
+\eee
+
+We parametrize as follows,
+
+\bee
+I(t) = \int_{0}^\infty \frac{e^{-t(1 + x^2)}}{1 + x^2} dx
+\eee
+
+This works as
+
+\begin{align*}
+I(1) - I(\infty) &= \int_{0}^\infty \frac{e^{-(1 + x^2)}}{1 + x^2} dx - \int_{- \infty}^\infty \frac{e^{- \infty (1 + x^2)}}{1 + x^2} dx  \\
+&= \int_{0}^\infty \frac{1}{1 + x^2} \left( e^{-(1 + x^2)} - e^{- \infty (1 + x^2)} \right) dx \\
+&= \int_{0}^\infty \frac{1}{1 + x^2} \left( e^{-(1 + x^2)} - 0 \right) dx \\
+&= \frac{1}{e} \int_{- \infty}^\infty \frac{e^{-x^2}}{1 + x^2} dx
+\end{align*}
+
+And our desired integral can be expressed as
+
+\bee
+\int_{0}^\infty \frac{e^{-x^2}}{1 + x^2} dx = e \left( I(1) - I(\infty) \right)
+\eee
+
+So, let's differentiate wrt $t$,
+
+\begin{align*}
+  I'(t) &= \int_{0}^\infty \frac{\partial }{\partial t}\frac{e^{-t(1 + x^2)}}{1 + x^2} dx = - \int_{- \infty}^\infty e^{-t(1 + x^2)} dx \\
+  &= - e^{-t} \int_{0}^\infty e^{-t x^2} dx \\
+  &= - e^{-t} \int_{0}^\infty e^{-t x^2} dx = - \frac{\sqrt{\pi} e^{-t}}{2 \sqrt{t}}
+\end{align*}
+
+Where we have solved the last integral by means of Maxima (nothing fancy, just a scaled normal distribution). From this we get
+
+\begin{align*}
+I &= e \left( I(1) - I(\infty) \right) = e \int_\infty^1 I'(t) dt \\
+&= e \frac{\sqrt{\pi}}{2} \int_1^\infty \frac{e^{-t}}{\sqrt{t}} dt
+\end{align*}
+
+According to Maxima, the integral is
+
+\bee
+\int_1^\infty \frac{e^{-t}}{\sqrt{t}} dt = \Gamma(1/2, 1)
+\eee
+
+where $\Gamma$ is the \emph{incomplete Gamma function}. So we finally arrive at
+
+\bee
+\boxed{
+I = \int_{0}^\infty \frac{e^{-x^2}}{1 + x^2} dx = e \frac{\sqrt{\pi}}{2} \Gamma(1/2, 1) \approx 0.672 \qed}
+\eee
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
