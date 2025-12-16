@@ -5,23 +5,23 @@
 First thing is the derivation of the partial integration: We differentiate the product of two functions
 
 \bee
-\frac{d (u(x)v(x)}{dx} = u(x) \frac{d v(x)}{dx} + v(x) \frac{d u(x)}{dx}
+\frac{d \left( u(x)v(x) \right)}{dx} = u(x) \frac{d v(x)}{dx} + v(x) \frac{d u(x)}{dx}
 \eee
-%
+
 integrate both sides
 
 \bee
 u(x)v(x) = \int u(x) \frac{d v(x)}{dx} dx + \int v(x) \frac{d u(x)}{dx} dx
 \eee
-%
+
 and rearrange the result so that we obtain
-%
+
 \bee
 \int u(x) \frac{d v(x)}{dx} dx = u(x)v(x) - \int v(x) \frac{d u(x)}{dx} dx
 \eee
-%
+
 or - in a more sloppy notation - we have
-%
+
 \bee
 \int u v' dx = uv - \int u' v dx
 \eee
@@ -29,60 +29,101 @@ or - in a more sloppy notation - we have
 \subsection{Definition and Properties}
 
 The Gamma function $\Gamma(x)$ is defined according to
-%
-\bee
+
+\be\label{2015-07-27:eq1}
 \Gamma(x) = \int_0^\infty t^{x-1}e^{-t} dt
-\eee
+\ee
 
 The following Figure shows a plot of the integrand for $x=1, x=2, x=3$, respectively. Note that with increasing $x$, the maximum moves to the right and the area under the curve increases.
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.7]{images/gamma_integrand_plot.png}
+\includegraphics[scale=0.7]{images/2015-07-27-gamma_integrand_plot.png}
 \end{figure}
-
-\pagebreak
 
 Note, that the Gamma function is also defined for negative values of $x$; the following Figure shows plots of the integrand for $x=-1, x=-2, x=-3$, respectively. It diverges at $t=0$, and falls off for increasing $t$.
 
-\begin{figure}[hbt!]
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.7]{images/gamma_integrand_neg_plot.png}
+\includegraphics[scale=0.7]{images/2015-07-27-gamma_integrand_neg_plot.png}
 \end{figure}
 
 
 The Gamma function fulfills the following recurrence relation
-%
-\bee
+
+\be\label{2015-07-27:eq2}
 \Gamma(x+1) = x \Gamma(x)
-\eee
-%
-which we can prove as follows
-%
+\ee
+
+which we can prove as follows: We start with
+
 \bee
 \Gamma(x+1) = \int_0^\infty t^{x}e^{-t} dt
 \eee
-by partial integration ($v'e^{-t} \rightarrow v = -e^{-t}, u=t^x \rightarrow u'=x t^{x-1}$) we obtain
-%
-\bee
-\Gamma(x+1) = \left. -t^x e^{-t} \right|_0^\infty - \int_0^\infty x t^{x-1}(-1)e^{-t} dt = 0 + \int_0^\infty x t^{x-1}e^{-t} dt = x \int_0^\infty t^{x-1}e^{-t} dt
-\eee
-%
-where in the last step we have used the fact that the integral is over $t$ and therefore $x$ can be taken out of the integral. Comparing with the definition, we see that
-%
-\bee
-\Gamma(x+1) = x \Gamma(x) \qed
-\eee
-%
+
+By partial integration (choosing $v' = e^{-t} \rightarrow v = -e^{-t}, u=t^x \rightarrow u'=x t^{x-1}$) we obtain
+
+\begin{align*}
+\Gamma(x+1) &= \left. -t^x e^{-t} \right|_0^\infty - \int_0^\infty x t^{x-1}(-1)e^{-t} dt = 0 + \int_0^\infty x t^{x-1}e^{-t} dt = x \int_0^\infty t^{x-1}e^{-t} dt \\
+&= x \Gamma(x) \qed
+\end{align*}
+
 Next we calculate the value of $\Gamma(1)$ as
-%
+
 \bee
 \Gamma(1) = \int_0^\infty t^{0}e^{-t} dt = \int_0^\infty e^{-t} dt = \left. e^{-t} \right|_0^\infty = 1
 \eee
-%
-The function plot looks as follows (be careful; Julia uses a gamma function shifted by one):
 
-\begin{figure}[hbt!]
+From this and \eqref{2015-07-27:eq2} we read off that
+
+\bee
+\Gamma(n) = (n-1)!
+\eee
+
+The values for the next integer values of $\Gamma(n)$ can be obtained from \eqref{2015-07-27:eq2} as follows
+
+\begin{align*}
+    \Gamma(2) &= 1 \Gamma(1) = 1 = 1! \\
+    \Gamma(3) &= 2 \Gamma(2) = 2 = 2! \\
+    \Gamma(4) &= 3 \Gamma(3) = 6 = 3! \\
+    \Gamma(5) &= 4 \Gamma(4) = 24 = 4! \\
+    &\cdots
+\end{align*}
+
+The function plot $\Gamma(x)$ is shown in the following Figure.
+
+\begin{figure}[H]
 \centering
-\includegraphics[scale=0.5]{images/gamma_plot.png}
+\includegraphics[scale=0.5]{images/2015-07-27-gamma_plot.png}
 \end{figure}
+
+\subsection{Incomplete Gamma Functions}
+
+If we choose the integral bounds as parameters, we arrive at the incomplete Gamma functions;
+
+\bee
+\gamma(a,z) = \int_0^z t^{a-1} e^{-t} dt
+\eee
+
+and
+
+\bee
+\Gamma(a,z) = \int_z^\infty t^{a-1} e^{-t} dt
+\eee
+
+These become the "normal" Gamma function in the limit;
+
+\bee
+\lim_{z \rightarrow \infty} \gamma(a, z) = \Gamma(a), \qquad \Gamma(a, 0) = \Gamma(a)
+\eee
+
+We also have the relation $\gamma(a,z) + \Gamma(a,z) = \Gamma(a)$.
+
+By partial integration we obtain the relation
+
+\bee
+\gamma(a+1,z) = a \gamma(a,z) - z^a e^{-z}
+\eee
+
+tbc...
+
