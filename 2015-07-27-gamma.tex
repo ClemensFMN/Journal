@@ -2,13 +2,15 @@
 
 \subsection{Partial Integration}
 
-First thing is the derivation of the partial integration: We differentiate the product of two functions
+In the next Sections, we will use partial integration for solving various integrals; here we derive the partial integration rules.
+
+We start with the product rule
 
 \bee
 \frac{d \left( u(x)v(x) \right)}{dx} = u(x) \frac{d v(x)}{dx} + v(x) \frac{d u(x)}{dx}
 \eee
 
-integrate both sides
+Next, we integrate both sides
 
 \bee
 u(x)v(x) = \int u(x) \frac{d v(x)}{dx} dx + \int v(x) \frac{d u(x)}{dx} dx
@@ -23,7 +25,7 @@ and rearrange the result so that we obtain
 or - in a more sloppy notation - we have
 
 \bee
-\int u v' dx = uv - \int u' v dx
+\int u v' dx = uv - \int u' v dx \qed
 \eee
 
 \subsection{Definition and Properties}
@@ -125,5 +127,25 @@ By partial integration we obtain the relation
 \gamma(a+1,z) = a \gamma(a,z) - z^a e^{-z}
 \eee
 
-tbc...
+We chose $u = t^a \rightarrow u' = at^{a-1}, v' = e^{-t} \rightarrow v = -e^{-t}$ and obtain
+
+\begin{align*}
+    \gamma(a+1,z) &= \int_0^z t^a e^{-t} dt = \left. -t^a e^{-t} \right|_0^z + \int_0^z a t^{a-1} e^{-t} dt \\
+&= -z^a e^{-z} + a \int_0^z t^{a-1} e^{-t} dt \\
+&= a \gamma(a,z) - z^a e^{-z} \qed
+\end{align*}
+
+In a similar spirit we have
+
+\bee
+\Gamma(a+1, z) = a \Gamma(a,z) + z^a e^{-z}
+\eee
+
+We again chose $u = t^a \rightarrow u' = at^{a-1}, v' = e^{-t} \rightarrow v = -e^{-t}$ and obtain
+
+\begin{align*}
+    \Gamma(a+1,z) &= \int_z^\infty t^a e^{-t} dt = \left. -t^a e^{-t} \right|_z^\infty + \int_z^\infty a t^{a-1} e^{-t} dt \\
+&= z^a e^{-z} + a \int_z^\infty t^{a-1} e^{-t} dt \\
+&= a \Gamma(a,z) + z^a e^{-z} \qed
+\end{align*}
 
