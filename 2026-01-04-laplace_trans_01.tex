@@ -1,0 +1,96 @@
+\DiaryEntry{Laplace Transform}{2026-01-04}{Maths}
+
+\subsection{Introduction}
+
+The Laplace transform $\Lc (f(t))$ of a function $f(t)$ is defined according to
+
+\be\label{2026-01-04:eq1}
+F(s) = \mathcal{L}(f(t)) = \int_0^\infty f(t) e^{-st} dt
+\ee
+
+It is a linear transformation; ie we have
+
+\bee
+\Lc( a f(t) + b g(t)) = a \Lc (f(t)) + b \Lc(g(t))
+\eee
+
+A time-shift of the function $f(t)$ yields the Laplace transform as
+
+\bee
+\Lc(f(t - \tau)) = \int_0^\infty f(t - \tau) u(t - \tau) e^{-st} dt
+\eee
+
+We can solve this by setting $r = t - \tau$ and obtain
+
+\bee
+\Lc(f(t - \tau)) = \int f(r) u(r) e^{-s (r + \tau)} dr = e^{-s \tau} \int f(r) u(r) e^{-s r} dr = e^{-s \tau} \Lc(f(t))
+\eee
+
+\todo{add other }
+
+The Laplace transform is mainly used for solving ODEs; it basically transform a linear ODE into an algebraic equation. We can show this by partial integration of \eqref{2026-01-04:eq1}: We set $u = f(t), v' = e^{-st} \rightarrow v = - \frac{1}{s} e^{-st}$ and obtain
+
+\begin{align*}
+\Lc( f(t)) &= \int_0^\infty f(t) e^{-st} dt = - \left.\frac{1}{s} f(t) e^{-st}\right|_{t=0}^\infty + \frac{1}{s} \int_0^\infty f'(t) e^{-st} dt \\
+&= \frac{1}{s} f(0) + \frac{1}{s} \Lc( f'(t))
+\end{align*}
+
+From this we obtain for the Laplace transform of the derivative
+
+\bee
+\Lc(f'(t)) = s \Lc(f(t)) - f(0)
+\eee
+
+We can continue with this approach to obtain the Laplace transform of higher derivatives; by setting $g = f'(t)$ we obtain
+
+\bee
+\Lc(g'(t)) = s \Lc(g(t)) - g(0)
+\eee
+
+By going back to $f(t)$ we obtain,
+
+\bee
+\Lc(f''t()) = s \Lc(f'(t)) - f'(0) = s \left[ s \Lc(f(t)) - f(0)\right] - f'(0) = s^2 \Lc(f(t)) - s f(0) - f'(0)
+\eee
+
+\todo{add higher order derivatives}
+
+If we are given an ODE; eg
+
+\bee
+y'(t) + k y(t) = x(t)
+\eee
+
+we can transform it to
+
+\bee
+s Y(s) - y(0) + k Y(s) = X(s) \rightarrow Y(s) = \frac{X(s) + y(0)}{s+k}
+\eee
+
+If we know the Laplace transform of the input $x(t)$, we can solve for the output $Y(s)$, Laplace-transform the result back to $y(t)$ and have solved the ODE.
+
+Let's consider the Laplace transform of some functions next...
+
+\paragraph{Step Function $\sigma(t)$.} We have
+
+\bee
+\Lc(\sigma(t)) = \int_0^\infty e^{-st} dt = - \left. \frac{1}{s} e^{-st} \right|_{t=0}^\infty = \frac{1}{s}
+\eee
+
+\paragraph{Exponential Function.} We get
+
+\bee
+\Lc( e^{-at}) = \int_0^\infty e^{-at} e^{-st} dt = \int_0^\infty e^{-t(a+s)} dt = - \left. \frac{1}{a+s} e^{-(a+s)t} \right|_{t=0}^\infty = \frac{1}{a+s}
+\eee
+
+\paragraph{Sine Function.} We obtain
+
+\bee
+\Lc(\sin \omega t) = \int_0^\infty \sin \omega t e^{-st} dt = \cdots = \frac{\omega}{\omega^2+s^2}
+\eee
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
