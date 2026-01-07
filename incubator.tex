@@ -985,6 +985,54 @@ where $\Gamma$ is the \emph{incomplete Gamma function}. So we finally arrive at
 I = \int_{0}^\infty \frac{e^{-x^2}}{1 + x^2} dx = e \frac{\sqrt{\pi}}{2} \Gamma(1/2, 1) \approx 0.672 \qed}
 \eee
 
+We can check the numerical values in Maxima as follows,
+
+\begin{verbatim}
+  (%i1)	quad_qag(%e^(-x^2) / (1+x^2), x, 0, 10, 3,'epsrel=5d-8);
+  (%o1)	[0.6716467108233667,1.2146370412561506*10^-10,93,0]
+  (%i6)	%e*\sqrt(%pi)/2*gamma_incomplete(1/2,1), numer;
+  (%o6)	0.6716467108233667
+\end{verbatim}
+
+
+\paragraph{Different Solution.} ChatGPT (I know ;-) ) provides a different way. It parametrizes as
+
+\bee
+I(a) = \int_0^\infty \frac{e^{-a x^2}}{1+x^2} dx
+\eee
+
+Differentiation wrt $a$ yields
+
+\bee
+\frac{d}{da} I(a) = \int_0^\infty \frac{\partial}{\partial a} \frac{e^{-a x^2}}{1+x^2} dx = - \int_0^\infty \frac{x^2 e^{-a x^2}}{1+x^2} dx
+\eee
+
+We can expand the fraction and obtain
+
+\bee
+\frac{d}{da} I(a) = - \int_0^\infty e^{a x^2} dx + \int_0^\infty \frac{e^{-a x^2}}{1+x^2} dx
+\eee
+
+The first integral is "known" and the second integral is $I(a)$, therefore
+
+\bee
+\frac{d}{da} I(a) = - \frac{1}{2} \sqrt{\frac{\pi}{a}} + I(a)
+\eee
+
+We can solve the ODE (it's a bit tricky, but nothing special) and arrive at
+
+\bee
+I(a) = \frac{\pi}{2} e^a \erfc(\sqrt{a})
+\eee
+
+with the special case
+
+\bee
+I = I(1) = \frac{\pi}{2} e \erfc(1)
+\eee
+
+
+
 
 %%% Local Variables:
 %%% mode: latex
