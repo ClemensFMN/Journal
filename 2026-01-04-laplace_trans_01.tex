@@ -2,13 +2,21 @@
 
 \subsection{Introduction}
 
-The Laplace transform $\Lc (f(t))$ of a function $f(t)$ is defined according to
+The Laplace transform is an integral transform that converts a function of a real variable (usually $t$ in the time domain) to a function of a complex variable (usually $s$ in the s-domain ). The functions are often denoted using a lowercase symbol for the time-domain function and the corresponding uppercase symbol for the frequency-domain function, e.g. $x(t)$ and $X(s)$. 
+
+
+The Laplace transform $\Lc (f(t))$ of a function $f(t)$ with $t \geq 0$ is defined according to
 
 \be\label{2026-01-04:eq1}
 F(s) = \mathcal{L}(f(t)) = \int_0^\infty f(t) e^{-st} dt
 \ee
 
-It is a linear transformation; ie we have
+where $s$ is a complex number. There is an integral expression of rthe inverse Lalpace transform; due to the fact that $s$ is a complex number, it is given by a complex integral, which is known by various names (the Bromwich integral, the Fourier–Mellin integral, and Mellin's inverse formula). In practice, it is typically more convenient to decompose a Laplace transform into known transforms of functions obtained from a table and construct the inverse by inspection.
+
+
+\subsection{Properties and Laplace transform of important functions}
+
+The Laplace transform is a linear transformation; ie we have
 
 \bee
 \Lc( a f(t) + b g(t)) = a \Lc (f(t)) + b \Lc(g(t))
@@ -20,15 +28,55 @@ A time-shift of the function $f(t)$ yields the Laplace transform as
 \Lc(f(t - \tau)) = \int_0^\infty f(t - \tau) u(t - \tau) e^{-st} dt
 \eee
 
-We can solve this by setting $r = t - \tau$ and obtain
+We can further develope this by setting $r = t - \tau$ and obtain
 
 \bee
-\Lc(f(t - \tau)) = \int f(r) u(r) e^{-s (r + \tau)} dr = e^{-s \tau} \int f(r) u(r) e^{-s r} dr = e^{-s \tau} \Lc(f(t))
+\Lc(f(t - \tau)) = \int f(r) u(r) e^{-s (r + \tau)} dr = e^{-s \tau} \int f(r) u(r) e^{-s r} dr = e^{-s \tau} \Lc(f(t)) \qed
 \eee
 
-\todo{add other }
+One of the properties that makes the Laplace transform very useful is that convolution of two functions in the time-domain becomes multiplication in the $s$-domain:
 
-The Laplace transform is mainly used for solving ODEs; it basically transform a linear ODE into an algebraic equation. We can show this by partial integration of \eqref{2026-01-04:eq1}: We set $u = f(t), v' = e^{-st} \rightarrow v = - \frac{1}{s} e^{-st}$ and obtain
+\bee
+\Lc((f \star g)(t)) = F(s) G(s)
+\eee
+
+The step function $\sigma(t)$ transforms as follows
+
+\bee
+\Lc(\sigma(t)) = \int_0^\infty e^{-st} dt = - \left. \frac{1}{s} e^{-st} \right|_{t=0}^\infty = \frac{1}{s}
+\eee
+
+Convolving a function $f(t)$ with the step function $\sigma(t)$ yields
+
+\bee
+\Lc((f \star \sigma)(t)) = \int_0^t f(\tau) d\tau
+\eee
+
+and therefore the Laplace transform becomes
+
+\bee
+\Lc \left( \int_0^t f(\tau) d\tau \right) = \frac{1}{s} F(s) \qed
+\eee
+
+If we differentiate the Laplace definition \eqref{2026-01-04:eq1} wrt to $s$, we obtain
+
+\bee
+F'(s) = \int_0^\infty \frac{\partial}{\partial s} f(t) e^{-st} dt = \int_0^\infty -t f(t) e^{-st} dt
+\eee
+
+and we can write this as
+
+\bee
+\Lc(t f(t)) = -F'(s)
+\eee
+
+We can do this several times and obtain the expression
+
+\bee
+\Lc(t^n f(t)) = (-1)^n F^{(n)}(s)
+\eee
+
+By partial integration of \eqref{2026-01-04:eq1} we can obtain the Laplace transform of the derivative: We set $u = f(t), v' = e^{-st} \rightarrow v = - \frac{1}{s} e^{-st}$ and obtain
 
 \begin{align*}
 \Lc( f(t)) &= \int_0^\infty f(t) e^{-st} dt = - \left.\frac{1}{s} f(t) e^{-st}\right|_{t=0}^\infty + \frac{1}{s} \int_0^\infty f'(t) e^{-st} dt \\
@@ -38,7 +86,7 @@ The Laplace transform is mainly used for solving ODEs; it basically transform a 
 From this we obtain for the Laplace transform of the derivative
 
 \bee
-\Lc(f'(t)) = s \Lc(f(t)) - f(0)
+\Lc(f'(t)) = s \Lc(f(t)) - f(0) \qed
 \eee
 
 We can continue with this approach to obtain the Laplace transform of higher derivatives; by setting $g = f'(t)$ we obtain
@@ -50,43 +98,158 @@ We can continue with this approach to obtain the Laplace transform of higher der
 By going back to $f(t)$ we obtain,
 
 \bee
-\Lc(f''t()) = s \Lc(f'(t)) - f'(0) = s \left[ s \Lc(f(t)) - f(0)\right] - f'(0) = s^2 \Lc(f(t)) - s f(0) - f'(0)
+\Lc(f''(t)) = s \Lc(f'(t)) - f'(0) = s \left[ s \Lc(f(t)) - f(0)\right] - f'(0) = s^2 \Lc(f(t)) - s f(0) - f'(0) \qed
 \eee
 
-\todo{add higher order derivatives}
-
-If we are given an ODE; eg
+The expression for the $n$-th derivative then becomes
 
 \bee
-y'(t) + k y(t) = x(t)
+\Lc( f^{(n)}) = s^n F(s) - \sum_{k=1}^n s^{n-k} f^{(k-1)}(0)
 \eee
 
-we can transform it to
+A shift in the $s$-domain yields the following
 
-\bee
-s Y(s) - y(0) + k Y(s) = X(s) \rightarrow Y(s) = \frac{X(s) + y(0)}{s+k}
-\eee
+\be\label{2026-01-04:eq2}
+F(s+a) = \int_0^\infty f(t) e^{-(s+a)t} dt = \int_0^\infty f(t) e^{-a t} e^{-s t} dt = \Lc( f(t) e^{-a t} )
+\ee
 
-If we know the Laplace transform of the input $x(t)$, we can solve for the output $Y(s)$, Laplace-transform the result back to $y(t)$ and have solved the ODE.
-
-Let's consider the Laplace transform of some functions next...
-
-\paragraph{Step Function $\sigma(t)$.} We have
-
-\bee
-\Lc(\sigma(t)) = \int_0^\infty e^{-st} dt = - \left. \frac{1}{s} e^{-st} \right|_{t=0}^\infty = \frac{1}{s}
-\eee
-
-\paragraph{Exponential Function.} We get
+The Laplace transform of the exponential function can be obtained by straightforward integration as
 
 \bee
 \Lc( e^{-at}) = \int_0^\infty e^{-at} e^{-st} dt = \int_0^\infty e^{-t(a+s)} dt = - \left. \frac{1}{a+s} e^{-(a+s)t} \right|_{t=0}^\infty = \frac{1}{a+s}
 \eee
 
-\paragraph{Sine Function.} We obtain
+We can also show this by using \eqref{2026-01-04:eq2} with $f(t) = \sigma(t)$: We have $F(s) = \frac{1}{s}$ and therefore 
 
 \bee
-\Lc(\sin \omega t) = \int_0^\infty \sin \omega t e^{-st} dt = \cdots = \frac{\omega}{\omega^2+s^2}
+\Lc( e^{-a t} ) = \frac{1}{a + s} \qed
+\eee
+
+For the sine function, things are a bit more complex; we have
+
+\bee
+\Lc(\sin \omega t) = \int_0^\infty \sin (\omega t) e^{-st} dt
+\eee
+
+We start with partial integration as follows: With $u = sin \omega t, v' = e^{-st} \rightarrow u' = \omega \cos \omega t, v = -\frac{1}{s}e^{-st}$, we obtain
+
+\bee
+\int_0^\infty \sin (\omega t) e^{-st} dt = - \left. \frac{1}{s} sin \omega t e^{-st} \right|_{t=0}^\infty + \frac{1}{s} \int_0^\infty \omega \cos \omega t e^{-st} dt = \frac{\omega}{s} \int_0^\infty \cos \omega t e^{-st} dt
+\eee
+
+It looks as if we haven't gained much, but we can repeat the process: Set $u = \cos \omega t, v' = e^{-st} \rightarrow u' = -\omega \sin \omega t, v = - \frac{1}{s} e^{-st}$ and obtain
+
+\bee
+\int_0^\infty \cos \omega t e^{-st} dt = \left. - \frac{1}{s} \cos \omega t e^{-st} \right|_{t=0}^\infty - \int_0^\infty \omega \sin \omega t \frac{1}{s} e^{-st} dt = \frac{1}{s} - \frac{\omega}{s} \int_0^\infty \sin \omega t e^{-st} dt
+\eee
+
+Combining the results obtained so far, we obtain
+
+\bee
+I = \int_0^\infty \sin (\omega t) e^{-st} dt = \frac{\omega}{s} \left[ \frac{1}{s} - \frac{\omega}{s} \int_0^\infty \sin \omega t e^{-st} dt \right]
+\eee
+
+Due to the two-fold partial integration, the integral $I$ appears on the right side as well and we can write
+
+\bee
+I = \frac{\omega}{s} \left[ \frac{1}{s} - \frac{\omega}{s} I \right] = \frac{\omega}{s^2} - \frac{\omega^2}{s^2}I
+\eee
+
+We can solve this for $I$ and finally obtain
+
+\bee
+\frac{\omega}{s^2} = I \left( 1 + \frac{\omega^2}{s^2} \right) = I \frac{\omega^2 + s^2}{s^2} \rightarrow I = \Lc(\sin \omega t) = \frac{\omega}{\omega^2 + s^2} \qed
+\eee
+
+With \eqref{2026-01-04:eq2} we can also obtain the Laplace transform of the damped sine; 
+
+\bee
+\Lc(\sin \omega t e^{-at}) = \frac{\omega}{\omega^2 + (s + a)^2}
+\eee
+
+
+\subsection{Solving ODEs - Order 1}
+
+The Laplace transform is often used for solving ODEs; it basically transform a linear ODE into an algebraic equation. As an example consider the ODE
+
+\bee
+y'(t) + k y(t) = x(t)
+\eee
+
+Laplace-transforming the ODE yields the following algebraic equation
+
+\bee
+s Y(s) - y(0) + k Y(s) = X(s) \rightarrow Y(s) = \frac{X(s) + y(0)}{s+k}
+\eee
+
+If we know the Laplace transform of the input $x(t)$, we can solve for the output $Y(s)$ and obtain $y(t)$ either by the inverse Laplace transform or via inspection.
+
+Let's start with a simple unit step at the input, $x(t) = \sigma(t) \rightarrow X(s) = \frac{1}{s}$ and $y(0) = 0$. We then have
+
+\bee
+Y(s) = \frac{1}{s(s+k)}
+\eee
+
+We need to bring that into a known form so that we can obtain $y(t)$. Partial fraction expansion yields
+
+\bee
+Y(s) = \frac{1}{k} \frac{1}{s} - \frac{1}{k} \frac{1}{s+k}
+\eee
+
+In Maxima, this can be obtained
+
+\begin{verbatim}
+partfrac(1/(s*(s+k)), s);
+\end{verbatim}
+
+The result is something we can transfer back to obtain
+
+\bee
+y(t) = \frac{1}{k}\sigma(t) - \frac{1}{k} e^{-kt} \sigma(t) = \frac{1}{k} \left( 1 - e^{-kt} \right) \sigma(t) \qed
+\eee
+
+We next consider a sine input, $x(t) = \sin \omega t$ with $X(s) = \frac{\omega}{\omega^2 + s^2}$. We have
+
+\bee
+Y(s) = \frac{y_0}{s + k} + \frac{\omega}{(s+k)(\omega^2 + s^2}
+\eee
+
+The first part is easy (it corresponds to $y_0 e^{-kt}$), the second requires a partial fraction expansion according to
+
+\bee
+\frac{\omega}{(s+k)(\omega^2 + s^2)} = \frac{A}{s + k} + \frac{Bs + C}{s^2 + \omega^2}
+\eee
+
+Calculating $A, B, C$ and transforming back, we obtain
+
+\bee
+y(t) = y_0 e^{-kt} + \frac{\omega}{\omega^2 + k^2} \left( \sin \omega t - k \cos \omega t \right) \qed
+\eee
+
+I was not able to get Maxima in performing the partial fraction expansion. The only way is to expand this manually :-|
+
+We finally consider an input $x(t) = e^{-at} \sigma(t)$ with $X(s) = \frac{1}{s+a}$. With $y_0 = 0$, our output becomes
+
+\bee
+Y(s) = \frac{1}{s+a} \frac{1}{s+k}
+\eee
+
+We have to distinguish two cases: In (i), we have $k \neq a$, and we can perform a partial fraction expansion to obtain
+
+\bee
+Y(s) = \frac{A}{s+a} + \frac{B}{s+k}
+\eee
+
+This corresponds to the sum of two exponentials, $e^{-at}$ and $e^{-kt}$. In (ii), we have $k = a$ and therefore
+
+\bee
+Y(s) = \frac{1}{(s+a)^2}
+\eee
+
+We cannot expand this any further; instead we have to transform this back directly. We obtain
+
+\bee
+y(t) = t e^{-at} \sigma(t)
 \eee
 
 
