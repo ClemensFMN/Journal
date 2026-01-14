@@ -1,0 +1,75 @@
+\DiaryEntry{Complex Analysis, 1}{2026-01-13}{Complex Analysis}
+
+Some introductory notes
+
+\subsubsection{Exponential Function}
+
+\bee
+e^{z} = e^{x + jy} = e^x e^{jy} = e^x (\cos(y) + j \sin(y))
+\eee
+
+\subsubsection{Trigonometric Functions}
+
+Start with
+
+\begin{align*}
+    e^{j \theta} &= \cos \theta + j \sin \theta \\
+    e^{-j \theta} &= \cos \theta - j \sin \theta
+\end{align*}
+
+Adding the two equations yields
+
+\bee
+\cos \theta = \frac{1}{2} (e^{j \theta} + e^{-j \theta})
+\eee
+
+Subtracting yields
+
+\bee
+\sin \theta = \frac{1}{2j} (e^{j \theta} - e^{-j \theta})
+\eee
+
+\subsubsection{Complex Differentiation}
+
+The derivative of a complex function $f(z)$ is defined as
+
+\bee
+\frac{df(z)}{dz} = \lim_{\delta z \rightarrow 0} \frac{f(z + \delta z)}{\delta z}
+\eee
+
+Note that this simple definition disguises the fact, that we can choose $\delta z$ to have arbitrary direction and - in the general case - it is not clear that the limit is independent of the direction.
+
+A complex function is called \emph{analytic} if the derivative is independent of the direction.
+
+We consider two cases: (i) $\delta z = \delta x$ being real and (ii) $\delta z = j \delta y$ being imaginary. For each case, we calculate the derivative. In the following we split the real and imaginary parts; so we have
+
+\bee
+f(z) = u(x,y + j(v(x,y)))
+\eee
+
+\paragraph{Case (i): $\delta z = \delta x$.} We have
+
+\begin{align*}
+\frac{df(z)}{dz} &= \lim_{\delta x \rightarrow 0} \frac{u(x + \delta x, y) + j v(x + \delta x, y) - u(x, y) - j v(x, y) }{\delta x} \\
+&= \lim_{\delta x \rightarrow 0} \frac{u(x + \delta x, y) - u(x, y) + j v(x + \delta x, y)  - j v(x, y) }{\delta x} = \frac{\partial u}{\partial x} + j \frac{\partial v}{\partial x}
+\end{align*}
+
+
+\paragraph{Case (ii): $\delta z = j \delta y$.} We have
+
+\begin{align*}
+\frac{df(z)}{dz} &= \lim_{\delta y \rightarrow 0} \frac{u(x, y + \delta y) + j v(x, y + \delta y) - u(x, y) - j v(x, y) }{j \delta y} \\
+&= \lim_{\delta y \rightarrow 0} \frac{v(x, y + \delta y)  - v(x,y) - j v(u, y + \delta y) + j u(x, y) }{\delta y} = \frac{\partial v}{\partial y} - j \frac{\partial u}{\partial y}
+\end{align*}
+
+If we want the derivative to be independent of the direction, the real and imaginary part have to be the same; so we have the \emph{Cauchy-Riemann equations}
+
+\bee
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\eee
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
