@@ -240,7 +240,7 @@ We have to distinguish two cases: In (i), we have $k \neq a$, and we can perform
 Y(s) = \frac{A}{s+a} + \frac{B}{s+k}
 \eee
 
-This corresponds to the sum of two exponentials, $e^{-at}$ and $e^{-kt}$. In (ii), we have $k = a$ and therefore
+This corresponds to the sum of two exponentials, $e^{-at}$ and $e^{-kt}$, each multiplied with some factor given by the partial fraction expansion (which I did not perform here). In case (ii), we have $k = a$ and therefore
 
 \bee
 Y(s) = \frac{1}{(s+a)^2}
@@ -251,6 +251,39 @@ We cannot expand this any further; instead we have to transform this back direct
 \bee
 y(t) = t e^{-at} \sigma(t)
 \eee
+
+We can use Maxima to solve the ODE for the two cases and plot the result.
+
+\begin{verbatim}
+(%i1)   eq1:'diff(y,x)+  1*y = exp(-2*x);
+(%o1)   'diff(y,x,1)+y=%e^(-(2*x))
+(%i2)   ode2(eq1,y, x);
+(%o2)   y=%e^(-x)*(%c-%e^(-x))
+(%i3)   sol1:ic1(%,x=0,y=0);
+(%o3)   y=%e^(-(2*x))*(%e^x-1)
+(%i4)   eq2:'diff(y,x)+  1*y = exp(-1*x);
+(%o4)   'diff(y,x,1)+y=%e^(-x)
+(%i5)   ode2(eq2,y, x);
+(%o5)   y=%e^(-x)*(x+%c)
+(%i6)   sol2:ic1(%,x=0,y=0);
+(%o6)   y=%e^(-x)*x
+(%i7)   eq3:'diff(y,x)+  1*y = exp(-1.1*x);
+(%o7)   'diff(y,x,1)+y=%e^(-(1.1*x))
+(%i8)   ode2(eq3,y, x);
+(%o8)   y=%e^(-x)*(%c-10*%e^(-(x/10)))
+(%i9)   sol3:ic1(%,x=0,y=0);
+(%o9)   y=%e^(-((11*x)/10))*(10*%e^(x/10)-10)
+(%i10)  plot2d([rhs(sol1), rhs(sol2), rhs(sol3)],[x,0,10]);
+\end{verbatim}
+
+The following Figure shows the plot for $k=1$ and three different values for $a$. The red curve corresponds to $a = k = 1$; the other two show $y(t)$ for lower values of $a$. We can see that there is no fundamental difference between $a = k$ and $a \neq k$; in particular the case $a = 1.1$ (green curve) is quite close to the $a = k$ case.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.7]{images/2026-01-14-laplace_trans_01_01.png}
+\caption{PDF}
+\end{figure}
+
 
 
 %%% Local Variables:
