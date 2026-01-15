@@ -1,6 +1,57 @@
 \DiaryEntry{Complex Analysis, 1}{2026-01-13}{Complex Analysis}
 
-Some introductory notes
+\subsubsection{Introduction}
+
+We consider a complex number $z = x + jy$ and have $\Re z = x, \Im z = y$. The complex conjugate $\bar{z}$ is defined as $\bar{z} = x - jy$ and from this we obtain the following
+
+\begin{equation*}
+\Re z = \frac{z + \bar{z}}{2}, \Im z = \frac{z - \bar{z}}{2j}        
+\end{equation*}
+
+
+There is the triangle inequality
+
+\begin{equation*}
+|z_1 + z_2| \leq |z_1| + |z_2|    
+\end{equation*}
+
+When we apply the inequality to $z_2 - z_1$ and $z_1$, we get another interesting form
+
+\begin{equation*}
+|z_2| \leq |z_2 - z_1| + |z_1| \rightarrow |z_2| - |z_1| \leq |z_2 - z_1|    
+\end{equation*}
+
+We can use the triangle inequality in the following bound
+
+\begin{align*}
+    |z_1 + z_2|^2 &= (z_1 + z_2)(\bar{z_1} + \bar{z_2}) = z_1 \bar{z_1} + z_1 \bar{z_2} + z_2 \bar{z_1} + z_2 \bar{z_2} \\
+    &= |z_1|^2 + (z_1 \bar{z_2} + \overline{z_1 \bar{z_2}} )+ |z_2|^2 \\
+    &= |z_1|^2 + 2 \Re (z_1 \bar{z_2}) + |z_2|^2 \\
+    &\leq |z_1|^2 + 2 |z_1 z_2| + |z_2|^2 = (|z_1| + |z_2|)^2
+\end{align*}
+
+\paragraph{Example.} When $|z| = 1$, we can bound
+
+\begin{equation*}
+|z^2 + 2z + 6 + 8j| \leq |z|^2 + 2 |z| + |6 + 8j| = 1 + 2 + \sqrt{36 + 64} = 13    
+\end{equation*}
+
+
+We can use $e^{j \theta} = cos \theta + j \sin \theta$ in the following
+
+\begin{equation*}
+    (\cos \theta + j \sin \theta)^n = (\left( e^{j \theta} \right)^n = e^{j n \theta} = \cos n \theta+  j \sin n \theta
+\end{equation*}
+
+A nice application if this is
+
+\begin{align*}
+    \cos 3 \theta &= \Re \left( cos 3\theta+  j \sin 3 \theta\right) \\
+&= \Re \left( cos \theta + j \sin \theta\right)^3 \\
+&= \Re \left( cos^3 \theta + 3j \cos^2 \theta \sin \theta - 3 \cos \theta\sin^2 \theta - j \sin^3 \theta \right) \\
+&= cos^3 \theta  - 3 \cos \theta\sin^2 \theta = cos^3 \theta  - 3 \cos \theta (1 - \cos^2 \theta) = 4 \cos^3 \theta - 3 \cos \theta
+\end{align*}
+
 
 \subsubsection{Exponential Function}
 
@@ -20,13 +71,13 @@ Start with
 Adding the two equations yields
 
 \bee
-\cos \theta = \frac{1}{2} (e^{j \theta} + e^{-j \theta})
+\cos \theta = \frac{1}{2} \left( e^{j \theta} + e^{-j \theta} \right)
 \eee
 
 Subtracting yields
 
 \bee
-\sin \theta = \frac{1}{2j} (e^{j \theta} - e^{-j \theta})
+\sin \theta = \frac{1}{2j} \left( e^{j \theta} - e^{-j \theta} \right)
 \eee
 
 \subsubsection{Complex Differentiation}
