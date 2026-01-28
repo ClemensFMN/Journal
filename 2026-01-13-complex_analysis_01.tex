@@ -2,7 +2,7 @@
 
 \subsubsection{Introduction}
 
-We consider a complex number $z = x + jy$ and have $\Re z = x, \Im z = y$. The complex conjugate $\bar{z}$ is defined as $\bar{z} = x - jy$ and from this we obtain the following
+Based on \cite{agarwal2011complanalysis}. We consider a complex number $z = x + jy$ and have $\Re z = x, \Im z = y$. The complex conjugate $\bar{z}$ is defined as $\bar{z} = x - jy$ and from this we obtain the following
 
 \begin{equation*}
 \Re z = \frac{z + \bar{z}}{2}, \Im z = \frac{z - \bar{z}}{2j}        
@@ -30,20 +30,20 @@ We can use the triangle inequality in the following bound
     &\leq |z_1|^2 + 2 |z_1 z_2| + |z_2|^2 = (|z_1| + |z_2|)^2
 \end{align*}
 
-\paragraph{Example.} When $|z| = 1$, we can bound
+
+We can use the polar form of a complex number $e^{j \theta} = cos \theta + j \sin \theta$ in the following
 
 \begin{equation*}
-|z^2 + 2z + 6 + 8j| \leq |z|^2 + 2 |z| + |6 + 8j| = 1 + 2 + \sqrt{36 + 64} = 13    
+    (\cos \theta + j \sin \theta)^n = \left( e^{j \theta} \right)^n = e^{j n \theta} = \cos n \theta+  j \sin n \theta
 \end{equation*}
 
-
-We can use $e^{j \theta} = cos \theta + j \sin \theta$ in the following
+\paragraph{Examples.} When $|z| = 1$, we can bound
 
 \begin{equation*}
-    (\cos \theta + j \sin \theta)^n = (\left( e^{j \theta} \right)^n = e^{j n \theta} = \cos n \theta+  j \sin n \theta
+|z^2 + 2z + 6 + 8j| \leq |z|^2 + 2 |z| + |6 + 8j| = 1 + 2 + \sqrt{36 + 64} = 13 \qed
 \end{equation*}
 
-A nice application if this is
+We can use the polar form to obtain some trigonometric identities; eg
 
 \begin{align*}
     \cos 3 \theta &= \Re \left( cos 3\theta+  j \sin 3 \theta\right) \\
@@ -52,16 +52,53 @@ A nice application if this is
 &= cos^3 \theta  - 3 \cos \theta\sin^2 \theta = cos^3 \theta  - 3 \cos \theta (1 - \cos^2 \theta) = 4 \cos^3 \theta - 3 \cos \theta
 \end{align*}
 
+We also have
 
-\subsubsection{Exponential Function}
+\bee
+(1 + j)^{24} = \left( \sqrt{2} e^{j \pi / 4} \right)^{24} = \sqrt{2}^{24} e^{j 24 \pi / 4} = 2^{12} e^{j 6 \pi} = 2^{12} \qed
+\eee
+
+\subsubsection{Complex Functions}
+
+A complex function (complex-valued of a complex variable) $f$ defined on $\Sc$ is a rule that assigns to each $z = x+jy$ in $\Sc$ a unique complex number $w = u + iv$ and written as $f : \Sc \rightarrow \Sc$.
+
+As every complex number $z$ is characterized by a pair of real numbers $x$ and $y$, a complex function $f$ of the complex variable $z$ can be specified by two real functions $u = u(x, y)$ and $v = v(x, y)$. It is customary to write $w = f (z) = u(x, y)+iv(x, y)$.
+
+
+\paragraph{Exponential Function.} The exponential function is defined as below,
 
 \bee
 e^{z} = e^{x + jy} = e^x e^{jy} = e^x (\cos(y) + j \sin(y))
 \eee
 
-\subsubsection{Trigonometric Functions}
+Splitting this into real and impaginary parts, we obtain
 
-Start with
+\bee
+u(z) = u(x,y) = e^x \cos y, \quad v(z) = v(x,y) = e^x \sin y
+\eee
+
+We can use this to (re)derive some trigonometric identities. We have
+
+\bee
+e^{j (z_1 + z_2)} = \cos (z_1 + z_2) + j \sin (z_1 + z_2)
+\eee
+
+However, we can also expand the exponential and then split into real and imaginary parts,
+
+\begin{align*}
+e^{j (z_1 + z_2)} &= e^{j z_1} \cdot e^{j z_2} = (\cos z_1 + j \sin z_1) \cdot (\cos z_2 + j \sin z_2) \\
+&= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 + j \cos z_1 \sin z_2 + j \cos z_2 \sin z_1
+\end{align*}
+
+Comparing real and imaginary parts, we obtain
+
+\begin{align*}
+    \cos (z_1 + z_2) &= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 \\
+    \sin (z_1 + z_2) &= \cos z_1 \sin z_2 + \cos z_2 \sin z_1
+\end{align*}
+
+
+\paragraph{Trigonometric Functions.} We start with
 
 \begin{align*}
     e^{j \theta} &= \cos \theta + j \sin \theta \\
@@ -85,40 +122,84 @@ Subtracting yields
 The derivative of a complex function $f(z)$ is defined as
 
 \bee
-\frac{df(z)}{dz} = \lim_{\delta z \rightarrow 0} \frac{f(z + \delta z)}{\delta z}
+\frac{df(z)}{dz} = \lim_{\Delta z \rightarrow 0} \frac{f(z + \Delta z)}{\Delta z}
 \eee
 
-Note that this simple definition disguises the fact, that we can choose $\delta z$ to have arbitrary direction and - in the general case - it is not clear that the limit is independent of the direction.
+Note that this simple definition disguises the fact, that we can choose $\Delta z$ to have arbitrary direction and - in the general case - it is not clear that the limit is independent of the direction.
 
 A complex function is called \emph{analytic} if the derivative is independent of the direction.
 
-We consider two cases: (i) $\delta z = \delta x$ being real and (ii) $\delta z = j \delta y$ being imaginary. For each case, we calculate the derivative. In the following we split the real and imaginary parts; so we have
+We next derive a condition, when a complex function is analytic.
+
+We derive the complex derivative for two cases: (i) $\Delta z = \Delta x$ being real and (ii) $\Delta z = j \Delta y$ being imaginary. For each case, we calculate the derivative. In the following we split the real and imaginary parts; so we have
 
 \bee
 f(z) = u(x,y + j(v(x,y)))
 \eee
 
-\paragraph{Case (i): $\delta z = \delta x$.} We have
+\paragraph{Case (i): $\Delta z = \Delta x$.} We have
 
 \begin{align*}
-\frac{df(z)}{dz} &= \lim_{\delta x \rightarrow 0} \frac{u(x + \delta x, y) + j v(x + \delta x, y) - u(x, y) - j v(x, y) }{\delta x} \\
-&= \lim_{\delta x \rightarrow 0} \frac{u(x + \delta x, y) - u(x, y) + j v(x + \delta x, y)  - j v(x, y) }{\delta x} = \frac{\partial u}{\partial x} + j \frac{\partial v}{\partial x}
+\frac{df(z)}{dz} &= \lim_{\Delta x \rightarrow 0} \frac{u(x + \Delta x, y) + j v(x + \Delta x, y) - u(x, y) - j v(x, y) }{\Delta x} \\
+&= \lim_{\Delta x \rightarrow 0} \frac{u(x + \Delta x, y) - u(x, y) + j v(x + \Delta x, y)  - j v(x, y) }{\Delta x} = \frac{\partial u}{\partial x} + j \frac{\partial v}{\partial x}
 \end{align*}
 
 
-\paragraph{Case (ii): $\delta z = j \delta y$.} We have
+\paragraph{Case (ii): $\Delta z = j \Delta y$.} We have
 
 \begin{align*}
-\frac{df(z)}{dz} &= \lim_{\delta y \rightarrow 0} \frac{u(x, y + \delta y) + j v(x, y + \delta y) - u(x, y) - j v(x, y) }{j \delta y} \\
-&= \lim_{\delta y \rightarrow 0} \frac{v(x, y + \delta y)  - v(x,y) - j v(u, y + \delta y) + j u(x, y) }{\delta y} = \frac{\partial v}{\partial y} - j \frac{\partial u}{\partial y}
+\frac{df(z)}{dz} &= \lim_{\Delta y \rightarrow 0} \frac{u(x, y + \Delta y) + j v(x, y + \Delta y) - u(x, y) - j v(x, y) }{j \Delta y} \\
+&= \lim_{\Delta y \rightarrow 0} \frac{v(x, y + \Delta y)  - v(x,y) - j v(u, y + \Delta y) + j u(x, y) }{\Delta y} = \frac{\partial v}{\partial y} - j \frac{\partial u}{\partial y}
 \end{align*}
 
 If we want the derivative to be independent of the direction, the real and imaginary part have to be the same; so we have the \emph{Cauchy-Riemann equations}
 
-\bee
+\be\label{2026-01-13:eq1}
 \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\ee
+
+\begin{theorem}
+    A \emph{necessary} condition for a function $f (z) = u(x, y) + iv(x, y)$ to be differentiable at a point $z_0$ is that the Cauchy-Riemann equations hold at $z_0$. Consequently, if $f$ is analytic in an open set $\Sc$, then the Cauchy-Riemann equations must be satisfied at every point of $\Sc$.
+\end{theorem}
+
+
+\paragraph{Examples} The simplest example for a non-analytic function is $f(z) = \bar{z}$ with $u(x,y) = x, v(x,y) = -y$. Plugging this into \eqref{2026-01-13:eq1}, we obtain
+
+\bee
+    \frac{\partial u}{\partial x} = 1, \quad \frac{\partial u}{\partial y} = 0, \quad \frac{\partial v}{\partial x} = 0, \quad \frac{\partial v}{\partial y} = -1
 \eee
 
+The first Cauchy-Riemann equation, $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$, does \emph{not} hold, therefore the function is \emph{not} analytic.
+
+We can also show this "manually", by using the derivative definition and taking the limits. We start with case (i) $\Delta z = \Delta x$ and obtain
+
+\begin{align*}
+\frac{df(z)}{dz} &= \lim_{\Delta x \rightarrow 0} \frac{(x + \Delta x) + j (-y) - x + j y }{\Delta x} \\
+&= \lim_{\Delta x \rightarrow 0} \frac{\Delta x}{\Delta x} = 1
+\end{align*}
+
+Case (ii) is $\Delta z = j \Delta y$ and we have
+
+\begin{align*}
+\frac{df(z)}{dz} &= \lim_{\Delta y \rightarrow 0} \frac{ x + j(-y-\Delta y) -x + jy}{j \Delta y} \\
+&= \lim_{\Delta y \rightarrow 0} \frac{- j\Delta y}{\Delta y} = -j \qed
+\end{align*} \qed
+
+In a similar spirit, the squared absolute value $f(z) = |z|^2$ is also not analytic. We have $u(x,y) = x^2 + y^2, v(x,y) = 0$ and therefore
+
+\bee
+    \frac{\partial u}{\partial x} = 2x, \quad \frac{\partial u}{\partial y} = 2y, \quad \frac{\partial v}{\partial x} = 0, \quad \frac{\partial v}{\partial y} = 0 \qed
+\eee
+
+We finally consider $f(z) = (x^2 + y) + j(y^2 - x)$; we have $u(x,y) = x^2 + y, v(x,y) = y^2 - x$ and we can use the Cauchy-Riemann equations to obtain
+
+\bee
+    \frac{\partial u}{\partial x} = 2x, \quad \frac{\partial u}{\partial y} = 1, \quad \frac{\partial v}{\partial x} = -1, \quad \frac{\partial v}{\partial y} = 2y
+\eee
+
+Comparing with \eqref{2026-01-13:eq1}, we see that the Cauchy-Riemann equations are only fulfilled on the line $x = y$; however a line is \emph{not} an open set; therefore the function is \emph{not} analytic. \qed
+
+I suspect that all functions which explicitly use $x$ and $y$ separately, are often not analytic.
 
 %%% Local Variables:
 %%% mode: latex
