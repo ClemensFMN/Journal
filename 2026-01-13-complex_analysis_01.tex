@@ -201,6 +201,103 @@ Comparing with \eqref{2026-01-13:eq1}, we see that the Cauchy-Riemann equations 
 
 I suspect that all functions which explicitly use $x$ and $y$ separately, are often not analytic.
 
+We have another theorem.
+
+\begin{theorem}
+    Sufficient Conditions for Differentiability: Let $f(z) = u(x, y) + jv(x, y)$ be defined in some open set $\Sc$ containing the point $z_0$. If the first order partial derivatives of $u$ and $v$ exist in $\Sc$, are continuous at $z_0$, and satisfy the Cauchy-Riemann equations at $z_0$, then $f$ is differentiable at $z_0$. Moreover,
+
+    \bee
+        f'(z_0) = \frac{\partial u}{\partial x} (x_0, y_0) + j \frac{\partial v}{\partial x} (x_0, y_0) = \frac{\partial v}{\partial y} (x_0, y_0) - j \frac{\partial v}{\partial x} (x_0, y_0)
+    \eee
+\end{theorem}
+
+Consequently, if the first-order partial derivatives are continuous and satisfy the Cauchy-Riemann equations at all points of $\Sc$, then $f$ is analytic in $\Sc$. We also note that if $f$ is  differentiable only at finitely many points, then it is nowhere analytic.
+
+Being analytic has a wide range of consequences; for example the following theorem.
+
+\begin{theorem}
+    If $f(z)$ is analytic in a domain $\Sc$ and if $f'(z) = 0$ everywhere in $\Sc$, then $f(z)$ is a constant in $\Sc$.
+\end{theorem}
+
+Proof: Since $f'(z) = 0$ in $\Sc$, all first-order partial derivatives of $u$ and $v$ vanish in $\Sc$; i.e., $\partial u / \partial x = \partial u / \partial y = \partial v / \partial x = \partial v / \partial y = 0$. Now, since S is connected, we have $u = $ a constant and $v = $ a constant in $\Sc$. Consequently, $f = u + jv$ is also a constant in $\Sc$. Note: The connectedness of $\Sc$ is essential for the proof (some technical detail).
+
+A similar argument holds for functions with constant absolute value.
+
+\begin{theorem}
+    If $f$ is analytic in a domain $\Sc$ and if $|f|$ is constant there, then $f$ is constant.
+\end{theorem}
+
+Proof: With $f(z) = u(x,y) + j v(x,y)$ and $|f(z)| = 0$, then $u = v = 0$ and $f = 0$ (ie constant). If $|f|^2 = u^2 + v^2 = c \neq 0$, we take the partial derivatives of this expression with respect to $x$ and $y$, respectively, and have
+
+\begin{align*}
+& 2 u \frac{\partial u}{\partial x} + 2 v \frac{\partial v}{\partial x} = 0 \\
+& 2 u \frac{\partial u}{\partial y} + 2 v \frac{\partial v}{\partial y} = 0 \\
+\end{align*}
+
+Using the Cauchy-Riemann equations (and dividing by two), we can rewrite this as
+
+\begin{align*}
+& u \frac{\partial u}{\partial x} - v \frac{\partial u}{\partial y} = 0 \\
+& v \frac{\partial u}{\partial x} + u \frac{\partial u}{\partial y} = 0 \\
+\end{align*}
+
+Let's multiply the first equation by $u$ and the second by $v$ in order to arrive at
+
+\begin{align*}
+& u^2 \frac{\partial u}{\partial x} - u v \frac{\partial u}{\partial y} = 0 \\
+& v^2 \frac{\partial u}{\partial x} + u v \frac{\partial u}{\partial y} = 0 \\
+\end{align*}
+
+Adding the two equations yields
+
+\bee
+( u^2 + v^2 ) \frac{\partial u}{\partial x}= 0
+\eee
+
+In a simialr spirit, we obtain
+
+\bee
+( u^2 + v^2 ) \frac{\partial u}{\partial y}= 0
+\eee
+
+We consider the case $|f|^2 = u^2 + v^2 = c \neq 0$, so the partial derivatives in both expressions have to be zero. The same holds for the partial derivatives of $v$ with respect to $x$ and $y$, respectively. All in all all four partial derivatives have to be zero and as consequence $f$ is a constant function. \qed
+
+We can further develop the Cauchy-Riemann equations to gain more insight. We start with
+
+\bee
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\eee
+
+Differentiating again with respect to $x$ yields
+
+\bee
+\frac{\partial^2 u}{\partial x^2} = \frac{\partial^2 v}{\partial x \partial y}, \quad \frac{\partial^2 u}{\partial x \partial y} = - \frac{\partial^2 v}{\partial x \partial y}
+\eee
+
+Differentiation with respect to $y$ yields
+
+\bee
+\frac{\partial^2 u}{\partial x \partial y} = \frac{\partial^2 v}{\partial^2 y}, \quad \frac{\partial^2 u}{\partial y^2} = - \frac{\partial^2 v}{\partial x \partial y}
+\eee
+
+Combining the two sets of equations, we obtain
+
+\bee
+\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0, \quad \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} = 0
+\eee
+
+So we have converted the Cauchy-Riemann equations into two (independent) second-order partial differential equations. These equations are called the \emph{Laplacian equations}. They occur in the study of problems dealing with electric and magnetic fields, stationary states, hydrodynamics, diffusion, and so on.
+
+A real-valued function $\phi(x, y)$ is said to be harmonic in a domain $\Sc$ if all its second-order partial derivatives are continuous in $\Sc$ and it satisfies $\partial^2 \phi / \partial x^2 + \partial^2 \phi / \partial y^2 = 0$ at each point of $\Sc$.
+
+\begin{theorem}
+    If $f(z) = u(x,y) + j v(x,y)$ is analytic in a domain $\Sc$, then each function $u(x,y)$ and $v(x,y)$ is harmonic on $\Sc$.
+\end{theorem}
+
+
+Let $u(x, y)$ and $v(x, y)$ be two functions harmonic in a domain $\Sc$ that satisfy the Cauchy-Riemann equations at every point of $\Sc$. Then, $u(x, y)$ and $v(x, y)$ are called harmonic conjugates of each other. Knowing one of them, we can reconstruct the other to within an arbitrary constant.
+
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "journal"
