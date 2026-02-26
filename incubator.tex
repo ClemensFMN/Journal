@@ -1032,6 +1032,73 @@ I = I(1) = \frac{\pi}{2} e \erfc(1)
 \eee
 
 
+\subsection{Angle of Intersection}
+
+We have two $2-$d cuves, $y = f_1(x)$ and $y = f_2(x)$. Assume they intersect at a point $(x_0, y_0)$ and we want to obtain the intersection angle.
+
+We calculate the first derivative of each curve; $m_1 = f'_1(x_0)$ and $m_2 =f'_2(x_0)$ and calculate the intersection angle $\theta$ according to
+
+\bee
+\tan \theta = \tan (\alpha_2 - \alpha_1 )
+\eee
+
+where $\tan \alpha_i = m_i$. We can rewrite the difference inside the $\tan$ and arrive at
+
+\bee
+\tan \theta = \frac{\tan \alpha_2 - \tan \alpha_1}{1 + \tan \alpha_1 \tan \alpha_2}
+\eee
+
+Inserting back the derivatives, we arrive at
+
+\bee
+\theta = \arctan \frac{m_2 - m_1}{1 + m_1 m_2}
+\eee
+
+There are two special cases: (i) The derivatives are the same $m_1 = m_2$ and we have $\theta = \arctan 0 = 0 \degree$, (ii) the tangents meet at right angle; ie $m_1 m_2 = -1$ and we obtain $\arctan \infty = 90 \degree$.
+
+\paragraph{Simple Example.} Let's consider $f_1(x) = 2x+1, f_2(x) = 10-x$. The two curves intersect at
+
+\bee
+2x+1 = 10-x \rightarrow 3x = 9 \rightarrow x_0 = 3, y_0 = 7
+\eee
+
+The derivates are constant, $m_1 = 2, m_2 = -1$ and therefore the intersection angle becomes
+
+\bee
+\theta = \arctan \frac{2 + 1}{1 - 2} = \arctan (-3) \approx -71.6 \degree
+\eee
+
+I made a construction in desmos and plotted the result (together with the angle measurement) below. This confirms the angle calculation made above.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/2026-01-13-complex_analysis_02.png}
+\end{figure}
+
+\paragraph{Second Example.} Let's next consider two curves which are not lines: $f_1(x) = x^2, f_2(x) = 8 - x^2$. We start with the interception point
+
+\bee
+x^2 = 8-x^2 \rightarrow x_0 = \pm 2, y_0 = 4
+\eee
+
+The derivatives of the two functions are $f'_1(x) = 2x, f'_2(x) = -2x$ and their values at the right interception point, $x=2$, are
+
+\bee
+m_1 = 4, m_2 = -4
+\eee
+
+From this we can calculate the angle at the intersection as
+
+\bee
+\theta = \arctan \frac{-4 - 4}{1 - 16} = \frac{-8}{-15} \approx 28.1 \degree
+\eee
+
+The construction in Desmos is shown below and again confirms the calculated result.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{images/2026-01-13-complex_analysis_03.png}
+\end{figure}
 
 
 %%% Local Variables:
