@@ -1,0 +1,39 @@
+\DiaryEntry{Complex Analysis, 2}{2026-02-05}{Complex Analysis}
+
+We reconsider the complex exponential,
+
+\bee
+f(z) = e^{z} = e^x (\cos y + j \sin y)
+\eee
+
+Splitting this into the real- and imaginary function, we obtain
+
+\bee
+u(x,y) = e^x \cos y + j e^x \sin y
+\eee
+
+We can insert these into the Cauchy-Riemann equations to check whether the function is analytic,
+
+\bee
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\eee
+
+For the complex exponential function we have
+
+\begin{align*}
+    \frac{\partial u}{\partial x} &= e^x \cos y \\
+    \frac{\partial v}{\partial y} &= e^x \cos y \\
+    \frac{\partial u}{\partial y} &= - e^x \sin y \\ 
+    \frac{\partial v}{\partial x} &= e^x \sin y
+\end{align*}
+
+We see that the Cauchy-Riemann equations and conclude that the complex exponential is an analytic function. We can now obtain the complex derivative as
+
+\bee
+f'(z) = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial x} = e^x \cos y + j e^x \sin y = e^z \qed
+\eee
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
