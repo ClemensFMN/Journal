@@ -65,58 +65,6 @@ A complex function (complex-valued of a complex variable) $f$ defined on $\Sc$ i
 As every complex number $z$ is characterized by a pair of real numbers $x$ and $y$, a complex function $f$ of the complex variable $z$ can be specified by two real functions $u = u(x, y)$ and $v = v(x, y)$. It is customary to write $w = f (z) = u(x, y)+iv(x, y)$.
 
 
-\paragraph{Exponential Function.} The exponential function is defined as below,
-
-\bee
-e^{z} = e^{x + jy} = e^x e^{jy} = e^x (\cos(y) + j \sin(y))
-\eee
-
-Splitting this into real and impaginary parts, we obtain
-
-\bee
-u(z) = u(x,y) = e^x \cos y, \quad v(z) = v(x,y) = e^x \sin y
-\eee
-
-We can use this to (re)derive some trigonometric identities. We have
-
-\bee
-e^{j (z_1 + z_2)} = \cos (z_1 + z_2) + j \sin (z_1 + z_2)
-\eee
-
-However, we can also expand the exponential and then split into real and imaginary parts,
-
-\begin{align*}
-e^{j (z_1 + z_2)} &= e^{j z_1} \cdot e^{j z_2} = (\cos z_1 + j \sin z_1) \cdot (\cos z_2 + j \sin z_2) \\
-&= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 + j \cos z_1 \sin z_2 + j \cos z_2 \sin z_1
-\end{align*}
-
-Comparing real and imaginary parts, we obtain
-
-\begin{align*}
-    \cos (z_1 + z_2) &= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 \\
-    \sin (z_1 + z_2) &= \cos z_1 \sin z_2 + \cos z_2 \sin z_1
-\end{align*}
-
-
-\paragraph{Trigonometric Functions.} We start with
-
-\begin{align*}
-    e^{j \theta} &= \cos \theta + j \sin \theta \\
-    e^{-j \theta} &= \cos \theta - j \sin \theta
-\end{align*}
-
-Adding the two equations yields
-
-\bee
-\cos \theta = \frac{1}{2} \left( e^{j \theta} + e^{-j \theta} \right)
-\eee
-
-Subtracting yields
-
-\bee
-\sin \theta = \frac{1}{2j} \left( e^{j \theta} - e^{-j \theta} \right)
-\eee
-
 \subsection{Complex Differentiation}
 
 The derivative of a complex function $f(z)$ is defined as
@@ -375,13 +323,7 @@ The rotation and scaling performed by an analytic function described above can b
 	J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}
 \end{equation*}
 
-Comparing this with the Jacobi definition 
-
-\begin{equation*}
-	J = \begin{pmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{pmatrix}
-\end{equation*}
-
-we see that fulfilling \eqref{2026-01-13:eq2} amounts to fulfilling the Cauchy-Riemann equations.
+Comparing this with the Jacobi definition \eqref{2026-01-13:eq2}, we see that this are actually the Cauchy-Riemann equations \eqref{2026-01-13:eq1}.
 
 
 %%% Local Variables:
