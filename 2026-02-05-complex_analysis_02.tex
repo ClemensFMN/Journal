@@ -46,6 +46,29 @@ and see that the Cauchy-Riemann equations are fulfilled and conclude that the co
 f'(z) = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial x} = e^x \cos y + j e^x \sin y = e^z \qed
 \eee
 
+We can visualize the complex exponential as follows: The function $w = e^z$ takes a complex variable $z$ and transforms it into a complex variable $w$. We can also interpret $z = x+jy$ as a point in the two-dimensional complex $z$-plane with coordinates $(x, y)$ and, similarly, $w = u+jv$ as point in the two-dimensional complex $w$-plane. The function $w = e^z$ is then a mapping from the $z$-plane into the $w$-plane and we can plot the effect of the function on various curves in the $z$-plane.
+
+We start with vertical lines given by $x = a, y = t$ (where $t$ is the real curve parameter). The complex variable $z$ becomes $z =a + jt$ and therefore $w = e^z = e^{x+jt} = e^x e^{jy}$ corresponds to circles with radius $e^x$. The following plot shows the curves in the $z$-plane for different value $a$ on the left, and the corresponding curves in the $w$ plane on the right.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-02-05-complex_01.png}
+\end{figure}
+
+The opposite case of horizonal lines ($x = t, y = a$) is shown in the FIgure below. We have $z = t + ja$ and $w = e^z = e^{t + ja} = e^t e^{ja}$ which corresponds to lines with "slope" $e^{ja}$ in the $w$-plane.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-02-05-complex_02.png}
+\end{figure}
+
+Finally, "general" lines with different slopes and intersection point are shown below. In this case $z = t + jat$ and $w = e^z = e^{t + jat} = e^t e^{jat}$ corresponds to spirals in the $w$-plane.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-02-05-complex_04.png}
+\end{figure}
+
 
 \paragraph{Trigonometric Functions.} We start with
 
@@ -68,9 +91,9 @@ Subtracting yields
 
 This inspires the definition of the trigonometric functions with complex argument as
 
-\bee
+\be\label{2026-02-05:eq2}
 \sin z= \frac{1}{2j} \left( e^{j z} - e^{-j z} \right), \,  \cos z = \frac{1}{2} \left( e^{j z} + e^{-j z} \right)
-\eee
+\ee
 
 We can use these definitions (together with the fact that $e^z$ is analyti), to obtain first derivatives; eg
 
@@ -99,15 +122,48 @@ Comparing real and imaginary parts, we obtain
     \sin (z_1 + z_2) &= \cos z_1 \sin z_2 + \cos z_2 \sin z_1
 \end{align*}
 
-These identities can be used to derive all sorts of interesting results; Equating
+These identities together with \eqref{2026-02-05:eq2} can be used to derive all sorts of interesting results; eq
+
+\begin{align*}
+    \sin(z + 2 \pi) &= \cos z \sin 2 \pi + \cos 2 \pi \sin z = \sin z \\
+    \cos(-z) &= \frac{1}{2} \left( e^{- j z} + e^{j z} \right) = \cos z \\
+    \sin 2z &= \sin (z + z) = \cos z \sin z + \cos z \sin z = 2 \sin z \cos z
+\end{align*}
+
+
+By using the definitions from \eqref{2026-02-05:eq2}, we can also obtain the values for purely imaginary arguments,
 
 \bee
-\sin(z + 2 \pi) = \cos z \sin 2 \pi + \cos 2 \pi \sin z = \sin z
+\sin (j y) = \frac{1}{2j} \left( e^{j \cdot j y} - e^{-j \cdot j y} \right) = \frac{1}{2j} \left( e^{-y} - e^{y} \right) = - \frac{1}{j} \sinh y = j \sinh y
 \eee
 
-Further hrigonometric functions, hyperbolic functions
+where we have used the definition $\sinh x = \frac{1}{2}(e^x - e^{-x})$ and $\frac{1}{j} = -j$. In a similar spirit we obtain $\cos (jy) = \cosh y$.
 
-\paragraph{Complex Logarithm.}
+\paragraph{Complex Logarithm.} For real values, the logarithm is the inverse function of the exponential function. We want to keep this behaviour for complex numbers; although due to the periodicity of $e^z$, things are a bit more complex.
+
+It turns out that we need to be a bit more careful with the argument function $\arg z$: We define this function to take on \emph{any} real value. However, since $e^{j \arg z}$ is periodic with period $2 \pi$, we define a "special" argument function, which takes on values in the interval $[-\pi, \pi]$ only.
+
+\begin{definition}
+    We define the \emph{principal value} of $\arg z$, denoted by $\Arg z$, as the unique value of $\arg z$ such that $- \pi < \Arg z \leq \pi$.
+\end{definition}
+
+Note that as consequence, $\Arg z$ has discontinuities at $(2k+1) \pi$. As example, consider $e^{j 3 \pi}$. Then $\arg e^{j 3 \pi} = 3 \pi$ and $\Arg e^{j 3 \pi} = \pi$. 
+
+With this definition in place, we can define the complex logarithm as follows.
+
+\begin{definition}
+    We define $\Log r = \ln r$ as the natural logarithm of a positive real number $r$. If $z \neq 0$, then we define the complex logarithm $\log z$ as
+
+    \bee
+        \log z = \Log |z| + j \arg z = \Log |z| + j \Arg z + 2kj\pi, \quad k = 0, \pm1, \pm 2, \ldots
+    \eee
+\end{definition}
+
+Proof: If $z \neq 0$, then we can write $z = r e^{j \theta}$ and $|z| = r, \arg z = \theta$. We can develop the complex exponential as
+
+\bee
+e^{\log z} = e^{\Log |z| + j \arg z} = e^{\Log |z|} e^{j \arg z} = |z| e^{j \theta} \qed
+\eee
 
 
 %%% Local Variables:
