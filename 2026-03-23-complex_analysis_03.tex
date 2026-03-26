@@ -1,0 +1,45 @@
+\DiaryEntry{Complex Analysis, 3}{2026-03-23}{Complex Analysis}
+
+In this entry we consider mappings between complex functions (in a similar spirit as we considered the mappings induced by the complex exponential in the previous entry).
+
+
+\subsection{Complex Factor}
+
+The most simple case is multiplication by a complex factor $a$; ie
+
+\bee
+w = a \cdot z
+\eee
+
+We can see the effect of the mapping more clearly by considering polar coordinates. With $z = r e^{j \theta}$ and  $a = |a| e^{j \alpha}$, we obtain
+
+\bee
+w = |a| \cdot z = a r e^{j (\theta + \alpha)}
+\eee
+
+Tt follows that the transformation expands or contracts the vector representing $z$ by the factor $|a|$ and rotates it through an angle $\alpha$ about the origin. The image of a given region is therefore geometrically similar to that region. Thus, in particular, a dilation maps a straight line onto a straight line and a circle onto a circle.
+
+
+\subsection{Linear Mapping}
+
+A bit more complex is the general linear mapping given by
+
+\bee
+w = a \cdot z + b
+\eee
+
+with $a = |a| e^{j \alpha}$, $b = b_x + j b_y$. This corresponds to a expansion or contraction (easiest represented in polar coordinates) followed by a translation by $b$ (easiest represented in rectangular coordinates).
+
+\subsection{Exponentiation}
+
+\bee
+w = z^n
+\eee
+
+With $z = r e^{j \theta}$, we obtain $w = r^n e^{j n \theta}$. 
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
