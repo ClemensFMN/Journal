@@ -59,7 +59,9 @@ It's also interestng to note that circle stays circles as shown in the plot belo
 \end{figure}
 
 
-\paragraph{Mapping $1/z$.} This mapping can be rewritten
+\subsection{Mapping $1/z$}
+
+This mapping can be rewritten according to
 
 \be\label{2026-03-23:eq1}
 w = \frac{1}{z} = \frac{\bar{z}}{|z|^2}
@@ -74,22 +76,21 @@ Lines on the real and imaginary axis are mapped into lines again. This is shown 
 \includegraphics[scale=0.4]{images/2026-03-23-complex_10.png}
 \end{figure}
 
-Arbitrary lines are mapped onto circle.
+Arbitrary lines are mapped onto circles as shown in the following plot.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{images/2026-03-23-complex_11.png}
 \end{figure}
 
-And finally, circles are mapped onto circles; interestingly, not only circle with center at the origin, but circle with \emph{any} center point.
+And finally, circles are mapped onto circles; interestingly, not only circles with center at the origin, but circles with \emph{any} center point are mapped into circles.
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.4]{images/2026-03-23-complex_12.png}
 \end{figure}
 
-
-To see the effect of the mapping, we start with equation of a circle with radius $r$ and center point $c$,
+\paragraph{Analysis of Mapping of Circles.} To see the effect of the mapping, we start with equation of a circle with radius $r$ and center point $c$,
 
 \bee
 |z - c| = r
@@ -104,25 +105,36 @@ Substituing $z = 1/w$, we obtain
 We can square both sides; expanding the RHS yields
 
 \bee
-(1 - wc)(1 + \bar{wc}) = r^2 |w|^2 \rightarrow 1 - wc - \bar{wc} + |c|^2 |w|^2 = r^2 |w|^2 \rightarrow 1 - wc - \bar{wc} + |w|^2 (|c|^2 - r^2) = 0
+(1 - wc)(1 + \overline{wc}) = r^2 |w|^2 \rightarrow 1 - wc - \overline{wc} + |c|^2 |w|^2 = r^2 |w|^2 \rightarrow 1 - wc - \overline{wc} + |w|^2 (|c|^2 - r^2) = 0
 \eee
 
 We rearrange terms
 
 \bee
-|w|^2 - \frac{wc + \bar{wc}}{|c|^2 - r^2} + \frac{1}{|c|^2 - r^2} = 0 \rightarrow |w|^2 - \frac{wc + \bar{wc}}{|c|^2 - r^2} = - \frac{1}{|c|^2 - r^2} 
+|w|^2 - \frac{wc + \overline{wc}}{|c|^2 - r^2} + \frac{1}{|c|^2 - r^2} = 0 \rightarrow |w|^2 - \frac{wc + \overline{wc}}{|c|^2 - r^2} = - \frac{1}{|c|^2 - r^2} 
 \eee
 
 We now complete the square to obain a quadratic expression in $w$,
 
 \bee
-\left| w - \frac{\bar{c}}{|c|^2 - r^2}\right|^2 = \frac{|c|^2}{(|c|^2 - r^2)^2} - \frac{1}{|c|^2 - r^2} = \frac{|c|^2 - |c|^2 + r^2}{(|c|^2 - r^2)^2} = \frac{r^2}{(|c|^2 - r^2)^2}
+\left| w - \frac{\overline{c}}{|c|^2 - r^2}\right|^2 = \frac{|c|^2}{(|c|^2 - r^2)^2} - \frac{1}{|c|^2 - r^2} = \frac{|c|^2 - |c|^2 + r^2}{(|c|^2 - r^2)^2} = \frac{r^2}{(|c|^2 - r^2)^2}
 \eee
 
-From this we see that this is a circle with center point $\frac{\bar{c}}{|c|^2 - r^2}$ and radius $\frac{r}{(|c|^2 - r^2)}$. \qed
+From this we see that this is a circle with center point 
 
+\bee
+\frac{\overline{c}}{|c|^2 - r^2}
+\eee
 
-\paragraph{Different Calculation - does not work yet}
+and radius 
+
+\bee
+\frac{r}{|c|^2 - r^2}
+\eee
+
+In the limit of small circles, the center point becomes $\bar{c} / |c|^2 = 1 / c$. \qed
+
+\paragraph{Different Calculation - not finished}
 
 We can make the effect of the mapping more clear by expanding \eqref{2026-03-23:eq1},
 
@@ -136,7 +148,7 @@ From this we obtain,
 u = \frac{x}{x^2 + y^2} = \frac{x}{r}, \quad v = \frac{-y}{x^2 + y^2} = - \frac{y}{r}
 \ee
 
-with $r = x^2 + y^2$. 
+with $r = x^2 + y^2$. However, this $r$ is \emph{totally} unrelated to the circle radius $r$ defined below.
 
 We can represent a general circle with center $(c_x, c_y)$ and radius $r$ as
 
@@ -189,74 +201,7 @@ and dividing by $D$ we finally obtain
 u^2 + v^2 + \frac{B}{D} u - \frac{C}{D} v + \frac{A}{D} = 0
 \eee
 
-
-and this is again a circle equation. 
-
-UNTIL here, this is the same as with the results from the book... I'm not sure about the remainder...
-
-We can work the circle equations above backwards to show that this circle has center $(-B/2D, C/2D)$ and radius $\frac{\sqrt{B^2 + C^2 - 4 AD}}{2D}$.
-
-
-Given a circle with center $(c_x,c_y)$ and radius $r$, the coefficients for the circle equation $A(x^2 + y^2) + Bx + Cy + D = 0$ are 
-
-\begin{align*}
-    A &= 1 \\
-    B &= -2c_x \\
-    C &= -2 c_y \\
-    D &= c_x^2+c_y^2 - r^2
-\end{align*}
-
-For the example of the red circle, we have $c_x = c_y = 1, r = 1/2$. We therefore have $A = 1, B = C = -2, D = 4 + 4 - 1/4 = 7 3/4$. The transform $w = 1/z$ transforms this into a circle with center $(-B/2D, C/2D) = 2/(2 \cdot )$
-
-
-We can rearrange this to express the circle center and radius more clearly; in fact, we have
-
-\bee
-\left( x + \frac{B}{2A}\right)^2 + \left( y + \frac{C}{2A}\right)^2 = \left( \frac{\sqrt{B^2 + C^2 - 4 AD}}{2A}\right)^2
-\eee
-
-From this we can read off that the circle has center at $(-B/2A, -C/2A)$ and a radius of $\frac{\sqrt{B^2 + C^2 - 4 AD}}{2A}$.
-
-The two equations can be shown to be same, by first expanding the squares
-
-\bee
-x^2 + \frac{B}{A}x + \frac{B^2}{4A^2} + y^2 + \frac{C}{A}y + \frac{C^2}{4A^2} = \frac{ B^2 + C^2 - 4 AD}{4A^2}
-\eee
-
-Collecting terms yields
-
-\bee
-x^2 + \frac{B}{A}x + y^2 + \frac{C}{A}y +  = - \frac{ 4 AD}{4A^2} = - \frac{D}{A}
-\eee
-
-Multiplying with $a$ finally results in
-
-\bee
-A (x^2 + y^2) + B x + C y +  D = 0 \qed
-\eee
-
-
-
-
-
-We can represent a general circle using four real numbers $A, B, C, D$ with
-
-\bee
-B^2 + C^2 > 4AD
-\eee
-
-Then
-
-\bee
-A(x^2 + y^2) + Bx + Cy + D = 0
-\eee
-
-represents an arbitrary circle ($A \neq 0$) or a line ($A = 0$). We can rearrange this to express the circle center and radius more clearly; in fact, we have
-
-\bee
-\left( x + \frac{B}{2A}\right)^2 + \left( y + \frac{C}{2A}\right)^2 = \left( \frac{\sqrt{B^2 + C^2 - 4 AD}}{2A}\right)^2
-\eee
-
+and this is again a circle equation. But I'm not sure how we can obtain the cente rpoint and radius of this circle in the $u-v-$plane in terms of $c$ and $r$ like we did in the previous subsection.
 
 
 %%% Local Variables:
