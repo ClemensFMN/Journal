@@ -119,20 +119,18 @@ We now complete the square to obain a quadratic expression in $w$,
 \left| w - \frac{\bar{c}}{|c|^2 - r^2}\right|^2 = \frac{|c|^2}{(|c|^2 - r^2)^2} - \frac{1}{|c|^2 - r^2} = \frac{|c|^2 - |c|^2 + r^2}{(|c|^2 - r^2)^2} = \frac{r^2}{(|c|^2 - r^2)^2}
 \eee
 
-From this we see that this is a circle with center point $\frac{\bar{c}}{|c|^2 - r^2}$ and radius $\frac{r}{(|c|^2 - r^2)}$.
+From this we see that this is a circle with center point $\frac{\bar{c}}{|c|^2 - r^2}$ and radius $\frac{r}{(|c|^2 - r^2)}$. \qed
 
 
 \paragraph{Different Calculation - does not work yet}
 
-
-
-We can make this more clear by expanding \eqref{2026-03-23:eq1},
+We can make the effect of the mapping more clear by expanding \eqref{2026-03-23:eq1},
 
 \bee
 w = u + jv = \frac{1}{z} = \frac{\bar{z}}{|z|^2} = \frac{x - jy}{x^2 + y^2}
 \eee
 
-From this follows the expression for $w = u + jv$,
+From this we obtain,
 
 \be\label{2026-03-23:eq2}
 u = \frac{x}{x^2 + y^2} = \frac{x}{r}, \quad v = \frac{-y}{x^2 + y^2} = - \frac{y}{r}
@@ -140,6 +138,102 @@ u = \frac{x}{x^2 + y^2} = \frac{x}{r}, \quad v = \frac{-y}{x^2 + y^2} = - \frac{
 
 with $r = x^2 + y^2$. 
 
+We can represent a general circle with center $(c_x, c_y)$ and radius $r$ as
+
+\bee
+(x - c_x)^2 + (y - c_y)^2 = r^2
+\eee
+
+Expanding this, we obtain
+
+\bee
+x^2 - 2x c_x + c_x^2 + y^2 - 2 y c_y + c_y^2 - r^2 = 0 \rightarrow x^2 + y^2 - 2c_x x - 2c_y y + c_x^2 + c_y^2 - r^2 = 0
+\eee
+
+When we compare this with the general expression
+
+\bee
+A(x^2 + y^2) + Bx + Cy + D = 0
+\eee
+
+we see that
+
+\bee
+A = 1, \quad B = -2c_x, \quad C = -2c_y, \quad D = c_x^2 + c_y^2 - r^2
+\eee
+
+
+
+Now we investigate the effect of the complex function: We rewrite \eqref{2026-03-23:eq2} as
+
+\bee
+x = ur, \quad y = -vr
+\eee
+
+Substituing these back into $r = x^2 + y^2$ yields $r = r^2 (u^2 + v^2) \rightarrow r = \frac{1}{u^2 + v^2}$. Now we substitute back into the original circle equation,
+
+\begin{align*}
+A(x^2 + y^2) + Bx + Cy + D &= A r + B ur - C vr  + D \\ 
+&= A \frac{1}{u^2 + v^2} + B \frac{u}{u^2 + v^2} +C \frac{-v}{u^2 + v^2} + D = 0    
+\end{align*}
+
+Multiplying with $u^2 + v^2$ yields
+
+\bee
+D (u^2 + v^2) + B u - C v + A = 0
+\eee
+
+and dividing by $D$ we finally obtain
+
+\bee
+u^2 + v^2 + \frac{B}{D} u - \frac{C}{D} v + \frac{A}{D} = 0
+\eee
+
+
+and this is again a circle equation. 
+
+UNTIL here, this is the same as with the results from the book... I'm not sure about the remainder...
+
+We can work the circle equations above backwards to show that this circle has center $(-B/2D, C/2D)$ and radius $\frac{\sqrt{B^2 + C^2 - 4 AD}}{2D}$.
+
+
+Given a circle with center $(c_x,c_y)$ and radius $r$, the coefficients for the circle equation $A(x^2 + y^2) + Bx + Cy + D = 0$ are 
+
+\begin{align*}
+    A &= 1 \\
+    B &= -2c_x \\
+    C &= -2 c_y \\
+    D &= c_x^2+c_y^2 - r^2
+\end{align*}
+
+For the example of the red circle, we have $c_x = c_y = 1, r = 1/2$. We therefore have $A = 1, B = C = -2, D = 4 + 4 - 1/4 = 7 3/4$. The transform $w = 1/z$ transforms this into a circle with center $(-B/2D, C/2D) = 2/(2 \cdot )$
+
+
+We can rearrange this to express the circle center and radius more clearly; in fact, we have
+
+\bee
+\left( x + \frac{B}{2A}\right)^2 + \left( y + \frac{C}{2A}\right)^2 = \left( \frac{\sqrt{B^2 + C^2 - 4 AD}}{2A}\right)^2
+\eee
+
+From this we can read off that the circle has center at $(-B/2A, -C/2A)$ and a radius of $\frac{\sqrt{B^2 + C^2 - 4 AD}}{2A}$.
+
+The two equations can be shown to be same, by first expanding the squares
+
+\bee
+x^2 + \frac{B}{A}x + \frac{B^2}{4A^2} + y^2 + \frac{C}{A}y + \frac{C^2}{4A^2} = \frac{ B^2 + C^2 - 4 AD}{4A^2}
+\eee
+
+Collecting terms yields
+
+\bee
+x^2 + \frac{B}{A}x + y^2 + \frac{C}{A}y +  = - \frac{ 4 AD}{4A^2} = - \frac{D}{A}
+\eee
+
+Multiplying with $a$ finally results in
+
+\bee
+A (x^2 + y^2) + B x + C y +  D = 0 \qed
+\eee
 
 
 
@@ -163,26 +257,7 @@ represents an arbitrary circle ($A \neq 0$) or a line ($A = 0$). We can rearrang
 \left( x + \frac{B}{2A}\right)^2 + \left( y + \frac{C}{2A}\right)^2 = \left( \frac{\sqrt{B^2 + C^2 - 4 AD}}{2A}\right)^2
 \eee
 
-We rewrite \eqref{2026-03-23:eq2} as
 
-\bee
-x = ur, \quad y = -vr
-\eee
-
-Substituing these back into $r = x^2 + y^2$ yields $r = r^2 (u^2 + v^2) \rightarrow r = \frac{1}{u^2 + v^2}$. Now we substitute back into the original circle equation,
-
-\begin{align*}
-A(x^2 + y^2) + Bx + Cy + D &= A r + B ur - C vr  + D \\ 
-&= A \frac{1}{u^2 + v^2} + B \frac{u}{u^2 + v^2} +C \frac{-v}{u^2 + v^2} + D = 0    
-\end{align*}
-
-Multiplyig with $u^2 + v^2$ finally yields
-
-\bee
-D (u^2 + v^2) + B u - C v + A = 0
-\eee
-
-and this is again a circle equation.
 
 %%% Local Variables:
 %%% mode: latex
