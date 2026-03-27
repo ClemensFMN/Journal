@@ -88,6 +88,44 @@ And finally, circles are mapped onto circles; interestingly, not only circle wit
 \includegraphics[scale=0.4]{images/2026-03-23-complex_12.png}
 \end{figure}
 
+
+To see the effect of the mapping, we start with equation of a circle with radius $r$ and center point $c$,
+
+\bee
+|z - c| = r
+\eee
+
+Substituing $z = 1/w$, we obtain
+
+\bee
+\left| \frac{1}{w} - c \right| = r \rightarrow |\frac{1 - wc}{w}| = r \rightarrow |1 - wc| = r |w|
+\eee
+
+We can square both sides; expanding the RHS yields
+
+\bee
+(1 - wc)(1 + \bar{wc}) = r^2 |w|^2 \rightarrow 1 - wc - \bar{wc} + |c|^2 |w|^2 = r^2 |w|^2 \rightarrow 1 - wc - \bar{wc} + |w|^2 (|c|^2 - r^2) = 0
+\eee
+
+We rearrange terms
+
+\bee
+|w|^2 - \frac{wc + \bar{wc}}{|c|^2 - r^2} + \frac{1}{|c|^2 - r^2} = 0 \rightarrow |w|^2 - \frac{wc + \bar{wc}}{|c|^2 - r^2} = - \frac{1}{|c|^2 - r^2} 
+\eee
+
+We now complete the square to obain a quadratic expression in $w$,
+
+\bee
+\left| w - \frac{\bar{c}}{|c|^2 - r^2}\right|^2 = \frac{|c|^2}{(|c|^2 - r^2)^2} - \frac{1}{|c|^2 - r^2} = \frac{|c|^2 - |c|^2 + r^2}{(|c|^2 - r^2)^2} = \frac{r^2}{(|c|^2 - r^2)^2}
+\eee
+
+From this we see that this is a circle with center point $\frac{\bar{c}}{|c|^2 - r^2}$ and radius $\frac{r}{(|c|^2 - r^2)}$.
+
+
+\paragraph{Different Calculation - does not work yet}
+
+
+
 We can make this more clear by expanding \eqref{2026-03-23:eq1},
 
 \bee
@@ -100,7 +138,14 @@ From this follows the expression for $w = u + jv$,
 u = \frac{x}{x^2 + y^2} = \frac{x}{r}, \quad v = \frac{-y}{x^2 + y^2} = - \frac{y}{r}
 \ee
 
-with $r = x^2 + y^2$. We can represent a general circle using four real numbers $A, B, C, D$ with
+with $r = x^2 + y^2$. 
+
+
+
+
+
+
+We can represent a general circle using four real numbers $A, B, C, D$ with
 
 \bee
 B^2 + C^2 > 4AD
