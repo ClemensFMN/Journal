@@ -67,7 +67,11 @@ This mapping can be rewritten according to
 w = \frac{1}{z} = \frac{\bar{z}}{|z|^2}
 \ee
 
-This is a reflection on the real axis (due to the conjugate operation) and a scaling by $1 / |z|^2$. So points outside the unit circle will be moved inside the unit circle and vice versa.
+This is a reflection on the real axis (due to the conjugate operation) and a scaling by $1 / |z|^2$. So points outside the unit circle will be moved inside the unit circle and vice versa. We can also see that by using polar coordinates, we then have
+
+\bee
+w = \frac{1}{z} = \frac{1}{re{j \phi}} = \frac{1}{r} e^{- j \phi}
+\eee
 
 Lines on the real and imaginary axis are mapped into lines again. This is shown in the plot below.
 
@@ -75,6 +79,9 @@ Lines on the real and imaginary axis are mapped into lines again. This is shown 
 \centering
 \includegraphics[scale=0.4]{images/2026-03-23-complex_10.png}
 \end{figure}
+
+We start with a line on the real axis, $x = t, y = 0, z = t$. In this case the mapping yields $w = 1/t$. A line on the imaginary axis is given by $z = jt$, the mapping yields $w = -j / t$. \qed
+
 
 Arbitrary lines are mapped onto circles as shown in the following plot.
 
@@ -122,9 +129,9 @@ We now complete the square to obain a quadratic expression in $w$,
 
 From this we see that this is a circle with center point 
 
-\bee
+\be\label{2026-03-23:eq5}
 \frac{\overline{c}}{|c|^2 - r^2}
-\eee
+\ee
 
 and radius 
 
@@ -132,7 +139,9 @@ and radius
 \frac{r}{|c|^2 - r^2}
 \eee
 
-In the limit of small circles, the center point becomes $\bar{c} / |c|^2 = 1 / c$. \qed
+It is woth noting that the center point $c$ maps onto $1 / c = \frac{c_x - jc_y}{c_x^2 + c_y^2}$, but this is \emph{not} not the center of the new circle but the point \eqref{2026-03-23:eq5} instead. This new center point point depends on both $c$ and $r$. It is only the points of the circle in the $z$-plan which are mapped by $1/z$ onto a new circle, and this circle has a different center point. The original center point $c$ is \emph{not} mapped by $1/z$.
+
+Only in the limit of small circles, the center point becomes $\bar{c} / |c|^2 = 1 / c$. \qed
 
 \paragraph{Different Calculation - not finished}
 
