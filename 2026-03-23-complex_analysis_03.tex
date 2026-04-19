@@ -139,11 +139,89 @@ and radius
 \frac{r}{|c|^2 - r^2}
 \eee
 
-It is woth noting that the center point $c$ maps onto $1 / c = \frac{c_x - jc_y}{c_x^2 + c_y^2}$, but this is \emph{not} not the center of the new circle but the point \eqref{2026-03-23:eq5} instead. This new center point point depends on both $c$ and $r$. It is only the points of the circle in the $z$-plan which are mapped by $1/z$ onto a new circle, and this circle has a different center point. The original center point $c$ is \emph{not} mapped by $1/z$.
+As stated above, the circle in the $z$-plane is mapped onto a circle in the $w$-plane; however, the circle in the $w$-plane has a center given by \eqref{2026-03-23:eq5} (which depends on both $c$ and $r$). The center $c$ of the circle in the $z$-plane is mapped onto $1 / c = \frac{c_x - jc_y}{c_x^2 + c_y^2}$, but this is a \emph{different} point than \eqref{2026-03-23:eq5}.
 
-Only in the limit of small circles, the center point becomes $\bar{c} / |c|^2 = 1 / c$. \qed
+Only in the limit of small circles, $r \rightarrow 0$, the center point \eqref{2026-03-23:eq5} becomes $\bar{c} / |c|^2 = 1 / c$. \qed
 
-\paragraph{Different Calculation - not finished}
+The mapping transforms circles with center in the origin, $c = 0$, into circle with center point in the origin and radius $1/r$.
+
+
+
+\subsection{Moebius Transform}
+
+The Moebius transform is given by
+
+\bee
+w = \frac{az + b}{cz + d}
+\eee
+
+and is the combination of three mappings: A linear mapping $w_1 = az+b$, an inversion $w_2 = 1/w_1$, and a final linear mapping $w = \frac{a}{c} + \frac{bc - ad}{c} w_2$. The last transform may not be obvious, but we can show that it all fits together,
+
+\begin{align*}
+    w &= \frac{a}{c} + \frac{bc - ad}{c} w_2 = \frac{a}{c} + \frac{bc - ad}{c} \frac{1}{w_1} = \frac{a}{c} + \frac{bc - ad}{c} \frac{1}{cz+d} \\
+    &= \frac{a(cz+d) + bc - ad}{c(cz+d)} = \frac{acz+ad + bc - ad}{c(cz+d)} = \frac{acz+ bc}{c(cz+d)} = \frac{az + b}{cz + d} \qed
+\end{align*}
+
+From this and the linear mapping discussed above, we see that the Moebius transform will transform circles into circles (considering lines as special circles with infinite radius).
+
+There is always a linear fractional transformation that maps three given distinct points $z_1 , z_2, z_3$ onto three specified distinct points $w_1, w_2, w_3$, respectively. This transform is given by
+
+\begin{equation}\label{2026-03-24:eq6}
+    \frac{(w - w_1)(w_2 - w_3)}{(w - w_3)(w_2 - w_1)} = \frac{(z - z_1)(z_2 - z_3)}{(z - z_3)(z_2 - z_1)}
+\end{equation}
+
+We can see this by rewriting this as
+
+\begin{equation*}
+    (z - z_3)(z_2 - z_1)(w - w_1)(w_2 - w_3) = (z - z_1)(z_2 - z_3)(w - w_3)(w_2 - w_1)
+\end{equation*}
+
+If $z = z_1$, the RHS becomes zero, and for the LHS to become zero as well, we need $w = w_1$. In a similar spirit, $z = z_3$ zeros the LHS, and $w = w_3$ does that for the RHS. For the third case we set $z = z_2$ and this cancels the $z_2 - z_3$ term and the $z_2 - z_1$ on both sides. We are left with
+
+\begin{equation*}
+    (w - w_1)(w_2 - w_3) = (w - w_3)(w_2 - w_1)
+\end{equation*}
+
+and from this follows $w = w_2$. \qed
+
+So having three points $z_1 , z_2, z_3$ and $w_1, w_2, w_3$, we can insert into \eqref{2026-03-24:eq6} to obtain a suitable Moebius transform.
+
+\paragraph{Example.} For fun, let's chose $z_1 = 1, z_2 = j, z_3 = 2$ and $w_1 = 2, w_2 = -j, w_3 = 4$. Inserting into \eqref{2026-03-24:eq6} yields
+
+\begin{equation*}
+    \frac{(w - 2)(-j - 4)}{(w - 4)(-j - 2)} = \frac{(z - 1)(j - 2)}{(z - 2)(j - 1)}
+\end{equation*}
+
+Sticking this into Maxima, we can solve for $w$ to obtain
+
+\begin{verbatim}
+(%i1)	lhs:(w-2)*(-%i-4)/(w-4)/(-%i-2);
+(%o1)	((-%i-4)*(w-2))/((-%i-2)*(w-4))
+(%i3)	rhs:(z-1)*(%i-2)/(z-2)/(%i-1);
+(%o3)	((%i-2)*(z-1))/((%i-1)*(z-2))
+(%i6)	sol:solve(rhs=lhs, w);
+(%o6)	[w=((6*%i+10)*z-12*%i)/(3*%i*z-6*%i+5)]
+\end{verbatim}
+
+We can check the result; eg for the point $z = 2$
+
+\begin{Verbatim}
+(%i11)	sol_cal:rhs(sol[1]);
+(%o11)	((6*%i+10)*z-12*%i)/(3*%i*z-6*%i+5)
+(%i30)	rectform(subst(z=2, sol_cal));
+(%o30)	4
+\end{Verbatim}
+
+We can use a python script to plot the transform for several circles in the $z$-plane as shown below. Circles with center point at the origin are not transformed into circles at the origin; this is different from the (simpler) $1/z$ mapping.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-03-23-moebius_01.png}
+\end{figure}
+
+
+
+\paragraph{Different Calculation for $w = 1/z$ - not finished}
 
 We can make the effect of the mapping more clear by expanding \eqref{2026-03-23:eq1},
 
@@ -211,6 +289,8 @@ u^2 + v^2 + \frac{B}{D} u - \frac{C}{D} v + \frac{A}{D} = 0
 \eee
 
 and this is again a circle equation. But I'm not sure how we can obtain the cente rpoint and radius of this circle in the $u-v-$plane in terms of $c$ and $r$ like we did in the previous subsection.
+
+
 
 
 %%% Local Variables:
