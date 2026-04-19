@@ -219,6 +219,41 @@ We can use a python script to plot the transform for several circles in the $z$-
 \includegraphics[scale=0.4]{images/2026-03-23-moebius_01.png}
 \end{figure}
 
+\paragraph{Example.} Maybe above example was not so helpful as we only defined three points and not a circle and therefore we could not check the effect on the circle. Let's try again with $z_1 = -1, z_2 = j, z_3 = 1$ which is a circle through the origin and radius $1$. The three points shall be mapped onto $w_1 = -1, w_2 = 3, w_3 = 4+2j$. Inserting into \eqref{2026-03-24:eq6} and solving for $w$, we obtain the Moebius transform
+
+\bee
+w = \frac{(-23+5j)*z-25 + 11j}{(-5+7j)z - 3 +j}
+\eee
+
+Defining this mpaping in python
+
+\begin{verbatim}
+    def mpg(z):
+    return((5*1j-23)*z - 25+11*1j)/((7*1j-5)*z - 3+1j)
+\end{verbatim}
+
+we can check that the mapping works as intended,
+
+\begin{verbatim}
+    mpg(-1)
+    Out[5]: (-1-0j)
+
+    mpg(1j)
+    Out[6]: (3-0j)
+
+    mpg(1)
+    Out[7]: (4+2j)
+\end{verbatim}
+
+
+The plots of the circle in the $z$-plane and in the $w$-plane is shown below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-03-23-moebius_02.png}
+\end{figure}
+
+
 
 
 \paragraph{Different Calculation for $w = 1/z$ - not finished}

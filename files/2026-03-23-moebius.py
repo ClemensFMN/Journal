@@ -10,7 +10,9 @@ import matplotlib.pyplot as plt
 
 
 def mpg(z):
-    return ((10 + 6*1j)*z - 12*1j)/(3*1j*z - 6*1j + 5)
+    # return ((10 + 6*1j)*z - 12*1j)/(3*1j*z - 6*1j + 5)
+    return((5*1j-23)*z - 25+11*1j)/((7*1j-5)*z - 3+1j)
+
 
 # LINE STUFF
 # parameter for the curves
@@ -23,7 +25,9 @@ t = np.linspace(-10, 10, 500)
 # CIRCLE STUFF
 # parameter for the curves
 # t = np.linspace(-np.pi, np.pi, 500)
-zs = [0.5*np.cos(t) + 0.5*1j*np.sin(t), np.cos(t) + 1j*np.sin(t), 2*np.cos(t) + 2*1j*np.sin(t), 1 + 0.5*np.cos(t) + 1j + 0.5*1j*np.sin(t)]
+# zs = [0.5*np.cos(t) + 0.5*1j*np.sin(t), np.cos(t) + 1j*np.sin(t), 2*np.cos(t) + 2*1j*np.sin(t), 1 + 0.5*np.cos(t) + 1j + 0.5*1j*np.sin(t)]
+zs = [np.cos(t) + 1j*np.sin(t)]
+
 
 
 ws = [mpg(z) for z in zs]
