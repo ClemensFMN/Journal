@@ -254,9 +254,54 @@ The plots of the circle in the $z$-plane and in the $w$-plane is shown below.
 \end{figure}
 
 
+\paragraph{Obtain circle equation from three points.} As an aside, suppose we are given three points$(x_1, y_1), x_2, y_2), (x_3, y_3)$ on a circle and want to obtain the circle equation. We start from the circle equation
+
+\bee
+(x - c_x)^2 + (y - c_y)^2 = r^2
+\eee
+
+with center $(c_x, c_y)$ and radius $r$. Inserting the three points, we obtain three equations for the three unknowns $c_x, c_y, r$ and can solve the equation system. This is all rather cumbersome, so Maxima to the rescue (obtaining the circle equation from the previous example).
+
+\begin{verbatim}
+(%i3)	circle:(x-cx)^2 + (y-cy)^2 = r^2;
+(%o3)	(y-cy)^2+(x-cx)^2=r^2
+(%i8)	eq1:subst([x=0, y=1],circle);
+(%o8)	(1-cy)^2+cx^2=r^2
+(%i9)	eq2:subst([x=-1, y=0],circle);
+(%o9)	cy^2+(-cx-1)^2=r^2
+(%i10)	eq3:subst([x=1, y=0],circle);
+(%o10)	cy^2+(1-cx)^2=r^2
+(%i11)	solve([eq1, eq2, eq3], [cx,cy,r]);
+(%o11)	[[cx=0,cy=0,r=-1],[cx=0,cy=0,r=1]]
+\end{verbatim}
 
 
-\paragraph{Different Calculation for $w = 1/z$ - not finished}
+\paragraph{Example 11.4 from \cite{agarwal2011complanalysis}.} We are given a Moebius transform 
+
+\bee
+w =\frac{1-jz}{z-j}
+\eee
+
+and shall show that the path $z = t, t = [-1,1]$ is mapped onto the upper unit circle. We insert the path into the transform to obtain
+
+\bee
+w = \frac{1-jt}{t-j} = \frac{(1-jt)(t+j)}{(t-j)(t+j)} = \frac{x+x-jx^2 + j}{x^2+1} = u + jv
+\eee
+
+If $w$ moves along the upper unit circle, $u^2 + v^2 = 1$, and we proceed to show this,
+
+\bee
+u^2 + v^2 = \frac{4x^2 + (1-x^2)^2}{(x^2+1)^2} = \frac{4x^2 + 1 -2x^2 + x^4}{(x^2+1)^2} = \frac{x^4 + 2x^2 + 1}{(x^2+1)^2} = \frac{(x^2+1)^2}{(x^2+1)^2} = 1 \qed
+\eee
+
+We can show that $w$ moves along the \emph{upper} unit circle by calculating $w$ at $t = 0$:
+
+\bee
+w = \left. \frac{1-jt}{t-j} \right|_{t=0} = \frac{1}{-j} = j \qed
+\eee
+
+
+\subsection{Appendix: Different Calculation for $w = 1/z$ (not finished)}
 
 We can make the effect of the mapping more clear by expanding \eqref{2026-03-23:eq1},
 
