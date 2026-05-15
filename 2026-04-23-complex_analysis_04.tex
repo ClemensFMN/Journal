@@ -1,13 +1,5 @@
 \DiaryEntry{Complex Analysis, 4 (Complex Integration)}{2026-04-23}{Complex Analysis}
 
-Complex Integration
-
-\begin{itemize}
-    \item Define a curve
-    \item Define an integral along a curve
-    \item Analytic function: Integral does not depend on curve
-\end{itemize}
-
 \subsection{Curves}
 
 We can define a curve in the complex $z$-plane as a complex function parametrized by a real parameter $t$,
@@ -58,14 +50,12 @@ z = z(t) = x(t) + jy(t), \quad t = [a,b]
 In this case, the integral can be further developed into
 
 \bee
-I = \int_\gamma f(z) dz = \int_{a}^b f(z) z(t) \frac{dz}{dt} dt
+I = \int_\gamma f(z) dz = \int_{a}^b f(z(t)) \frac{dz}{dt} dt
 \eee
 
 
 
-\subsection{Example with analytic function}
-
-We start with a simple example of the complex analytic function $w = f(z) = z^2$. We want to integrate from $z = 0$ to $z= 1+j$. We integrate along different curves (as we will show later, the curves do not matter as the function is analytic).
+\paragraph{Example with analytic function.} We start with a simple example of the complex analytic function $w = f(z) = z^2$. We want to integrate from $z = 0$ to $z= 1+j$. We integrate along different curves (as we will show later, the curves do not matter as the function is analytic).
 
 The first curve is along a straight line from $0 \rightarrow 1$, this yields the integral $I_{1,1}$, then along a straight line from $1 \rightarrow 1+j$ which yields the integral $I_{1,2}$.
 
@@ -112,11 +102,28 @@ In all three cases, the integral gave the same value. This is due to the fact th
 (%o25)	(2*%i)/3-2/3
 \end{verbatim}
 
+As a last step, we show that $f(z) = z^2$ is an analytic function. We have
+
+\bee
+f(z) = z^2 = (x + jy)^2 = x^2 - y^2 + 2jxy
+\eee
+
+so $u(x,y) = x^2 - y^2$ and $v(x,y) = 2xy$. The partial derivatives are
+
+\bee
+\frac{\partial u}{\partial x} = 2x, \quad \frac{\partial u}{\partial y} = -2y, \quad \frac{\partial v}{\partial x} = 2y, \quad \frac{\partial v}{\partial y} = 2x
+\eee
+
+Comparing with the Cauchy-Riemann equations \eqref{2026-01-13:eq1}, we see that
+
+\bee
+\frac{\partial u}{\partial x} = 2x = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = -2y = - \frac{\partial v}{\partial x}
+\eee
+
+Both Cauchy-Riemann equations are satisfied for all $x, y \in \mathbb{R}$. Furthermore, the partial derivatives are continuous everywhere. Therefore, $f(z) = z^2$ is analytic in the entire complex plane. \qed
 
 
-\subsection{Example with non-analytic function}
-
-We consider the function $w = u+jv = Re(z) = Re(x+jy) = x$. We will use the Cauchy-Rieman equations \eqref{2026-01-13:eq1}to show that the function is not analytic. We first calculate the partial derivatives,
+\paragraph{Example with non-analytic function.} We consider the function $w = u+jv = Re(z) = Re(x+jy) = x$. So $u(x,y) = x, v(x,y) = 0$. We will use the Cauchy-Rieman equations \eqref{2026-01-13:eq1}to show that the function is not analytic. We first calculate the partial derivatives,
 
 \bee
     \frac{\partial u}{\partial x} = 1, \quad \frac{\partial u}{\partial y} = 0, \quad \frac{\partial v}{\partial x} = 0, \quad \frac{\partial v}{\partial y} = 0
@@ -167,9 +174,24 @@ As a last curve, we choose the parable $z = t + jt^2$. We have $\frac{dz}{dt} = 
 In all three cases, the integral gave a different value which is due to the fact that the integrand is not an analytic function.
 
 
+\subsection{Path Independence}
 
+We have the following theorem.
 
+\begin{theorem}
+    Suppos that the function $f$ is continuous and has an antiderivative $F$ in the domain $\Sc$. If $a, b \in \Sc$ and $\gamma$ is a curve in $\Sc$ joining $a$ and $b$, then
 
+    \bee
+    \int_\gamma f(z) dz = F(b) - F(a)
+    \eee
+
+    The integral depends only on the points $a$ and $b$ and \emph{not} on the choice of $\gamma$. In particular, if $\gamma$ is closed in $\Sc$, then
+
+    \bee
+    \int_\gamma f(z) dz = 0
+    \eee
+
+\end{theorem}
 
 
 %%% Local Variables:
