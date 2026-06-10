@@ -193,6 +193,65 @@ We have the following theorem.
 
 \end{theorem}
 
+Path independence greatly simplifies integral calculation; as we no longer need to calculate the line integral alone "some" curve, but just need to know the antiderivative.
+
+\paragraph{Example.} We repeat the example from above $f(z) = z^2$ and integrate from $z=0$ to $z=1+j$. We have
+
+\bee
+I = \int_{z=0}^{1+j} z^2 dz = \left. \frac{z^3}{3} \right|_{z=0}^{1+j} = - \frac{2}{3} + j \frac{2}{3}
+\eee
+
+This result matches the results obtained before (as expected, as $f(z)$ is an analytical function). I have included the Maxima commands below (interestingly, Maxima does not allow complex integration bounds; so i integrate and use \verb+ subst + to obtain the integral value).
+
+\begin{verbatim}
+    (%i1)	f:z^2;
+    (%o1)	z^2
+    (%i5)	res:integrate(f, z);
+    (%o5)	z^3/3
+    (%i7)	subst(1+%i,z,res);
+    (%o7)	(%i+1)^3/3
+    (%i8)	rectform(%);
+    (%o8)	(2*%i)/3-2/3
+\end{verbatim}
+
+\paragraph{Closed Curve Example.} Let's reuse our complex analytic function $w = f(z) = z^2$, but integrate along the unit circle. So we have
+
+\bee
+z = \cos t + j \sin t, \quad t \in [0, 2\pi]
+\eee
+
+From this follows $dz/dt = - \sin t + j \cos t$ and the integral becomes
+
+\bee
+I = \int_\gamma f(z) dz = \int_{t=0}^{2\pi} (\cos t + j \sin t)^2 (- \sin t + j \cos t) dt = \cdots = 0
+\eee
+
+We have "solved" the integral using the following Maxima commands
+
+\begin{verbatim}
+    (%i1)	f:(cos(t) +
+    (%o1)	(%i*sin(t)+cos(t))^2
+    (%i2)	dzdt:-sin(t) + %i*cos(t);
+    (%o2)	%i*cos(t)-sin(t)
+    (%i3)	integrate(f*dzdt, t, 0, 2 * %pi);
+    (%o3)	0
+\end{verbatim}
+
+\qed
+
+
+\subsection{Singularities}
+
+When a function has a singular point, it is not analytic at this point.
+
+
+\paragraph{Example $1/z$.} As an example for a singularity, we consider the function $1/z$ which is singular at $z=0$. We want to integrate along the unit circle. We can parametrize this with $z = e^{j t}, t \in [0, 2 \pi]$ and obtain $dz/dt = j e^{j t}$. The integral then becomes
+
+\bee
+I = \int_{t=0}^{2 \pi} \frac{1}{z} j e^{j t} dt = \int_{t=0}^{2 \pi} e^{- j z} j e^{j t} dt = \int_{t=0}^{2 \pi} j  dt = 2 \pi j
+\eee
+
+We see that the closed integral is \emph{not} equal zero which is due to the singularity at $z=0$.
 
 %%% Local Variables:
 %%% mode: latex
