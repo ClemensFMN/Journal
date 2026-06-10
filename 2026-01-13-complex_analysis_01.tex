@@ -30,6 +30,12 @@ We can use the triangle inequality in the following bound
     &\leq |z_1|^2 + 2 |z_1 z_2| + |z_2|^2 = (|z_1| + |z_2|)^2
 \end{align*}
 
+\paragraph{Examples.} When $|z| = 1$, we can bound
+
+\begin{equation*}
+|z^2 + 2z + 6 + 8j| \leq |z|^2 + 2 |z| + |6 + 8j| = 1 + 2 + \sqrt{36 + 64} = 13 \qed
+\end{equation*}
+
 
 We can use the polar form of a complex number $e^{j \theta} = cos \theta + j \sin \theta$ in the following
 
@@ -37,19 +43,18 @@ We can use the polar form of a complex number $e^{j \theta} = cos \theta + j \si
     (\cos \theta + j \sin \theta)^n = \left( e^{j \theta} \right)^n = e^{j n \theta} = \cos n \theta+  j \sin n \theta
 \end{equation*}
 
-\paragraph{Examples.} When $|z| = 1$, we can bound
-
-\begin{equation*}
-|z^2 + 2z + 6 + 8j| \leq |z|^2 + 2 |z| + |6 + 8j| = 1 + 2 + \sqrt{36 + 64} = 13 \qed
-\end{equation*}
-
-We can use the polar form to obtain some trigonometric identities; eg
+As a concrete example, consider $n=3$. Then we have
 
 \begin{align*}
-    \cos 3 \theta &= \Re \left( cos 3\theta+  j \sin 3 \theta\right) \\
-&= \Re \left( cos \theta + j \sin \theta\right)^3 \\
-&= \Re \left( cos^3 \theta + 3j \cos^2 \theta \sin \theta - 3 \cos \theta\sin^2 \theta - j \sin^3 \theta \right) \\
-&= cos^3 \theta  - 3 \cos \theta\sin^2 \theta = cos^3 \theta  - 3 \cos \theta (1 - \cos^2 \theta) = 4 \cos^3 \theta - 3 \cos \theta
+    \cos 3 \theta + j \sin \theta &= e^{j3 \theta} = \left(e^{j \theta}\right)^3 = (cos \theta + j \sin \theta)^3 \\
+    &= \cos^3 \theta + 3j\cos^2 \theta \sin \theta - 3 \cos \theta \sin^2 \theta - j \cos^3 \theta
+\end{align*}
+
+By comparing real and imaginary parts we finally arrive at
+
+\begin{align*}
+    \cos 3 \theta &= \cos^3 \theta +  - 3 \cos \theta \sin^2 \theta \\
+    \sin 3 \theta &= 3\cos^2 \theta \sin \theta - \cos^3 \theta
 \end{align*}
 
 We also have
@@ -58,272 +63,222 @@ We also have
 (1 + j)^{24} = \left( \sqrt{2} e^{j \pi / 4} \right)^{24} = \sqrt{2}^{24} e^{j 24 \pi / 4} = 2^{12} e^{j 6 \pi} = 2^{12} \qed
 \eee
 
-\subsection{Complex Functions}
 
-A complex function (complex-valued of a complex variable) $f$ defined on $\Sc$ is a rule that assigns to each $z = x+jy$ in $\Sc$ a unique complex number $w = u + iv$ and written as $f : \Sc \rightarrow \Sc$.
+\subsection{Complex Exponential}
 
-As every complex number $z$ is characterized by a pair of real numbers $x$ and $y$, a complex function $f$ of the complex variable $z$ can be specified by two real functions $u = u(x, y)$ and $v = v(x, y)$. It is customary to write $w = f (z) = u(x, y)+iv(x, y)$.
+The exponential function is defined as below,
 
-
-\subsection{Complex Differentiation}
-
-The derivative of a complex function $f(z)$ is defined as
-
-\bee
-\frac{df(z)}{dz} = \lim_{\Delta z \rightarrow 0} \frac{f(z + \Delta z)}{\Delta z}
-\eee
-
-Note that this simple definition disguises the fact, that we can choose $\Delta z$ to have arbitrary direction and - in the general case - it is not clear that the limit is independent of the direction.
-
-A complex function is called \emph{analytic} if the derivative is independent of the direction.
-
-We next derive a condition, when a complex function is analytic.
-
-We derive the complex derivative for two cases: (i) $\Delta z = \Delta x$ being real and (ii) $\Delta z = j \Delta y$ being imaginary. For each case, we calculate the derivative. In the following we split the real and imaginary parts; so we have
-
-\bee
-f(z) = u(x,y + j(v(x,y)))
-\eee
-
-\paragraph{Case (i): $\Delta z = \Delta x$.} We have
-
-\begin{align*}
-\frac{df(z)}{dz} &= \lim_{\Delta x \rightarrow 0} \frac{u(x + \Delta x, y) + j v(x + \Delta x, y) - u(x, y) - j v(x, y) }{\Delta x} \\
-&= \lim_{\Delta x \rightarrow 0} \frac{u(x + \Delta x, y) - u(x, y) + j v(x + \Delta x, y)  - j v(x, y) }{\Delta x} = \frac{\partial u}{\partial x} + j \frac{\partial v}{\partial x}
-\end{align*}
-
-
-\paragraph{Case (ii): $\Delta z = j \Delta y$.} We have
-
-\begin{align*}
-\frac{df(z)}{dz} &= \lim_{\Delta y \rightarrow 0} \frac{u(x, y + \Delta y) + j v(x, y + \Delta y) - u(x, y) - j v(x, y) }{j \Delta y} \\
-&= \lim_{\Delta y \rightarrow 0} \frac{v(x, y + \Delta y)  - v(x,y) - j v(u, y + \Delta y) + j u(x, y) }{\Delta y} = \frac{\partial v}{\partial y} - j \frac{\partial u}{\partial y}
-\end{align*}
-
-If we want the derivative to be independent of the direction, the real and imaginary part have to be the same; so we have the \emph{Cauchy-Riemann equations}
-
-\be\label{2026-01-13:eq1}
-\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\be\label{2026-02-05:eq1}
+e^{z} = e^{x + jy} = e^x e^{jy} = e^x (\cos(y) + j \sin(y))
 \ee
 
-\begin{theorem}
-    A \emph{necessary} condition for a function $f (z) = u(x, y) + iv(x, y)$ to be differentiable at a point $z_0$ is that the Cauchy-Riemann equations hold at $z_0$. Consequently, if $f$ is analytic in an open set $\Sc$, then the Cauchy-Riemann equations must be satisfied at every point of $\Sc$.
-\end{theorem}
-
-
-\paragraph{Examples} The simplest example for a non-analytic function is $f(z) = \bar{z}$ with $u(x,y) = x, v(x,y) = -y$. Plugging this into \eqref{2026-01-13:eq1}, we obtain
+Let's consider some properties of the complex exponential. We have
 
 \bee
-    \frac{\partial u}{\partial x} = 1, \quad \frac{\partial u}{\partial y} = 0, \quad \frac{\partial v}{\partial x} = 0, \quad \frac{\partial v}{\partial y} = -1
+e^z = 1 \, \text{iff} \, z = 2k\pi j
 \eee
 
-The first Cauchy-Riemann equation, $\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}$, does \emph{not} hold, therefore the function is \emph{not} analytic.
-
-We can also show this "manually", by using the derivative definition and taking the limits. We start with case (i) $\Delta z = \Delta x$ and obtain
-
-\begin{align*}
-\frac{df(z)}{dz} &= \lim_{\Delta x \rightarrow 0} \frac{(x + \Delta x) + j (-y) - x + j y }{\Delta x} \\
-&= \lim_{\Delta x \rightarrow 0} \frac{\Delta x}{\Delta x} = 1
-\end{align*}
-
-Case (ii) is $\Delta z = j \Delta y$ and we have
-
-\begin{align*}
-\frac{df(z)}{dz} &= \lim_{\Delta y \rightarrow 0} \frac{ x + j(-y-\Delta y) -x + jy}{j \Delta y} \\
-&= \lim_{\Delta y \rightarrow 0} \frac{- j\Delta y}{\Delta y} = -j \qed
-\end{align*} \qed
-
-In a similar spirit, the squared absolute value $f(z) = |z|^2$ is also not analytic. We have $u(x,y) = x^2 + y^2, v(x,y) = 0$ and therefore
+for any integer $k$. Using $z = x + jy$ we have $|e^z| = |e^x| |e^{jy}| = e^x = 1$ and therefore $x = 0$. So we have $e^z = e^{jy} = \cos y + j \sin y$. Equating real and imaginary parts, we have $\cos y = 1, \sin y = 0$ and this is satisfied iff $y = 2k\pi$ with $k$ being some integer.
+In a similar spirit, we have
 
 \bee
-    \frac{\partial u}{\partial x} = 2x, \quad \frac{\partial u}{\partial y} = 2y, \quad \frac{\partial v}{\partial x} = 0, \quad \frac{\partial v}{\partial y} = 0 \qed
+e^{z_1} = e^{z_2} \, \text{iff} \, z_1 = z_2 + 2k\pi j
 \eee
 
-We finally consider $f(z) = (x^2 + y) + j(y^2 - x)$; we have $u(x,y) = x^2 + y, v(x,y) = y^2 - x$ and we can use the Cauchy-Riemann equations to obtain
+Since, for all $z$, $e^{z+2k\pi j} = e^z$, we find that $e^z$ is periodic with complex period $2\pi j$. Consequently, if we divide the $z$-plane into the infinite horizontal strips
 
 \bee
-    \frac{\partial u}{\partial x} = 2x, \quad \frac{\partial u}{\partial y} = 1, \quad \frac{\partial v}{\partial x} = -1, \quad \frac{\partial v}{\partial y} = 2y
+S_n = \{ x + jy: -\infty < x < \infty, \, (2n - 1) \pi < y \leq (2n+1) \pi, \, n = 0, \pm 1, \pm 2, \ldots \}
 \eee
 
-Comparing with \eqref{2026-01-13:eq1}, we see that the Cauchy-Riemann equations are only fulfilled on the line $x = y$; however a line is \emph{not} an open set; therefore the function is \emph{not} analytic. \qed
+then $e^z$ will behave in the same manner on each strip. We also see that $e^z$ is one-to-one on each sttrip $S_n$.
 
-I suspect that all functions which explicitly use $x$ and $y$ separately, are often not analytic.
+We can insert \eqref{2026-02-05:eq1} into the Cauchy-Riemann equations to check whether the complex exponential is analytic,
 
-We have another theorem.
+\bee
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
+\eee
 
-\begin{theorem}
-    Sufficient Conditions for Differentiability: Let $f(z) = u(x, y) + jv(x, y)$ be defined in some open set $\Sc$ containing the point $z_0$. If the first order partial derivatives of $u$ and $v$ exist in $\Sc$, are continuous at $z_0$, and satisfy the Cauchy-Riemann equations at $z_0$, then $f$ is differentiable at $z_0$. Moreover,
-
-    \bee
-        f'(z_0) = \frac{\partial u}{\partial x} (x_0, y_0) + j \frac{\partial v}{\partial x} (x_0, y_0) = \frac{\partial v}{\partial y} (x_0, y_0) - j \frac{\partial v}{\partial x} (x_0, y_0)
-    \eee
-\end{theorem}
-
-Consequently, if the first-order partial derivatives are continuous and satisfy the Cauchy-Riemann equations at all points of $\Sc$, then $f$ is analytic in $\Sc$. We also note that if $f$ is  differentiable only at finitely many points, then it is nowhere analytic.
-
-Being analytic has a wide range of consequences; for example the following theorem.
-
-\begin{theorem}
-    If $f(z)$ is analytic in a domain $\Sc$ and if $f'(z) = 0$ everywhere in $\Sc$, then $f(z)$ is a constant in $\Sc$.
-\end{theorem}
-
-Proof: Since $f'(z) = 0$ in $\Sc$, all first-order partial derivatives of $u$ and $v$ vanish in $\Sc$; i.e., $\partial u / \partial x = \partial u / \partial y = \partial v / \partial x = \partial v / \partial y = 0$. Now, since S is connected, we have $u = $ a constant and $v = $ a constant in $\Sc$. Consequently, $f = u + jv$ is also a constant in $\Sc$. Note: The connectedness of $\Sc$ is essential for the proof (some technical detail).
-
-A similar argument holds for functions with constant absolute value.
-
-\begin{theorem}
-    If $f$ is analytic in a domain $\Sc$ and if $|f|$ is constant there, then $f$ is constant.
-\end{theorem}
-
-Proof: With $f(z) = u(x,y) + j v(x,y)$ and $|f(z)| = 0$, then $u = v = 0$ and $f = 0$ (ie constant). If $|f|^2 = u^2 + v^2 = c \neq 0$, we take the partial derivatives of this expression with respect to $x$ and $y$, respectively, and have
+We have
 
 \begin{align*}
-& 2 u \frac{\partial u}{\partial x} + 2 v \frac{\partial v}{\partial x} = 0 \\
-& 2 u \frac{\partial u}{\partial y} + 2 v \frac{\partial v}{\partial y} = 0 \\
+    \frac{\partial u}{\partial x} &= e^x \cos y, \quad \frac{\partial v}{\partial y} = e^x \cos y \\
+    \frac{\partial u}{\partial y} &= - e^x \sin y, \quad \frac{\partial v}{\partial x} = e^x \sin y
 \end{align*}
 
-Using the Cauchy-Riemann equations (and dividing by two), we can rewrite this as
+and see that the Cauchy-Riemann equations are fulfilled and conclude that the complex exponential is an analytic function. We can now obtain the complex derivative as
+
+\bee
+f'(z) = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial x} = e^x \cos y + j e^x \sin y = e^z \qed
+\eee
+
+We can visualize the complex exponential as follows: The function $w = e^z$ takes a complex variable $z$ and transforms it into a complex variable $w$. We can also interpret $z = x+jy$ as a point in the two-dimensional complex $z$-plane with coordinates $(x, y)$ and, similarly, $w = u+jv$ as point in the two-dimensional complex $w$-plane. The function $w = e^z$ is then a mapping from the $z$-plane into the $w$-plane and we can plot the effect of the function on various curves in the $z$-plane.
+
+We start with vertical lines given by $x = a, y = t$ (where $t$ is the real curve parameter). The complex variable $z$ becomes $z =a + jt$ and therefore $w = e^z = e^{x+jt} = e^x e^{jy}$ corresponds to circles with radius $e^x$. The following plot shows the curves in the $z$-plane for different value $a$ on the left, and the corresponding curves in the $w$ plane on the right.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-02-05-complex_01.png}
+\end{figure}
+
+The opposite case of horizonal lines ($x = t, y = a$) is shown in the FIgure below. We have $z = t + ja$ and $w = e^z = e^{t + ja} = e^t e^{ja}$ which corresponds to lines with "slope" $e^{ja}$ in the $w$-plane.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-02-05-complex_02.png}
+\end{figure}
+
+Finally, "general" lines with different slopes and intersection point are shown below. In this case $z = t + jat$ and $w = e^z = e^{t + jat} = e^t e^{jat}$ corresponds to spirals in the $w$-plane.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{images/2026-02-05-complex_04.png}
+\end{figure}
+
+
+\subsection{Trigonometric Functions}
+
+We start with
 
 \begin{align*}
-& u \frac{\partial u}{\partial x} - v \frac{\partial u}{\partial y} = 0 \\
-& v \frac{\partial u}{\partial x} + u \frac{\partial u}{\partial y} = 0 \\
-\end{align*}
-
-Let's multiply the first equation by $u$ and the second by $v$ in order to arrive at
-
-\begin{align*}
-& u^2 \frac{\partial u}{\partial x} - u v \frac{\partial u}{\partial y} = 0 \\
-& v^2 \frac{\partial u}{\partial x} + u v \frac{\partial u}{\partial y} = 0 \\
+    e^{j \theta} &= \cos \theta + j \sin \theta \\
+    e^{-j \theta} &= \cos \theta - j \sin \theta
 \end{align*}
 
 Adding the two equations yields
 
 \bee
-( u^2 + v^2 ) \frac{\partial u}{\partial x}= 0
+\cos \theta = \frac{1}{2} \left( e^{j \theta} + e^{-j \theta} \right)
 \eee
 
-In a simialr spirit, we obtain
+Subtracting yields
 
 \bee
-( u^2 + v^2 ) \frac{\partial u}{\partial y}= 0
+\sin \theta = \frac{1}{2j} \left( e^{j \theta} - e^{-j \theta} \right)
 \eee
 
-We consider the case $|f|^2 = u^2 + v^2 = c \neq 0$, so the partial derivatives in both expressions have to be zero. The same holds for the partial derivatives of $v$ with respect to $x$ and $y$, respectively. All in all all four partial derivatives have to be zero and as consequence $f$ is a constant function. \qed
+This inspires the definition of the trigonometric functions with complex argument as
 
-We can further develop the Cauchy-Riemann equations to gain more insight. We start with
+\be\label{2026-02-05:eq2}
+\sin z= \frac{1}{2j} \left( e^{j z} - e^{-j z} \right), \,  \cos z = \frac{1}{2} \left( e^{j z} + e^{-j z} \right)
+\ee
 
-\bee
-\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
-\eee
-
-Differentiating again with respect to $x$ yields
-
-\bee
-\frac{\partial^2 u}{\partial x^2} = \frac{\partial^2 v}{\partial x \partial y}, \quad \frac{\partial^2 u}{\partial x \partial y} = - \frac{\partial^2 v}{\partial x \partial y}
-\eee
-
-Differentiation with respect to $y$ yields
-
-\bee
-\frac{\partial^2 u}{\partial x \partial y} = \frac{\partial^2 v}{\partial^2 y}, \quad \frac{\partial^2 u}{\partial y^2} = - \frac{\partial^2 v}{\partial x \partial y}
-\eee
-
-Combining the two sets of equations, we obtain
-
-\bee
-\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0, \quad \frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} = 0
-\eee
-
-So we have converted the Cauchy-Riemann equations into two (independent) second-order partial differential equations. These equations are called the \emph{Laplacian equations}. They occur in the study of problems dealing with electric and magnetic fields, stationary states, hydrodynamics, diffusion, and so on.
-
-A real-valued function $\phi(x, y)$ is said to be harmonic in a domain $\Sc$ if all its second-order partial derivatives are continuous in $\Sc$ and it satisfies $\partial^2 \phi / \partial x^2 + \partial^2 \phi / \partial y^2 = 0$ at each point of $\Sc$.
-
-\begin{theorem}
-    If $f(z) = u(x,y) + j v(x,y)$ is analytic in a domain $\Sc$, then each function $u(x,y)$ and $v(x,y)$ is harmonic on $\Sc$.
-\end{theorem}
-
-
-Let $u(x, y)$ and $v(x, y)$ be two functions harmonic in a domain $\Sc$ that satisfy the Cauchy-Riemann equations at every point of $\Sc$. Then, $u(x, y)$ and $v(x, y)$ are called harmonic conjugates of each other. Knowing one of them, we can reconstruct the other to within an arbitrary constant.
-
-\subsection{Interpretation ("Amplitwist" Concept)}
-
-The book \cite{needham2023visual} spends some time with interpreting what differentiability actually means. We will present the example first and then make this more general.
-
-\paragraph{Example $w = z^2.$} This is an analytic function and we have $w = u + jv = (x+jy)^2 = x^2 - y^2 + 2jxy$. Leaving the complex numbers aside, we can interpret this as a mapping from $\mR^2 \rightarrow \mR^2$,
+We can use these definitions (together with the fact that $e^z$ is analytic), to obtain first derivatives; for example
 
 \begin{align*}
-    u &= x^2 - y^2 \\
-    v &= 2xy
+\frac{d \sin z}{dz} &= \frac{d }{dz} \frac{1}{2j} \left( e^{j z} - e^{-j z} \right) = \frac{1}{2j} \left( j e^{j z} + j e^{-j z} \right) \\
+&= \frac{1}{2} \left( e^{j z} + e^{-j z} \right) = \cos z \qed
 \end{align*}
 
-We will consider the lines $u = const$ and $v = const$; note that these intersect at right angles. We plot the corresponding curves for $x, y$ in the $x-y-$plane using Maxima.
-
-\begin{verbatim}
-    (%i31)	k_values: [1, 3, 7, 10];
-    (%o31)	[1,3,7,10]
-    (%i32)	eqs1: makelist(u^2 - v^2 = k, k, k_values);
-    (%o32)	[u^2-v^2=1,u^2-v^2=3,u^2-v^2=7,u^2-v^2=10]
-    (%i33)	eqs2: makelist(u*v = k, k, k_values);
-    (%o33)	[u*v=1,u*v=3,u*v=7,u*v=10]
-    (%i34)	plot2d(append(eqs1 , eqs2),[u,-5,5],[v,-5,5]);
-\end{verbatim}
-
-This yields the following Figure and we can see that the curves intersect at right angles as well.
-
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.7]{images/2026-01-13-complex_analysis_01.png}
-\end{figure}
-
-We can show this formally by (implicit) differentiation of both equations
-
-\begin{align*}
-    const &= x^2 - y^2 \rightarrow 2x - 2y y' = 0 \rightarrow y' = x/y \\ 
-    const &= 2xy \rightarrow y + xy' = 0 \rightarrow y' = -y/x
-\end{align*}
-
-Note: For differentiating $2xy$ we use the product rule, $\frac{d}{dx} (2xy) = 2y + 2 x y'$.
-
-We get the angle between the two tangents at the interception point by multiplication of the two derivaties; so we have
+We can use \eqref{2026-02-05:eq1} to (re)derive some trigonometric identities. We have
 
 \bee
-x/y \times (-y/x) = -1
+e^{j (z_1 + z_2)} = \cos (z_1 + z_2) + j \sin (z_1 + z_2)
 \eee
 
-and this corresponds to a right angle for \emph{all} interception points. \qed
+However, we can also expand the exponential and then split into real and imaginary parts,
 
-The fact that angles are not changed due to an analytic function is \emph{not} a coincidence as will be shown in the following. To see the effect of $w = z^2$, we calculate the Jacobi matrix defined as
+\begin{align*}
+e^{j (z_1 + z_2)} &= e^{j z_1} \cdot e^{j z_2} = (\cos z_1 + j \sin z_1) \cdot (\cos z_2 + j \sin z_2) \\
+&= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 + j \cos z_1 \sin z_2 + j \cos z_2 \sin z_1
+\end{align*}
+
+Comparing real and imaginary parts, we obtain
+
+\begin{align*}
+    \cos (z_1 + z_2) &= \cos z_1 \cos z_2 - \sin z_1 \sin z_2 \\
+    \sin (z_1 + z_2) &= \cos z_1 \sin z_2 + \cos z_2 \sin z_1
+\end{align*}
+
+These identities together with \eqref{2026-02-05:eq2} can be used to derive all sorts of interesting results; eq
+
+\begin{align*}
+    \sin(z + 2 \pi) &= \cos z \sin 2 \pi + \cos 2 \pi \sin z = \sin z \\
+    \cos(-z) &= \frac{1}{2} \left( e^{- j z} + e^{j z} \right) = \cos z \\
+    \sin 2z &= \sin (z + z) = \cos z \sin z + \cos z \sin z = 2 \sin z \cos z
+\end{align*}
+
+
+\subsection{Hyperbolic Functions}
+
+They are defined according to
+
+\begin{align*}
+    \cosh z &= \frac{1}{2} \left( e^z + e^{-z} \right)
+    \sinh z &= \frac{1}{2} \left( e^z - e^{-z} \right)
+\end{align*}
+
+We have the following results regarding their periodicity; for the hyperbolic sine
 
 \begin{equation*}
-	J = \begin{pmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{pmatrix} = \begin{pmatrix}
-		2x & -2y \\ 2y & 2x \end{pmatrix}
+    \sinh (z + 2j\pi k) = \frac{1}{2} \left( e^{z + 2j\pi k} - e^{- z - 2j\pi k} \right) = \frac{1}{2} \left( e^{z} - e^{- z} \right) = \sinh z
 \end{equation*}
 
-To see the effect more clearly, we switch to polar coordinates
+and for the hyperbolic cosine,
 
 \begin{equation*}
-	J = \begin{pmatrix} 2x & -2y \\ 2y & 2x \end{pmatrix} = \begin{pmatrix} 2 r \cos \theta & -2 r \sin \theta \\ 2 r \sin\theta & 2 r \cos \theta \end{pmatrix} = 2 \begin{pmatrix} r \cos \theta & - r \sin \theta \\ r \sin\theta & r \cos \theta \end{pmatrix}
+    \cosh (z + 2j\pi k) = \frac{1}{2} \left( e^{z + 2j\pi k} + e^{- z - 2j\pi k} \right) = \frac{1}{2} \left( e^{z} + e^{- z} \right) = \cosh z
 \end{equation*}
 
-We see that the Jacobi contains an amplification of $2$ and a rotation by $\theta$. \qed
+So the functions are periodic in the imaginary argument. Using purely imaginary arguments shows the close relation between trigonometric and hyperbolic functions as (using \eqref{2026-02-05:eq2})
 
-\paragraph{General Case.} An analytic function moves points from the $x-y-$plane into the $u-v-$plane. If two curves intersect at $(x_0, y_0)$ in the $x-y-$plane, they will intersect at $(u_0, v_0)$ in the $u-v-$plane. We denote the angle between the tangents of the two curves in the $x-y-$plane as $\phi_z$; in a similar spirit we denote the angle between the curve tangents in the $u-v-$plane as $\phi_w$.
+\begin{align*}
+    \sinh jz &= \frac{1}{2} \left( e^{jz} - e^{-jz} \right) = \cos z \\
+    \cosh jz &= \frac{1}{2} \left( e^{jz} + e^{-jz} \right) = j \sin z
+\end{align*}
 
-If the function is analytic, then the angles will be the same; $\phi_z = \phi_w$. So a complex analytical function rotates and scales curves, but leaves their angle intact.
 
-We can describe the effect of a complex function by means of the Jacobi matrix $J$ which is defined according to
+By using the definitions from \eqref{2026-02-05:eq2} with an imaginary argument, we obtain
 
-\begin{equation}\label{2026-01-13:eq2}
-	J = \begin{pmatrix} \frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y} \end{pmatrix}
-\end{equation}
+\bee
+\sin (j y) = \frac{1}{2j} \left( e^{j \cdot j y} - e^{-j \cdot j y} \right) = \frac{1}{2j} \left( e^{-y} - e^{y} \right) = - \frac{1}{j} \sinh y = j \sinh y
+\eee
 
-The rotation and scaling performed by an analytic function described above can be expressed by multiplication with a complex number $a+jb$; So, $w = (a+jb)(x+jy) = (ax-by) + j(bx+ay)$ and this can be expressed as matrix multiplication with
+and
 
-\begin{equation*}
-	J = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}
-\end{equation*}
+\bee
+\cos (j y) = \frac{1}{2} \left( e^{j \cdot j y} + e^{-j \cdot j y} \right) = \frac{1}{2} \left( e^{-y} + e^{y} \right) = \cosh y
+\eee
 
-Comparing this with the Jacobi definition \eqref{2026-01-13:eq2}, we see that this are actually the Cauchy-Riemann equations \eqref{2026-01-13:eq1}.
+Finally, we can expand the sine for a complex arguments as follows,
+
+\begin{align*}
+    \sin(a + jb) &= \cos a \sin jb + \sin a \cos jb \\
+    &= j \cos a \sinh b + \sin a \cosh b \\
+    &= \sin a \cosh b + j \cos a \sinh b
+\end{align*}
+
+
+
+\subsection{Complex Logarithm}
+
+For real values, the logarithm is the inverse function of the exponential function. We want to keep this behaviour for complex numbers; although due to the periodicity of $e^z$, things are a bit more complex.
+
+It turns out that we need to be a bit more careful with the argument function $\arg z$: We define this function to take on \emph{any} real value. However, since $e^{j \arg z}$ is periodic with period $2 \pi$, we define a "special" argument function, which takes on values in the interval $[-\pi, \pi]$ only.
+
+\begin{definition}
+    We define the \emph{principal value} of $\arg z$, denoted by $\Arg z$, as the unique value of $\arg z$ such that $- \pi < \Arg z \leq \pi$.
+\end{definition}
+
+Note that as consequence, $\Arg z$ has discontinuities at $(2k+1) \pi$. As example, consider $e^{j 3 \pi}$. Then $\arg e^{j 3 \pi} = 3 \pi$ and $\Arg e^{j 3 \pi} = \pi$. 
+
+With this definition in place, we can define the complex logarithm as follows.
+
+\begin{definition}
+    We define $\Log r = \ln r$ as the natural logarithm of a positive real number $r$. If $z \neq 0$, then we define the complex logarithm $\log z$ as
+
+    \bee
+        \log z = \Log |z| + j \arg z = \Log |z| + j \Arg z + 2kj\pi, \quad k = 0, \pm1, \pm 2, \ldots
+    \eee
+\end{definition}
+
+Proof: If $z \neq 0$, then we can write $z = r e^{j \theta}$ and $|z| = r, \arg z = \theta$. We can develop the complex exponential as
+
+\bee
+e^{\log z} = e^{\Log |z| + j \arg z} = e^{\Log |z|} e^{j \arg z} = |z| e^{j \theta} \qed
+\eee
+
+
 
 
 %%% Local Variables:
