@@ -1,8 +1,8 @@
-\DiaryEntry{Complex Analysis, 1}{2026-01-13}{Complex Analysis}
+\DiaryEntry{Complex Analysis, Introduction}{2026-01-13}{Complex Analysis}
 
 \subsection{Introduction}
 
-Based on \cite{agarwal2011complanalysis}. We consider a complex number $z = x + jy$ and have $\Re z = x, \Im z = y$. The complex conjugate $\bar{z}$ is defined as $\bar{z} = x - jy$ and from this we obtain the following
+Based on \cite{agarwal2011complanalysis} and \cite{gamelin2003complex}. We consider a complex number $z = x + jy$ and have $\Re z = x, \Im z = y$. The complex conjugate $\bar{z}$ is defined as $\bar{z} = x - jy$ and from this we obtain the following
 
 \begin{equation*}
 \Re z = \frac{z + \bar{z}}{2}, \Im z = \frac{z - \bar{z}}{2j}        
@@ -63,10 +63,21 @@ We also have
 (1 + j)^{24} = \left( \sqrt{2} e^{j \pi / 4} \right)^{24} = \sqrt{2}^{24} e^{j 24 \pi / 4} = 2^{12} e^{j 6 \pi} = 2^{12} \qed
 \eee
 
+\subsection{Complex Functions}
 
-\subsection{Complex Exponential}
+A complex function (complex-valued of a complex variable) $f$ defined on $\Sc$ is a rule that assigns to each $z = x+jy$ in $\Sc$ a unique complex number $w = u + iv$ and written as $f : \Sc \rightarrow \Sc$.
 
-The exponential function is defined as below,
+As every complex number $z$ is characterized by a pair of real numbers $x$ and $y$, a complex function $f$ of the complex variable $z$ can be specified by two real functions $u = u(x, y)$ and $v = v(x, y)$. It is customary to write $w = f (z) = u(x, y)+iv(x, y)$.
+
+
+\paragraph{Visualization of Complex Functions.} A complex function $w = f(z)$ takes a complex variable $z$ and transforms it into a complex variable $w$. We can also interpret $z = x+jy$ as a point in the two-dimensional complex $z$-plane with coordinates $(x, y)$ and, similarly, $w = u+jv$ as point in the two-dimensional complex $w$-plane. The function $f(z)$ is then a mapping from the $z$-plane into the $w$-plane and we can plot the effect of the function on various curves in the $z$-plane.
+
+
+\subsection{Important Complex Functions}
+
+\subsubsection{Complex Exponential}
+
+The exponential function is defined as,
 
 \be\label{2026-02-05:eq1}
 e^{z} = e^{x + jy} = e^x e^{jy} = e^x (\cos(y) + j \sin(y))
@@ -91,30 +102,9 @@ Since, for all $z$, $e^{z+2k\pi j} = e^z$, we find that $e^z$ is periodic with c
 S_n = \{ x + jy: -\infty < x < \infty, \, (2n - 1) \pi < y \leq (2n+1) \pi, \, n = 0, \pm 1, \pm 2, \ldots \}
 \eee
 
-then $e^z$ will behave in the same manner on each strip. We also see that $e^z$ is one-to-one on each sttrip $S_n$.
+then $e^z$ will behave in the same manner on each strip. We also see that $e^z$ is one-to-one on each strip $S_n$.
 
-We can insert \eqref{2026-02-05:eq1} into the Cauchy-Riemann equations to check whether the complex exponential is analytic,
-
-\bee
-\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad \frac{\partial u}{\partial y} = - \frac{\partial v}{\partial x}
-\eee
-
-We have
-
-\begin{align*}
-    \frac{\partial u}{\partial x} &= e^x \cos y, \quad \frac{\partial v}{\partial y} = e^x \cos y \\
-    \frac{\partial u}{\partial y} &= - e^x \sin y, \quad \frac{\partial v}{\partial x} = e^x \sin y
-\end{align*}
-
-and see that the Cauchy-Riemann equations are fulfilled and conclude that the complex exponential is an analytic function. We can now obtain the complex derivative as
-
-\bee
-f'(z) = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial x} = e^x \cos y + j e^x \sin y = e^z \qed
-\eee
-
-We can visualize the complex exponential as follows: The function $w = e^z$ takes a complex variable $z$ and transforms it into a complex variable $w$. We can also interpret $z = x+jy$ as a point in the two-dimensional complex $z$-plane with coordinates $(x, y)$ and, similarly, $w = u+jv$ as point in the two-dimensional complex $w$-plane. The function $w = e^z$ is then a mapping from the $z$-plane into the $w$-plane and we can plot the effect of the function on various curves in the $z$-plane.
-
-We start with vertical lines given by $x = a, y = t$ (where $t$ is the real curve parameter). The complex variable $z$ becomes $z =a + jt$ and therefore $w = e^z = e^{x+jt} = e^x e^{jy}$ corresponds to circles with radius $e^x$. The following plot shows the curves in the $z$-plane for different value $a$ on the left, and the corresponding curves in the $w$ plane on the right.
+We can visualize the complex exponential as follows: We start with vertical lines given by $x = a, y = t$ (where $t$ is the real curve parameter). The complex variable $z$ becomes $z =a + jt$ and therefore $w = e^z = e^{x+jt} = e^x e^{jy}$ corresponds to circles with radius $e^x$. The following plot shows the curves in the $z$-plane for different value $a$ on the left, and the corresponding curves in the $w$ plane on the right.
 
 \begin{figure}[H]
 \centering
@@ -136,7 +126,7 @@ Finally, "general" lines with different slopes and intersection point are shown 
 \end{figure}
 
 
-\subsection{Trigonometric Functions}
+\subsubsection{Trigonometric Functions}
 
 We start with
 
@@ -199,7 +189,7 @@ These identities together with \eqref{2026-02-05:eq2} can be used to derive all 
 \end{align*}
 
 
-\subsection{Hyperbolic Functions}
+\subsubsection{Hyperbolic Functions}
 
 They are defined according to
 
@@ -250,7 +240,7 @@ Finally, we can expand the sine for a complex arguments as follows,
 
 
 
-\subsection{Complex Logarithm}
+\subsubsection{Complex Logarithm}
 
 For real values, the logarithm is the inverse function of the exponential function. We want to keep this behaviour for complex numbers; although due to the periodicity of $e^z$, things are a bit more complex.
 

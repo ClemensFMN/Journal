@@ -1,11 +1,4 @@
-\DiaryEntry{Complex Analysis, 2}{2026-02-05}{Complex Analysis}
-
-subsection{Complex Functions}
-
-A complex function (complex-valued of a complex variable) $f$ defined on $\Sc$ is a rule that assigns to each $z = x+jy$ in $\Sc$ a unique complex number $w = u + iv$ and written as $f : \Sc \rightarrow \Sc$.
-
-As every complex number $z$ is characterized by a pair of real numbers $x$ and $y$, a complex function $f$ of the complex variable $z$ can be specified by two real functions $u = u(x, y)$ and $v = v(x, y)$. It is customary to write $w = f (z) = u(x, y)+iv(x, y)$.
-
+\DiaryEntry{Complex Analysis, Differentiation}{2026-02-05}{Complex Analysis}
 
 \subsection{Complex Differentiation}
 
@@ -15,13 +8,13 @@ The derivative of a complex function $f(z)$ is defined as
 \frac{df(z)}{dz} = \lim_{\Delta z \rightarrow 0} \frac{f(z + \Delta z)}{\Delta z}
 \eee
 
-Note that this simple definition disguises the fact, that we can choose $\Delta z$ to have arbitrary direction and - in the general case - it is not clear that the limit is independent of the direction.
+Note that this simple definition disguises the fact, that we can choose $\Delta z$ to have arbitrary direction and - in the general case - it is not clear that the limit is independent of the direction. If the limit is independent of the direction, we have an analytic function as per the following definition.
 
-A complex function is called \emph{analytic} if the derivative is independent of the direction.
+\begin{definition}
+    A complex function $f(z)$ is \emph{analytic} on the open set $U$ if $f(z)$ is (complex) differentiable at each point of $U$ and the complex derivative $f'(z)$ is continuous on $U$.
+\end{definition}
 
-We next derive a condition, when a complex function is analytic.
-
-We derive the complex derivative for two cases: (i) $\Delta z = \Delta x$ being real and (ii) $\Delta z = j \Delta y$ being imaginary. For each case, we calculate the derivative. In the following we split the real and imaginary parts; so we have
+To obtain a condition when a complex function is analytic, we derive the complex derivative for two cases: (i) $\Delta z = \Delta x$ being real and (ii) $\Delta z = j \Delta y$ being imaginary. For each case, we calculate the derivative. In the following we split the real and imaginary parts; so we have
 
 \bee
 f(z) = u(x,y + j(v(x,y)))
@@ -49,11 +42,13 @@ If we want the derivative to be independent of the direction, the real and imagi
 \ee
 
 \begin{theorem}
-    A \emph{necessary} condition for a function $f (z) = u(x, y) + iv(x, y)$ to be differentiable at a point $z_0$ is that the Cauchy-Riemann equations hold at $z_0$. Consequently, if $f$ is analytic in an open set $\Sc$, then the Cauchy-Riemann equations must be satisfied at every point of $\Sc$.
+    Let $f = u + jv$ be defined on a domain $D$ in the complex plane, where $u$and $v$ are real-valued. Then $f(z)$ is analytic on $D$ iff $u(x,y)$ and $v(x,y)$ have continuous first-order partial derivatives that satisfy the Cauchy-Riemann equations.
 \end{theorem}
 
+Above we have shown one direction, the direction "satisfaction Cauchy-Riemann equations" $\rightarrow$ "analytic function" can be shown via a Taylor series expansion (not done here).
 
-\paragraph{Examples} The simplest example for a non-analytic function is $f(z) = \bar{z}$ with $u(x,y) = x, v(x,y) = -y$. Plugging this into \eqref{2026-01-13:eq1}, we obtain
+
+\paragraph{Examples.} The simplest example for a non-analytic function is $f(z) = \bar{z}$ with $u(x,y) = x, v(x,y) = -y$. Plugging this into \eqref{2026-01-13:eq1}, we obtain
 
 \bee
     \frac{\partial u}{\partial x} = 1, \quad \frac{\partial u}{\partial y} = 0, \quad \frac{\partial v}{\partial x} = 0, \quad \frac{\partial v}{\partial y} = -1
@@ -91,17 +86,26 @@ Comparing with \eqref{2026-01-13:eq1}, we see that the Cauchy-Riemann equations 
 
 I suspect that all functions which explicitly use $x$ and $y$ separately, are often not analytic.
 
-We have another theorem.
+We next consider some examples of analytic functions. The complex exponential is defined as
 
-\begin{theorem}
-    Sufficient Conditions for Differentiability: Let $f(z) = u(x, y) + jv(x, y)$ be defined in some open set $\Sc$ containing the point $z_0$. If the first order partial derivatives of $u$ and $v$ exist in $\Sc$, are continuous at $z_0$, and satisfy the Cauchy-Riemann equations at $z_0$, then $f$ is differentiable at $z_0$. Moreover,
+\bee
+e^{z} = e^{x + jy} = e^x e^{jy} = e^x (\cos(y) + j \sin(y))
+\eee
 
-    \bee
-        f'(z_0) = \frac{\partial u}{\partial x} (x_0, y_0) + j \frac{\partial v}{\partial x} (x_0, y_0) = \frac{\partial v}{\partial y} (x_0, y_0) - j \frac{\partial v}{\partial x} (x_0, y_0)
-    \eee
-\end{theorem}
+Inserting this into the Cauchy-Riemann equations, we obtain
 
-Consequently, if the first-order partial derivatives are continuous and satisfy the Cauchy-Riemann equations at all points of $\Sc$, then $f$ is analytic in $\Sc$. We also note that if $f$ is  differentiable only at finitely many points, then it is nowhere analytic.
+We have
+
+\begin{align*}
+    \frac{\partial u}{\partial x} &= e^x \cos y, \quad \frac{\partial v}{\partial y} = e^x \cos y \\
+    \frac{\partial u}{\partial y} &= - e^x \sin y, \quad \frac{\partial v}{\partial x} = e^x \sin y
+\end{align*}
+
+and conclude that the complex exponential is an analytic function. We obtain the complex derivative as
+
+\bee
+f'(z) = \frac{\partial u}{\partial x} + \frac{\partial v}{\partial x} = e^x \cos y + j e^x \sin y = e^z \qed
+\eee
 
 Being analytic has a wide range of consequences; for example the following theorem.
 
@@ -267,6 +271,38 @@ The rotation and scaling performed by an analytic function described above can b
 
 Comparing this with the Jacobi definition \eqref{2026-01-13:eq2}, we see that this are actually the Cauchy-Riemann equations \eqref{2026-01-13:eq1}.
 
+
+\subsection{Inverse Mappings}
+
+We have the following theorem (based on the inverse function theorem; details not shown here).
+
+\begin{theorem}
+    Suppose $f(z)$ is analytic on a domain $D$, $z_0 \in D$, and $f'(z) \neq 0$. Then there is a (small) disc $U \subset D$ containing $z_0$ such that $f(z)$ is one-to-one on $U$, the image $V = f(U)$ of $U$ is open, and the inverse function $f^{-1}: V \rightarrow U$ is analytic and satisfies
+
+    \bee
+        (f^{-1})'(f(z)) = \frac{1}{f'(z)} \quad z \in U
+    \eee
+\end{theorem}
+
+If we write $w = f(z)$, then above expression becomes
+
+\be\label{2026-02-05:eq10}
+\frac{dz}{dw} = \frac{1}{\frac{dw}{dz}}
+\ee
+
+\paragraph{Examples.} We can use \eqref{2026-02-05:eq10} to differentiate $z = \Log w$. The function $e^w$ is analytic and $(e^w)' \neq 0$, so we can write
+
+\bee
+z = e^w \rightarrow w = \Log z
+\eee
+
+We have
+
+\bee
+\frac{dz}{dw} = e^w \rightarrow \frac{dw}{dz} = \frac{1}{\frac{dz}{dw}} = \frac{1}{e^w} = \frac{1}{e^{\Log z}} = \frac{1}{z} \qed
+\eee
+
+\todo{more examples}
 
 %%% Local Variables:
 %%% mode: latex
