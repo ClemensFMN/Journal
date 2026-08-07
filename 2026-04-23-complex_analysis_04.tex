@@ -55,7 +55,7 @@ I = \int_\gamma f(z) dz = \int_{a}^b f(z(t)) \frac{dz}{dt} dt
 
 
 
-\paragraph{Example with analytic function.} We start with a simple example of the complex analytic function $w = f(z) = z^2$. We want to integrate from $z = 0$ to $z= 1+j$. We integrate along different curves (as we will show later, the curves do not matter as the function is analytic).
+\paragraph{Example with analytic function.} We start with a simple example of the complex analytic function $w = f(z) = z^2$ which we want to integrate from $z = 0$ to $z= 1+j$. We integrate along different curves (as we will show later, the curves do not matter as long as the function is analytic).
 
 The first curve is along a straight line from $0 \rightarrow 1$, this yields the integral $I_{1,1}$, then along a straight line from $1 \rightarrow 1+j$ which yields the integral $I_{1,2}$.
 
@@ -83,13 +83,15 @@ The second curve is a straight line between $0$ and $1+j$. We have $z = t + j t$
     I_{2} = \int_0^1 (t + jt)^2 (1+j) dt = \cdots = -\frac{2}{3} + j\frac{2}{3}
 \end{equation*}
 
-As a last curve, we choose the parable $z = t + jt^2$. We have $\frac{dz}{dt} = 1 + 2jt \rightarrow dz = (1+2jt) dt$ and we obtain for the integral
+Finally, we choose the parable $z = t + jt^2$ with $\frac{dz}{dt} = 1 + 2jt \rightarrow dz = (1+2jt) dt$ and we obtain for the integral
 
 \begin{equation*}
     I_{3} = \int_0^1 (t + jt^2)^2 (1+2jt) dt = \cdots = -\frac{2}{3} + j\frac{2}{3}
 \end{equation*}
 
 In all three cases, the integral gave the same value. This is due to the fact that the integrand is an analytic function.
+
+For completeness, the follolwing Maxima commands show evaluation of $I_3$ and $I_4$, respectively.
 
 \begin{verbatim}
 (%i22)	p3:integrate((1+%i)*(t + %i*t)^2, t, 0, 1);
@@ -102,7 +104,7 @@ In all three cases, the integral gave the same value. This is due to the fact th
 (%o25)	(2*%i)/3-2/3
 \end{verbatim}
 
-As a last step, we show that $f(z) = z^2$ is an analytic function. We have
+We show that $f(z) = z^2$ is an analytic function. We have
 
 \bee
 f(z) = z^2 = (x + jy)^2 = x^2 - y^2 + 2jxy
@@ -136,9 +138,7 @@ Checking the Cauchy-Rieman equations, we see that the first condition does not h
 \eee 
 
 
-As in the previous example, we want to integrate from $z = 0$ to $z= 1+j$; this time the integral will be different as the function is not analytic.
-
-The first curve is along a straight line from $0 \rightarrow 1$, this yields the integral $I_{1,1}$, then along a straight line from $1 \rightarrow 1+j$ which yields the integral $I_{1,2}$.
+As in the previous example, we want to integrate from $z = 0$ to $z= 1+j$. The first curve is along a straight line from $0 \rightarrow 1$, this yields the integral $I_{1,1}$, then along a straight line from $1 \rightarrow 1+j$ which yields the integral $I_{1,2}$.
 
 For integration along $0 \rightarrow 1$, we have $z = t, t=0,\ldots 1$ and $dz = dt$. The integral $I_{1,1}$ therefore becomes
 
@@ -201,7 +201,7 @@ Path independence greatly simplifies integral calculation; as we no longer need 
 I = \int_{z=0}^{1+j} z^2 dz = \left. \frac{z^3}{3} \right|_{z=0}^{1+j} = - \frac{2}{3} + j \frac{2}{3}
 \eee
 
-This result matches the results obtained before (as expected, as $f(z)$ is an analytical function). I have included the Maxima commands below (interestingly, Maxima does not allow complex integration bounds; so i integrate and use \verb+ subst + to obtain the integral value).
+This result matches the results obtained before. I have included the Maxima commands below (interestingly, Maxima does not allow complex integration bounds; so i integrate and use \verb+ subst + to obtain the integral value).
 
 \begin{verbatim}
     (%i1)	f:z^2;
