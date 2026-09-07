@@ -1100,6 +1100,91 @@ The construction in Desmos is shown below and again confirms the calculated resu
 \includegraphics[scale=0.5]{images/2026-01-13-complex_analysis_03.png}
 \end{figure}
 
+\subsection{Integration Fun}
+
+I stumbled across the following integral somewhere,
+
+\begin{equation*}
+  I = \int f(x) dx = \int x \cdot e^{-x^2} dx
+\end{equation*}
+
+We substitute $u = x^2 \rightarrow dx = du / 2x$ and therefore
+
+\begin{equation*}
+  I = \int x \cdot e^{-u} \frac{du}{2x} = \frac{1}{2} \int x \cdot e^{-u} du = - \frac{1}{2} e^{-x^2}
+\end{equation*}
+
+We can confirm this result with Maxima. The area under $f(x)$ for $x \geq 0$ is therefore given by
+
+\begin{equation*}
+  \int_0^\infty x \cdot e^{-x^2} dx = \left. - \frac{1}{2} e^{-x^2}\right|_0^\infty = \frac{1}{2} \qed
+\end{equation*}
+
+
+In order to get a feeling for the function, we observe that $f(0) = 0$ and differentiation yields
+
+\begin{equation*}
+  \frac{df(x)}{dx} = e^{-x^2} - 2x^2 e^{-x^2}
+\end{equation*}
+
+At $x = 0$, this is equal to $1$. Setting $\frac{df(x)}{dx} = 0$ we obtain 
+
+\begin{equation*}
+  e^{-x^2} - 2x^2 e^{-x^2} = e^{-x^2} (1 - 2x^2 ) = 0 \rightarrow x = \pm \frac{1}{\sqrt{2}}
+\end{equation*}
+
+The function value does not attain any nice expression at these points; nevertheless we are now able to have a rather clear picture how the function looks like (together with the fact that $\lim_{x \rightarrow \pm \infty} f(x) = 0$), which is also shown in the following Figure.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/incubator_21_01.png}
+\end{figure}
+
+The more or less surprising extension is the integral
+
+\begin{equation*}
+  I = \int f(x) dx = \int x^3 \cdot e^{-x^2} dx
+\end{equation*}
+
+We substitute $u = x^2 \rightarrow dx = du / 2x$ and obtain
+
+\begin{equation*}
+  I = \int u x \cdot e^{-u} \frac{du}{2x} = \frac{1}{2} \int u \cdot e^{-u} du
+\end{equation*}
+
+We need to continue using integration by parts using TBD and obtain
+
+\begin{equation*}
+  I = - \frac{1}{2} e^{-x^2}(1 + x^2)
+\end{equation*}
+
+Integrating over the right $x$-axis yields
+
+\begin{equation*}
+  \int_0^\infty x^3 \cdot e^{-x^2} dx = \frac{1}{2} e^{-0^2}(1 + 0^2) = \frac{1}{2} \qed
+\end{equation*}
+
+Differentiation yields
+
+\begin{equation*}
+  \frac{df(x)}{dx} = e^{-x^2} (3x^2 - 2 x^4)
+\end{equation*}
+
+which is zero at $x = 0$ - and different than with the function from before. Setting the derivative to zero yields
+
+\begin{equation*}
+  \frac{df(x)}{dx} = 0 \rightarrow x^2(3 - 2x^2) = 0 \rightarrow x = 0, x = \pm \sqrt{ \frac{3}{2}}
+\end{equation*}
+
+We could calculate the second derivative to find out that $x=0$ is not a minimum / maximum, or we could simply plot the function as below\dots
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{images/incubator_21_02.png}
+\end{figure}
+
+
+
 
 %%% Local Variables:
 %%% mode: latex
