@@ -1152,10 +1152,16 @@ We substitute $u = x^2 \rightarrow dx = du / 2x$ and obtain
   I = \int u x \cdot e^{-u} \frac{du}{2x} = \frac{1}{2} \int u \cdot e^{-u} du
 \end{equation*}
 
-We need to continue using integration by parts using TBD and obtain
+We continue using integration by parts: $\int f g' = fg - \int f' g$ with $f=u, g'=e^{-u}$ from which we get $f'=1, g = - e^{-u}$ and therefore
 
 \begin{equation*}
-  I = - \frac{1}{2} e^{-x^2}(1 + x^2)
+  \int u \cdot e^{-u} du = - u e^{-u} + \int e^{-u} du = - u e^{-u} - e^{-u} = - e^{-u}(u+1)
+\end{equation*}
+
+Inserting back into the originl integral, we get
+
+\begin{equation*}
+  I = \frac{1}{2} \int u \cdot e^{-u} du = - \frac{1}{2} e^{-u}(u+1) = - \frac{1}{2} e^{-x^2}(1 + x^2) \qed
 \end{equation*}
 
 Integrating over the right $x$-axis yields
