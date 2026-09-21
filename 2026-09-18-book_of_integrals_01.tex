@@ -21,6 +21,88 @@ Reading this from right to left, we get the integration rule,
 \end{equation*}
 
 
+\subsubsection{Polynomials}
+
+Rather simple, everything is based on
+
+\begin{equation*}
+    \int x^k dk = \frac{x^{k+1}}{k+1} + C \quad \forall k \neq -1
+\end{equation*}
+
+\paragraph{Example 2.} We have
+
+\begin{equation*}
+    \int 6 \sqrt{x} - \frac{4}{x^3} dx = \int 6 x^{1/2} - 4 x^{-3} dx = 6 \frac{x^{3/2}}{\frac{3}{2}} - 4 \frac{x^{-2}}{(-2)} = 4 x^{3/2} + \frac{2}{x^2}
+\end{equation*}
+
+\paragraph{Example 30.} We have
+
+\begin{equation*}
+    \int \frac{1}{1 - \sin x} \frac{\sin(x)}{1 + \sin x} dx = \int \frac{\sin x}{1 - \sin^2 x} dx = \int \frac{\sin x}{\cos^2 x} dx = \int \frac{\tan x}{\cos x} dx = \int \tan x \sec x dx = \sec x
+\end{equation*}
+
+Here, the last integral is "knowledge".
+
+\paragraph{Example 31.} In this example, factoring the expression is the key to the solution.
+
+\begin{equation*}
+    \int \sqrt{e^{2x} - 6 e^{x} + 9} dx = \int \sqrt{(e^x - 3)^2} dx = \int e^x - 3 dx = e^x - 3x
+\end{equation*}
+
+
+\paragraph{Example 33.} In a similar spirit, factoring helps
+
+\begin{equation*}
+    \int \frac{6x^2 + 12x + 6}{x (x+1)^2} dx = 6 \int \frac{x^2 + 2x + 1}{x (x+1)^2} dx = 6 \int \frac{(x+1)^2}{x (x+1)^2} dx = \cdots
+\end{equation*}
+
+This greatly simplifies the integrand and we obtain
+
+\begin{equation*}
+    \cdots = \int \frac{6}{X} dx = 6 \ln |x|
+\end{equation*}
+
+\subsubsection{Substitution}
+
+The trick is to make a "good" substitution; just be careful, that $dx$ has to be transferred into $du$.
+
+\paragraph{Example 41.} We start with a simple integral
+
+\begin{equation*}
+    \int \frac{4}{x+8} dx
+\end{equation*}
+
+We substitute $u = x+8$, from which we have $du/dx = 1 \rightarrow dx = du$ and the integral becomes
+
+\begin{equation*}
+    \int \frac{4}{u} du = 4 \ln|u| = 4 \ln |x+8|
+\end{equation*}
+
+The importan thing to notice is that we divide by the derivative of the substitution; this may prevent the substitution from working as in the following example.
+
+\begin{equation*}
+    \int \sin x^2 dx
+\end{equation*}
+
+Setting $u = x^2$, we have $du/dx = 2x \rightarrow dx = du / 2x$ and the integal becomes
+
+\begin{equation*}
+    \int \sin u \frac{du}{2x} = ?
+\end{equation*}
+
+This integral contains both $u$ and $x$ and therefore cannot be solved. We have hit a dead end. Checking the integral, it turns out that it cannot be expressed in closed-form.
+
+\paragraph{Example 42.} We consider
+
+\begin{equation*}
+    \int x (3x^2 + 1)^4 dx
+\end{equation*}
+
+Using $u = 3x^2 + 1$, we have $du/dx = 6x \rightarrow dx = du / 6x$ and we have
+
+\begin{equation*}
+    \int x u^4 \frac{du}{6x} = \frac{1}{6} \int u^4 du = \frac{u^5}{30} = \frac{(3x^2+1)^5}{30}
+\end{equation*}
 
 
 %%% Local Variables:
