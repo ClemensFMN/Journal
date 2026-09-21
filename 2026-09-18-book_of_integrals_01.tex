@@ -1,0 +1,29 @@
+\DiaryEntry{Book of Integrals, 1}{2026-09-18}{Integrals}
+
+This is based on \todo{get bibtex entry for book}
+
+Start with
+
+\begin{equation*}
+    \frac{d a^x}{dx}
+\end{equation*}
+
+We can rewrite $a = e^{\ln a}$ and therefore $a^x = e^{x \ln a}$ and this is something we can differentiate,
+
+\begin{equation*}
+    \frac{d a^x}{dx} = \frac{d e^{x \ln a} }{dx} = \ln a e^{x \ln a} = a^x \ln a \qed
+\end{equation*}
+
+Reading this from right to left, we get the integration rule,
+
+\begin{equation*}
+    \int a^x dx = \frac{1}{\ln a} a^x + C \qed
+\end{equation*}
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "journal"
+%%% End:
