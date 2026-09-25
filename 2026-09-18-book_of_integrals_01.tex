@@ -119,6 +119,8 @@ Using $u = 3x^2 + 1$, we have $du/dx = 6x \rightarrow dx = du / 6x$ and we have
     \int x u^4 \frac{du}{6x} = \frac{1}{6} \int u^4 du = \frac{u^5}{30} = \frac{(3x^2+1)^5}{30}
 \end{equation*}
 
+\subsubsection{Manipulating the Root}
+
 \paragraph{Example 58.} When we have roots, the "usual" trick is to substitute the expression inside the root. We have
 
 \begin{equation*}
@@ -197,6 +199,67 @@ Using the substitution $u=1+x^2$, we have $du/dx = 2x \rightarrow dx = du/(2x)$ 
 \end{equation*}
 
 From this we see that the integral is solvable for $k=1$; ie $\int x \sqrt{1+x^2} dx$. Expressing $x^2 = u-1$, we see that $k-1$ has to be even so that $x^{k-1}$ can be epxressed in terms of $x^2 = u-1$. This implies that the integral $\int x^k \sqrt{1+x^2} dx$ becomes solvable for $k$ being odd. \qed
+
+
+\subsection{Special Trig Integrals}
+
+The second integral requires partial fraction expansion; we have
+
+\begin{equation*}
+    \int \frac{1}{u^2 - a^2} du = \cdots = \frac{1}{2a} \int \frac{1}{u-a} - \frac{1}{u+a} du = \frac{1}{2a} \left( ln(u-a) - \ln(u+a) \right) = \frac{1}{2a} \ln \frac{u-a}{u+a}
+\end{equation*}
+
+The partial fraction expansion can be done manually by writing
+
+\begin{equation*}
+    \frac{1}{u^2 - a^2} = \frac{1}{(u-a)(u+a)} = \frac{A}{u-a} + \frac{B}{u+a}
+\end{equation*}
+
+and we then obtain two equation for the two unknowns $A$ and $B$. The lazier alternative is to use Maxima as follows
+
+\begin{verbatim}
+    (%i1)	f:1/((u-a)*(u+a));
+    (%o1)	1/((u-a)*(u+a))
+    (%i3)	partfrac(f, u);
+    (%o3)	1/(2*a*(u-a))-1/(2*a*(u+a))
+\end{verbatim}
+
+Integrals E and F both require trigonometric identities; we have
+
+\begin{equation*}
+    \int \cos^2 x dx = \int \frac{1}{2} + \frac{cos 2x}{2} dx = \frac{x}{2} + \frac{1}{4} \sin(2x)
+\end{equation*}
+
+where we have expanded $\cos^2 x$; in a similar spirit, we can solve
+
+\begin{equation*}
+    \int \sin^2 x dx = \int \frac{1}{2} - \frac{cos 2x}{2} dx = \frac{x}{2} - \frac{1}{4} \sin(2x)
+\end{equation*}
+
+\paragraph{Example 68.} We want to integrate
+
+\begin{equation*}
+    \int \frac{1}{(x+2)^2 + 25} dx = 
+\end{equation*}
+
+We substitute $u = x+2$ and have $dx = du$ and therefore
+
+\begin{equation*}
+    \int \frac{1}{u^2 + 5^2} du = \frac{1}{5} \arctan \left( \frac{u}{5} \right) = \frac{1}{5} \arctan \left( \frac{x+2}{5} \right) \qed
+\end{equation*}
+
+\paragraph{Example 73.} We integrate
+
+\begin{equation*}
+    \int \frac{x}{(x^2 + 1)^2 + 36} dx
+\end{equation*}
+
+We start with $u = x^2 + 1$ and have $du/dx = 2x \rightarrow dx = du/(2x)$ which we insert
+
+\begin{equation*}
+    \int \frac{x}{u^2 + 6^2} \frac{du}{2x} = \frac{1}{2} \int \frac{1}{u^2 + 6^2} du = \frac{1}{6} \arctan \frac{u}{6} = \frac{1}{6} \arctan \frac{x^2 + 1}{6} \qed
+\end{equation*}
+
 
 %%% Local Variables:
 %%% mode: latex
