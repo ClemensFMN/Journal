@@ -59,7 +59,7 @@ Here, the last integral is "knowledge".
 This greatly simplifies the integrand and we obtain
 
 \begin{equation*}
-    \cdots = \int \frac{6}{X} dx = 6 \ln |x|
+    \cdots = \int \frac{6}{x} dx = 6 \ln |x|
 \end{equation*}
 
 \subsubsection{Substitution}
@@ -170,7 +170,7 @@ Continuiing as above, we have $x^3 = u^2 - 1$ and this yields
     \frac{2}{3} \int x \cdot x^3 u^2 du = \frac{2}{3} \int x \cdot (u^2 - 1) u^2 du
 \end{equation*}
 
-But now we have hit a dead end as we can't remove the $x$-term. The integral needs to be solved wit hother mena s\todo{which ones?}.
+But now we have hit a dead end as we can't remove the $x$-term. The integral needs to be solved with other means \todo{which ones?}.
 
 \paragraph{Exmaple 63.} This one is looks rathe spectacular,
 
@@ -202,6 +202,15 @@ From this we see that the integral is solvable for $k=1$; ie $\int x \sqrt{1+x^2
 
 
 \subsection{Special Trig Integrals}
+
+The first integral is
+
+\begin{equation*}
+    \int \frac{1}{u^2 a a^2} du = \frac{1}{a} \arctan \frac{u}{a}
+\end{equation*}
+
+This can be probably solved by some inverse function magic of $\tan$ \todo{do this :-)}
+
 
 The second integral requires partial fraction expansion; we have
 
@@ -251,14 +260,35 @@ We substitute $u = x+2$ and have $dx = du$ and therefore
 \paragraph{Example 73.} We integrate
 
 \begin{equation*}
-    \int \frac{x}{(x^2 + 1)^2 + 36} dx
+    \int \frac{3x}{(x^2 + 1)^2 + 36} dx
 \end{equation*}
 
 We start with $u = x^2 + 1$ and have $du/dx = 2x \rightarrow dx = du/(2x)$ which we insert
 
 \begin{equation*}
-    \int \frac{x}{u^2 + 6^2} \frac{du}{2x} = \frac{1}{2} \int \frac{1}{u^2 + 6^2} du = \frac{1}{6} \arctan \frac{u}{6} = \frac{1}{6} \arctan \frac{x^2 + 1}{6} \qed
+    \int \frac{3x}{u^2 + 6^2} \frac{du}{2x} = \frac{3}{2} \int \frac{1}{u^2 + 6^2} du = \frac{3}{2} \frac{1}{6} \arctan \frac{u}{6} = \frac{1}{4} \arctan \frac{x^2 + 1}{6} \qed
 \end{equation*}
+
+\paragraph{Example 75.} This one is nothing new,
+
+\begin{equation*}
+    \int \frac{1}{x^2 - 13} dx = \int \frac{1}{(x - \sqrt{13})(x + \sqrt{13}) } dx = \frac{1}{2 \sqrt{13}} \ln \frac{x - \sqrt{13}}{x + \sqrt{13}} \qed
+\end{equation*}
+
+\paragraph{Example 76.} The integral
+
+\begin{equation*}
+    \int \frac{6}{(4x + 5)^2 + 10} dx
+\end{equation*}
+
+can be solved via substitution: $u= 4x+5 \rightarrow dx = du/4$ and therefore
+
+\begin{equation*}
+    \int \frac{6}{u^2 + \sqrt{10}^2} \frac{du}{4} = \frac{3}{2 \sqrt{10}} \arctan \frac{u}{\sqrt{10}} = \frac{3}{2 \sqrt{10}} \arctan \frac{4x+5}{\sqrt{10}} \qed
+\end{equation*}
+
+
+
 
 
 %%% Local Variables:
