@@ -287,7 +287,82 @@ can be solved via substitution: $u= 4x+5 \rightarrow dx = du/4$ and therefore
     \int \frac{6}{u^2 + \sqrt{10}^2} \frac{du}{4} = \frac{3}{2 \sqrt{10}} \arctan \frac{u}{\sqrt{10}} = \frac{3}{2 \sqrt{10}} \arctan \frac{4x+5}{\sqrt{10}} \qed
 \end{equation*}
 
+\subsubsection{Completing the Square}
 
+We start with $x^2 + 8x - 1$ and want to express this as $( x + A )^2 + B$ where $A, B$ are numbers. We start from
+
+\begin{equation*}
+    (x + 4)^2 = x^2 + 8x + 16
+\end{equation*}
+
+and observe that the coefficients for $x^2$ and $x$ are correct. We only need to smuggle a constant in,
+
+\begin{equation*}
+    (x + 4)^2 + B= x^2 + 8x + 16 + B = x^2 + 8x - 1
+\end{equation*}
+
+From this we read off $B = - 17$ and we have
+
+\begin{equation*}
+    x^2 + 8x - 1 = (x+4)^2 - 17
+\end{equation*}
+
+This is useful, if $x^2 + 8x - 1$ is the denominator; we have
+
+\begin{equation*}
+    \int \frac{1}{x^2 + 8x - 1} = \int \frac{1}{(x+4)^2 - 17}
+\end{equation*}
+
+and this can be solved with the methods discussed previously. \qed
+
+\paragraph{Example 80.} This is another application of completing the square; we have
+
+\begin{equation*}
+    \int \frac{1}{x^2 + 10x + 61} dx = \int \frac{1}{(x + 5)^2 - 25 + 61} dx = \int \frac{1}{(x + 5)^2 + 36} dx 
+\end{equation*}    
+    
+We continue with substitution and arrive at
+
+\begin{equation*}
+    \int \frac{1}{u^2 + 6^2} dx = \frac{1}{6} \arctan \frac{u}{6} = \frac{1}{6} \arctan \frac{x+5}{6} \qed
+\end{equation*}
+
+\subsubsection{Trigonometric Substitution}
+
+Integrals with square-roots and squares can be solved via some trigonometric substitution. Let's start with B from the book
+\begin{equation*}
+    \int \sqrt{a^2 - u^2} du
+\end{equation*}
+
+We make the following Ansatz
+
+\begin{equation*}
+    a \sin \theta = u \rightarrow \sin \theta = \frac{u}{a} \rightarrow \theta = \arcsin \frac{u}{a}
+\end{equation*}
+
+We also have
+
+\begin{equation*}
+    a \cos \theta = \sqrt{a^2 - a^2 \sin^2 \theta} = \sqrt{a^2 - u^2}
+\end{equation*}
+
+and finally
+
+\begin{equation*}
+    \cos \theta = \sqrt{1 - \frac{u^2}{a^2}} = \frac{\sqrt{a^2 - u^2}}{a}
+\end{equation*}
+
+Differentiating the substitution yields
+
+\begin{equation*}
+    \frac{du}{d \theta} = a \cos \theta \rightarrow du = a \cos \theta d\theta
+\end{equation*}
+
+Inserting all of this in the integral yields
+
+\begin{equation*}
+    \int a \cos \theta \cdot a \cos \theta d\theta = a^2 \int \cos^2 \theta d\theta = \frac{a^2}{2} \int 1 + \cos 2 \theta d\theta = \frac{a^2}{2} \theta + \frac{a^2}{4} \sin 2 \theta
+\end{equation*}
 
 
 
