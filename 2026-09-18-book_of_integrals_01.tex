@@ -21,7 +21,7 @@ Reading this from right to left, we get the integration rule,
 \end{equation*}
 
 
-\subsubsection{Polynomials}
+\subsection{Polynomials}
 
 Rather simple, everything is based on
 
@@ -62,7 +62,7 @@ This greatly simplifies the integrand and we obtain
     \cdots = \int \frac{6}{x} dx = 6 \ln |x|
 \end{equation*}
 
-\subsubsection{Substitution}
+\subsection{Substitution}
 
 The trick is to make a "good" substitution; just be careful, that $dx$ has to be transferred into $du$.
 
@@ -119,7 +119,7 @@ Using $u = 3x^2 + 1$, we have $du/dx = 6x \rightarrow dx = du / 6x$ and we have
     \int x u^4 \frac{du}{6x} = \frac{1}{6} \int u^4 du = \frac{u^5}{30} = \frac{(3x^2+1)^5}{30}
 \end{equation*}
 
-\subsubsection{Manipulating the Root}
+\subsection{Manipulating the Root}
 
 \paragraph{Example 58.} When we have roots, the "usual" trick is to substitute the expression inside the root. We have
 
@@ -206,7 +206,7 @@ From this we see that the integral is solvable for $k=1$; ie $\int x \sqrt{1+x^2
 The first integral is
 
 \begin{equation*}
-    \int \frac{1}{u^2 a a^2} du = \frac{1}{a} \arctan \frac{u}{a}
+    \int \frac{1}{u^2 + a^2} du = \frac{1}{a} \arctan \frac{u}{a}
 \end{equation*}
 
 This can be probably solved by some inverse function magic of $\tan$ \todo{do this :-)}
@@ -287,7 +287,7 @@ can be solved via substitution: $u= 4x+5 \rightarrow dx = du/4$ and therefore
     \int \frac{6}{u^2 + \sqrt{10}^2} \frac{du}{4} = \frac{3}{2 \sqrt{10}} \arctan \frac{u}{\sqrt{10}} = \frac{3}{2 \sqrt{10}} \arctan \frac{4x+5}{\sqrt{10}} \qed
 \end{equation*}
 
-\subsubsection{Completing the Square}
+\subsection{Completing the Square}
 
 We start with $x^2 + 8x - 1$ and want to express this as $( x + A )^2 + B$ where $A, B$ are numbers. We start from
 
@@ -327,7 +327,7 @@ We continue with substitution and arrive at
     \int \frac{1}{u^2 + 6^2} dx = \frac{1}{6} \arctan \frac{u}{6} = \frac{1}{6} \arctan \frac{x+5}{6} \qed
 \end{equation*}
 
-\subsubsection{Trigonometric Substitution}
+\subsection{Trigonometric Substitution}
 
 Integrals with square-roots and squares can be solved via some trigonometric substitution. Let's start with B from the book
 \begin{equation*}
