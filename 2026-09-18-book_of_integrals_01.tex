@@ -327,6 +327,22 @@ We continue with substitution and arrive at
     \int \frac{1}{u^2 + 6^2} dx = \frac{1}{6} \arctan \frac{u}{6} = \frac{1}{6} \arctan \frac{x+5}{6} \qed
 \end{equation*}
 
+I have not found a Maxima function for completing the square, but we can do it with some manipulations nevertheless (if the coefficient of $x^2$ is not one, we have tofactor this out beforehand).
+
+\begin{verbatim}
+    (%i1)	f:x^2 + 8*x-1;
+    (%o1)	x^2+8*x-1
+    (%i6)	g:(x+ coeff(f,x,1)/2)^2 ;
+    (%o6)	(x+4)^2
+    (%i7)	A:expand(f-g);
+    (%o7)	-17
+    (%i8)	g+A;
+    (%o8)	(x+4)^2-17
+    (%i9)	expand(g+A);
+    (%o9)	x^2+8*x-1
+\end{verbatim}
+
+
 \subsection{Trigonometric Substitution}
 
 Integrals with square-roots and squares can be solved via some trigonometric substitution. Let's start with B from the book
@@ -363,6 +379,65 @@ Inserting all of this in the integral yields
 \begin{equation*}
     \int a \cos \theta \cdot a \cos \theta d\theta = a^2 \int \cos^2 \theta d\theta = \frac{a^2}{2} \int 1 + \cos 2 \theta d\theta = \frac{a^2}{2} \theta + \frac{a^2}{4} \sin 2 \theta
 \end{equation*}
+
+In order to continue with reverting the substitution, we have to get rid of the $2 \theta$ in the last expression; using $\sin 2 \theta = 2 \sin \theta \cdot \cos \theta$ and the relations from the example beginning, we obtain
+
+\begin{equation*}
+    \sin 2 \theta = 2 \sin \theta \cdot \cos \theta = 2 \frac{u}{a} \frac{\sqrt{a^2 - u^2}}{a} = 2 \frac{u \sqrt{a^2 - u^2}}{a^2}
+\end{equation*}
+
+The whole integral therefore becomes
+
+\begin{equation*}
+    \int \sqrt{a^2 - u^2} du = \frac{a^2}{2} \arcsin \frac{u}{a} + \frac{a^2}{4} 2 \frac{u \sqrt{a^2 - u^2}}{a^2}  = \frac{a^2}{2} \arcsin \frac{u}{a} + \frac{1}{2} u \sqrt{a^2 - u^2} \qed
+\end{equation*}
+
+We can use this to calculate the area of a circle with center in the origin and radius $a$. We have
+
+\begin{align*}
+    \int_0^a \sqrt{a^2 - u^2} du &= \left. \frac{a^2}{2} \arcsin \frac{u}{a} + \frac{1}{2} u \sqrt{a^2 - u^2} \right|_0^a = \frac{a^2}{2} \arcsin 1 + 0 - \left( \frac{a^2}{2} \arcsin 0 + 0 \right) \\ &= \frac{a^2}{2} \frac{\pi}{2} = \frac{a^2 \pi}{4} \qed
+\end{align*}
+
+Much simpler is the integral
+
+\begin{equation*}
+    \int \frac{du}{\sqrt{a^2 - u^2}}
+\end{equation*}
+
+With the same substitution as before ($u = a \sin \theta$), we have
+
+\begin{equation*}
+    \int \frac{a \cos \theta d \theta}{a \cos \theta} = \int d\theta = \theta = a \arcsin \frac{u}{a} \qed
+\end{equation*}
+
+Slightly more involved is
+
+\begin{equation*}
+    \int \frac{\sqrt{4 - x^2}}{x} dx
+\end{equation*}
+
+We substitute $x = 2 \sin \theta \rightarrow x^2 = 4 \sin^2 \theta$ and therefore $4 - x^2 = 4 - 4 \sin^2 \theta = 4 \cos^2 \theta$. We also have $du/d\theta = 2 \cos \theta \rightarrow dx = 2 \cos \theta d \theta$.
+
+Inserting this into the integral, we obtain
+
+\begin{equation*}
+    \int \frac{2 \cos \theta}{2 \sin \theta} 2 \cos \theta d \theta = 2 \int \frac{\cos^2 \theta}{\sin \theta} d\theta = 2 \int \frac{1 - \sin^2 \theta}{\sin \theta} d\theta = 2 \int \frac{1}{\sin \theta} - \sin \theta d\theta
+\end{equation*}
+
+The second integral is trivial, the first one has "to be known"; we obtain
+
+\begin{equation*}
+    \int \frac{\sqrt{4 - x^2}}{x} dx = \ln \left| \tan (\sin \theta) \right| + \cos \left(2 \sin \theta \right) = \ln \left| \tan \frac{x}{2} \right| + \cos x \qed
+\end{equation*}
+
+The plot of the function is below.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{images/2026-09-18_01.png}
+\end{figure}
+
+
 
 
 
